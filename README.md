@@ -1,4 +1,4 @@
 C4Sci
 =====
 
-An open-source framework pour scientific computing
+An open-source framework for scientific computing
