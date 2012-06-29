@@ -1,0 +1,7 @@
+File size :		should not exceed 1000 lines.
+Method size :	should not exceed 100 lines.
+Headings :		javadoc class comment /** ... */
+
+Language : 		all names and comments are in english.
+
+Package :		everything in lowercase
