@@ -4,4 +4,38 @@ Headings :		javadoc class comment /** ... */
 
 Language : 		all names and comments are in english.
 
-Package :		everything in lowercase
+Packages :		everything in lowercase
+
+Classes :		At least two words. Always begins by a letter. 
+				First letters in uppercase, others in lowercase. Only letters and numbers.
+				No verb. No dash. No underscore.
+				Example : CornerTestBuilder
+				
+Fields :		At least two words. Always begins by a letter. Only letters and numbers.
+				No verb. No dash. No underscore.
+				Example : customerSize
+				
+Methods :		At least two words. Always begins by a letter. Only letters and numbers.
+				No dash. No underscore.
+				State function begin by "is"
+				Side effects methods begin by "set"
+				GetState methods begin by "get"
+				Other methods begin by a verb.
+				No side effect on parameters except if clearly indicated in the method name.
+				Examples : 	boolean isFirstElement(){...};
+							void	setSize(int elt_count){...}; 		
+							int		getSize(){ ...};
+							void	modifyCell(Cell modified_cell){...};
+							
+Constants :		Uppercase letters and numbers. Always begins by a letter.
+				At least two words. Words are separated by an underscore.
+				Example :	static final int MAX_LETTER_COUNT = 26;
+				
+Arguments :
+				lowercase letters and numbers. Always begin by a letter.
+				At least two words. Words are separated by an underscore.
+				Example : 	void setSize(int cell_count) {...};
+						 							
+							
+							
+							
