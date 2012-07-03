@@ -34,7 +34,7 @@ public class TestFloatings {
 	}
 
 	@Test
-	public void testIsMoreEqual() {
+	public void testIsGreaterEqual() {
 		assertTrue(Floatings.isGreaterEqual(0.0f, 0.0f));
 		assertTrue(Floatings.isGreaterEqual(0.5f, 0.49f));
 		assertFalse(Floatings.isGreaterEqual(0.0f, 0.1f));
