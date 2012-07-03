@@ -28,8 +28,8 @@ Methods :		At least two words. Always begins by a letter. Only letters and numbe
 							void	modifyCell(Cell modified_cell){...};
 							
 Constants :		Uppercase letters and numbers. Always begins by a letter.
-				At least two words. Words are separated by an underscore.
-				Example :	static final int MAX_LETTER_COUNT = 26;
+				At least two words. Words and numbers are separated by an underscore.
+				Example :	static final int MAX_LETTER_32_COUNT = 26;
 				
 Arguments :		Lowercase letters and numbers. Always begin by a letter.
 				At least two words. Words are separated by an underscore.
@@ -47,4 +47,12 @@ Version number : MAJOR.MINOR.DEBUG(-SNAPSHOT)
 				MINOR : there may be additional services. MINOR version ensure accending compatibility.
 				DEBUG : bug fixes and optimizations only.						
 							
-							
+Indenting :		Beginning bracket at end of line.
+				4 spaces long tabs.
+				Example :
+				if (cond){
+					...
+				}
+
+File coding :	No special characters.				
+
