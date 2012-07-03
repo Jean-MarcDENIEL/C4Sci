@@ -19,16 +19,16 @@ public final class Floatings {
 		return Math.abs(first_term - second_term) < EPSILON_VALUE;
 	}
 	
-	public static boolean isMore(float first_term, float second_term){
+	public static boolean isGreater(float first_term, float second_term){
 
-		return second_term - first_term > EPSILON_VALUE;
+		return first_term - second_term > EPSILON_VALUE;
 	}
 	
 	public static boolean isLessEqual(float first_term, float second_term){
 		return isLess(first_term,  second_term) || isEqual(first_term,  second_term);
 	}
 	
-	public static boolean isMoreEqual(float first_term, float second_term){
-		return isMore(first_term, second_term) || isEqual(first_term, second_term);
+	public static boolean isGreaterEqual(float first_term, float second_term){
+		return isGreater(first_term, second_term) || isEqual(first_term, second_term);
 	}
 }
