@@ -1,4 +1,4 @@
-package c4sci.math;
+package c4sci.math.algebra;
 
 /**
  * Useful floating operations managing uncertainty.

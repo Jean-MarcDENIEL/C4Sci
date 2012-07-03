@@ -1,8 +1,10 @@
-package c4sci.math;
+package c4sci.math.algebra;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import c4sci.math.algebra.Floatings;
 
 public class TestFloatings {
 
