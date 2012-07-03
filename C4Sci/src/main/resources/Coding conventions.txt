@@ -54,5 +54,17 @@ Indenting :		Beginning bracket at end of line.
 					...
 				}
 
-File coding :	No special characters.				
+File coding :	No special characters.			
+
+Regular expressions (as used in checkstyle rules):
+
+	CONSTANT_NAMES 			^[A-Z][A-Z0-9]*(_[A-Z0-9]+)+$
+	_local_variable_names	^(_[a-z][a-z0-9]*)+$
+	memberNames				^[a-z][a-z0-9]*([A-Z][a-z0-9]+)+$
+	methodNames				^[a-z][a-z0-9]*([A-Z][a-z0-9]+)+$
+	package.names			^[a-z]+(\.[a-zA-Z_][a-zA-Z0-9_]*)*$
+	parameter_names			^[a-z][a-z0-9]*(_[a-z][a-z0-9]*)+$
+	
+	
+	
 
