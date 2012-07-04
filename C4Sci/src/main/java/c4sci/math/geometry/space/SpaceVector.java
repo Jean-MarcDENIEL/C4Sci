@@ -25,6 +25,14 @@ public class SpaceVector {
 		setY(val_y);
 		setZ(val_z);
 	}
+	public SpaceVector(float val_x, float val_y, float val_z, float val_w){
+		coorTab = new float[4];
+		setW(1.0f);
+		setX(val_x);
+		setY(val_y);
+		setZ(val_z);
+		setW(val_w);
+	}
 
 	public enum CoorName {
 		X(0), Y(1), Z(2), W(3);

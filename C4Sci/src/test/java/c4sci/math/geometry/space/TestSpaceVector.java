@@ -25,6 +25,10 @@ public class TestSpaceVector {
 		SpaceVector _test_vec = new SpaceVector(1.0f, 1.0f, 1.0f);
 		assertEquals(_test_vec.getNorm2(), 3.0f, 0.01f);
 		assertEquals(_test_vec.getNorm(), Math.sqrt(3.0), 0.01f);
+		
+		_test_vec = new SpaceVector(1.0f, 1.0f, 1.0f, 2.0f);
+		assertEquals(_test_vec.getX(), 2.0, 0.01);
+		assertEquals(_test_vec.getNorm2(), 12.0, 0.01);
 
 	}
 
