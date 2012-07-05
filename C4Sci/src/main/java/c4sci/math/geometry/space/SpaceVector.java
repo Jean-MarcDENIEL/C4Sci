@@ -10,7 +10,9 @@ public class SpaceVector {
 
 	private static final int	NB_COOR = 4;
 	private float coorTab[];
-	
+	/**
+	 * Creates a (0,0,0,1) vector
+	 */
 	public SpaceVector(){
 		coorTab= new float[NB_COOR];
 		setX(0.0f);
@@ -18,6 +20,9 @@ public class SpaceVector {
 		setZ(0.0f);
 		setW(1.0f);
 	}
+	/**
+	 * Creates a (val_x,val_y,val_z,1) vector
+	 */
 	public SpaceVector(float val_x, float val_y, float val_z){
 		coorTab = new float[NB_COOR];
 		setW(1.0f);
@@ -26,7 +31,7 @@ public class SpaceVector {
 		setZ(val_z);
 	}
 	public SpaceVector(float val_x, float val_y, float val_z, float val_w){
-		coorTab = new float[4];
+		coorTab = new float[NB_COOR];
 		setW(1.0f);
 		setX(val_x);
 		setY(val_y);
@@ -48,39 +53,58 @@ public class SpaceVector {
 		private int coorIndex;
 	};
 
+	/**************** GET/SET METHODS *****************************/
 	public	final void setX(float x_val){
-		coorTab[CoorName.X.getCoorValue()] = x_val/getW();
+		setCoor(CoorName.X, x_val);
 	}
 	public final void setY(float y_val){
-		coorTab[CoorName.Y.getCoorValue()] = y_val/getW();
+		setCoor(CoorName.Y, y_val);
 	}
 	public final void setZ(float z_val){
-		coorTab[CoorName.Z.getCoorValue()] = z_val/getW();
+		setCoor(CoorName.Z, z_val);
 	}
 	public final void setW(float w_val){
-		coorTab[CoorName.W.getCoorValue()] = w_val;
+		setCoor(CoorName.W, w_val);
 	}
 
 	public final void setCoor(CoorName n_coor, float val_coor){
-		if (n_coor == CoorName.W){
-			setW(val_coor);
+		setCoor(n_coor.getCoorValue(), val_coor);
+	}
+	/**
+	 * 
+	 * @param n_coor	0=X, 1=Y, 2=Z, 3=W
+	 */
+	public final void setCoor(int n_coor, float val_coor){
+		if (n_coor == CoorName.W.getCoorValue()){
+			coorTab[n_coor] = val_coor;
 		}
 		else{
-			coorTab[n_coor.getCoorValue()] = val_coor/getW();
+			coorTab[n_coor] = val_coor/getW();
 		}
 	}
 	
 	public final float getX(){
-		return coorTab[CoorName.X.getCoorValue()] * getW();
+		return getCoor(CoorName.X);
 	}
 	public final float getY(){
-		return coorTab[CoorName.Y.getCoorValue()] * getW();
+		return getCoor(CoorName.Y);
 	}
 	public final float getZ(){
-		return coorTab[CoorName.Z.getCoorValue()] * getW();
+		return getCoor(CoorName.Z);
 	}
 	public final float getW(){
-		return coorTab[CoorName.W.getCoorValue()];
+		return getCoor(CoorName.W);
+	}
+	public final float getCoor(CoorName n_coor){
+		return getCoor(n_coor.getCoorValue());
+	}
+	/**
+	 * 
+	 * @param n_coor	0=X, 1=Y, 2=Z, 3=W
+	 */
+	public final float getCoor(int n_coor){
+		float _mult = (n_coor == CoorName.W.getCoorValue())? 1.0f : coorTab[CoorName.W.getCoorValue()];
+		return coorTab[n_coor] * _mult;
 	}
 	
 	public final float getNorm(){
@@ -92,4 +116,26 @@ public class SpaceVector {
 	public final float getNorm2(){
 		return (float)(Math.pow(getX(), 2.0) + Math.pow(getY(), 2.0) + Math.pow(getZ(), 2.0));
 	}
+	
+	/**
+	 * Sets norm to 1.0
+	 */
+	public final void normalizeVector(){
+		setW(getW()/ getNorm());
+	}
+	
+	/**************** PRODUCTS METHODS *********************/
+	public final float dotProduct(final SpaceVector other_vec){
+		return getX()*other_vec.getX() + getY()*other_vec.getY() + getZ()*other_vec.getZ();
+	}
+	
+	public final SpaceVector crossProduct(final SpaceVector other_vec){
+		return new SpaceVector(	  getY() * other_vec.getZ() - getZ()*other_vec.getY(),
+								-(getX() * other_vec.getZ() - getZ() * other_vec.getX()),
+								  getX() * other_vec.getY() - getY() * other_vec.getX());
+	}
+	
+	/**************** MIN MAX METHODS **********************/
+	
+	
 }
