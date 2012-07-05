@@ -38,6 +38,12 @@ public class TestSpaceVector {
 			for (int _j=0; _j<3; _j++){
 				assertEquals(_test_vec_2.getCoor(_j), (float)_j/_norm, 0.01);
 			}
+			
+			SpaceVector _test_vec_3 = new SpaceVector(1.0f, 1.0f, 1.0f, 2.0f);
+			_test_vec_3.normalizeW();
+			assertEquals(_test_vec_3.getW(), 1.0, .01);
+			for (CoorName _coor : CoorName.XYZ_TAB)
+				assertEquals(_test_vec_3.getCoor(_coor), 2.0, .01);
 		}
 		
 		SpaceVector _test_vec = new SpaceVector(1.0f, 1.0f, 1.0f);
@@ -71,5 +77,41 @@ public class TestSpaceVector {
 			}
 		}
 		assertEquals(_vec_X.crossProduct(_vec_Y).getZ(), 1.0, 0.01);
+	}
+	
+	@Test
+	public void testMinMax(){
+		SpaceVector _vec_a = new SpaceVector(1.0f, 2.0f, 3.0f);
+		SpaceVector _vec_b = new SpaceVector(0.0f, -2.0f, 5.0f);
+		SpaceVector _vec_c = new SpaceVector(4.0f, 5.0f, 2.0f);
+		
+		SpaceVector _vec_inf = _vec_a.minVector(_vec_b);
+		SpaceVector _vec_sup = _vec_b.maxVector(_vec_c);
+		
+		assertEquals(_vec_inf.getX(), 0.0, 0.01);
+		assertEquals(_vec_inf.getY(), -2.0, 0.01);
+		assertEquals(_vec_inf.getZ(), 3.0, 0.01);
+		
+		assertEquals(_vec_sup.getX(), 4.0, .01);
+		assertEquals(_vec_sup.getY(), 5.0, .01);
+		assertEquals(_vec_sup.getZ(), 5.0, .01);
+	}
+	
+	@Test
+	public void testComparisons(){
+		SpaceVector _vec_a = new SpaceVector(1.0f, 2.0f, 3.0f);
+		SpaceVector _vec_b = new SpaceVector(0.0f, -2.0f, 5.0f);
+		SpaceVector _vec_c = new SpaceVector(4.0f, 5.0f, 6.0f);
+		
+		assertTrue(_vec_a.isLessThan(_vec_c));
+		assertTrue(_vec_a.isLessOrEqualTo(_vec_a));
+		
+		assertFalse(_vec_b.isLessThan(_vec_a));
+		
+		assertTrue(_vec_c.isGreaterThan(_vec_b));
+		assertTrue(_vec_c.isGreaterOrEqualTo(_vec_c));
+		
+		assertTrue(_vec_a.isEqualTo(_vec_a));
+		assertFalse(_vec_a.isEqualTo(_vec_b));
 	}
 }
