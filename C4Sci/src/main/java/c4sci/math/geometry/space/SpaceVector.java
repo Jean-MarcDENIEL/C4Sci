@@ -47,6 +47,7 @@ public class SpaceVector {
 		setW(val_w);
 	}
 	public SpaceVector(SpaceVector other_vec){
+		coorTab = new float[NB_COOR];
 		System.arraycopy(other_vec.coorTab, 0, coorTab, 0, NB_COOR);
 	}
 	public enum CoorName {
@@ -215,20 +216,69 @@ public class SpaceVector {
 	}
 
 	/***************** OPERATOR METHODS ********************/
+	public final SpaceVector opPlus(final SpaceVector other_vec){
+		SpaceVector _res = new SpaceVector();
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			_res.setCoor(_coor, getCoor(_coor) + other_vec.getCoor(_coor));
+		}
+		return _res;
+	}
+
+	public final SpaceVector opMinus(final SpaceVector other_vec){
+		SpaceVector _res = new SpaceVector();
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			_res.setCoor(_coor, getCoor(_coor) - other_vec.getCoor(_coor));
+		}
+		return _res;
+	}
 	
+	public final SpaceVector opMul(float m_val){
+		SpaceVector _res = new SpaceVector();
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			_res.setCoor(_coor, getCoor(_coor) * m_val);
+		}
+		return _res;
+	}
+	
+	public final SpaceVector opDiv(float d_val){
+		SpaceVector _res = new SpaceVector();
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			_res.setCoor(_coor, getCoor(_coor) / d_val);
+		}
+		return _res;
+	}
+
 	/***************** AFFECTATION OPERATOR METHODS ********/
-	public final SpaceVector opEquals(final SpaceVector other_vec){
+	public final void opEquals(final SpaceVector other_vec){
 		setW(1.0f);
 		for (CoorName _coor : CoorName.XYZ_TAB) {
 			setCoor(_coor, other_vec.getCoor(_coor));
 		}
-		return new SpaceVector(this);
 	}
-
-	/*public final SpaceVector opMinusEquals(final SpaceVector other_vec){
-
-	}*/
-
+	public final void opMinusEquals(final SpaceVector other_vec){
+		setW(1.0f);
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			setCoor(_coor, getCoor(_coor)-other_vec.getCoor(_coor));
+		}
+	}
+	public final void opPlusEquals(final SpaceVector other_vec){
+		setW(1.0f);
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			setCoor(_coor, getCoor(_coor)+other_vec.getCoor(_coor));
+		}
+	}
+	public final void opMulEquals(float mult_val){
+		setW(1.0f);
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			setCoor(_coor, getCoor(_coor)*mult_val);
+		}
+	}
+	public final void opDivEquals(float div_val){
+		setW(1.0f);
+		for (CoorName _coor : CoorName.XYZ_TAB) {
+			setCoor(_coor, getCoor(_coor)/div_val);
+		}
+	}
 	/***************** COMPARISON OPERATORS ****************/
 	public final boolean isEqualTo(final SpaceVector other_vec){
 		return

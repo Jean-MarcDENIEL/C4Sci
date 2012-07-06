@@ -114,4 +114,51 @@ public class TestSpaceVector {
 		assertTrue(_vec_a.isEqualTo(_vec_a));
 		assertFalse(_vec_a.isEqualTo(_vec_b));
 	}
+	
+	@Test
+	public void testAffOperators(){
+		SpaceVector _vec_a = new SpaceVector(1.0f, 2.0f, 3.0f);
+		SpaceVector _vec_b = new SpaceVector(0.0f, -2.0f, 5.0f);
+		SpaceVector _vec_c = new SpaceVector(1.0f, 0.0f, 8.0f);
+		SpaceVector _vec_d = new SpaceVector(1.0f, 4.0f, -2.0f);
+		SpaceVector _vec_e = new SpaceVector(2.0f, 8.0f, -4.0f);
+		
+		
+		SpaceVector _vec_res = new SpaceVector();
+		_vec_res.opEquals(_vec_a);
+		assertTrue(_vec_res.isEqualTo(_vec_a));
+		
+		_vec_res.opPlusEquals(_vec_b);
+		assertTrue(_vec_res.isEqualTo(_vec_c));
+		
+		_vec_res.opEquals(_vec_a);
+		_vec_res.opMinusEquals(_vec_b);
+		assertTrue(_vec_res.isEqualTo(_vec_d));
+		
+		_vec_res.opMulEquals(2.0f);
+		assertTrue(_vec_res.isEqualTo(_vec_e));
+		
+		_vec_res.opDivEquals(2.0f);
+		assertTrue(_vec_res.isEqualTo(_vec_d));
+	}
+	@Test
+	public void testOperators(){
+		SpaceVector _vec_a = new SpaceVector(1.0f, 2.0f, 3.0f);
+		SpaceVector _vec_b = new SpaceVector(0.0f, -2.0f, 5.0f);
+		SpaceVector _vec_c = new SpaceVector(1.0f, 0.0f, 8.0f);
+		SpaceVector _vec_d = new SpaceVector(1.0f, 4.0f, -2.0f);
+		SpaceVector _vec_e = new SpaceVector(2.0f, 8.0f, -4.0f);
+
+		SpaceVector _res1 = _vec_a.opPlus(_vec_b);
+		assertTrue(_res1.isEqualTo(_vec_c));
+
+		_res1 = _vec_a.opMinus(_vec_b);
+		assertTrue(_res1.isEqualTo(_vec_d));
+		
+		_res1 = _vec_d.opMul(2.0f);
+		assertTrue(_res1.isEqualTo(_vec_e));
+		
+		SpaceVector _res2 = _res1.opDiv(2.0f);
+		assertTrue(_res2.isEqualTo(_vec_d));
+	}
 }
