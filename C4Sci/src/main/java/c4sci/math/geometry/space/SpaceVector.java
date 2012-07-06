@@ -16,13 +16,13 @@ import c4sci.math.algebra.Floatings;
  */
 public class SpaceVector {
 
-	private static final int	NB_COOR = 4;
+	
 	private float coorTab[];
 	/**
 	 * Creates a (0,0,0,1) vector
 	 */
 	public SpaceVector(){
-		coorTab= new float[NB_COOR];
+		coorTab= new float[Commons.NB_COOR];
 		setX(0.0f);
 		setY(0.0f);
 		setZ(0.0f);
@@ -32,14 +32,14 @@ public class SpaceVector {
 	 * Creates a (val_x,val_y,val_z,1) vector
 	 */
 	public SpaceVector(float val_x, float val_y, float val_z){
-		coorTab = new float[NB_COOR];
+		coorTab = new float[Commons.NB_COOR];
 		setW(1.0f);
 		setX(val_x);
 		setY(val_y);
 		setZ(val_z);
 	}
 	public SpaceVector(float val_x, float val_y, float val_z, float val_w){
-		coorTab = new float[NB_COOR];
+		coorTab = new float[Commons.NB_COOR];
 		setW(1.0f);
 		setX(val_x);
 		setY(val_y);
@@ -47,23 +47,10 @@ public class SpaceVector {
 		setW(val_w);
 	}
 	public SpaceVector(SpaceVector other_vec){
-		coorTab = new float[NB_COOR];
-		System.arraycopy(other_vec.coorTab, 0, coorTab, 0, NB_COOR);
+		coorTab = new float[Commons.NB_COOR];
+		System.arraycopy(other_vec.coorTab, 0, coorTab, 0, Commons.NB_COOR);
 	}
-	public enum CoorName {
-		X(0), Y(1), Z(2), W(3);
-		static final CoorName XYZ_TAB[] = {X, Y, Z};
-		CoorName (){
-			coorIndex = 0;
-		}
-		CoorName (int val_coor){
-			coorIndex = val_coor;
-		}
-		public final int getCoorValue(){
-			return coorIndex;
-		}
-		private int coorIndex;
-	};
+	
 
 	/**************** GET/SET METHODS *****************************/
 	/**
@@ -71,30 +58,30 @@ public class SpaceVector {
 	 * @param x_val : X <- x_val/W
 	 */
 	public	final void setX(float x_val){
-		setCoor(CoorName.X, x_val);
+		setCoor(Commons.CoorName.X, x_val);
 	}
 	/**
 	 * 	
 	 * @param y_val : Y <- y_val/W
 	 */
 	public final void setY(float y_val){
-		setCoor(CoorName.Y, y_val);
+		setCoor(Commons.CoorName.Y, y_val);
 	}
 	/**
 	 * 
 	 * @param z_val : Z <- z_val/W
 	 */
 	public final void setZ(float z_val){
-		setCoor(CoorName.Z, z_val);
+		setCoor(Commons.CoorName.Z, z_val);
 	}
 	public final void setW(float w_val){
-		setCoor(CoorName.W, w_val);
+		setCoor(Commons.CoorName.W, w_val);
 	}
 	/**
 	 * 
 	 * @param val_coor : if different from W, corresponding coordinate <- val_coor/W 
 	 */
-	public final void setCoor(CoorName n_coor, float val_coor){
+	public final void setCoor(Commons.CoorName n_coor, float val_coor){
 		setCoor(n_coor.getCoorValue(), val_coor);
 	}
 	/**
@@ -103,7 +90,7 @@ public class SpaceVector {
 	 * @param val_coor : if different from W, corresponding coordinate <- val_coor/W 
 	 */
 	public final void setCoor(int n_coor, float val_coor){
-		if (n_coor == CoorName.W.getCoorValue()){
+		if (n_coor == Commons.CoorName.W.getCoorValue()){
 			coorTab[n_coor] = val_coor;
 		}
 		else{
@@ -115,30 +102,30 @@ public class SpaceVector {
 	 * @return X/W
 	 */
 	public final float getX(){
-		return getCoor(CoorName.X);
+		return getCoor(Commons.CoorName.X);
 	}
 	/**
 	 * 
 	 * @return Y/W
 	 */
 	public final float getY(){
-		return getCoor(CoorName.Y);
+		return getCoor(Commons.CoorName.Y);
 	}
 	/**
 	 * 	
 	 * @return Z/W
 	 */
 	public final float getZ(){
-		return getCoor(CoorName.Z);
+		return getCoor(Commons.CoorName.Z);
 	}
 	public final float getW(){
-		return getCoor(CoorName.W);
+		return getCoor(Commons.CoorName.W);
 	}
 	/**
 	 * 	
 	 * @return if different from W, corresponding coordinate / W
 	 */
-	public final float getCoor(CoorName n_coor){
+	public final float getCoor(Commons.CoorName n_coor){
 		return getCoor(n_coor.getCoorValue());
 	}
 	/**
@@ -147,7 +134,7 @@ public class SpaceVector {
 	 * @return if different from W, corresponding coordinate / W
 	 */
 	public final float getCoor(int n_coor){
-		float _mult = (n_coor == CoorName.W.getCoorValue())? 1.0f : coorTab[CoorName.W.getCoorValue()];
+		float _mult = (n_coor == Commons.CoorName.W.getCoorValue())? 1.0f : coorTab[Commons.CoorName.W.getCoorValue()];
 		return coorTab[n_coor] * _mult;
 	}
 
@@ -172,14 +159,14 @@ public class SpaceVector {
 	 * Computes X Y Z so that W is set to 1.0
 	 */
 	public final void normalizeW(){
-		float _tab_val[] = new float[NB_COOR-1];
+		float _tab_val[] = new float[Commons.NB_COOR-1];
 		int _i = 0;
-		for (CoorName _coor : CoorName.XYZ_TAB){
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB){
 			_tab_val[_i++] = getCoor(_coor);
 		}
 		setW(1.0f);
 		_i = 0;
-		for (CoorName _coor : CoorName.XYZ_TAB){
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB){
 			setCoor(_coor, _tab_val[_i++]);
 		}
 	}
@@ -187,7 +174,7 @@ public class SpaceVector {
 	/**************** PRODUCTS METHODS *********************/
 	public final float dotProduct(final SpaceVector other_vec){
 		float _res = 0.0f;
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			_res += getCoor(_coor)*other_vec.getCoor(_coor);
 		}
 		return _res;
@@ -202,14 +189,14 @@ public class SpaceVector {
 	/**************** MIN MAX METHODS **********************/
 	public final SpaceVector minVector(final SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB){
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB){
 			_res.setCoor(_coor, Math.min(getCoor(_coor), other_vec.getCoor(_coor)));
 		}
 		return _res;
 	}
 	public final SpaceVector maxVector(final SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB){
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB){
 			_res.setCoor(_coor, Math.max(getCoor(_coor), other_vec.getCoor(_coor)));
 		}
 		return _res;
@@ -218,7 +205,7 @@ public class SpaceVector {
 	/***************** OPERATOR METHODS ********************/
 	public final SpaceVector opPlus(final SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			_res.setCoor(_coor, getCoor(_coor) + other_vec.getCoor(_coor));
 		}
 		return _res;
@@ -226,7 +213,7 @@ public class SpaceVector {
 
 	public final SpaceVector opMinus(final SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			_res.setCoor(_coor, getCoor(_coor) - other_vec.getCoor(_coor));
 		}
 		return _res;
@@ -234,7 +221,7 @@ public class SpaceVector {
 	
 	public final SpaceVector opMul(float m_val){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			_res.setCoor(_coor, getCoor(_coor) * m_val);
 		}
 		return _res;
@@ -242,7 +229,7 @@ public class SpaceVector {
 	
 	public final SpaceVector opDiv(float d_val){
 		SpaceVector _res = new SpaceVector();
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			_res.setCoor(_coor, getCoor(_coor) / d_val);
 		}
 		return _res;
@@ -251,31 +238,31 @@ public class SpaceVector {
 	/***************** AFFECTATION OPERATOR METHODS ********/
 	public final void opEquals(final SpaceVector other_vec){
 		setW(1.0f);
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			setCoor(_coor, other_vec.getCoor(_coor));
 		}
 	}
 	public final void opMinusEquals(final SpaceVector other_vec){
 		setW(1.0f);
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			setCoor(_coor, getCoor(_coor)-other_vec.getCoor(_coor));
 		}
 	}
 	public final void opPlusEquals(final SpaceVector other_vec){
 		setW(1.0f);
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			setCoor(_coor, getCoor(_coor)+other_vec.getCoor(_coor));
 		}
 	}
 	public final void opMulEquals(float mult_val){
 		setW(1.0f);
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			setCoor(_coor, getCoor(_coor)*mult_val);
 		}
 	}
 	public final void opDivEquals(float div_val){
 		setW(1.0f);
-		for (CoorName _coor : CoorName.XYZ_TAB) {
+		for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB) {
 			setCoor(_coor, getCoor(_coor)/div_val);
 		}
 	}

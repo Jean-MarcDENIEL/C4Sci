@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.math.geometry.space.SpaceVector.CoorName;
-
 public class TestSpaceVector {
 
 	@Test
@@ -42,7 +40,7 @@ public class TestSpaceVector {
 			SpaceVector _test_vec_3 = new SpaceVector(1.0f, 1.0f, 1.0f, 2.0f);
 			_test_vec_3.normalizeW();
 			assertEquals(_test_vec_3.getW(), 1.0, .01);
-			for (CoorName _coor : CoorName.XYZ_TAB)
+			for (Commons.CoorName _coor : Commons.CoorName.XYZ_TAB)
 				assertEquals(_test_vec_3.getCoor(_coor), 2.0, .01);
 		}
 		
