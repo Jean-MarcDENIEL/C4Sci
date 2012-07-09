@@ -10,7 +10,8 @@ public class Language {
 	private String englishName;
 	private String localName;
 	
-	public static final Language TAB_BASIC_LANGUAGES[] ={new Language("EN", "english", "english"), 
+	public static final Language TAB_BASIC_LANGUAGES[] ={
+		new Language("EN", "english", "english"), 
 		new Language("FR", "french", "français")}; 
 
 	public final String getLanguageSymbol(){
@@ -22,4 +23,6 @@ public class Language {
 	public final String getLocalName(){
 		return localName;
 	}
+	
+	public static final String ENGLISH_SYMBOL = "EN";
 }

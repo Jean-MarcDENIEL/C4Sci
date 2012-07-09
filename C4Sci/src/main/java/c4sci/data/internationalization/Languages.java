@@ -27,7 +27,7 @@ public class Languages {
 		return localName;
 	}
 	
-	public static void addNewLangugage(Language l_to_add){
+	public static void addNewLanguage(Language l_to_add){
 		languagesMap.put(l_to_add.getLanguageSymbol(), l_to_add);
 	}
 	
@@ -38,7 +38,7 @@ public class Languages {
 	 */
 	public static Language getLanguage(String lang_symbol) throws NoCorrespondingLanguageException{
 		if (!languagesMap.containsKey(lang_symbol)){
-			throw new NoCorrespondingLanguageException(lang_symbol);
+			throw new NoCorrespondingLanguageException(lang_symbol, "No corresponding language!");
 		}
 		return languagesMap.get(lang_symbol);
 	}
