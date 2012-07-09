@@ -1,7 +1,7 @@
 package c4sci.data.internationalization;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class gives several translations of a same information
@@ -15,7 +15,7 @@ public class InternationalizableTerm {
 	private Map<Language, String>	valueMap;
 	
 	public InternationalizableTerm(){
-		valueMap = new HashMap<Language,String>();
+		valueMap = new ConcurrentHashMap<Language,String>();
 	}
 	/**
 	 * 
