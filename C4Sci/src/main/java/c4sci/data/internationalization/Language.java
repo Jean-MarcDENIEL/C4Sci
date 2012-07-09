@@ -10,7 +10,7 @@ public class Language {
 	private String englishName;
 	private String localName;
 	
-	public static final Language TAB_BASIC_LANGUAGES[] ={
+	static final Language TAB_BASIC_LANGUAGES[] ={
 		new Language("EN", "english", "english"), 
 		new Language("FR", "french", "français")}; 
 

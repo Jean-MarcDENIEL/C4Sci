@@ -9,8 +9,13 @@ import java.util.Map;
  *
  */
 public class InternationalizableTerm {
+	/**
+	 * Language symbol / value
+	 */
+	private Map<Language, String>	valueMap;
+	
 	public InternationalizableTerm(){
-		valueMap = new HashMap<Language, String>;
+		valueMap = new HashMap<Language,String>();
 	}
 	/**
 	 * 
@@ -46,8 +51,5 @@ public class InternationalizableTerm {
 		valueMap.put(express_language, term_value);
 	}
 	
-	/**
-	 * Language symbol / value
-	 */
-	private Map<Language, String>	valueMap;
+
 }

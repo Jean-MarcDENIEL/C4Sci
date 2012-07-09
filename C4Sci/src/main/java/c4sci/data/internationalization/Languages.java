@@ -1,32 +1,21 @@
 package c4sci.data.internationalization;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class Languages {
+public final class Languages {
+	private Languages(){}
+	private static Map<String, Language>languagesMap = createBasicLanguages();
 	
-	private static HashMap<String, Language>languagesMap = createBasicLanguages();
-	
-	private static HashMap<String, Language> createBasicLanguages(){
+	private static Map<String, Language> createBasicLanguages(){
 		HashMap<String, Language> _res = new HashMap<String, Language>();
 		for (Language _l : Language.TAB_BASIC_LANGUAGES){
 			_res.put(_l.getLanguageSymbol(), _l);
 		}
 		return _res;
 	}
-	private String languageSymbol;
-	private String englishName;
-	private String localName;
-	
-	public final String getLanguageSymbol(){
-		return languageSymbol;
-	}
-	public final String getEnglishName(){
-		return englishName;
-	}
-	public final String getLocalName(){
-		return localName;
-	}
-	
+
+
 	public static void addNewLanguage(Language l_to_add){
 		languagesMap.put(l_to_add.getLanguageSymbol(), l_to_add);
 	}
