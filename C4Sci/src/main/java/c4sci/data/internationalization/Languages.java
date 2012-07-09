@@ -1,14 +1,14 @@
 package c4sci.data.internationalization;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class Languages {
 	private Languages(){}
 	private static Map<String, Language>languagesMap = createBasicLanguages();
 	
 	private static Map<String, Language> createBasicLanguages(){
-		HashMap<String, Language> _res = new HashMap<String, Language>();
+		Map<String, Language> _res = new ConcurrentHashMap<String, Language>();
 		for (Language _l : Language.TAB_BASIC_LANGUAGES){
 			_res.put(_l.getLanguageSymbol(), _l);
 		}
