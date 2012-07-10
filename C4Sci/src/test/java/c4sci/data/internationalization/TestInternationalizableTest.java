@@ -47,6 +47,13 @@ public class TestInternationalizableTest {
 		}
 		
 		try {
+			_term.getValue(new Language("OTH", "err_lang", "error case language"));
+			fail ("NoCorrespondingLanguageException not launched");
+		} catch (NoCorrespondingLanguageException e1) {
+			assertTrue(true);
+		}
+		
+		try {
 			Language _other = Languages.getLanguage("other");
 			fail("NoCorrespondingLanguageException not launched");
 		} catch (NoCorrespondingLanguageException e) {

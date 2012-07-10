@@ -22,7 +22,6 @@ public class InternationalizableTerm {
 			valueMap.put(Languages.getLanguage(Language.ENGLISH_SYMBOL), default_en_value);
 		} catch (NoCorrespondingLanguageException _e) {
 			// this should never happen
-			_e.printStackTrace();
 		}
 	}
 	/**
@@ -34,7 +33,8 @@ public class InternationalizableTerm {
 			return valueMap.get(Languages.getLanguage(Language.ENGLISH_SYMBOL));
 		}
 		catch (NoCorrespondingLanguageException _e){
-			return "(No term)";
+			// this should never happen
+			return "no term";
 		}
 	}
 	
