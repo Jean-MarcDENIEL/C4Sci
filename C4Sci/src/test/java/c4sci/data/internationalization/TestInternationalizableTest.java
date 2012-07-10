@@ -8,8 +8,8 @@ public class TestInternationalizableTest {
 
 	@Test
 	public void testInternationalizableTerm() {
-		InternationalizableTerm _term = new InternationalizableTerm("default_term");
-		assertTrue(true);
+		 
+		assertTrue(new InternationalizableTerm("default_term") != null);
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class TestInternationalizableTest {
 		}
 		
 		try {
-			Language _other = Languages.getLanguage("other");
+			Languages.getLanguage("other");
 			fail("NoCorrespondingLanguageException not launched");
 		} catch (NoCorrespondingLanguageException e) {
 			assertTrue("NoCorrespondingLanguageException launched", true);
