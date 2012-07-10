@@ -14,8 +14,16 @@ public class InternationalizableTerm {
 	 */
 	private Map<Language, String>	valueMap;
 	
-	public InternationalizableTerm(){
+	@SuppressWarnings("unused")
+	private InternationalizableTerm(){}
+	public InternationalizableTerm(String default_EN_value){
 		valueMap = new ConcurrentHashMap<Language,String>();
+		try {
+			valueMap.put(Languages.getLanguage(Language.ENGLISH_SYMBOL), default_EN_value);
+		} catch (NoCorrespondingLanguageException e) {
+			// this should never happen
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 
