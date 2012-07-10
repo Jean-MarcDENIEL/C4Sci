@@ -45,6 +45,13 @@ public class TestInternationalizableTest {
 		} catch (NoCorrespondingLanguageException e) {
 			fail("Unable to rerieve IT value");
 		}
+		
+		try {
+			Language _other = Languages.getLanguage("other");
+			fail("NoCorrespondingLanguageException not launched");
+		} catch (NoCorrespondingLanguageException e) {
+			assertTrue("NoCorrespondingLanguageException launched", true);
+		}
 	}
 
 

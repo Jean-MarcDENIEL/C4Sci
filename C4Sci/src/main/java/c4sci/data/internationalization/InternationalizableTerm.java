@@ -16,13 +16,13 @@ public class InternationalizableTerm {
 	
 	@SuppressWarnings("unused")
 	private InternationalizableTerm(){}
-	public InternationalizableTerm(String default_EN_value){
+	public InternationalizableTerm(String default_en_value){
 		valueMap = new ConcurrentHashMap<Language,String>();
 		try {
-			valueMap.put(Languages.getLanguage(Language.ENGLISH_SYMBOL), default_EN_value);
-		} catch (NoCorrespondingLanguageException e) {
+			valueMap.put(Languages.getLanguage(Language.ENGLISH_SYMBOL), default_en_value);
+		} catch (NoCorrespondingLanguageException _e) {
 			// this should never happen
-			e.printStackTrace();
+			_e.printStackTrace();
 		}
 	}
 	/**
