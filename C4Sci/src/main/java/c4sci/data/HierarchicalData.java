@@ -15,7 +15,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public class HierarchicalData {
+public class HierarchicalData implements VisitableData{
 
 	private String							dataToken;
 	private InternationalizableTerm			dataName;
@@ -61,6 +61,10 @@ public class HierarchicalData {
 		}
 		return _data_param.getParameterValue();
 	}
+	
+	public final void addSubData(HierarchicalData child_data){
+		subDataMap.put(child_data.getDataToken(), child_data);
+	}
 	/**
 	 * In this order :
 	 * - performs visitor treatment on the current data node
@@ -74,7 +78,7 @@ public class HierarchicalData {
 			data_visitor.performTreatmentOn(_it.next());
 		}
 		for (Iterator<HierarchicalData> _it = subDataMap.values().iterator(); _it.hasNext();){
-			data_visitor.performTreatmentOn(_it.next());
+			_it.next().acceptVisitor(data_visitor);
 		}
 	}
 	

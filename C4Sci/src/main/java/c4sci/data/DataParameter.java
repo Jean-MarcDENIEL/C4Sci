@@ -29,9 +29,5 @@ public interface DataParameter {
 	 * @throws DataValueParsingException
 	 */
 	void setParameterValue(String str_to_parse) throws DataValueParsingException;
-	/**
-	 * 
-	 * @return the type of the parameter whose value is get and set
-	 */
-	Class<?> getParameterClass();
+
 }
