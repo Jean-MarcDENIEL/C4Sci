@@ -46,7 +46,7 @@ public abstract class DataParameter {
 
 	/** 
 	 * Parses a String to set the value.
-	 * @throws DataValueParsingException
+	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
 	 */
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
