@@ -33,7 +33,14 @@ public class TestIntegerDataParameter {
 		catch(DataValueParsingException _e){
 			assertTrue(true);
 		}
-		
+	
+		try{
+			_param.setParameterValue(null);
+			fail("should have thrown an exception");
+		}
+		catch(DataValueParsingException _e){
+			assertTrue(true);
+		}
 		assertTrue("20".compareTo(_param.getParameterValue())==0);
 		
 		assertEquals(_param.getIntegerValue(), 20);
