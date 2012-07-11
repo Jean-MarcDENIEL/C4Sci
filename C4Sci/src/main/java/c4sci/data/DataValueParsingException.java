@@ -11,8 +11,8 @@ public class DataValueParsingException extends Exception {
 	@SuppressWarnings("unused")
 	private DataValueParsingException() {}
 	
-	public DataValueParsingException(String expected_value, String string_to_parse, String err_msg){
-		super(err_msg);
+	public DataValueParsingException(String expected_value, String string_to_parse, String err_msg, Throwable exception_cause){
+		super(err_msg, exception_cause);
 		expectedValueType 	= expected_value;
 		stringToParse		= string_to_parse;
 		

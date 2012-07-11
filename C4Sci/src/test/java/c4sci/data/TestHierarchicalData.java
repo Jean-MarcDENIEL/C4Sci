@@ -3,18 +3,15 @@ package c4sci.data;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.omg.PortableInterceptor.SUCCESSFUL;
-
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestHierarchicalData {
 
 	@Test
 	public void testHierarchicalData() {
-		HierarchicalData _data = new HierarchicalData("test_data", 
+		assertTrue(new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
-				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
-		assertTrue(true);
+				new InternationalizableTerm("this data is used to test the HierarchicalData class")) != null);
 	}
 
 	@Test
@@ -55,7 +52,7 @@ public class TestHierarchicalData {
 					paramValue = Integer.parseInt(str_to_parse);
 				}
 				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error");
+					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", null);
 				}
 				
 			}
@@ -96,7 +93,7 @@ public class TestHierarchicalData {
 					paramValue = Integer.parseInt(str_to_parse);
 				}
 				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error");
+					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
 				}
 				
 			}
@@ -185,7 +182,7 @@ public class TestHierarchicalData {
 					paramValue = Integer.parseInt(str_to_parse);
 				}
 				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error");
+					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
 				}
 				
 			}
