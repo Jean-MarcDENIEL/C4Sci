@@ -31,6 +31,8 @@ public class BooleanDataParameter extends DataParameter {
 	@Override
 	public void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
+		if (str_to_parse == null)
+			throw new DataValueParsingException("Boolean", "(null)", "parsing error : null argument", null);
 		paramValue = Boolean.parseBoolean(str_to_parse);
 	}
 	

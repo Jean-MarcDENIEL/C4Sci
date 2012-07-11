@@ -29,14 +29,16 @@ public class TestBooleanParameter {
 		assertFalse(_param.getBooleanValue());
 		
 		_param.setBooleanValue(true);
+		
 		try {
 			_param.setParameterValue(null);
-		} catch (DataValueParsingException e) {
 			fail();
+		} catch (DataValueParsingException e) {
+			assertTrue(true);
 		}
-		assertFalse(_param.getBooleanValue());
+		assertTrue(_param.getBooleanValue());
 		
-		assertTrue("false".compareTo(_param.getParameterValue())==0);
+		assertTrue("true".compareTo(_param.getParameterValue())==0);
 		
 	}
 
