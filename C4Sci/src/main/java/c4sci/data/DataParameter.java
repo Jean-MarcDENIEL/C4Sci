@@ -42,12 +42,12 @@ public abstract class DataParameter {
 	 * 
 	 * @return A String that could be parsed to retrieve the real parameter value.
 	 */
-	abstract public String getParameterValue();
+	public abstract String getParameterValue();
 
 	/** 
 	 * Parses a String to set the value.
 	 * @throws DataValueParsingException
 	 */
-	abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
+	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
 }
