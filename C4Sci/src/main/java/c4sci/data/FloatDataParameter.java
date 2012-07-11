@@ -26,4 +26,10 @@ public class FloatDataParameter extends DataParameter {
 
 	}
 
+	public float getFloatValue(){
+		return paramValue;
+	}
+	public void setFloatValue(final float fl_val){
+		paramValue = fl_val;
+	}
 }

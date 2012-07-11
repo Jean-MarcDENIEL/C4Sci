@@ -30,4 +30,10 @@ public class IntegerDataParameter extends DataParameter {
 		}
 	}
 
+	public int getIntegerValue(){
+		return paramValue;
+	}
+	public void setIntegerValue(final int int_val){
+		paramValue = int_val;
+	}
 }

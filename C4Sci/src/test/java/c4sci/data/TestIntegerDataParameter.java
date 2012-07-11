@@ -36,6 +36,10 @@ public class TestIntegerDataParameter {
 		
 		assertTrue("20".compareTo(_param.getParameterValue())==0);
 		
+		assertEquals(_param.getIntegerValue(), 20);
+		
+		_param.setIntegerValue(3);
+		assertEquals(_param.getIntegerValue(), 3);
 	}
 
 }
