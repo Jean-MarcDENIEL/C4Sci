@@ -28,6 +28,13 @@ public class TestFloatDataParameter {
 			assertTrue(true);
 		}
 		
+		try {
+			_param.setParameterValue(null);
+			fail();
+		} catch (DataValueParsingException e) {
+			assertTrue(true);
+		}
+		
 		assertTrue("10.0".compareTo(_param.getParameterValue())==0);
 	}
 

@@ -17,6 +17,9 @@ public class FloatDataParameter extends DataParameter {
 
 	public void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
+		if (str_to_parse == null){
+			throw new DataValueParsingException("float", "(null)", "parsing error : null parameter", null);
+		}
 		try{
 		paramValue = Float.parseFloat(str_to_parse);
 		}
