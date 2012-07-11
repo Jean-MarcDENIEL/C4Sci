@@ -7,33 +7,17 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public class IntegerDataParameter implements DataParameter {
+public class IntegerDataParameter extends DataParameter {
 
-	private int						paramValue;
-	private String					paramToken;
-	private InternationalizableTerm	paramName;
-	private InternationalizableTerm	paramDescription;
+	private int paramValue;
+	
 	public IntegerDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term){
+		super(token_str, name_term, descr_term);
 		paramValue			= 0;
-		paramToken			= token_str;
-		paramName			= name_term;
-		paramDescription	= descr_term;
 	}
 	
 	public String getParameterValue() {
 		return Integer.toString(paramValue);
-	}
-
-	public String getParameterToken() {
-		return paramToken;
-	}
-
-	public InternationalizableTerm getParameterName() {
-		return paramName;
-	}
-
-	public InternationalizableTerm getParameterDescription() {
-		return paramDescription;
 	}
 
 	public void setParameterValue(String str_to_parse)

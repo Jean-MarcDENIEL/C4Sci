@@ -39,41 +39,36 @@ public class TestHierarchicalData {
 		assertTrue("this data is used to test the HierarchicalData class".compareTo(_data.getDataDescription().getDefaultValue())==0);
 	}
 
+	class TestDataParameter  extends DataParameter{
+		public TestDataParameter(String a_, InternationalizableTerm b_, InternationalizableTerm c_){
+			super(a_,b_,c_);
+			paramValue = 0;
+		}
+		private int	paramValue;
+		public void setParameterValue(String str_to_parse)
+				throws DataValueParsingException {
+			try{
+				paramValue = Integer.parseInt(str_to_parse);
+			}
+			catch(NumberFormatException _e){
+				throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
+			}
+			
+		}
+		
+		public String getParameterValue() {
+			return Integer.toString(paramValue);
+		}
+
+	};
 	@Test
 	public void testAddDataParameter() {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
-		DataParameter _param = new DataParameter() {
-			private int	paramValue;
-			public void setParameterValue(String str_to_parse)
-					throws DataValueParsingException {
-				try{
-					paramValue = Integer.parseInt(str_to_parse);
-				}
-				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", null);
-				}
-				
-			}
-			
-			public String getParameterValue() {
-				return Integer.toString(paramValue);
-			}
-			
-			public String getParameterToken() {
-				return "testParam";
-			}
-			
-			public InternationalizableTerm getParameterName() {
-				return new InternationalizableTerm("testing parameter");
-			}
-			
-			public InternationalizableTerm getParameterDescription() {
-				return new InternationalizableTerm("An integer testing parameter");
-			}
-
-		};
+		DataParameter _param = new TestDataParameter("int", 
+				new InternationalizableTerm("integer param"), 
+				new InternationalizableTerm("testing int param"));
 
 		_data.addDataParameter(_param);
 		assertTrue(true);
@@ -85,35 +80,9 @@ public class TestHierarchicalData {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
-		DataParameter _param = new DataParameter() {
-			private int	paramValue;
-			public void setParameterValue(String str_to_parse)
-					throws DataValueParsingException {
-				try{
-					paramValue = Integer.parseInt(str_to_parse);
-				}
-				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
-				}
-				
-			}
-			
-			public String getParameterValue() {
-				return Integer.toString(paramValue);
-			}
-			
-			public String getParameterToken() {
-				return "testParam";
-			}
-			
-			public InternationalizableTerm getParameterName() {
-				return new InternationalizableTerm("testing parameter");
-			}
-			
-			public InternationalizableTerm getParameterDescription() {
-				return new InternationalizableTerm("An integer testing parameter");
-			}
-		};
+		DataParameter _param = new TestDataParameter("testParam", 
+				new InternationalizableTerm("integer param"), 
+				new InternationalizableTerm("testing int param"));
 
 		_data.addDataParameter(_param);
 		
@@ -167,44 +136,13 @@ public class TestHierarchicalData {
 				new InternationalizableTerm("Second child"), 
 				new InternationalizableTerm("2nd child description"));
 		
-		class TestDataParameter implements DataParameter{
-			
-			private int	paramValue;
-			String 		tokenValue;
-			
-			public TestDataParameter(String token_str){
-				tokenValue = token_str;
-			}
-			
-			public void setParameterValue(String str_to_parse)
-					throws DataValueParsingException {
-				try{
-					paramValue = Integer.parseInt(str_to_parse);
-				}
-				catch(NumberFormatException _e){
-					throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
-				}
-				
-			}
-			
-			public String getParameterValue() {
-				return Integer.toString(paramValue);
-			}
-			
-			public String getParameterToken() {
-				return tokenValue;
-			}
-			
-			public InternationalizableTerm getParameterName() {
-				return new InternationalizableTerm("testing parameter");
-			}
-			
-			public InternationalizableTerm getParameterDescription() {
-				return new InternationalizableTerm("An integer testing parameter");
-			}
-		}
-		DataParameter _param = new TestDataParameter("param1") ;
-		DataParameter _param_2 = new TestDataParameter("param2");
+		
+		DataParameter _param = new TestDataParameter("param1", 
+				new InternationalizableTerm("testparam1"),
+				new InternationalizableTerm("descr 1")) ;
+		DataParameter _param_2 = new TestDataParameter("param2",
+				new InternationalizableTerm("testparam2"),
+				new InternationalizableTerm("descr 2"));
 
 		_data.addDataParameter(_param);
 		_data.addDataParameter(_param);

@@ -8,26 +8,46 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public interface DataParameter {
-	String getParameterValue();
+public abstract class DataParameter {
+	private String					paramToken;
+	private InternationalizableTerm	paramName;
+	private InternationalizableTerm	paramDescription;
+
+	public DataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term){
+		paramToken			= token_str;
+		paramName			= name_term;
+		paramDescription	= descr_term;
+	}
 	/**
 	 * @return It should a string of type [a-z]([A-Z][a-z]*)*
 	 */
-	String getParameterToken();
+	public final String getParameterToken() {
+		return paramToken;
+	}
 	/**
 	 * The name to associate with the parameter in containers
 	 * @return
 	 */
-	InternationalizableTerm getParameterName();
+	public final InternationalizableTerm getParameterName() {
+		return paramName;
+	}
 	/**
 	 * 
 	 * @return A string describing the parameter
 	 */
-	InternationalizableTerm getParameterDescription();
+	public final InternationalizableTerm getParameterDescription() {
+		return paramDescription;
+	}
 	/**
+	 * 
+	 * @return A String that could be parsed to retrieve the real parameter value.
+	 */
+	abstract public String getParameterValue();
+
+	/** 
 	 * Parses a String to set the value.
 	 * @throws DataValueParsingException
 	 */
-	void setParameterValue(String str_to_parse) throws DataValueParsingException;
+	abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
 }
