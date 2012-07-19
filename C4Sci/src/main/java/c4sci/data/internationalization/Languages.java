@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class Languages {
 	private Languages(){}
-	private static Map<String, Language>languagesMap = createBasicLanguages();
+	private static Map<String, Language>LANGUAGES_MAP = createBasicLanguages();
 	
 	private static Map<String, Language> createBasicLanguages(){
 		Map<String, Language> _res = new ConcurrentHashMap<String, Language>();
@@ -17,7 +17,7 @@ public final class Languages {
 
 
 	public static void addNewLanguage(Language l_to_add){
-		languagesMap.put(l_to_add.getLanguageSymbol(), l_to_add);
+		LANGUAGES_MAP.put(l_to_add.getLanguageSymbol(), l_to_add);
 	}
 	
 	/**
@@ -26,9 +26,9 @@ public final class Languages {
 	 * @throws NoCorrespondingLanguageException if there is no correspondence between lang_symbol and a known language
 	 */
 	public static Language getLanguage(String lang_symbol) throws NoCorrespondingLanguageException{
-		if (!languagesMap.containsKey(lang_symbol)){
+		if (!LANGUAGES_MAP.containsKey(lang_symbol)){
 			throw new NoCorrespondingLanguageException(lang_symbol, "No corresponding language!");
 		}
-		return languagesMap.get(lang_symbol);
+		return LANGUAGES_MAP.get(lang_symbol);
 	}
 }
