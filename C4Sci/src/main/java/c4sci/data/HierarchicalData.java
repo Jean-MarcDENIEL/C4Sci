@@ -47,7 +47,7 @@ public class HierarchicalData implements VisitableData{
 		parameterMap.put(data_param.getParameterToken(), data_param);
 	}
 
-	public final void setParameterValue(String data_token, String value_to_parse) throws DataValueParsingException, NoSuchParameterException{
+	public final void setParameterValue(String data_token, String value_to_parse) throws DataValueParsingException,  NoSuchParameterException{
 		DataParameter _data_param = parameterMap.get(data_token);
 		if (_data_param == null){
 			throw new NoSuchParameterException(data_token, "in "+getDataName());
