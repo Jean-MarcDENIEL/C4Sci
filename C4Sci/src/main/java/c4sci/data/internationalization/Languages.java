@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class Languages {
 	private Languages(){}
-	private static Map<String, Language>LANGUAGES_BASIC_MAP = createBasicLanguages();
+	private static final  Map<String, Language>LANGUAGES_BASIC_MAP = createBasicLanguages();
 	
 	private static Map<String, Language> createBasicLanguages(){
 		Map<String, Language> _res = new ConcurrentHashMap<String, Language>();
