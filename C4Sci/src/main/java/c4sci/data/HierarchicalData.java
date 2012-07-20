@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
- * This class aims at containing data and represent hierarchical structures at the same time.
+ * This class contains data and represents hierarchical structures at the same time.
  * 
  * Internal data are DataParameters.
  * Child Data are HierarchicalData.
