@@ -51,9 +51,9 @@ public abstract class DataParameter {
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
 	/**
-	 * Prototype GoF pattern : this method should be implemented in all subclasses.
-	 * @return a DataParameter of "this" class.
+	 * <b>Pattern</b> This method is part of the Prototype GoF pattern and must be implemented in all subclasses.
+	 * @return a DataParameter of the same type then "this".
 	 */
-	public abstract DataParameter createDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term);
+	public abstract DataParameter getClone();
 	
 }

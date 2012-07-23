@@ -37,9 +37,7 @@ public class FloatDataParameter extends DataParameter {
 	}
 
 	@Override
-	public DataParameter createDataParameter(String token_str,
-			InternationalizableTerm name_term,
-			InternationalizableTerm descr_term) {
-		return new FloatDataParameter(token_str, name_term, descr_term);
+	public DataParameter getClone() {
+		return new FloatDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
 }

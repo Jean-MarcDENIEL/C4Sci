@@ -41,9 +41,7 @@ public class IntegerDataParameter extends DataParameter {
 	}
 
 	@Override
-	public DataParameter createDataParameter(String token_str,
-			InternationalizableTerm name_term,
-			InternationalizableTerm descr_term) {
-		return new IntegerDataParameter(token_str, name_term, descr_term);
+	public DataParameter getClone() {
+		return new IntegerDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
 }
