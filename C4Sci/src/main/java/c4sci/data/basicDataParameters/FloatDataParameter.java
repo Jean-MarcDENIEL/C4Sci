@@ -39,7 +39,7 @@ public class FloatDataParameter extends DataParameter {
 	}
 
 	@Override
-	public DataParameter getClone() {
+	protected DataParameter getSameDataParameterInstance() {
 		FloatDataParameter _res = new FloatDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		_res.setFloatValue(getFloatValue());
 		return _res;

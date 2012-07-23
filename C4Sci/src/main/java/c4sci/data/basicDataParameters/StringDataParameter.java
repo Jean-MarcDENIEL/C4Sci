@@ -34,7 +34,7 @@ public class StringDataParameter extends DataParameter {
 	}
 	
 	@Override
-	public DataParameter getClone() {
+	protected DataParameter getSameDataParameterInstance() {
 		StringDataParameter _res = new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		_res.setStringValue(getStringValue());
 		return _res;

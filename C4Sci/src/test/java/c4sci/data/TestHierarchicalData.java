@@ -64,7 +64,7 @@ public class TestHierarchicalData {
 		}
 
 		@Override
-		public DataParameter getClone() {
+		protected DataParameter getSameDataParameterInstance() {
 			return new TestDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		}
 

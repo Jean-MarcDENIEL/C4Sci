@@ -52,10 +52,23 @@ public abstract class DataParameter {
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
 	/**
-	 * <b>Pattern</b> This method is part of the Prototype GoF pattern and must be implemented in all subclasses.<br>
-	 * All internal values are set according to "this".
-	 * @return a DataParameter of the same type then "this". 
+	 * <b>Pattern</b> This method is part of the Factory Method GoF pattern.<br>
+	 * Only DataParameter values must be copied from "this".
+	 * @return a DataParameter of the same type then "this", with same DataParameter fields value.
 	 */
-	public abstract DataParameter getClone();
-	
+	protected abstract DataParameter getSameDataParameterInstance();
+	/**
+	 * <b>Pattern</b> This method is part of the Prototype GoF pattern.
+	 * @return
+	 */
+	public final DataParameter getClone(){
+		DataParameter _res = getSameDataParameterInstance();
+		try {
+			_res.setParameterValue(getParameterValue());
+		} catch (DataValueParsingException _e) {
+			// should never happen as getParameterValue() return value must be parsed by setParameterValue() 
+			_e.printStackTrace();
+		}
+		return _res;
+	}
 }

@@ -43,7 +43,7 @@ public class IntegerDataParameter extends DataParameter {
 	}
 
 	@Override
-	public DataParameter getClone() {
+	protected DataParameter getSameDataParameterInstance() {
 		IntegerDataParameter _res = new IntegerDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		_res.setIntegerValue(getIntegerValue());
 		return _res;
