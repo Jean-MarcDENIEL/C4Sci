@@ -55,14 +55,14 @@ public class SpaceVector {
 	
 	/**************** FLOW METHODS ********************************/
 	public final String toString(){
-		String _res ="";
+		StringBuffer _res = new StringBuffer();
 		for (int _i =0; _i<Commons.NB_COOR; _i++){
-			_res = _res + getCoor(_i);
+			_res.append(getCoor(_i));
 			if (_i<Commons.NB_COOR-1){
-				_res = _res + " ";
+				_res.append(" ");
 			}
 		}
-		return _res;
+		return _res.toString();
 	}
 	
 	
