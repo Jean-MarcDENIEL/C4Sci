@@ -50,4 +50,10 @@ public abstract class DataParameter {
 	 */
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
+	/**
+	 * Prototype GoF pattern : this method should be implemented in all subclasses.
+	 * @return a DataParameter of "this" class.
+	 */
+	public abstract DataParameter createDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term);
+	
 }

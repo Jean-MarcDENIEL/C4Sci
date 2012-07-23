@@ -39,4 +39,11 @@ public class IntegerDataParameter extends DataParameter {
 	public void setIntegerValue(final int int_val){
 		paramValue = int_val;
 	}
+
+	@Override
+	public DataParameter createDataParameter(String token_str,
+			InternationalizableTerm name_term,
+			InternationalizableTerm descr_term) {
+		return new IntegerDataParameter(token_str, name_term, descr_term);
+	}
 }

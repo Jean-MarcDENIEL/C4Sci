@@ -44,4 +44,12 @@ public class BooleanDataParameter extends DataParameter {
 		return paramValue;
 	}
 
+
+	@Override
+	public DataParameter createDataParameter(String token_str,
+			InternationalizableTerm name_term,
+			InternationalizableTerm descr_term) {
+		return new BooleanDataParameter(token_str, name_term, descr_term);
+	}
+
 }

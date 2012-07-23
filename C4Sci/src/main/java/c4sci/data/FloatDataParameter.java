@@ -35,4 +35,11 @@ public class FloatDataParameter extends DataParameter {
 	public void setFloatValue(final float fl_val){
 		paramValue = fl_val;
 	}
+
+	@Override
+	public DataParameter createDataParameter(String token_str,
+			InternationalizableTerm name_term,
+			InternationalizableTerm descr_term) {
+		return new FloatDataParameter(token_str, name_term, descr_term);
+	}
 }
