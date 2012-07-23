@@ -1,4 +1,4 @@
-package c4sci.data;
+package c4sci.data.exceptions;
 
 public class DataValueParsingException extends Exception {
 	/**

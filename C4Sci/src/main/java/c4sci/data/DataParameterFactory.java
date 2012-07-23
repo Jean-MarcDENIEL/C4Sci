@@ -3,6 +3,8 @@ package c4sci.data;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.data.exceptions.NoSuchDataParameterExistsException;
+
 /**
  * This class creates DataParameter instances according to HierarchicalData and DataParameter tokens.<br>
  * <b>Pattern</b> This class uses the GoF Prototype pattern.  

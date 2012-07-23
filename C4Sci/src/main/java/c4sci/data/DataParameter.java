@@ -1,5 +1,6 @@
 package c4sci.data;
 
+import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**

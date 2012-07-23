@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.data.exceptions.NoSuchDataParameterExistsException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestDataParameterFactory {
