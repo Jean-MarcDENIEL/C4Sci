@@ -3,6 +3,9 @@ package c4sci.math.geometry.space;
 /**
  * 3D space transform matrix.
  * Transform data are represented in row-major order.
+ * 
+ * </br>
+ * <b>Warning : </b>all transform applied vectors should have their W scaling factor set to 1.0 in order to avoid scaling unwanted effects.
  * @author jeanmarc.deniel
  *
  */
@@ -57,8 +60,10 @@ public final class TransformMatrix {
 	/**
 	 * Creates a transform matrix that rotates around a given vector.<br>
 	 * The rotation is clockwise around the vector. <br>For example : an PI/2 rotation around [Ox) <br>
-	 * - gives [Oz) from [Oy)<br>
-	 * - gives -[Ox) from [Oz)<br>
+	 * <ul>
+	 * <li> [Oy)gives [Oz) <br>
+	 * <li> [Oz)gives -[Ox) <br>
+	 * </ul>
 	 * @param rot_angle_rad the clockwise rotation angle, in radian.
 	 * @param rot_axe the rotary axe.
 	 * @return
@@ -100,7 +105,30 @@ public final class TransformMatrix {
 		_res.setValue(_w,_w, 1.0f);
 		return _res;
 	}
+	/**
+	 * Creates a translation matrix.
+	 * The [W,W] scale is set to the arg W scale value.<br>
+	 * <b>warning </b>the vector scaling value is applied twice : once for translation values and once as an overall scaling value.
+	 * @see c4sci.math.geometry.space.SpaceVector#getW() getW() vectors' scaling factor
+	 * @param trans_vec the translation and scaling value.
+	 * @return
+	 */
+	public static TransformMatrix createTranslationAndScalingMatrix(final SpaceVector trans_vec){
+		TransformMatrix _res = createIdentityMatrix();
+		for (int _i=0; _i<Commons.NB_COOR; _i++){
+			_res.setValue(_i, Commons.CoorName.W.getCoorValue(), trans_vec.getCoor(_i));
+		}
+		return _res;
+	}
+	
 	/*********** OPERATORS ******************/
+	/**
+	 * Transforms a vector by a matrix.<br>
+	 * The 4th matrix column usually represents the translation vector. <br>
+	 * <b>Warning: </b>if the vector W value is not set to 1.0 all translation will be applied this scaling factor.
+	 * @param other_vec
+	 * @return
+	 */
 	public SpaceVector opMul(SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
 		for (int _row = 0; _row<Commons.NB_COOR; _row++){
