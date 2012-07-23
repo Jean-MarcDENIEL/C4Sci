@@ -11,6 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestDataParameterFactory {
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testAddDataParameterPrototype() {
 		DataParameterFactory _factory = new DataParameterFactory();
