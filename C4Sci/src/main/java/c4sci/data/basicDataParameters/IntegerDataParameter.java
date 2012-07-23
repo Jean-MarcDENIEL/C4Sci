@@ -1,5 +1,6 @@
-package c4sci.data;
+package c4sci.data.basicDataParameters;
 
+import c4sci.data.DataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
