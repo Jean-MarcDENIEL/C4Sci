@@ -36,7 +36,7 @@ public final class TransformMatrix {
 	
 	/*********** FACTORY METHODS ************/
 	/**
-	 * Creates the 1.0 diag matix.
+	 * Creates the 1.0 diag matrix.
 	 */
 	public static TransformMatrix createIdentityMatrix(){
 		TransformMatrix _res = new TransformMatrix();
