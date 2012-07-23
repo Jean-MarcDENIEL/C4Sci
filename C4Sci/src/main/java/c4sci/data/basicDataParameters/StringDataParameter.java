@@ -35,9 +35,7 @@ public class StringDataParameter extends DataParameter {
 	
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
-		StringDataParameter _res = new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
-		_res.setStringValue(getStringValue());
-		return _res;
+		return new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
 
 }

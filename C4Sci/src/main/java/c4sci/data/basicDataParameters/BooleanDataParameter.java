@@ -49,9 +49,7 @@ public class BooleanDataParameter extends DataParameter {
 
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
-		BooleanDataParameter _res = new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
-		_res.setBooleanValue(getBooleanValue());
-		return _res;
+		return new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
 
 }
