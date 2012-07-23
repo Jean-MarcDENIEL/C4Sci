@@ -1,6 +1,8 @@
 package c4sci.math.geometry.space;
 
+
 import c4sci.math.algebra.Floatings;
+import c4sci.math.geometry.space.Commons;
 
 /**
  * 4D space vector (X,Y,Z,W) adapted to matrix transforms.
@@ -51,7 +53,19 @@ public class SpaceVector {
 		System.arraycopy(other_vec.coorTab, 0, coorTab, 0, Commons.NB_COOR);
 	}
 	
-
+	/**************** FLOW METHODS ********************************/
+	public final String toString(){
+		String _res ="";
+		for (int _i =0; _i<Commons.NB_COOR; _i++){
+			_res = _res + getCoor(_i);
+			if (_i<Commons.NB_COOR-1){
+				_res = _res + " ";
+			}
+		}
+		return _res;
+	}
+	
+	
 	/**************** GET/SET METHODS *****************************/
 	/**
 	 * 

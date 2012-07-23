@@ -32,6 +32,9 @@ public final class TransformMatrix {
 	}
 	
 	/*********** FACTORY METHODS ************/
+	/**
+	 * Creates the 1.0 diag matix.
+	 */
 	public static TransformMatrix createIdentityMatrix(){
 		TransformMatrix _res = new TransformMatrix();
 		for (int _i=0; _i<Commons.NB_COOR; _i++){
@@ -51,14 +54,59 @@ public final class TransformMatrix {
 		_res.setValue(_w, _w, w_scale);
 		return _res;
 	}
-	
+	/**
+	 * Creates a transform matrix that rotates around a given vector.<br>
+	 * The rotation is clockwise around the vector. <br>For example : an PI/2 rotation around [Ox) <br>
+	 * - gives [Oz) from [Oy)<br>
+	 * - gives -[Ox) from [Oz)<br>
+	 * @param rot_angle_rad the clockwise rotation angle, in radian.
+	 * @param rot_axe the rotary axe.
+	 * @return
+	 */
+	public static TransformMatrix createRotationMatrix(float rot_angle_rad, final SpaceVector rot_axe){
+		TransformMatrix _res = new TransformMatrix();
+		int _x = Commons.CoorName.X.getCoorValue();
+		int _y = Commons.CoorName.Y.getCoorValue();
+		int _z = Commons.CoorName.Z.getCoorValue();
+		int _w = Commons.CoorName.W.getCoorValue();
+		
+		float _cos_t = (float)Math.cos(rot_angle_rad);
+		float _sin_t = (float)Math.sin(rot_angle_rad);
+		float _ux2 = (float) Math.pow(rot_axe.getX(), 2.0);
+		float _uy2 = (float)Math.pow(rot_axe.getY(), 2.0);
+		float _uz2 = (float)Math.pow(rot_axe.getZ(), 2.0);
+		float _ux_uy = rot_axe.getX() * rot_axe.getY();
+		float _ux_uz = rot_axe.getX() * rot_axe.getZ();
+		float _uy_uz = rot_axe.getY() * rot_axe.getZ();
+		
+		_res.setValue(_x,_x, _ux2 + (1.0f-_ux2)*_cos_t);
+		_res.setValue(_x,_y, _ux_uy*(1.0f-_cos_t) - rot_axe.getZ()*_sin_t);
+		_res.setValue(_x,_z, _ux_uz*(1.0f-_cos_t) + rot_axe.getY()*_sin_t);
+		_res.setValue(_x,_w, 0.0f);
+
+		_res.setValue(_y,_x, _ux_uy*(1.0f-_cos_t) + rot_axe.getZ()*_sin_t);
+		_res.setValue(_y,_y, _uy2 + (1.0f-_uy2)*_cos_t);
+		_res.setValue(_y,_z, _uy_uz*(1.0f-_cos_t) - rot_axe.getX()*_sin_t);
+		_res.setValue(_y,_w, 0.0f);
+
+		_res.setValue(_z,_x, _ux_uz*(1.0f-_cos_t) - rot_axe.getY()*_sin_t);
+		_res.setValue(_z,_y, _uy_uz*(1.0f-_cos_t) + rot_axe.getX()*_sin_t);
+		_res.setValue(_z,_z, _uz2 + (1.0f-_uz2)*_cos_t);
+		_res.setValue(_z,_w, 0.0f);
+
+		_res.setValue(_w,_x, 0.0f);
+		_res.setValue(_w,_y, 0.0f);
+		_res.setValue(_w,_z, 0.0f);
+		_res.setValue(_w,_w, 1.0f);
+		return _res;
+	}
 	/*********** OPERATORS ******************/
 	public SpaceVector opMul(SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();
 		for (int _row = 0; _row<Commons.NB_COOR; _row++){
 			float _tmp = 0.0f;
 			for (int _col=0; _col<Commons.NB_COOR; _col++){
-				_tmp += other_vec.getCoor(_row)*getValue(_row, _col);
+				_tmp += other_vec.getCoor(_col)*getValue(_row, _col);
 			}
 			_res.setCoor(_row, _tmp);
 		}
