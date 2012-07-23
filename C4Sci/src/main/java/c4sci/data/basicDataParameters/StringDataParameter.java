@@ -26,9 +26,18 @@ public class StringDataParameter extends DataParameter {
 		stringData = str_to_parse;
 	}
 
+	public String getStringValue(){
+		return stringData;
+	}
+	public void setStringValue(String str_val){
+		stringData = str_val;
+	}
+	
 	@Override
 	public DataParameter getClone() {
-		return new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+		StringDataParameter _res = new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+		_res.setStringValue(getStringValue());
+		return _res;
 	}
 
 }

@@ -49,7 +49,9 @@ public class BooleanDataParameter extends DataParameter {
 
 	@Override
 	public DataParameter getClone() {
-		return new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+		BooleanDataParameter _res = new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+		_res.setBooleanValue(getBooleanValue());
+		return _res;
 	}
 
 }
