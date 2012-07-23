@@ -61,10 +61,8 @@ public class TestHierarchicalData {
 		}
 
 		@Override
-		public DataParameter createDataParameter(String token_str,
-				InternationalizableTerm name_term,
-				InternationalizableTerm descr_term) {
-			return new TestDataParameter(token_str, name_term, descr_term);
+		public DataParameter getClone() {
+			return new TestDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		}
 
 	};
