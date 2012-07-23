@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.data.basicDataParameters.IntegerDataParameter;
-import c4sci.data.exceptions.NoSuchDataParameterExistsException;
+import c4sci.data.exceptions.NoSuchParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestDataParameterFactory {
@@ -32,27 +32,27 @@ public class TestDataParameterFactory {
 			assertTrue(_param_1.getParameterName().getDefaultValue().compareTo("First Parameter")==0);
 			assertTrue(_param_1.getParameterDescription().getDefaultValue().compareTo("First DataFirst Parameter")==0);
 		}
-		catch(NoSuchDataParameterExistsException _e){
+		catch(NoSuchParameterException _e){
 			fail("Should not fail here");
 		}
 
 		try {
 			DataParameter _param_1 = _factory.createDataParameter("kj", "firstParam");
 			fail("should have rised an exception");
-		} catch (NoSuchDataParameterExistsException _e) {
+		} catch (NoSuchParameterException _e) {
 			assertTrue(true);
 		}
 
 		try {
 			DataParameter _param_1 = _factory.createDataParameter("firstData", "lk");
 			fail("should have rised an exception");
-		} catch (NoSuchDataParameterExistsException _e) {
+		} catch (NoSuchParameterException _e) {
 			assertTrue(true);
 		}
 		try {
 			DataParameter _param_1 = _factory.createDataParameter("2ndData", "firstParam");
 			fail("should have rised an exception");
-		} catch (NoSuchDataParameterExistsException e) {
+		} catch (NoSuchParameterException e) {
 			assertTrue(true);
 		}
 		

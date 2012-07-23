@@ -3,7 +3,7 @@ package c4sci.data;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import c4sci.data.exceptions.NoSuchDataParameterExistsException;
+import c4sci.data.exceptions.NoSuchParameterException;
 
 /**
  * This class creates DataParameter instances according to HierarchicalData and DataParameter tokens.<br>
@@ -40,17 +40,17 @@ public class DataParameterFactory {
 		_param_map.put(prototype_parameter.getParameterToken(), prototype_parameter);
 
 	}
-	public DataParameter createDataParameter(String data_token, String parameter_token) throws NoSuchDataParameterExistsException{
+	public DataParameter createDataParameter(String data_token, String parameter_token) throws NoSuchParameterException{
 		Map<String, DataParameter> _param_map;
 
 		_param_map = dataFactoryMap.get(data_token);
 
 		if (_param_map == null){
-			throw new NoSuchDataParameterExistsException(data_token, parameter_token, null);
+			throw new NoSuchParameterException(data_token, data_token +" in : "+ parameter_token);
 		}
 		DataParameter _prototype = _param_map.get(parameter_token);
 		if (_prototype == null){
-			throw new NoSuchDataParameterExistsException(data_token, parameter_token, null);
+			throw new NoSuchParameterException(data_token, data_token + " in : " + parameter_token);
 		}
 		return _prototype.getClone();
 	}
