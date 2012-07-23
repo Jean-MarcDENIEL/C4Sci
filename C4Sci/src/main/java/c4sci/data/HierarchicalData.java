@@ -7,11 +7,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
- * This class contains data and represents hierarchical structures at the same time.
- * 
- * Internal data are DataParameters.
- * Child Data are HierarchicalData.
- * 
+ * This class contains data and represents hierarchical structures at the same time.<br>
+ * <ul>
+ * <li>Internal data are DataParameters.
+ * <li>Child Data are HierarchicalData.
+ * </ul>
  * @author jeanmarc.deniel
  *
  */
@@ -33,12 +33,24 @@ public class HierarchicalData implements VisitableData{
 		subDataMap		= new ConcurrentHashMap<String, HierarchicalData>();
 	}
 	
+	/**
+	 * 
+	 * @return one word or continuous expression representing the data.<br>
+	 * e.g soundQuality or vector_size
+	 */
 	public final String getDataToken(){
 		return dataToken;
 	}
+	/**
+	 * @return The complete name of the data.	
+	 */
 	public final InternationalizableTerm getDataName(){
 		return dataName;
 	}
+	/**
+	 * 
+	 * @return The complete description of the data
+	 */
 	public final InternationalizableTerm getDataDescription(){
 		return dataDescription;
 	}
@@ -67,9 +79,11 @@ public class HierarchicalData implements VisitableData{
 	}
 	/**
 	 * In this order :
-	 * - performs visitor treatment on the current data node
-	 * - performs visitor treatment on the current data node parameters
-	 * - accepts visitor on sub data in random order
+	 * <ol>
+	 * <li> performs visitor treatment on the current data node
+	 * <li> performs visitor treatment on the current data node parameters
+	 * <li> accepts visitor on sub data in random order
+	 * </ol>
 	 * @param data_visitor
 	 */
 	public final void acceptVisitor(DataVisitor data_visitor){
