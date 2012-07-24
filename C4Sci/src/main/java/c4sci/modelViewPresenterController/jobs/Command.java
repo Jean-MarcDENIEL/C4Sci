@@ -9,18 +9,18 @@ package c4sci.modelViewPresenterController.jobs;
  *
  */
 public abstract class Command {
-	private Command		previousCommand;
-	private Command		nextCommand;
+	private Command		ancestorCommand;
+	private Command		descendantCommand;
 	private boolean		alreadyProcessed;
 	Command(){
-		previousCommand 	= null;
-		nextCommand			= null;
+		ancestorCommand 	= null;
+		descendantCommand			= null;
 		alreadyProcessed	= false;
 	}
 	/**
 	 * Method to call to do the process.
 	 */
-	public synchronized void doProcess(){
+	public final synchronized void doProcess(){
 		if (!alreadyProcessed){
 			processJob();
 			alreadyProcessed = true;
@@ -29,7 +29,7 @@ public abstract class Command {
 	/**
 	 * Method to call to undo the process.
 	 */
-	public synchronized void undoProcess(){
+	public final synchronized void undoProcess(){
 		if (isUndoable() && alreadyProcessed){
 			unprocessJob();
 			alreadyProcessed = false;
@@ -37,15 +37,36 @@ public abstract class Command {
 	}
 	/**
 	 * 
+	 * @return null if there is no previous Command.
+	 */
+	public final Command getAncestor(){
+		return ancestorCommand;
+	}
+	/**
+	 * 
+	 * @return null if there is no Command following this.
+	 */
+	public final Command getDescendant(){
+		return descendantCommand;
+	}
+	public final void setAncestor(final Command anc_command){
+		ancestorCommand = anc_command;
+	}
+	public final void setDescendant(final Command desc_command){
+		descendantCommand = desc_command;
+	}
+	
+	/**
+	 * 
 	 * @return true is the command can be undone.
 	 */
 	protected abstract boolean	isUndoable();
 	/**
-	 * This method describes the job to do. This method should be called anywhere else than in doProcess().
+	 * This method describes the job to do. This method should be called nowhere else than in doProcess().
 	 */
-	protected abstract void 		processJob();
+	protected abstract void 	processJob();
 	/**
-	 * This method describes how to undo the job. This method should not be called anywhere else than in undoProcess().
+	 * This method describes how to undo the job. This method should be called nowhere else than in undoProcess().
 	 */
 	abstract void 		unprocessJob();
 	
