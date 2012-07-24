@@ -52,13 +52,15 @@ public abstract class DataParameter {
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
 
 	/**
-	 * <b>Pattern</b> This method is part of the Factory Method GoF pattern.<br>
+	 * <b>Pattern</b> This method is part of the Template Method GoF pattern.<br>
 	 * Only DataParameter values must be copied from "this".
 	 * @return a DataParameter of the same type then "this", with same DataParameter fields value.
 	 */
 	protected abstract DataParameter getSameDataParameterInstance();
 	/**
-	 * <b>Pattern</b> This method is part of the Prototype GoF pattern.
+	 * <b>Pattern</b> This method instantiates the Prototype GoF pattern.<br>
+	 * <b>Pattern</b> This method uses the Template Method pattern<br>
+	 * @see DataParameter#getSameDataParameterInstance()
 	 * @return
 	 */
 	public final DataParameter getClone(){
