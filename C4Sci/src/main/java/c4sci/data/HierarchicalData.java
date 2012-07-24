@@ -57,9 +57,17 @@ public class HierarchicalData implements VisitableData{
 		return dataDescription;
 	}
 	
+	/**
+	 * Decorates the HierarchicalData with a new DataParameter<br><br>
+	 * <b>Pattern : </b> GoF Decorator pattern
+	 */
 	protected final void addDataParameter(DataParameter data_param){
 		parameterMap.put(data_param.getParameterToken(), data_param);
 	}
+	/**
+	 * Access a DataParameter given its token<br><br>
+	 * <b>Pattern : </b> GoF Decorator pattern
+	 */
 
 	public final void setParameterValue(String data_token, String value_to_parse) throws DataValueParsingException,  NoSuchParameterException{
 		DataParameter _data_param = parameterMap.get(data_token);
@@ -68,6 +76,10 @@ public class HierarchicalData implements VisitableData{
 		}
 		_data_param.setParameterValue(value_to_parse);
 	}
+	/**
+	 * Access a DataParameter given its token<br><br>
+	 * <b>Pattern : </b> GoF Decorator pattern
+	 */
 	public final String getParameterValue(String data_token) throws NoSuchParameterException{
 		DataParameter _data_param = parameterMap.get(data_token);
 		if (_data_param == null){
@@ -80,6 +92,8 @@ public class HierarchicalData implements VisitableData{
 		subDataMap.put(child_data.getDataToken(), child_data);
 	}
 	/**
+	 * <b>Pattern : </b> GoF Visitor pattern<br><br>
+	 * 
 	 * In this order :
 	 * <ol>
 	 * <li> performs visitor treatment on the current data node
