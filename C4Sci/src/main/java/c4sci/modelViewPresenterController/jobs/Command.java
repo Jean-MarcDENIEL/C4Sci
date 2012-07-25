@@ -62,7 +62,7 @@ public abstract class Command {
 	 */
 	protected abstract boolean	isUndoable();
 	/**
-	 * This method describes the job to do. This method should be called nowhere else than in doProcess().
+	 * This method describes how to do the job. This method should be called nowhere else than in doProcess().
 	 */
 	protected abstract void 	processJob();
 	/**
