@@ -48,9 +48,20 @@ public class WaitingJobQueue<C extends Command> {
 		commandLinkMap	= new ConcurrentHashMap<C, JobChainLink>();
 		jobScheduler	= new SequentialJobScheduler<C>();
 	}
-	public final Iterator<C> getJobIterator(){
+	/**
+	 * 
+	 * @return an iterator that iterates among jobs that don't have any unprocessed ancestor.
+	 */
+	public final Iterator<C> getNoUnprocessedAncestorJobIterator(){
 		return new Iterator<C>(){
-			private JobChainLink currentCommand = firstCommand;
+			private JobChainLink currentCommand = setOnNextJobWithoutUnprocessedAncestor(firstCommand);
+			private JobChainLink setOnNextJobWithoutUnprocessedAncestor(JobChainLink current_comd){
+				while ((current_comd != null)&&
+						current_comd.jobElement.hasUnprocessedAncestor()){
+					current_comd=current_comd.getFollowing();
+				}
+				return current_comd;
+			}
 			public boolean hasNext() {
 				return (currentCommand != null);
 			}
@@ -58,7 +69,7 @@ public class WaitingJobQueue<C extends Command> {
 			public C next() {
 				//CHECKSTYLE:ON
 				C _res= currentCommand.jobElement;
-				currentCommand = currentCommand.getFollowing();
+				currentCommand=setOnNextJobWithoutUnprocessedAncestor(currentCommand.getFollowing());
 				return _res;
 			}
 			//CHECKSTYLE:OFF
@@ -102,7 +113,7 @@ public class WaitingJobQueue<C extends Command> {
 	public C extractAJobToProcess() throws NoJobToProcessException{
 		C _job_to_process;
 		try {
-			_job_to_process 		= jobScheduler.chooseJobToProcess(getJobIterator());
+			_job_to_process 		= jobScheduler.chooseJobToProcess(getNoUnprocessedAncestorJobIterator());
 			JobChainLink _job_link 	= commandLinkMap.get(_job_to_process);
 			commandLinkMap.remove(_job_to_process);		
 			JobChainLink _previous_link 	= _job_link.getPrevious();

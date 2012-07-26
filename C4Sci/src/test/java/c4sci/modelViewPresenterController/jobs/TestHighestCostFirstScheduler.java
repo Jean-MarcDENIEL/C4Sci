@@ -30,7 +30,7 @@ public class TestHighestCostFirstScheduler {
 	@Test
 	public void testChooseJobToProcess() {
 		WaitingJobQueue<TestCommand> _queue = new WaitingJobQueue<TestHighestCostFirstScheduler.TestCommand>();
-		_queue.setJobScheduler(new HighestCostFirstJobScheduler<TestHighestCostFirstScheduler.TestCommand>());
+		_queue.setJobScheduler(new HighestCostPriorityFirstJobScheduler<TestHighestCostFirstScheduler.TestCommand>());
 		
 		for (int _i=0; _i<10; _i++){
 			TestCommand _job = new TestCommand(100-_i);
@@ -47,7 +47,6 @@ public class TestHighestCostFirstScheduler {
 				fail("there should be enough jobs");
 			}
 		}
-		
 	}
 
 }

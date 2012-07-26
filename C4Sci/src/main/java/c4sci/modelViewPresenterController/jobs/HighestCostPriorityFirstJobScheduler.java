@@ -3,11 +3,12 @@ package c4sci.modelViewPresenterController.jobs;
 import java.util.Iterator;
 
 /**
- * This Scheduler processes job in highest cost first order. 
+ * This Scheduler choose jobs in descending priority * cost order
+ * 
  * @author jeanmarc.deniel
  *
  */
-public class HighestCostFirstJobScheduler<C extends Command> implements JobScheduler<C> {
+public class HighestCostPriorityFirstJobScheduler<C extends Command> implements JobScheduler<C> {
 
 	public C chooseJobToProcess(Iterator<C> job_iterator)
 			throws NoJobToProcessException {

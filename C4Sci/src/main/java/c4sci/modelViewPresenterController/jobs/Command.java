@@ -45,34 +45,34 @@ public abstract class Command {
 	 * 
 	 * @return null if there is no previous Command.
 	 */
-	public final Command getPreviousCommand(){
+	public final synchronized Command getPreviousCommand(){
 		return ancestorCommand;
 	}
 	/**
 	 * 
 	 * @return null if there is no Command following this.
 	 */
-	public final Command getFollowingCommand(){
+	public final synchronized Command getFollowingCommand(){
 		return descendantCommand;
 	}
-	public final void setPreviousCommand(final Command anc_command){
+	public final synchronized void setPreviousCommand(final Command anc_command){
 		ancestorCommand = anc_command;
 	}
-	public final void setFollowingCommand(final Command desc_command){
+	public final synchronized void setFollowingCommand(final Command desc_command){
 		descendantCommand = desc_command;
 	}
 	/**
 	 * 	
 	 * @return A subjective positive or 0 value
 	 */
-	public final int getPriority(){
+	public final synchronized int getPriority(){
 		return commandPriority;
 	}
 	/**
 	 * 
 	 * @param priority_value A subjective positive or 0 value. Negative values will be set to 0.
 	 */
-	public final void setPriority(int priority_value){
+	public final synchronized void setPriority(int priority_value){
 		if (priority_value>0){
 			commandPriority = priority_value;
 		}
@@ -84,14 +84,14 @@ public abstract class Command {
 	 * 	
 	 * @return A subjective positive or 0 value
 	 */
-	public final int getCost(){
+	public final synchronized int getCost(){
 		return commandCost;
 	}
 	/**
 	 * 
 	 * @param cost_value A subjective positive or 0 value. Negative values will be set to 0.
 	 */
-	public final void setCost(int cost_value){
+	public final synchronized void setCost(int cost_value){
 		if (cost_value >0){
 			commandCost = cost_value;
 		}
@@ -99,8 +99,17 @@ public abstract class Command {
 			commandCost = 0;
 		}
 	}
-	
-	
+	public final synchronized boolean hasBeenProcessed(){
+		return alreadyProcessed;
+	}
+	public final boolean hasUnprocessedAncestor(){
+		for (Command _ancestor = getPreviousCommand(); _ancestor != null; _ancestor = _ancestor.getPreviousCommand()){
+			if (!_ancestor.hasBeenProcessed()){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * 

@@ -60,7 +60,7 @@ public class TestWaitingJobQueue {
 	public void testGetJobIterator(){
 		WaitingJobQueue<TestCommand> _queue = new WaitingJobQueue<TestCommand>();
 		_queue.appendJobAtLastPosition(new TestCommand(10));
-		Iterator<TestCommand> _it = _queue.getJobIterator();
+		Iterator<TestCommand> _it = _queue.getNoUnprocessedAncestorJobIterator();
 		if (_it.hasNext()){
 			TestCommand _job = _it.next();
 			_job.setCost(20);
@@ -81,7 +81,7 @@ public class TestWaitingJobQueue {
 	@Test
 	public void testAppendExtract(){
 		WaitingJobQueue<TestCommand> _queue = new WaitingJobQueue<TestWaitingJobQueue.TestCommand>();
-		_queue.setJobScheduler(new HighestCostFirstJobScheduler<TestWaitingJobQueue.TestCommand>());
+		_queue.setJobScheduler(new HighestCostPriorityFirstJobScheduler<TestWaitingJobQueue.TestCommand>());
 		
 		TestCommand _job_1 = new TestCommand(1);
 		_job_1.setPriority(1);
@@ -123,7 +123,6 @@ public class TestWaitingJobQueue {
 		} catch (NoJobToProcessException e) {
 			fail("enough jobs here");
 		}
-		
 		
 
 	}
