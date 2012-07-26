@@ -12,13 +12,13 @@ public class HighestCostPriorityFirstJobScheduler<C extends Command> implements 
 
 	public C chooseJobToProcess(Iterator<C> job_iterator)
 			throws NoJobToProcessException {
-		int _highest_cost = -1;
+		int _highest_cost_priority = -1;
 		C _res = null;
 		while(job_iterator.hasNext()){
 			C _job = job_iterator.next();
-			if (_job.getCost()>_highest_cost){
+			if (_job.getCost()*_job.getPriority()>_highest_cost_priority){
 				_res = _job;
-				_highest_cost = _job.getCost();
+				_highest_cost_priority = _job.getCost()*_job.getPriority();
 			}
 		}
 		

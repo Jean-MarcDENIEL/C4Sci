@@ -35,12 +35,13 @@ public class TestHighestCostFirstScheduler {
 		for (int _i=0; _i<10; _i++){
 			TestCommand _job = new TestCommand(100-_i);
 			_job.setCost(100-_i);
+			_job.setPriority(200-_i);
 			_queue.appendJobAtLastPosition(_job);
 		}
 		for (int _i=0; _i<10; _i++){
 			try {
 				TestCommand _job = _queue.extractAJobToProcess();
-				_job.setTestValue(100-_i);
+				_job.setTestValue((100-_i));
 				assertTrue(_job.getCost() == 100-_i);
 				_job.processJob();
 			} catch (NoJobToProcessException e) {
