@@ -16,7 +16,6 @@ public class WaitingJobQueue<C extends Command> {
 		private JobChainLink	previousLink;
 		private JobChainLink	followingLink;
 		private C				jobElement;
-		
 		void setPrevious(JobChainLink p_l){
 			previousLink = p_l;
 		}
@@ -29,7 +28,6 @@ public class WaitingJobQueue<C extends Command> {
 		JobChainLink getFollowing(){
 			return followingLink;
 		}
-		
 		JobChainLink(C job_elt, JobChainLink prev_job, JobChainLink foll_job){
 			jobElement 		= job_elt;
 			previousLink	= prev_job;
@@ -40,16 +38,16 @@ public class WaitingJobQueue<C extends Command> {
 	private JobChainLink firstCommand;
 	private JobChainLink lastCommand;
 	private Map<C, JobChainLink> commandLinkMap;
-	
 	private JobScheduler<C>	jobScheduler;
-	
+	/**
+	 * Creates a job queue associated with a SequentialJobScheduler.
+	 */
 	public WaitingJobQueue(){
 		firstCommand	= null;
 		lastCommand		= null;
 		commandLinkMap	= new ConcurrentHashMap<C, JobChainLink>();
 		jobScheduler	= new SequentialJobScheduler<C>();
 	}
-	
 	public final Iterator<C> getJobIterator(){
 		return new Iterator<C>(){
 			private JobChainLink currentCommand = firstCommand;
@@ -60,7 +58,7 @@ public class WaitingJobQueue<C extends Command> {
 			public C next() {
 				//CHECKSTYLE:ON
 				C _res= currentCommand.jobElement;
-				currentCommand = currentCommand.followingLink;
+				currentCommand = currentCommand.getFollowing();
 				return _res;
 			}
 			//CHECKSTYLE:OFF
@@ -70,7 +68,9 @@ public class WaitingJobQueue<C extends Command> {
 			}
 		};
 	}
-
+	public final void setJobScheduler(JobScheduler<C> job_sch){
+		jobScheduler = job_sch;
+	}
 	/**
 	 * Appends a new job at last position to the waiting queue.
 	 * @param new_job
@@ -85,6 +85,7 @@ public class WaitingJobQueue<C extends Command> {
 			lastCommand = new JobChainLink(new_job, lastCommand, null);
 			lastCommand.getPrevious().setFollowing(lastCommand);
 		}
+		commandLinkMap.put(new_job, lastCommand);
 	}
 	/**
 	 * 	
@@ -103,10 +104,9 @@ public class WaitingJobQueue<C extends Command> {
 		try {
 			_job_to_process 		= jobScheduler.chooseJobToProcess(getJobIterator());
 			JobChainLink _job_link 	= commandLinkMap.get(_job_to_process);
-			
+			commandLinkMap.remove(_job_to_process);		
 			JobChainLink _previous_link 	= _job_link.getPrevious();
 			JobChainLink _following_link	= _job_link.getFollowing();
-			
 			if (_previous_link != null){
 				_previous_link.setFollowing(_following_link);
 			}
@@ -119,7 +119,8 @@ public class WaitingJobQueue<C extends Command> {
 			if (((Object)_job_link).equals(lastCommand)){
 				lastCommand 	= _job_link.getPrevious();
 			}
-		} catch (NoJobToProcessException _e) {
+		} 
+		catch (NoJobToProcessException _e) {
 			throw new NoJobToProcessException("no job to process", _e);	
 		}
 		return _job_to_process;

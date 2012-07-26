@@ -7,7 +7,7 @@ import java.util.Iterator;
  * @author jeanmarc.deniel
  *
  */
-public class CostFirstJobScheduler<C extends Command> implements JobScheduler<C> {
+public class HighestCostFirstJobScheduler<C extends Command> implements JobScheduler<C> {
 
 	public C chooseJobToProcess(Iterator<C> job_iterator)
 			throws NoJobToProcessException {
