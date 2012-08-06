@@ -71,7 +71,7 @@ public class RequestResultInterface <C extends Command>{
 	public boolean isOpenedForRequests(){
 		internalLock.lock();
 		try{
-			return isOpenedForRequestsFlag == true;
+			return isOpenedForRequestsFlag;
 		}
 		finally{
 			internalLock.unlock();
@@ -83,7 +83,7 @@ public class RequestResultInterface <C extends Command>{
 	public void waitUntilBalanced(){
 		internalLock.lock();
 		try{
-			if (!isBalanced()){
+			while (!isBalanced()){
 				isBalancedCondition.await();
 			}
 		} 
@@ -137,14 +137,23 @@ public class RequestResultInterface <C extends Command>{
 			}
 			C _res = resultQueue.extractAJobToProcess();
 			-- requestResultBalance;
-			return _res;
-		} catch (NoJobToProcessException _e) {
-			return null;
-		} catch (InterruptedException _e) {
-			return null;
-		} finally {
-			if (isBalanced())
+			if (isBalanced()){
 				isBalancedCondition.signalAll();
+			}
+			return _res;
+		}
+		catch (NoJobToProcessException _e) {
+			isBalancedCondition.signalAll();
+			return null;
+		}
+		catch (InterruptedException _e) {
+			if (isBalanced()){
+				isBalancedCondition.signalAll();
+			}
+			return null;
+		}
+		finally {
+			
 			internalLock.unlock();
 		}
 	}
@@ -159,8 +168,7 @@ public class RequestResultInterface <C extends Command>{
 					return null;
 				}
 			}
-			C _res = requestQueue.extractAJobToProcess();
-			return _res;
+			return requestQueue.extractAJobToProcess();
 		} catch (InterruptedException _e) {
 			return null;
 		} catch (NoJobToProcessException _e) {

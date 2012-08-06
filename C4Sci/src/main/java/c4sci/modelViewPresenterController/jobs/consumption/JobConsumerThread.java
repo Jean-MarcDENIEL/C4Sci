@@ -27,7 +27,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	private RequestResultInterface<C_result>  	outputQueue;
 	private AtomicBoolean 						shouldDie;
 	private long 								waitingTimeMillisec;
-	private static long							MAX_WAITING_TIME_MILLISEC = 256;
+	private static final long					MAX_WAITING_TIME_MILLISEC = 256;
 
 	/**
 	 * Treats the job.
