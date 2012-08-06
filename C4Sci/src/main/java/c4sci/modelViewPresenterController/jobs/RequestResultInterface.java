@@ -29,7 +29,7 @@ public class RequestResultInterface <C extends Command>{
 	private Condition		requestQueueNotEmptyCondition;
 	private Condition		resultQueueNotEmptyCondition;
 	private boolean			isOpenedForRequestsFlag;
-	
+
 	public RequestResultInterface(){
 		requestQueue 		= new WaitingJobQueue<C>();
 		resultQueue  		= new WaitingJobQueue<C>();
@@ -58,6 +58,15 @@ public class RequestResultInterface <C extends Command>{
 		finally{
 			internalLock.unlock();
 		}
+	}
+	public void openForRequests(){
+		internalLock.lock();
+		try{
+			isOpenedForRequestsFlag = true;
+		}
+		finally{
+			internalLock.unlock();
+		}	
 	}
 	public boolean isOpenedForRequests(){
 		internalLock.lock();
