@@ -1,6 +1,9 @@
-package c4sci.modelViewPresenterController.jobs;
+package c4sci.modelViewPresenterController.jobs.schedulers;
 
 import java.util.Iterator;
+
+import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.jobs.NoJobToProcessException;
 
 public class SequentialJobScheduler<C extends Command> implements JobScheduler<C> {
 

@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.modelViewPresenterController.jobs.schedulers.JobScheduler;
+import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
+
 /**
  * This class collects and distributes jobs waiting to be processed.
  * Jobs' previous and following jobs are not modified by this class methods.
@@ -71,8 +74,7 @@ public class WaitingJobQueue<C extends Command> {
 			//CHECKSTYLE:OFF
 			public void remove() {
 				//CHECKSTYLE:ON
-				throw new UnsupportedOperationException();
-			}
+				throw new UnsupportedOperationException();}
 		};
 	}
 	public final void setJobScheduler(JobScheduler<C> job_sch){
