@@ -9,8 +9,9 @@ import c4sci.modelViewPresenterController.jobs.schedulers.JobScheduler;
 import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
 /**
- * This class collects and distributes jobs waiting to be processed.
- * Jobs' previous and following jobs are not modified by this class methods.
+ * This class collects and distributes jobs waiting to be processed.<br>
+ * Jobs' previous and following jobs are not modified by this class methods.<br>
+ * <b>Warning<b> This class is not thread safe. Thread safety must be ensured out of this class.
  * @author jeanmarc.deniel
  *
  */
