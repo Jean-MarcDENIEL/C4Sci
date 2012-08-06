@@ -3,7 +3,7 @@ package c4sci.modelViewPresenterController.jobs.schedulers;
 import java.util.Iterator;
 
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.jobs.NoJobToProcessException;
+import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 /**
  * This class aims at choosing a job to process among waiting jobs in a queue represented by an iterator.
  * @author jeanmarc.deniel

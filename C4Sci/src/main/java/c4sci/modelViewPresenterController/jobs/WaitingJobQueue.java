@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 import c4sci.modelViewPresenterController.jobs.schedulers.JobScheduler;
 import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 

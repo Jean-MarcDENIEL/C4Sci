@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.jobs;
+package c4sci.modelViewPresenterController.jobs.exceptions;
 
 public class NoJobToProcessException extends Exception {
 

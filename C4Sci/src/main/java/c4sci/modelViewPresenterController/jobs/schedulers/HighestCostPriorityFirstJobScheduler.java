@@ -3,7 +3,7 @@ package c4sci.modelViewPresenterController.jobs.schedulers;
 import java.util.Iterator;
 
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.jobs.NoJobToProcessException;
+import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 
 /**
  * This Scheduler choose jobs in descending priority * cost order
