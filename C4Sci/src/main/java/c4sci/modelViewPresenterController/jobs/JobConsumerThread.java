@@ -1,5 +1,6 @@
 package c4sci.modelViewPresenterController.jobs;
 
+import java.util.List;
 import java.util.Vector;
 
 public class JobConsumerThread extends Thread {
@@ -11,7 +12,7 @@ public class JobConsumerThread extends Thread {
 			consumptionProcessor = cons_proc;
 		}
 	};
-	private Vector<QueueProcessorCouple> queueProcVector;
+	private List<QueueProcessorCouple> queueProcVector;
 	
 	public JobConsumerThread(){
 		queueProcVector = new Vector<JobConsumerThread.QueueProcessorCouple>();
@@ -20,8 +21,8 @@ public class JobConsumerThread extends Thread {
 	public <C extends Command>void addJobTypeToConsume(WaitingJobQueue<C> w_q, ConsumptionProcessor<C> c_exec){
 		queueProcVector.add(new QueueProcessorCouple<C>(w_q, c_exec));
 	}
-	
+	//CHECKSTYLE:OFF
 	public void run(){
-		
+		//CHECKSTYLE:ON
 	}
 }

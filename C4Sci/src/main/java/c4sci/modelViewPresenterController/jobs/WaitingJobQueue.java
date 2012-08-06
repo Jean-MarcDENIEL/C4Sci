@@ -56,15 +56,11 @@ public class WaitingJobQueue<C extends Command> {
 		return new Iterator<C>(){
 			private JobChainLink currentCommand = setOnNextJobWithoutUnprocessedAncestor(firstCommand);
 			private JobChainLink setOnNextJobWithoutUnprocessedAncestor(JobChainLink current_comd){
-				while ((current_comd != null)&&
-						current_comd.jobElement.hasUnprocessedAncestor()){
-					current_comd=current_comd.getFollowing();
-				}
-				return current_comd;
+				JobChainLink _current = current_comd;
+				while ((_current != null)&&_current.jobElement.hasUnprocessedAncestor()){_current=_current.getFollowing();}
+				return _current;
 			}
-			public boolean hasNext() {
-				return (currentCommand != null);
-			}
+			public boolean hasNext() {return (currentCommand != null);}
 			//CHECKSTYLE:OFF
 			public C next() {
 				//CHECKSTYLE:ON
