@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.modelViewPresenterController.jobs.consumption.ConsumptionProcessor;
+import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
+
 public class TestJobConsumerThread {
 
 	class TestCommandA extends Command{

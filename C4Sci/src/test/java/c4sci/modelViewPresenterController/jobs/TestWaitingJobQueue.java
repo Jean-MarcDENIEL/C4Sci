@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 import c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler;
 
 public class TestWaitingJobQueue {
