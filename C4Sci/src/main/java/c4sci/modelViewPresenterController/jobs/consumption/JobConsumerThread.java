@@ -7,7 +7,9 @@ import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
 
 /**
- * This subclass of Thread passes its time 
+ * This subclass of thread is designed to process jobs waiting in a WaitingJobQueue.
+ * <br><br>
+ * Until told to die in case of empty waiting job queue, its loop is the following :  
  * <ol>
  * <li> pulling a job (request or result) out of a first RequestResultInterface by calling the abstract <b>pullJobToProcess()</b> method
  * <li> processing the job by calling the abstract <b>processJob()</b> method
