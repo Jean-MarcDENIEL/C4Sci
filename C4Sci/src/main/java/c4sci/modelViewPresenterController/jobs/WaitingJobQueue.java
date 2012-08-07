@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
-import c4sci.modelViewPresenterController.jobs.schedulers.JobScheduler;
-import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
 /**
  * This class collects and distributes jobs waiting to be processed.<br>
@@ -45,13 +43,13 @@ public class WaitingJobQueue<C extends Command> {
 	private Map<C, JobChainLink> commandLinkMap;
 	private JobScheduler<C>	jobScheduler;
 	/**
-	 * Creates a job queue associated with a SequentialJobScheduler.
+	 * Creates a job queue associated without any JobScheduler associated.
 	 */
 	public WaitingJobQueue(){
 		firstCommand	= null;
 		lastCommand		= null;
 		commandLinkMap	= new ConcurrentHashMap<C, JobChainLink>();
-		jobScheduler	= new SequentialJobScheduler<C>();
+		jobScheduler	= null;
 	}
 	/**
 	 * 

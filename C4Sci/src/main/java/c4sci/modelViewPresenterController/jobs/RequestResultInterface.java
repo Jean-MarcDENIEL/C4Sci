@@ -12,12 +12,13 @@ import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessExceptio
  * <li> Request Threads  : threads pushing requests for processing jobs and pulling processed jobs' results
  * <li> Result Threads : threads pulling requests, processing corresponding jobs and pushing job results
  * <br>
- * This interface must ensure a clean termination : stopping new requests and ensuring that all requests have been fullfilled.
+ * This interface must ensure a clean termination : stopping new requests and ensuring that all requests have been fullfilled.<br>
+ * To be fully functional the interface must have its Request/Result schedulers set.
  * 
  * @author jeanmarc.deniel
  *
  */
-public class RequestResultInterface <C extends Command>{
+public final class RequestResultInterface <C extends Command>{
 	private WaitingJobQueue<C> requestQueue;
 	private WaitingJobQueue<C> resultQueue;
 	/**
@@ -39,6 +40,12 @@ public class RequestResultInterface <C extends Command>{
 		requestQueueNotEmptyCondition 	= internalLock.newCondition();
 		resultQueueNotEmptyCondition	= internalLock.newCondition();
 		isOpenedForRequestsFlag = true;
+	}
+	public void setRequestQueueScheduler(JobScheduler<C> job_sch){
+		requestQueue.setJobScheduler(job_sch);
+	}
+	public void setResultQueueScheduler(JobScheduler<C> job_sch){
+		resultQueue.setJobScheduler(job_sch);
 	}
 	/**
 	 * 

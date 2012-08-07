@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 import c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler;
+import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
 public class TestWaitingJobQueue {
 
@@ -37,6 +38,7 @@ public class TestWaitingJobQueue {
 	@Test
 	public void testAppendJobAtLastPosition() {
 		WaitingJobQueue<TestCommand> _job_queue = new WaitingJobQueue<TestCommand>();
+		_job_queue.setJobScheduler(new SequentialJobScheduler<TestWaitingJobQueue.TestCommand>());
 		
 		for (int _i=0; _i<10; _i++){
 			_job_queue.appendJobAtLastPosition(new TestCommand(_i));

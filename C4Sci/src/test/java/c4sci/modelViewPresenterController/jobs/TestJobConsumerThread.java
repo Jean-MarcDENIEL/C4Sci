@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 
 import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
+import c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler;
+import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
 public class TestJobConsumerThread {
 
@@ -56,6 +58,12 @@ public class TestJobConsumerThread {
 	public void test() {
 		RequestResultInterface<TestCommandA> _add_RRI = new RequestResultInterface<TestJobConsumerThread.TestCommandA>();
 		RequestResultInterface<TestCommandB> _mul_RRI = new RequestResultInterface<TestJobConsumerThread.TestCommandB>();
+		
+		_add_RRI.setRequestQueueScheduler(new SequentialJobScheduler<TestJobConsumerThread.TestCommandA>());
+		_add_RRI.setResultQueueScheduler(new HighestCostPriorityFirstJobScheduler<TestJobConsumerThread.TestCommandA>());
+		
+		_mul_RRI.setRequestQueueScheduler(new HighestCostPriorityFirstJobScheduler<TestJobConsumerThread.TestCommandB>());
+		_mul_RRI.setResultQueueScheduler(new SequentialJobScheduler<TestJobConsumerThread.TestCommandB>());
 		
 		int _sum = 0;
 		for (int _i=0; _i<10; _i++){
