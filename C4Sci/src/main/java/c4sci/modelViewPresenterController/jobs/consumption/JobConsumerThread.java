@@ -15,7 +15,17 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * </ol>
  * Note : the RequestResultInterfaces can be the same one.<br><br>
  * <b>Pattern :</b> This class makes use of the <b>Template Method </b>GoF pattern : <br>
- * pullJobToProcess() and processJob() methods will be defined in derived classes.
+ * pullJobToProcess() and processJob() and PuhProcessedJob() methods will be defined in derived classes.<br><br>
+ * 
+ * 
+ * In the sequence below a JobConsumerThread pulls requests and  pushes results in a single RequestResultInterface:<br>
+ * (please note that Requests and Results have to be of the same type)<br>
+ * <img src="doc-files/1_ReqResInterface_treatment.jpg"><br><br>
+ * 
+ * 
+ * In the sequence below  a JobConsumerThread pulls Request out of one RequestResultInterface and pushes results into another.<br>
+ * (In this case, Requests and Results can be of different types)<br>
+ * <img src="doc-files/2_ReqResInterface_thread_consumption.jpg">
  * @author jeanmarc.deniel
  *
  * @param <C>
@@ -43,7 +53,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 */
 	public abstract C_request	pullJobToProcess();
 	/**
-	 * This method must be defined to call wether pushJobResultAsRequest()
+	 * This method must be defined to call whether pushJobResultAsRequest()
 	 * or pushJobResultAsResult()
 	 * @param job_res
 	 */
