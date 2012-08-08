@@ -25,11 +25,11 @@ import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessExceptio
  * <li> the waitUntilBalanced() method  must be called</li>
  * </ol>
  * Then the current thread will wait until all request have been processed, what means that an even number
- * of results have been pulled or pushed as null.<br>
- * In the case below requests are pulled and processed. Then, as there is no result to treat afterward, null result are pushed back :<br>
- * <img src="doc-files/RequestResultInterface balancing.jpg"><br>
+ * of results have been pulled or pushed as null.<br><br>
+ * In the case below requests are pulled and processed. Then, as there is no result to treat afterward, null result are pushed back or shutRequest() is called :<br>
+ * <img src="doc-files/RequestResultInterface balancing.jpg"><br><br>
  * In the case below requests are pulled and processed by a first thread. Then  pulled back results are processed by a second thread.<br>
- * <img src="doc-files/RequestResultInterface balancing 2.jpg"><br>
+ * <img src="doc-files/RequestResultInterface balancing 2.jpg"><br><br>
  * 
  * <br>
  * @author jeanmarc.deniel

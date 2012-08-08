@@ -32,9 +32,13 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * <img src="doc-files/1_ReqResInterface_treatment.jpg"><br><br>
  * 
  * 
- * In the sequence below  a JobConsumerThread pulls Request out of one RequestResultInterface and pushes results into another.<br>
+ * In the sequence below  a JobConsumerThread pulls Requests out of one RequestResultInterface and pushes results into another.<br>
  * (In this case, Requests and Results can be of different types)<br>
- * <img src="doc-files/2_ReqResInterface_thread_consumption.jpg">
+ * <img src="doc-files/2_ReqResInterface_thread_consumption.jpg"><br><br>
+ * 
+ * In the sequence below a JobConsumerThread pulls Requests out of one RequestResultInterface and pushes Results into 
+ * another or shut the request in the case there's no result to treat afterward.<br>
+ * <img src="doc-files/3_ReqResInterface_thread_consumption.jpg"><br><br>
  * 
  * @author jeanmarc.deniel
  *
@@ -109,6 +113,14 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	}
 	protected final void pushJobResultAsResult(C_result job_res){
 		outputQueue.pushResult(job_res);
+	}
+	/**
+	 * Makes the Thread to push back a null result in the input result queue.<br>
+	 * This method is useful in the case where no result should be passed to the output RequestResultInterface,
+	 * as it ensure the good balancing of the input RequestResultInterface.
+	 */
+	public final void shutRequestJob(){
+		inputQueue.pushResult(null);
 	}
 	
 	public JobConsumerThread(RequestResultInterface<C_request> req_queue, RequestResultInterface<C_result> res_queue){

@@ -143,10 +143,12 @@ processJob</panel_attributes>
       <x>270</x>
       <y>360</y>
       <w>220</w>
-      <h>70</h>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;
-pushResultAsResult (null)</panel_attributes>
+pushResultAsResult (null)
+or
+shutRequest()</panel_attributes>
     <additional_attributes>30;50;200;50</additional_attributes>
   </element>
   <element>
