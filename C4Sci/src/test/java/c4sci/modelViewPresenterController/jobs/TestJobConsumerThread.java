@@ -190,7 +190,7 @@ public class TestJobConsumerThread {
 		// ensure basic jobs work 
 		_add_RRI.waitUntilBalanced();
 		assertTrue("basic thread job does not work : "+_atom_res.get()+"instead of "+_sum, _sum == _atom_res.get());	
-		System.out.println("basic thread job works");
+		//System.out.println("basic thread job works");
 
 		// ensure feeding with alive threads works
 		_sum = 0;
@@ -200,7 +200,7 @@ public class TestJobConsumerThread {
 		}
 		_add_RRI.waitUntilBalanced();
 		assertTrue( _sum*2 == _atom_res.get());	
-		System.out.println("feeding with aive threads works");
+		//System.out.println("feeding with aive threads works");
 		
 		// ensure closing with alive threads works
 		_add_RRI.closeForRequests();
@@ -211,7 +211,7 @@ public class TestJobConsumerThread {
 		}
 		_add_RRI.waitUntilBalanced();
 		assertTrue(_sum*2 == _atom_res.get());	
-		System.out.println("closing with alive thread works");
+		//System.out.println("closing with alive thread works");
 
 		// ensure reopening with alive threads works
 		_add_RRI.openForRequests();
@@ -222,7 +222,7 @@ public class TestJobConsumerThread {
 		}
 		_add_RRI.waitUntilBalanced();
 		assertTrue(_sum*3 == _atom_res.get());	
-		System.out.println("reopening with alive threads works");
+		//System.out.println("reopening with alive threads works");
 		
 		
 		_result_thread.setToDieUnused();
@@ -243,7 +243,7 @@ public class TestJobConsumerThread {
 			_sum += (_i+2)*2;
 		}
 		assertTrue(_sum*3 == _atom_res.get());	
-		System.out.println("Ensuring all threads are dead works");
+		//System.out.println("Ensuring all threads are dead works");
 
 
 	}
