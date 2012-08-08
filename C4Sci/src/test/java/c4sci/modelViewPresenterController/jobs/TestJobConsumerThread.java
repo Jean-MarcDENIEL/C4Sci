@@ -75,17 +75,36 @@ public class TestJobConsumerThread {
 		
 		_mul_RRI.setRequestQueueScheduler(new HighestCostPriorityFirstJobScheduler<TestJobConsumerThread.TestCommandB>());
 		_mul_RRI.setResultQueueScheduler(new SequentialJobScheduler<TestJobConsumerThread.TestCommandB>());
-		
+
 		int _sum = 0;
-		for (int _i=0; _i<10; _i++){
+		for (int _i=-5; _i<10; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i));
-			_sum += (_i+2)*2;
+			if (_i >=0){
+				_sum += (_i+2)*2;
+			}
 		}
 		
+		class AddingJobConsumer extends JobConsumerThread<TestCommandA, TestCommandB>{
 
+			public AddingJobConsumer(
+					RequestResultInterface<TestCommandA> req_queue,
+					RequestResultInterface<TestCommandB> res_queue) {
+				super(req_queue, res_queue);
+				associateFlagToProcessor(1, new InternalAdderJobProcessor());
+			}
 
-		JobConsumerThread<TestCommandA, TestCommandB> _adding_thread = new 
-				JobConsumerThread<TestCommandA, TestCommandB>(_add_RRI, _mul_RRI){
+			class InternalAdderJobProcessor extends AdderJobProcessor{
+				public TestCommandB processJob(TestCommandA processing_cmd){
+					// tests the shutdown method
+					if (processing_cmd.addValue < 0){
+						shutRequestJob();
+						return null;
+					}
+					else{
+						return super.processJob(processing_cmd);
+					}
+				}
+			};
 			public TestCommandB processJob(TestCommandA job_req) {
 				try {
 					Thread.sleep((long) (Math.random()*10.0));
@@ -100,8 +119,11 @@ public class TestJobConsumerThread {
 			public void pushProcessedJob(TestCommandB job_res) {
 				pushJobResultAsRequest(job_res);
 			}
+
 		};
-		_adding_thread.associateFlagToProcessor(1, new AdderJobProcessor());
+
+		JobConsumerThread<TestCommandA, TestCommandB> _adding_thread = new AddingJobConsumer(_add_RRI, _mul_RRI);
+
 
 		JobConsumerThread<TestCommandB, TestCommandB> _mul_thread = new
 				JobConsumerThread<TestCommandB, TestCommandB>( _mul_RRI, _mul_RRI) {
@@ -167,7 +189,7 @@ public class TestJobConsumerThread {
 		
 		// ensure basic jobs work 
 		_add_RRI.waitUntilBalanced();
-		assertTrue( _sum == _atom_res.get());	
+		assertTrue("basic thread job does not work : "+_atom_res.get()+"instead of "+_sum, _sum == _atom_res.get());	
 		System.out.println("basic thread job works");
 
 		// ensure feeding with alive threads works

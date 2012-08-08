@@ -13,13 +13,9 @@ import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler
 public class TestWaitingJobQueue {
 
 	class TestCommand extends Command{
-		private int testValue;
-		private int attendedValue;
 		TestCommand(int val_to_test){
-			attendedValue = val_to_test;
 		}
 		void setTestValue(int t_val){
-			testValue = t_val;
 		}
 		@Override
 		protected boolean isUndoable() {

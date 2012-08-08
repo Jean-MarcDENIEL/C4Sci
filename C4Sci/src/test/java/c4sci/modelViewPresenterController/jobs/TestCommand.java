@@ -17,12 +17,12 @@ public class TestCommand extends Command{
 	}
 	/********************************************************/
 	
-	private int previousValue;
+
 	public final int JOB_SETTED_VALUE = 10;
 	
 	public int actualValue;
 	public TestCommand(){
-		previousValue = 0;
+
 		actualValue = 0;
 	}
 	
