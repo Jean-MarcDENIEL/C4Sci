@@ -23,6 +23,9 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * 
  * <b>Pattern :</b> This class makes use of the <b>Strategy Method</b> GoF pattern :<br>
  * job processing is defined in JobProcessor subclasses.<br><br>
+ * <b>Consistency warning :</b> The JobconsumerThread will be submitted Commands with different flags. The thread must have a strategy JobProcessor 
+ * for every flag otherwise the Commands will be lost without having been processed.
+ * <br><br>
  * 
  * In the sequence below a JobConsumerThread pulls requests and  pushes results in a single RequestResultInterface:<br>
  * (please note that Requests and Results have to be of the same type)<br>
@@ -63,10 +66,11 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
 	public C_result 	processJob(C_request job_req){
-		JobProcessor<C_request, C_result>	job_proc = processorMap.get(new Long(job_req.getFlag()));
-		if (job_proc == null)
+		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(Long.valueOf(job_req.getFlag()));
+		if (_job_proc == null){
 			return null;
-		return job_proc.processJob(job_req);
+		}
+		return _job_proc.processJob(job_req);
 	}
 
 	/**
@@ -115,8 +119,8 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 		processorMap	= new ConcurrentHashMap<Long, JobProcessor<C_request,C_result>>();
 	}
 	
-	final public void associateFlagToProcessor(long flag_val, JobProcessor<C_request, C_result> job_proc){
-		processorMap.put(new Long(flag_val), job_proc);
+	public final void associateFlagToProcessor(long flag_val, JobProcessor<C_request, C_result> job_proc){
+		processorMap.put(Long.valueOf(flag_val), job_proc);
 	}
 	
 	/**

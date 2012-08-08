@@ -18,7 +18,7 @@ public abstract class Command {
 	private int			commandCost;
 	private long		commandFlag;
 	
-	static private long	flagCount = 0;
+	private static long	flagCount = 0;
 	public static synchronized long createNewFlag(){
 		return flagCount++;
 	}
