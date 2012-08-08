@@ -26,7 +26,7 @@ import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessExceptio
  * of results have been pulled or pushed as null.<br>
  * In the case below requests are pulled and processed. Then, as there is no result to treat afterward, null result are pushed back :<br>
  * <img src="doc-files/RequestResultInterface balancing.jpg"><br>
- * In the case below requests are pulled and processed by a first thread. Then result are pulled back and processed by a second thread.<br>
+ * In the case below requests are pulled and processed by a first thread. Then  pulled back results are processed by a second thread.<br>
  * <img src="doc-files/RequestResultInterface balancing 2.jpg"><br>
  * 
  * <br>
