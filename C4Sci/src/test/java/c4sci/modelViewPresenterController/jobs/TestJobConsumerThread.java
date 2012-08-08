@@ -130,6 +130,11 @@ public class TestJobConsumerThread {
 				} 
 				catch (InterruptedException _e) {
 				}
+				if (job_req.multValue < 10){
+					// tests that balancing by null result pushing works
+					_atom_res.addAndGet(job_req.multValue);
+					return null;
+				}
 				return new TestCommandA(job_req.multValue);
 			}
 			public TestCommandB pullJobToProcess() {
@@ -150,12 +155,8 @@ public class TestJobConsumerThread {
 				return pullResultJobToProcess();
 			}
 			public void pushProcessedJob(TestCommandA job_res) {
-				if (job_res.addValue < 10){
-					pushJobResultAsRequest(job_res);
-				}
-				else{
-					// does nothing
-				}
+				// tests that pushing null request has no effect
+				pushJobResultAsRequest(job_res);
 			}
 		};
 
@@ -166,7 +167,8 @@ public class TestJobConsumerThread {
 		
 		// ensure basic jobs work 
 		_add_RRI.waitUntilBalanced();
-		assertTrue("basic thread job works", _sum == _atom_res.get());	
+		assertTrue( _sum == _atom_res.get());	
+		System.out.println("basic thread job works");
 
 		// ensure feeding with alive threads works
 		_sum = 0;
@@ -175,7 +177,8 @@ public class TestJobConsumerThread {
 			_sum += (_i+2)*2;
 		}
 		_add_RRI.waitUntilBalanced();
-		assertTrue("feeding with aive threads works", _sum*2 == _atom_res.get());	
+		assertTrue( _sum*2 == _atom_res.get());	
+		System.out.println("feeding with aive threads works");
 		
 		// ensure closing with alive threads works
 		_add_RRI.closeForRequests();
@@ -186,6 +189,7 @@ public class TestJobConsumerThread {
 		}
 		_add_RRI.waitUntilBalanced();
 		assertTrue(_sum*2 == _atom_res.get());	
+		System.out.println("closing with alive thread works");
 
 		// ensure reopening with alive threads works
 		_add_RRI.openForRequests();
@@ -196,6 +200,7 @@ public class TestJobConsumerThread {
 		}
 		_add_RRI.waitUntilBalanced();
 		assertTrue(_sum*3 == _atom_res.get());	
+		System.out.println("reopening with alive threads works");
 		
 		
 		_result_thread.setToDieUnused();
@@ -216,6 +221,7 @@ public class TestJobConsumerThread {
 			_sum += (_i+2)*2;
 		}
 		assertTrue(_sum*3 == _atom_res.get());	
+		System.out.println("Ensuring all threads are dead works");
 
 
 	}

@@ -80,9 +80,9 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 */
 	public abstract C_request	pullJobToProcess();
 	/**
-	 * This method must be defined to call whether pushJobResultAsRequest()
+	 * This method must be defined to just call whether pushJobResultAsRequest()
 	 * or pushJobResultAsResult()
-	 * @param job_res
+	 * @param job_res may be null, meaning there is no result to treat but balance should be achieved nonetheless.
 	 */
 	public abstract void pushProcessedJob(C_result job_res);
 	
@@ -144,9 +144,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 			else{
 				waitingTimeMillisec = 1;
 				C_result _res_job = processJob(_job_to_do);
-				if (_res_job != null){
-					pushProcessedJob(_res_job);
-				}
+				pushProcessedJob(_res_job);
 			}
 		}
 	}

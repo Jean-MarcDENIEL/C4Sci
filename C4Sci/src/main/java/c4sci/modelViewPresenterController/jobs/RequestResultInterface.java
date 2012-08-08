@@ -100,8 +100,14 @@ public final class RequestResultInterface <C extends Command>{
 			internalLock.unlock();
 		}
 	}
-	
+	/**
+	 * 
+	 * @param req_cmd the requested job. Pushing a null value will have no effect.
+	 */
 	public void pushRequest(C req_cmd){
+		if (req_cmd == null){
+			return;
+		}
 		internalLock.lock();
 		try{
 			if (isOpenedForRequests()){
@@ -114,15 +120,31 @@ public final class RequestResultInterface <C extends Command>{
 			internalLock.unlock();
 		}
 	}
-	
+	/**
+	 * Pushing a result in the Result queue a computing the balancing if null is pushed.
+	 * @see waitUntilBalanced
+	 * @param res_cmd a job result. A <b>null value </b>means that no job result will be pushed corresponding to a previously pushed request.
+	 * In this case, the balance between pushed requests and pulled results will be update as if a result had been pulled out.
+	 */
 	public void pushResult(C res_cmd){
 		internalLock.lock();
 		try{
-			resultQueue.appendJobAtLastPosition(res_cmd);
-			resultQueueNotEmptyCondition.signalAll();
+			if (res_cmd == null){
+				balanceOnPulledResult();
+			}
+			else{
+				resultQueue.appendJobAtLastPosition(res_cmd);
+				resultQueueNotEmptyCondition.signalAll();
+			}
 		}
 		finally{
 			internalLock.unlock();
+		}
+	}
+	private void balanceOnPulledResult(){
+		-- requestResultBalance;
+		if (isBalanced()){
+			isBalancedCondition.signalAll();
 		}
 	}
 	
@@ -143,10 +165,7 @@ public final class RequestResultInterface <C extends Command>{
 				}
 			}
 			C _res = resultQueue.extractAJobToProcess();
-			-- requestResultBalance;
-			if (isBalanced()){
-				isBalancedCondition.signalAll();
-			}
+			balanceOnPulledResult();
 			return _res;
 		}
 		catch (NoJobToProcessException _e) {
