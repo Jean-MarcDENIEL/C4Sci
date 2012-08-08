@@ -35,7 +35,6 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * 
  * @author jeanmarc.deniel
  *
- * @param <C>
  */
 public abstract class JobConsumerThread<C_request extends Command, C_result extends Command> extends Thread {
 	
