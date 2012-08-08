@@ -11,10 +11,25 @@ import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessExceptio
  * 
  * <li> Request Threads  : threads pushing requests for processing jobs and pulling processed jobs' results
  * <li> Result Threads : threads pulling requests, processing corresponding jobs and pushing job results
- * <br>
- * This interface must ensure a clean termination : stopping new requests and ensuring that all requests have been fullfilled.<br>
- * To be fully functional the interface must have its Request/Result schedulers set.
+ * <br><br>
  * 
+ * To be fully functional the interface must have its Request/Result schedulers set.<br><br>
+ * 
+ * <b>Clean termination</b><br>
+ * This interface must ensure a clean termination : stopping new requests and ensuring that all requests have been fulfilled.<br>
+ * To achieve this :
+ * <ol>
+ * <li> the closeForRequests() method must be called</li>
+ * <li> the waitUntilBalanced() method  must be called</li>
+ * </ol>
+ * Then the current thread will wait until all request have been processed, what means that an even number
+ * of results have been pulled or pushed as null.<br>
+ * In the case below requests are pulled and processed. Then, as there is no result to treat afterward, null result are pushed back :<br>
+ * <img src="doc-files/RequestResultInterface balancing.jpg"><br>
+ * In the case below requests are pulled and processed by a first thread. Then result are pulled back and processed by a second thread.<br>
+ * <img src="doc-files/RequestResultInterface balancing 2.jpg"><br>
+ * 
+ * <br>
  * @author jeanmarc.deniel
  *
  */
