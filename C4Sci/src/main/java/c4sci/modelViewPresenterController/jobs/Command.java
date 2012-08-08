@@ -6,7 +6,7 @@ package c4sci.modelViewPresenterController.jobs;
  * <br><br>
  * 
  * 
- * <b>Pattern : </b>This class instantiates the Command GoF pattern.
+ * <b>Pattern : </b>This class instantiates the <b>Command</b> GoF pattern.
  * @author jeanmarc.deniel
  *
  */
@@ -19,6 +19,10 @@ public abstract class Command {
 	private long		commandFlag;
 	
 	private static long	flagCount = 0;
+	/**
+	 * 
+	 * @return a positive or null flag. Each successive call to this method will increment the result.
+	 */
 	public static synchronized long createNewFlag(){
 		return flagCount++;
 	}
@@ -38,7 +42,7 @@ public abstract class Command {
 
  	/**
  	 * This method copies internal state into the passed parameter.<br>
- 	 * This method should be overridden in subclasses and called recursively by super.modifyAsClone(modified_command).
+ 	 * This method should be overridden and called recursively by super.modifyAsClone(modified_command) in subclasses.
  	 * @param modified_command the Command that will be modified
  	 */
  	void modifyAsClone(Command modified_command){

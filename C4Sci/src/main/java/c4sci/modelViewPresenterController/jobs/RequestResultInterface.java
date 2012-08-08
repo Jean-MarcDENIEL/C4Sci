@@ -7,6 +7,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import c4sci.modelViewPresenterController.jobs.exceptions.NoJobToProcessException;
 
 /**
+ * A double job queue interface distributing request and collecting results.<br> 
+ * 
  * This class is designed to provide an interface between two groups of threads :
  * 
  * <li> Request Threads  : threads pushing requests for processing jobs and pulling processed jobs' results
