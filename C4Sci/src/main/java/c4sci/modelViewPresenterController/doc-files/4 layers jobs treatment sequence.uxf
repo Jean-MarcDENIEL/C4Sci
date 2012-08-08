@@ -357,63 +357,6 @@ WaitingJobQueue_</panel_attributes>
     <element>
       <type>com.umlet.element.Relation</type>
       <coordinates>
-        <x>116</x>
-        <y>80</y>
-        <w>20</w>
-        <h>36</h>
-      </coordinates>
-      <panel_attributes>lt=.</panel_attributes>
-      <additional_attributes>12;12;12;28</additional_attributes>
-    </element>
-    <element>
-      <type>com.umlet.element.custom.SeqObjectActive</type>
-      <coordinates>
-        <x>124</x>
-        <y>108</y>
-        <w>8</w>
-        <h>24</h>
-      </coordinates>
-      <panel_attributes/>
-      <additional_attributes/>
-    </element>
-    <element>
-      <type>com.umlet.element.custom.SeqObjectActive</type>
-      <coordinates>
-        <x>124</x>
-        <y>152</y>
-        <w>8</w>
-        <h>24</h>
-      </coordinates>
-      <panel_attributes/>
-      <additional_attributes/>
-    </element>
-    <element>
-      <type>com.umlet.element.Relation</type>
-      <coordinates>
-        <x>116</x>
-        <y>120</y>
-        <w>20</w>
-        <h>40</h>
-      </coordinates>
-      <panel_attributes>lt=.</panel_attributes>
-      <additional_attributes>12;12;12;32</additional_attributes>
-    </element>
-    <element>
-      <type>com.umlet.element.Relation</type>
-      <coordinates>
-        <x>116</x>
-        <y>164</y>
-        <w>20</w>
-        <h>480</h>
-      </coordinates>
-      <panel_attributes>lt=.</panel_attributes>
-      <additional_attributes>12;12;12;472</additional_attributes>
-    </element>
-  </group>
-  <group>
-    <element>
-      <type>com.umlet.element.Relation</type>
-      <coordinates>
         <x>160</x>
         <y>80</y>
         <w>20</w>
@@ -1280,6 +1223,63 @@ processJob</panel_attributes>
       </coordinates>
       <panel_attributes>lt=.</panel_attributes>
       <additional_attributes>12;12;12;24</additional_attributes>
+    </element>
+  </group>
+  <group>
+    <element>
+      <type>com.umlet.element.Relation</type>
+      <coordinates>
+        <x>116</x>
+        <y>80</y>
+        <w>20</w>
+        <h>36</h>
+      </coordinates>
+      <panel_attributes>lt=.</panel_attributes>
+      <additional_attributes>12;12;12;28</additional_attributes>
+    </element>
+    <element>
+      <type>com.umlet.element.custom.SeqObjectActive</type>
+      <coordinates>
+        <x>124</x>
+        <y>108</y>
+        <w>8</w>
+        <h>24</h>
+      </coordinates>
+      <panel_attributes/>
+      <additional_attributes/>
+    </element>
+    <element>
+      <type>com.umlet.element.custom.SeqObjectActive</type>
+      <coordinates>
+        <x>124</x>
+        <y>152</y>
+        <w>8</w>
+        <h>24</h>
+      </coordinates>
+      <panel_attributes/>
+      <additional_attributes/>
+    </element>
+    <element>
+      <type>com.umlet.element.Relation</type>
+      <coordinates>
+        <x>116</x>
+        <y>120</y>
+        <w>20</w>
+        <h>40</h>
+      </coordinates>
+      <panel_attributes>lt=.</panel_attributes>
+      <additional_attributes>12;12;12;32</additional_attributes>
+    </element>
+    <element>
+      <type>com.umlet.element.Relation</type>
+      <coordinates>
+        <x>116</x>
+        <y>164</y>
+        <w>20</w>
+        <h>480</h>
+      </coordinates>
+      <panel_attributes>lt=.</panel_attributes>
+      <additional_attributes>12;12;12;472</additional_attributes>
     </element>
   </group>
 </diagram>

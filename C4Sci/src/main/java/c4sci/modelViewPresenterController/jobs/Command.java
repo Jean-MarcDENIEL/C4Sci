@@ -2,7 +2,9 @@ package c4sci.modelViewPresenterController.jobs;
 
 /**
  * This class encapsulates jobs to do.<br>
- * Commands can be chained to previous and followings.<br><br>
+ * Commands can be chained to previous and followings.
+ * <br><br>
+ * 
  * 
  * <b>Pattern : </b>This class instantiates the Command GoF pattern.
  * @author jeanmarc.deniel
@@ -14,34 +16,70 @@ public abstract class Command {
 	private boolean		alreadyProcessed;
 	private int 		commandPriority;
 	private int			commandCost;
+	private long		commandFlag;
 	
+	static private long	flagCount = 0;
+	public static synchronized long createNewFlag(){
+		return flagCount++;
+	}
 	
-	Command(){
+	/**
+	 * Creates a command without any ancestor nor descendant, and with a new flag.<br>
+	 * Cost and priority and flag are set to 0.
+	 */
+ 	Command(){
 		ancestorCommand 	= null;
 		descendantCommand	= null;
 		alreadyProcessed	= false;
 		commandPriority		= 0;
 		commandCost			= 0;
+		commandFlag			= 0;
 	}
+
+ 	/**
+ 	 * This method copies internal state into the passed parameter.<br>
+ 	 * This method should be overridden in subclasses and called recursively by super.modifyAsClone(modified_command).
+ 	 * @param modified_command the Command that will be modified
+ 	 */
+ 	void modifyAsClone(Command modified_command){
+ 		modified_command.setPreviousCommand(getPreviousCommand());
+ 		modified_command.setFollowingCommand(getFollowingCommand());
+ 		modified_command.alreadyProcessed = hasBeenProcessed();
+ 		modified_command.setPriority(getPriority());
+ 		modified_command.setCost(getCost());
+ 		modified_command.setFlag(getFlag());
+ 	}
+ 	public final synchronized void setFlag(long flag_val){
+ 		commandFlag = flag_val;
+ 	}
+ 	public final synchronized long getFlag(){
+ 		return commandFlag;
+ 	}
+ 	
 	/**
 	 * Method to call to do the process.
 	 */
-	public final synchronized void doProcess(){
+	/*public final synchronized void doProcess(){
 		if (!alreadyProcessed){
 			processJob();
 			alreadyProcessed = true;
 		}
-	}
+	}*/
+ 	
 	/**
 	 * Method to call to undo the process.
 	 */
+	/*
 	public final synchronized void undoProcess(){
+
 		if (isUndoable() && alreadyProcessed){
 			unprocessJob();
 			alreadyProcessed = false;
 		}
 	}
-	/**
+	 */
+ 	
+ 	/**
 	 * 
 	 * @return null if there is no previous Command.
 	 */
@@ -119,11 +157,15 @@ public abstract class Command {
 	/**
 	 * This method describes how to do the job. This method should be called nowhere else than in doProcess().
 	 */
+	/*
 	protected abstract void 	processJob();
+	*/
 	/**
 	 * This method describes how to undo the job. This method should be called nowhere else than in undoProcess().
 	 */
+	/*
 	abstract void 		unprocessJob();
+	*/
 
 	
 }

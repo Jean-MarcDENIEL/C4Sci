@@ -22,12 +22,7 @@ public class TestHighestCostFirstScheduler {
 		protected boolean isUndoable() {
 			return false;
 		}
-		@Override
-		protected void processJob() {
-			assertTrue(attendedValue == testValue);
-		}
-		@Override
-		void unprocessJob() {}
+
 		
 	};
 	@Test
@@ -46,7 +41,7 @@ public class TestHighestCostFirstScheduler {
 				TestCommand _job = _queue.extractAJobToProcess();
 				_job.setTestValue((100-_i));
 				assertTrue(_job.getCost() == 100-_i);
-				_job.processJob();
+
 			} catch (NoJobToProcessException e) {
 				fail("there should be enough jobs");
 			}

@@ -25,12 +25,6 @@ public class TestWaitingJobQueue {
 		protected boolean isUndoable() {
 			return false;
 		}
-		@Override
-		protected void processJob() {
-			assertTrue(attendedValue == testValue);
-		}
-		@Override
-		void unprocessJob() {}
 		
 	};
 	
@@ -48,7 +42,7 @@ public class TestWaitingJobQueue {
 			try {
 				_job = _job_queue.extractAJobToProcess();
 				_job.setTestValue(_i);
-				_job.processJob();
+
 			} catch (NoJobToProcessException e) {
 				fail("there should be enough jobs here");
 			}
@@ -112,19 +106,19 @@ public class TestWaitingJobQueue {
 		try {
 			TestCommand _test_job = _queue.extractAJobToProcess();
 			_test_job.setTestValue(30);
-			_test_job.processJob();
+
 			
 			_test_job = _queue.extractAJobToProcess();
 			_test_job.setTestValue(20);
-			_test_job.processJob();
+
 			
 			_test_job = _queue.extractAJobToProcess();
 			_test_job.setTestValue(5);
-			_test_job.processJob();
+
 			
 			_test_job = _queue.extractAJobToProcess();
 			_test_job.setTestValue(1);
-			_test_job.processJob();
+
 		} catch (NoJobToProcessException e) {
 			fail("enough jobs here");
 		}

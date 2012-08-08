@@ -1,5 +1,7 @@
 package c4sci.modelViewPresenterController.jobs.consumption;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -39,14 +41,31 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	private RequestResultInterface<C_result>  	outputQueue;
 	private AtomicBoolean 						shouldDie;
 	private long 								waitingTimeMillisec;
+	private Map<Long, JobProcessor<C_request, C_result>>	processorMap;
+	
+	
 	private static final long					MAX_WAITING_TIME_MILLISEC = 256;
 
 	/**
-	 * Treats the job.
+	 * Treats the job.<br>
+	 * This method can be overridden, but offers the following generic behavior : 
+	 * <ol>
+	 * <li>search the JobProcessor corresponding to the command flag</li>
+	 * <li>if such a processor exists, 
+	 * 	<ul>
+	 * 		<li>returns the result computed by JobProcessor.processJob()
+	 * 		<li>otherwise returns null
+	 * 	<ul>
+	 * </ol>  
 	 * @param job_req the job to process
-	 * @return null in the case where there is no result to treat afterward
+	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
-	public abstract C_result 	processJob(C_request job_req);
+	public C_result 	processJob(C_request job_req){
+		JobProcessor<C_request, C_result>	job_proc = processorMap.get(new Long(job_req.getFlag()));
+		if (job_proc == null)
+			return null;
+		return job_proc.processJob(job_req);
+	}
 
 	/**
 	 * This method must be defined to call whether pullRequestJobToProcess()
@@ -91,7 +110,13 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 		outputQueue = 	res_queue;
 		waitingTimeMillisec	=	1;
 		shouldDie = new AtomicBoolean(false);
+		processorMap	= new ConcurrentHashMap<Long, JobProcessor<C_request,C_result>>();
 	}
+	
+	final public void associateFlagToProcessor(long flag_val, JobProcessor<C_request, C_result> job_proc){
+		processorMap.put(new Long(flag_val), job_proc);
+	}
+	
 	/**
 	 * Sets the thread to terminate as soon as there is no more request to pull and process.
 	 */
