@@ -51,7 +51,7 @@ public class TestJobConsumerThread {
 	}
 	
 	/*
-	 * Multiplies le CommandB value by 2 and adds it to _atom_res.
+	 * Multiplies the CommandB value by 2 and adds it to _atom_res.
 	 */
 	class MulJobProcessor extends JobProcessor<TestCommandB, TestCommandB>{
 
@@ -122,7 +122,9 @@ public class TestJobConsumerThread {
 
 		};
 
-		JobConsumerThread<TestCommandA, TestCommandB> _adding_thread = new AddingJobConsumer(_add_RRI, _mul_RRI);
+
+		
+		AddingJobConsumer _adding_thread = new AddingJobConsumer(_add_RRI, _mul_RRI);
 
 
 		JobConsumerThread<TestCommandB, TestCommandB> _mul_thread = new
