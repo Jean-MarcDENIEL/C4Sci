@@ -22,7 +22,7 @@ public interface Component {
 	PlaneVector getComponentWidthHeightSize();
 
 	Component getParentComponent();
-	void setParentComponent(Component parentComponent);
+	void setParentComponent(Component parent_component);
 
 	Iterator<Component> getChildIterator();
 

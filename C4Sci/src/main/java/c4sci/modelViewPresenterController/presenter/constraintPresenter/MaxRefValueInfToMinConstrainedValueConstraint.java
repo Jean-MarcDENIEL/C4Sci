@@ -11,15 +11,12 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public class InfCoordinateConstraint extends Constraint {
+public final class MaxRefValueInfToMinConstrainedValueConstraint extends TowComponentsConstraint {
 
 	private FloatDataParameter		fixedConstraintValue;
 	private BooleanDataParameter	hasFixedConstraint;
 	
-	public InfCoordinateConstraint(String data_token,
-			InternationalizableTerm data_name,
-			InternationalizableTerm data_description,
-			int ref_comp_id, int constr_comp_id) {
+	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) {
 		super("infCoorConstr", 
 				new InternationalizableTerm("Inferior Constraint"), 
 				new InternationalizableTerm("A total relationship : reference sup < constrained inf"),
@@ -35,5 +32,37 @@ public class InfCoordinateConstraint extends Constraint {
 		fixedConstraintValue.setFloatValue(0.0f);
 		hasFixedConstraint.setBooleanValue(false);
 	}
+	
+	/**
+	 * Sets the constraint as a fixed value constraint.<br>
+	 * After this method has been called, {@link isFixed}() returns true
+	 * @param constr_val new constraint value
+	 */
+	public final void setAsFixedConstraint(float constr_val){
+		fixedConstraintValue.setFloatValue(constr_val);
+		hasFixedConstraint.setBooleanValue(true);
+	}
+	/**
+	 * 
+	 * @return the fixed constraint value.<br>
+	 * <b>Warning : </b> If the constraint has not been fixed before, the return value is undefined.
+	 */
+	public final float getFixedConstraint(){
+		return fixedConstraintValue.getFloatValue();
+	}
+	/**
+	 * 
+	 * @return true if the constraint got a fixed value
+	 */
+	public final boolean isFixed(){
+		return hasFixedConstraint.getBooleanValue();
+	}
+	/**
+	 * Removes any fixed constraint value.
+	 */
+	public final void setUnfixed(){
+		hasFixedConstraint.setBooleanValue(false);
+	}
+	
 
 }

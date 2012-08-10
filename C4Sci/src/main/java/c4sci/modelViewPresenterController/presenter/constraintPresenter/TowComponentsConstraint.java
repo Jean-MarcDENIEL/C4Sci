@@ -5,15 +5,18 @@ import c4sci.data.basicDataParameters.IntegerDataParameter;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
- * This class defines a relationship between two components.
+ * This class defines a relationship between two components : a reference one and a constrained one.<br>
+ * <br>
+ * 
+ * 
  * @author jeanmarc.deniel
  *
  */
-public class Constraint extends HierarchicalData {
+public class TowComponentsConstraint extends HierarchicalData {
 	private IntegerDataParameter referenceComponentID;
 	private IntegerDataParameter constrainedComponentID;
 		
-	public Constraint(String data_token, 
+	public TowComponentsConstraint(String data_token, 
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description, int ref_comp_id, int constr_comp_id) {
 		super(data_token, data_name, data_description);
@@ -32,16 +35,16 @@ public class Constraint extends HierarchicalData {
 		setConstrainedComponentID(constr_comp_id);
 	}
 
-	public int getReferenceComponentID() {
+	public final int getReferenceComponentID() {
 		return referenceComponentID.getIntegerValue();
 	}
-	public void setReferenceComponentID(int ref_comp_id) {
+	public final void setReferenceComponentID(int ref_comp_id) {
 		this.referenceComponentID.setIntegerValue(ref_comp_id);
 	}
-	public int getConstrainedComponentID() {
+	public final int getConstrainedComponentID() {
 		return constrainedComponentID.getIntegerValue();
 	}
-	public void setConstrainedComponentID(int constr_comp_id) {
+	public final void setConstrainedComponentID(int constr_comp_id) {
 		this.constrainedComponentID.setIntegerValue(constr_comp_id);
 	}
 
