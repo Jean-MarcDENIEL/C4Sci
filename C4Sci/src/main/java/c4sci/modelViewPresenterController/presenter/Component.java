@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.Presenter;
+package c4sci.modelViewPresenterController.presenter;
 
 import java.util.Iterator;
 
@@ -18,15 +18,15 @@ import c4sci.math.geometry.plane.PlaneVector;
  */
 public interface Component {
 	
-	public PlaneVector getComponentUpperLeftOrigin();
-	public PlaneVector getComponentWidthHeightSize();
+	PlaneVector getComponentUpperLeftOrigin();
+	PlaneVector getComponentWidthHeightSize();
 
-	public Component getParentComponent();
-	public void setParentComponent(Component parentComponent);
+	Component getParentComponent();
+	void setParentComponent(Component parentComponent);
 
-	public Iterator<Component> getChildIterator();
+	Iterator<Component> getChildIterator();
 
-	public boolean isVisible();
+	boolean isVisible();
 	
 	int		getComponentID();
 	void	setComponentID();

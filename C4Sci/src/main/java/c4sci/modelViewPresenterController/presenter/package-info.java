@@ -5,4 +5,4 @@
  * @author jeanmarc.deniel
  *
  */
-package c4sci.modelViewPresenterController.Presenter;
+package c4sci.modelViewPresenterController.presenter;
