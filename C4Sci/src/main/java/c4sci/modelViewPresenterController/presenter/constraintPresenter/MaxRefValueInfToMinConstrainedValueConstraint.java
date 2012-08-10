@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public final class MaxRefValueInfToMinConstrainedValueConstraint extends TowComponentsConstraint {
+public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComponentsConstraint {
 
 	private FloatDataParameter		fixedConstraintValue;
 	private BooleanDataParameter	hasFixedConstraint;
