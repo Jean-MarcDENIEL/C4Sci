@@ -12,11 +12,11 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public class TowComponentsConstraint extends HierarchicalData {
+public class TwoComponentsConstraint extends HierarchicalData {
 	private IntegerDataParameter referenceComponentID;
 	private IntegerDataParameter constrainedComponentID;
 		
-	public TowComponentsConstraint(String data_token, 
+	public TwoComponentsConstraint(String data_token, 
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description, int ref_comp_id, int constr_comp_id) {
 		super(data_token, data_name, data_description);
