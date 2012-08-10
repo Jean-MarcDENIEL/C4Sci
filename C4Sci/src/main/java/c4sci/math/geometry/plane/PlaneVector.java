@@ -25,37 +25,37 @@ public class PlaneVector {
 		setY(other_v.getY());
 	}
 	
-	public final float getX() {
+	public float getX() {
 		return xCoor;
 	}
-	public final void setX(float x_coor) {
-		this.xCoor = x_coor;
+	public void setX(float xCoor) {
+		this.xCoor = xCoor;
 	}
-	public final float getY() {
+	public float getY() {
 		return yCoor;
 	}
-	public final void setY(float y_coor) {
-		this.yCoor = y_coor;
+	public void setY(float yCoor) {
+		this.yCoor = yCoor;
 	}
-	public final float dotOp(PlaneVector other_v){
+	public float dotOp(PlaneVector other_v){
 		return getX()*other_v.getX() + getY()*other_v.getY();
 	}
 	/**
 	 * @return this - other_v
 	 */
-	public final PlaneVector minusOp(PlaneVector other_v){
+	public PlaneVector minusOp(PlaneVector other_v){
 		return new PlaneVector(getX()-other_v.getX(), getY()-other_v.getY());
 	}
 	/**
 	 * @return this + other_v
 	 */
-	public final PlaneVector plusOp(PlaneVector other_v){
+	public PlaneVector plusOp(PlaneVector other_v){
 		return new PlaneVector(getX()+other_v.getX(), getY() + other_v.getY());
 	}
-	public final boolean isEqualOp(PlaneVector other_v){
+	public boolean isEqualOp(PlaneVector other_v){
 		return Floatings.isEqual(getX(), other_v.getX()) && Floatings.isEqual(getY(), other_v.getY());
 	}
-	public final PlaneVector equalOp(PlaneVector other_v){
+	public PlaneVector equalOp(PlaneVector other_v){
 		setX(other_v.getX());
 		setY(other_v.getY());
 		return this;
