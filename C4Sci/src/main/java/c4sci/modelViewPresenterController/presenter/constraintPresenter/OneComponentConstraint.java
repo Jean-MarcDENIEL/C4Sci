@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  */
 public class OneComponentConstraint extends HierarchicalData {
 
-	IntegerDataParameter	constrainedComponentID;
+	private IntegerDataParameter	constrainedComponentID;
 	
 	/**
 	 * @param data_token
@@ -31,5 +31,13 @@ public class OneComponentConstraint extends HierarchicalData {
 		
 		addDataParameter(constrainedComponentID);
 	}
+	
+	public int getConstrainedComponentID(){
+		return constrainedComponentID.getIntegerValue();
+	}
+	public void setConstrainedComponentID(int int_val){
+		constrainedComponentID.setIntegerValue(int_val);
+	}
+	
 
 }

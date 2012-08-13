@@ -16,9 +16,7 @@ public class IntervalConstraint extends OneComponentConstraint {
 	public IntervalConstraint(String data_token,
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description, int constr_comp_id) {
-		super("IntervalConstraint",	
-				new InternationalizableTerm("Interval constraint"), 
-				new InternationalizableTerm("Interval constraint"), constr_comp_id);
+		super(data_token, data_name, data_description, constr_comp_id);
 	}
 
 }

@@ -38,7 +38,7 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	 * After this method has been called, {@link isFixed}() returns true
 	 * @param constr_val new constraint value
 	 */
-	public final void setAsFixedConstraint(float constr_val){
+	public void setAsFixedConstraint(float constr_val){
 		fixedConstraintValue.setFloatValue(constr_val);
 		hasFixedConstraint.setBooleanValue(true);
 	}
@@ -47,20 +47,20 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	 * @return the fixed constraint value.<br>
 	 * <b>Warning : </b> If the constraint has not been fixed before, the return value is undefined.
 	 */
-	public final float getFixedConstraint(){
+	public float getFixedConstraint(){
 		return fixedConstraintValue.getFloatValue();
 	}
 	/**
 	 * 
 	 * @return true if the constraint got a fixed value
 	 */
-	public final boolean isFixed(){
+	public boolean isFixed(){
 		return hasFixedConstraint.getBooleanValue();
 	}
 	/**
 	 * Removes any fixed constraint value.
 	 */
-	public final void setUnfixed(){
+	public void setUnfixed(){
 		hasFixedConstraint.setBooleanValue(false);
 	}
 	
