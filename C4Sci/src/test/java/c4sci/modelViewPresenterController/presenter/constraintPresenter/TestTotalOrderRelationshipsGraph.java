@@ -43,9 +43,19 @@ public class TestTotalOrderRelationshipsGraph {
 		try {
 			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(1, 0));
 			fail("should have raised en exception");
-		} catch (CyclicGraphNotAllowedException e) {
+		} catch (CyclicGraphNotAllowedException _e) {
 			assertTrue(true);
+			assertTrue(_e.getConstrainedComponent() == 0);
+			assertTrue(_e.getReferenceComponent() == 1);
 		}
+		
+		MaxRefValueInfToMinConstrainedValueConstraint _rel = new MaxRefValueInfToMinConstrainedValueConstraint(4, 6);
+		_rel.setAsFixedConstraint(2.0f);
+		assertTrue(_rel.isFixed());
+		assertEquals(_rel.getFixedConstraint(), 2.0f, 0.1f);
+		_rel.setUnfixed();
+		assertFalse(_rel.isFixed());
+		
 	}
 
 }

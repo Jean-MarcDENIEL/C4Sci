@@ -41,7 +41,6 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	public Map<Integer, C> getConstrainedComponentRelationships(int constr_comp_id){
 		return relationshipMap.get(constr_comp_id);
 	}
-
 	public C getRelationship(int ref_comp_id, int constr_comp_id){
 		Map<Integer, C> _constr_map = getConstrainedComponentRelationships(constr_comp_id);
 		if (_constr_map != null){
@@ -49,7 +48,6 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 		}
 		return null;
 	}
-
 	public void addRelationShip(C relation_ship) throws CyclicGraphNotAllowedException{
 		if (wouldCreateACycle(relation_ship.getReferenceComponentID(), relation_ship.getConstrainedComponentID())){
 			throw new CyclicGraphNotAllowedException(relation_ship.getReferenceComponentID(), relation_ship.getConstrainedComponentID());
@@ -65,10 +63,9 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	public boolean wouldCreateACycle(int ref_comp, int constrained_comp){
 		List<Integer> _current_path = new ArrayList<Integer>();
 		_current_path.add(Integer.valueOf(constrained_comp));
-		return wouldCreateACycle(ref_comp, constrained_comp, _current_path);
+		return wouldCreateACycle(ref_comp, _current_path);
 	}
-	
-	private boolean wouldCreateACycle(int ref_comp, int constrained_comp, List<Integer> current_path){
+	private boolean wouldCreateACycle(int ref_comp, List<Integer> current_path){
 		if (current_path.contains(Integer.valueOf(ref_comp))){
 			return true;
 		}
@@ -79,7 +76,7 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 		}
 		Set<Integer> _ref_ref_collection = _ref_relationships.keySet();
 		for (Iterator<Integer> _it = _ref_ref_collection.iterator(); _it.hasNext();){
-			if (wouldCreateACycle(_it.next().intValue(), ref_comp, current_path)){
+			if (wouldCreateACycle(_it.next().intValue(), current_path)){
 				return true;
 			}	
 		}
