@@ -2,7 +2,12 @@ package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * this class is used in the <b>visitor</b> GoF pattern.
+ * @author jeanmarc.deniel
+ *
+ * @param <C>
+ */
 public abstract class GraphVisitor<C extends TwoComponentsConstraint>{
 	private ArrayList<C> edgePath;
 	public GraphVisitor(){
@@ -19,7 +24,7 @@ public abstract class GraphVisitor<C extends TwoComponentsConstraint>{
 	}
 	/**
 	 * 
-	 * @return true if visit process should stop 
+	 * @return true if the visiting process should stop, otherwise returns false.
 	 */
 	public abstract boolean visitEdge(C current_edge);
 }

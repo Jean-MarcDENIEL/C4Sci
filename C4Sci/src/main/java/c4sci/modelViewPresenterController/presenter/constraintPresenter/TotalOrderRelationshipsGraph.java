@@ -1,11 +1,8 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.HierarchicalData;
@@ -76,8 +73,20 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	}
 
 	/**
-	 * Will visit all edges and vertices accessible from a given vertex.<br>
-	 * After an edge has been visited, it is appended to the visitor path before child edges are recursively visited. Then the path is restored. 
+	 * Will visit all edges and vertices accessible from a given vertex :
+	 * <ol>
+	 * <li>retrieves the edges for which the current vertex is the constrained component.</li>
+	 * <li>for each of these edge :
+	 * 		<ol>
+	 * 		<li> appends the edge to the current path </li>
+	 * 		<li> calls the visitor visitEdge</li>
+	 * 		<li> if the visitor allows to continue the visiting process, then recursively call acceptVisitor on the current edge reference component</li>
+	 * 		<li> else return false if visitor stops the visitor stopped the process or the recursive process has returned false</li>
+	 * 		<li> removes the edge from the current path</li>
+	 * 		</ol>
+	 * <li> returns true</li>
+	 * </ol>
+	 * 
 	 * <br>
 	 * <b>Pattern : </b> This method implements the <b>Visitor</b> GoF pattern.
 	 * 
