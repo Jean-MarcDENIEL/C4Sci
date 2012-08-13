@@ -30,7 +30,6 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description){
 		super(data_token, data_name, data_description);
-
 		relationshipMap	= new ConcurrentHashMap<Integer, Map<Integer, C>>();
 	}
 
@@ -73,19 +72,18 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 		if (current_path.contains(Integer.valueOf(ref_comp))){
 			return true;
 		}
-		Map<Integer, C> _contr_relationships = getConstrainedComponentRelationships(constrained_comp);
-		if (_contr_relationships == null){
+		current_path.add(Integer.valueOf(ref_comp));
+		Map<Integer, C> _ref_relationships = getConstrainedComponentRelationships(ref_comp);
+		if (_ref_relationships == null){
 			return false;
 		}
-		Set<Integer> _ref_collection = _contr_relationships.keySet();
-		for (Iterator<Integer> _it = _ref_collection.iterator(); _it.hasNext();){
-			Integer _key = _it.next();
-			current_path.add(_key);
-			if (wouldCreateACycle(ref_comp, constrained_comp, current_path)){
+		Set<Integer> _ref_ref_collection = _ref_relationships.keySet();
+		for (Iterator<Integer> _it = _ref_ref_collection.iterator(); _it.hasNext();){
+			if (wouldCreateACycle(_it.next().intValue(), ref_comp, current_path)){
 				return true;
-			}
-			current_path.remove(current_path.size()-1);
+			}	
 		}
+		current_path.remove(current_path.size()-1);
 		return false;
 	}
 
