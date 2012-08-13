@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	 * The inner map keys are the reference keys.
 	 */
 	private Map<Integer, Map<Integer, C>>	relationshipMap;
+	
+	
 
 	public TotalOrderRelationshipsGraph(String data_token,
 			InternationalizableTerm data_name,
@@ -60,29 +63,48 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 		_constr_map.put(Integer.valueOf(relation_ship.getReferenceComponentID()), relation_ship);
 	}
 
-	public boolean wouldCreateACycle(int ref_comp, int constrained_comp){
-		List<Integer> _current_path = new ArrayList<Integer>();
-		_current_path.add(Integer.valueOf(constrained_comp));
-		return wouldCreateACycle(ref_comp, _current_path);
-	}
-	private boolean wouldCreateACycle(int ref_comp, List<Integer> current_path){
-		if (current_path.contains(Integer.valueOf(ref_comp))){
-			return true;
-		}
-		current_path.add(Integer.valueOf(ref_comp));
-		Map<Integer, C> _ref_relationships = getConstrainedComponentRelationships(ref_comp);
-		if (_ref_relationships == null){
-			return false;
-		}
-		Set<Integer> _ref_ref_collection = _ref_relationships.keySet();
-		for (Iterator<Integer> _it = _ref_ref_collection.iterator(); _it.hasNext();){
-			if (wouldCreateACycle(_it.next().intValue(), current_path)){
-				return true;
-			}	
-		}
-		current_path.remove(current_path.size()-1);
-		return false;
+	public boolean wouldCreateACycle(final int new_ref_comp, final int new_constrainted_comp){
+		GraphVisitor<C> _visitor = new GraphVisitor<C>() {
+
+			@Override
+			public boolean visitEdge(C current_edge) {
+				return current_edge.getReferenceComponentID() == new_constrainted_comp;
+			}
+		};
+		
+		return !acceptVisitor(_visitor, new_ref_comp);
 	}
 
+	/**
+	 * Will visit all edges and vertices accessible from a given vertex.<br>
+	 * After an edge has been visited, it is appended to the visitor path before child edges are recursively visited. Then the path is restored. 
+	 * <br>
+	 * <b>Pattern : </b> This method implements the <b>Visitor</b> GoF pattern.
+	 * 
+	 * @param beginning_edge The constrained component ID from which the graph is explored.
+	 * @param graph_visitor  The visitor invoked on each edge.
+	 * @return true if none of the explored edge made the GraphVisitor.visitNode() returned true.
+	 */
+	public boolean acceptVisitor(GraphVisitor<C> graph_visitor, int current_vertex_id ){
+		Map<Integer, C> _current_vertex_relationships = getConstrainedComponentRelationships(current_vertex_id);
+		if (_current_vertex_relationships == null){
+			return true;
+		}
+		Collection<C> _ref_ref_collection = _current_vertex_relationships.values();
+
+		for (Iterator<C> _it = _ref_ref_collection.iterator(); _it.hasNext();){
+			C _current_edge = _it.next();
+			
+			if (graph_visitor.visitEdge(_current_edge)){
+				return false;
+			}
+			graph_visitor.appendEdge(_current_edge);
+			if (!acceptVisitor(graph_visitor, _current_edge.getReferenceComponentID())){
+				return false;
+			}
+			graph_visitor.removeLastEdge();
+		}
+		return true;
+	}
 
 }

@@ -28,6 +28,7 @@ public class TestTotalOrderRelationshipsGraph {
 			fail("there should not be cycles here");
 		}
 		
+
 		assertTrue(_graph.wouldCreateACycle(1, 0));
 		assertFalse(_graph.wouldCreateACycle(2, 4));
 		assertFalse(_graph.wouldCreateACycle(4, 1));
