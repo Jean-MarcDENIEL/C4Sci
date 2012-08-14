@@ -1,5 +1,7 @@
 package c4sci.data;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,15 +21,45 @@ import c4sci.data.internationalization.InternationalizableTerm;
  */
 public class HierarchicalData implements VisitableData{
 
+	private DataIdentity					dataIdentity;
 	private String							dataToken;
 	private InternationalizableTerm			dataName;
 	private InternationalizableTerm			dataDescription;
 	private Map<String,DataParameter>		parameterMap;
 	private Map<String,HierarchicalData>	subDataMap;
+
+
+	private static Map<DataIdentity, HierarchicalData>	identityDataMap = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
+	
+	/**
+	 * 
+	 * @param data_identity
+	 * @return the HierarchicalData whose identity has been passed as argument, or null if no HierarchialData can be found
+	 */
+	public static HierarchicalData getIdentifiedData(DataIdentity data_identity){
+		return identityDataMap.get(data_identity);
+	}
+	
+	private DataIdentity createDataIdentity(){
+		DataIdentity _ret = new DataIdentity();
+		identityDataMap.put(_ret, this);
+		return _ret;
+	}
+	
+	public final void setDataIdentity(DataIdentity data_identity){
+		identityDataMap.remove(dataIdentity);
+		dataIdentity = data_identity;
+		identityDataMap.put(dataIdentity, this);
+	}
+	
+	public final DataIdentity getDataIdentity(){
+		return dataIdentity;
+	}
 	
 	@SuppressWarnings("unused")
 	private HierarchicalData(){}
 	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){
+		dataIdentity 	= createDataIdentity();
 		dataToken		= data_token;
 		dataName		= data_name;
 		dataDescription	= data_description;
@@ -111,5 +143,7 @@ public class HierarchicalData implements VisitableData{
 			_it.next().acceptVisitor(data_visitor);
 		}
 	}
+	
+	
 	
 }

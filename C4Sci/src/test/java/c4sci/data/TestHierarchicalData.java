@@ -192,4 +192,29 @@ public class TestHierarchicalData {
 		
 	}
 
+	@Test
+	public void testDataIdentity(){
+		HierarchicalData _data_1 = new HierarchicalData("test_data_1", 
+				new InternationalizableTerm("testing data"), 
+				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
+		
+		HierarchicalData _data_2 = new HierarchicalData("test_data_2", 
+				new InternationalizableTerm("testing data"), 
+				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
+		
+		assertFalse(_data_1.getDataIdentity().equals(_data_2.getDataIdentity()));
+		assertTrue(_data_1.getDataIdentity().equals(_data_1.getDataIdentity()));
+		assertTrue(HierarchicalData.getIdentifiedData(_data_1.getDataIdentity()).getDataToken().compareTo(_data_1.getDataToken())==0);
+		
+		DataIdentity _id_1 = _data_1.getDataIdentity();
+		_data_1.setDataIdentity(new DataIdentity());
+		
+		
+		assertTrue(HierarchicalData.getIdentifiedData(_id_1) == null);
+		_id_1 = _data_1.getDataIdentity();
+		assertTrue(HierarchicalData.getIdentifiedData(_id_1).getDataToken().compareTo(_data_1.getDataToken())==0);
+		
+		
+	}
+	
 }
