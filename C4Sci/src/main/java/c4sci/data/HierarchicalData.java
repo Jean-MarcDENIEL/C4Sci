@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.exceptions.DataValueParsingException;
@@ -131,6 +132,24 @@ public class HierarchicalData implements VisitableData{
 	public void addSubData(HierarchicalData child_data){
 		subDataMap.put(child_data.getDataToken(), child_data);
 	}
+	/**
+	 * Removes all subdata corresponding to the argument.
+	 */
+	public void removeSubData(HierarchicalData child_data){
+		synchronized(subDataMap){
+			if (subDataMap.containsValue(child_data)){
+				Set<Map.Entry<String, HierarchicalData>> _entry_set = subDataMap.entrySet();
+				Iterator<Map.Entry<String, HierarchicalData>> _it = _entry_set.iterator();
+				while (_it.hasNext()){
+					Map.Entry<String, HierarchicalData> _entry = _it.next();
+					if (_entry.getValue().getDataIdentity().equals(child_data.getDataIdentity())){
+						_it.remove();
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * <b>Pattern : </b> GoF Visitor pattern<br><br>
 	 * 
