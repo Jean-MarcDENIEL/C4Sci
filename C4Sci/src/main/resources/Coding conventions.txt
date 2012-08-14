@@ -53,6 +53,11 @@ Indenting :		Beginning bracket at end of line.
 				if (cond){
 					...
 				}
+				
+				Affectations can be idented for easier reading.
+				Example :
+				_var_1		= new Instance();
+				_second_job	= new Thread();
 
 File coding :	No special characters.			
 
