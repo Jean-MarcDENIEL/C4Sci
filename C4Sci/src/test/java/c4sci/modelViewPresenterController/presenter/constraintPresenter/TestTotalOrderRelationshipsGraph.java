@@ -23,6 +23,9 @@ public class TestTotalOrderRelationshipsGraph {
 			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(0, 2));
 			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(2, 3));
 			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(5, 6));
+			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(5, 6));
+			
+			_graph.addRelationShip(new MaxRefValueInfToMinConstrainedValueConstraint(7, 2));
 			assertTrue(true);
 		} catch (CyclicGraphNotAllowedException _e) {
 			fail("there should not be cycles here");
@@ -57,6 +60,11 @@ public class TestTotalOrderRelationshipsGraph {
 		_rel.setUnfixed();
 		assertFalse(_rel.isFixed());
 		
+		assertTrue (_graph.getEdgesToReferenceLeaves(3).size() == 2);
+		assertTrue (_graph.getEdgesToReferenceLeaves(6).size() == 1);
+		assertTrue (_graph.getEdgesToReferenceLeaves(5).size() == 0);
+		int _leaves = _graph.getEdgesToReferenceLeaves(1).size();
+		assertTrue ( _leaves == 2);
 	}
 
 }

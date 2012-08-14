@@ -1,7 +1,9 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -70,6 +72,31 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 		};
 		
 		return !acceptVisitor(_visitor, new_ref_comp);
+	}
+	public Collection<C> getEdgesToReferenceLeaves(int current_component){
+		
+		class RetrievingVisitor extends GraphVisitor<C>{
+
+			// use a map to avoid having several edge sharing the same reference component 
+			private Map<Integer, C> resultList;
+			
+			public RetrievingVisitor() {
+				resultList = new ConcurrentHashMap<Integer, C>();
+			}
+
+			public boolean visitEdge(C current_edge) {
+				if (getConstrainedComponentRelationships(current_edge.getReferenceComponentID()) == null){
+					resultList.put(Integer.valueOf(current_edge.getReferenceComponentID()), current_edge);
+				}
+				return false;
+			}
+			public Map<Integer, C> getResult(){
+				return resultList;
+			}
+		}	
+		RetrievingVisitor _graph_visitor = new RetrievingVisitor();
+		acceptVisitor(_graph_visitor, current_component);
+		return _graph_visitor.getResult().values();
 	}
 
 	/**
