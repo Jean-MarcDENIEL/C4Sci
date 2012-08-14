@@ -56,6 +56,14 @@ public class HierarchicalData implements VisitableData{
 		return dataIdentity;
 	}
 	
+	/**
+	 * Removes from the HierarchicalData retrieving mechanism.<br>
+	 * Calling this method is necessary to achieve HierarchicalData garbage collecting.
+	 */
+	public final void forgetIdentity(){
+		identityDataMap.remove(getDataIdentity());
+	}
+	
 	@SuppressWarnings("unused")
 	private HierarchicalData(){}
 	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){

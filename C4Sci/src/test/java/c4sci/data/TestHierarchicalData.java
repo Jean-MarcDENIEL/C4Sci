@@ -214,6 +214,8 @@ public class TestHierarchicalData {
 		_id_1 = _data_1.getDataIdentity();
 		assertTrue(HierarchicalData.getIdentifiedData(_id_1).getDataToken().compareTo(_data_1.getDataToken())==0);
 		
+		_data_1.forgetIdentity();
+		assertTrue(HierarchicalData.getIdentifiedData(_id_1) == null);
 		
 	}
 	
