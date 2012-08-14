@@ -88,7 +88,7 @@ public class HierarchicalData implements VisitableData{
 		return _data_param.getParameterValue();
 	}
 	
-	public final void addSubData(HierarchicalData child_data){
+	public void addSubData(HierarchicalData child_data){
 		subDataMap.put(child_data.getDataToken(), child_data);
 	}
 	/**
@@ -102,7 +102,7 @@ public class HierarchicalData implements VisitableData{
 	 * </ol>
 	 * @param data_visitor
 	 */
-	public final void acceptVisitor(DataVisitor data_visitor){
+	public void acceptVisitor(DataVisitor data_visitor){
 		data_visitor.performTreatmentOn(this);
 		for (Iterator<DataParameter> _it = parameterMap.values().iterator(); _it.hasNext();){
 			data_visitor.performTreatmentOn(_it.next());
