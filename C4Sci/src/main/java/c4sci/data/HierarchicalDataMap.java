@@ -8,33 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.swing.text.Keymap;
-
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class HierarchicalDataMap<K extends HierarchicalData, V extends HierarchicalData> extends HierarchicalData implements Map<K, V> {
 
-	public class HDMapEntry extends HierarchicalData{
-
-		DataIdentity	keyIdentity;
-		DataIdentity	valueIdentity;
-		
-		public HDMapEntry(DataIdentity key_id, DataIdentity value_id) {
-			super("HDMapEntry", 
-					new InternationalizableTerm("HDMapEntry"), 
-					new InternationalizableTerm("HierarchicalData Map Entry"));
-			keyIdentity 	= key_id;
-			valueIdentity 	= value_id;
-		}
-		public DataIdentity getKeyIdentity(){
-			return keyIdentity;
-		}
-		public DataIdentity getValueIdentity(){
-			return valueIdentity;
-		}
-		
-	};
-	
 	private Map<DataIdentity, HDMapEntry>	keyEntryMap;
 	
 	public HierarchicalDataMap(String data_token,
@@ -45,7 +22,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		keyEntryMap = new ConcurrentHashMap<DataIdentity, HDMapEntry>();
 	}
 
+	//CHECKSTYLE:OFF
 	public int size() {
+		//CHECKSTYLE:ON
 		return keyEntryMap.size();
 	}
 
@@ -77,51 +56,57 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 
 	
 	@SuppressWarnings("unchecked")
+	//CHECKSTYLE:OFF
 	public V get(Object key_) {
+		//CHECKSTYLE:ON
 		try{
 			return (V) HierarchicalData.getIdentifiedData(keyEntryMap.get(((HierarchicalData)key_).getDataIdentity()).getValueIdentity());
 		}
 		catch(ClassCastException _e){}
 		return null;
 	}
-
+	//CHECKSTYLE:OFF
 	public V put(K key_, V value_) {
-
-		DataIdentity id_k = key_.getDataIdentity();
-		if (keyEntryMap.containsKey(key_)){
-			HDMapEntry _removed_entry = keyEntryMap.get(id_k);
+		//CHECKSTYLE:ON
+		DataIdentity _id_k = key_.getDataIdentity();
+		if (keyEntryMap.containsKey(_id_k)){
+			HDMapEntry _removed_entry = keyEntryMap.get(_id_k);
 			removeSubData(_removed_entry);
 		}
-		addSubData(new HDMapEntry(id_k, value_.getDataIdentity()));
+		addSubData(new HDMapEntry(_id_k, value_.getDataIdentity()));
 		return value_;
 	}
-	
+	//@SuppressWarnings("unchecked")
 	public void addSubData(HierarchicalData child_data){
 		try{
-			@SuppressWarnings("unchecked")
-			HDMapEntry _entry = (HDMapEntry) child_data;
-			keyEntryMap.put(_entry.getKeyIdentity(), _entry);
+			if (child_data instanceof HDMapEntry){
+				HDMapEntry _entry = (HDMapEntry) child_data;
+				keyEntryMap.put(_entry.getKeyIdentity(), _entry);
+			}
 		}
 		catch(ClassCastException _e){}
 		super.addSubData(child_data);
 	}
 
 	@SuppressWarnings("unchecked")
+	//CHECKSTYLE:OFF
 	public V remove(Object key_) {
+		//CHECKSTYLE:ON
 		try{
 			K _key = (K)key_;
-			if (!keyEntryMap.containsKey(_key)){
+			DataIdentity _id_key = _key.getDataIdentity();
+			if (!keyEntryMap.containsKey(_id_key)){
 				return null;
 			}
-			removeSubData(keyEntryMap.get(_key));
-			return (V) HierarchicalData.getIdentifiedData(keyEntryMap.remove(key_).getValueIdentity());
+			removeSubData(keyEntryMap.get(_id_key));
+			return (V) HierarchicalData.getIdentifiedData(keyEntryMap.remove(_id_key).getValueIdentity());
 		}
 		catch(ClassCastException _e){}
 		return null;
 	}
 
-	public void putAll(Map<? extends K, ? extends V> m) {
-		Set<? extends Map.Entry<? extends K,? extends V>> _key_set = m.entrySet();
+	public void putAll(Map<? extends K, ? extends V> m_) {
+		Set<? extends Map.Entry<? extends K,? extends V>> _key_set = m_.entrySet();
 		Iterator<? extends Map.Entry<? extends K,? extends V>> _it = _key_set.iterator();
 		while (_it.hasNext()){
 			Entry<? extends K, ? extends V> _entry = _it.next();
@@ -129,7 +114,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		}
 	}
 
+	//CHECKSTYLE:OFF
 	public void clear() {
+		//CHECKSTYLE:ON
 		while (!isEmpty()){
 			HierarchicalData _value = HierarchicalData.getIdentifiedData(keyEntryMap.keySet().iterator().next());
 			removeSubData(_value);
@@ -150,7 +137,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	}
 
 	@SuppressWarnings("unchecked")
+	//CHECKSTYLE:OFF
 	public Collection<V> values() {
+		//CHECKSTYLE: ON
 		Collection<V> _res = new ArrayList<V>();
 		Iterator<HDMapEntry> _it = keyEntryMap.values().iterator();
 		while (_it.hasNext()){

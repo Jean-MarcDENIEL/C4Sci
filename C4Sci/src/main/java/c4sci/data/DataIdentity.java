@@ -18,9 +18,9 @@ public class DataIdentity {
 	private long	timeStamp;
 	private long	countStamp;
 	
-	static private	long	currentTimeStamp = new Date().getTime();
-	static private  long	currentCountStamp = 0;
-	static private synchronized 	long createCountStamp(){
+	private static long	currentTimeStamp = new Date().getTime();
+	private static long	currentCountStamp = 0;
+	private static synchronized 	long createCountStamp(){
 		return currentCountStamp ++;
 	}
 	
@@ -42,10 +42,15 @@ public class DataIdentity {
 		countStamp = count_stamp;
 	}
 	
+	//CHECKSTYLE:OFF
 	public boolean equals(Object obj_){
+		//CHECKSTYLE:ON
 		try{
-		DataIdentity _obj_id = (DataIdentity) obj_;
-		return (_obj_id.timeStamp == timeStamp) && (_obj_id.countStamp == countStamp);
+			if (obj_ == null){
+				return false;
+			}
+			DataIdentity _obj_id = (DataIdentity) obj_;
+			return (_obj_id.timeStamp == timeStamp) && (_obj_id.countStamp == countStamp);
 		}
 		catch(ClassCastException _e){
 			return false;

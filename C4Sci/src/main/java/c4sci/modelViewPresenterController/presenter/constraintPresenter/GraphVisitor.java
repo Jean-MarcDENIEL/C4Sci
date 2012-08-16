@@ -9,7 +9,7 @@ import java.util.List;
  * @param <C>
  */
 public abstract class GraphVisitor<C extends TwoComponentsConstraint>{
-	private ArrayList<C> edgePath;
+	private List<C> edgePath;
 	public GraphVisitor(){
 		edgePath = new ArrayList<C>();
 	}
