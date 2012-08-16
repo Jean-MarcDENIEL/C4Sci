@@ -139,7 +139,7 @@ public final class RequestResultInterface <C extends Command>{
 	}
 	/**
 	 * Pushing a result in the Result queue a computing the balancing if null is pushed.
-	 * @see waitUntilBalanced
+	 * @see #waitUntilBalanced
 	 * @param res_cmd a job result. A <b>null value </b>means that no job result will be pushed corresponding to a previously pushed request.
 	 * In this case, the balance between pushed requests and pulled results will be update as if a result had been pulled out.
 	 */

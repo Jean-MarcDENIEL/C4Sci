@@ -35,7 +35,7 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	
 	/**
 	 * Sets the constraint as a fixed value constraint.<br>
-	 * After this method has been called, {@link isFixed}() returns true
+	 * After this method has been called, {@link #isFixed isFixed()} returns true
 	 * @param constr_val new constraint value
 	 */
 	public void setAsFixedConstraint(float constr_val){

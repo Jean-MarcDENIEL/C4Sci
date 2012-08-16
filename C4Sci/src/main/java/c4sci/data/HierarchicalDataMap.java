@@ -133,7 +133,7 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 
 	}
 	/**
-	 * @param if child_data is an instance of HDMapEntry, then it is removed as a mapping relationship and as a child data.
+	 * @param child_data if child_data is an instance of HDMapEntry, then it is removed as a mapping relationship and as a child data.
 	 */
 	public void removeSubData(HierarchicalData child_data){
 		if (child_data == null){

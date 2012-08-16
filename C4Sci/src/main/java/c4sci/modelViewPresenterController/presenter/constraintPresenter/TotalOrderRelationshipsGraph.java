@@ -106,7 +106,7 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	 * 		<li> appends the edge to the current path </li>
 	 * 		<li> calls the visitor visitEdge</li>
 	 * 		<li> if the visitor allows to continue the visiting process, then recursively call acceptVisitor on the current edge reference component</li>
-	 * 		<li> else return false if visitor stops the visitor stopped the process or the recursive process has returned false</li>
+	 * 		<li> else return false if the visitor stopped the process or the recursive process has returned false</li>
 	 * 		<li> removes the edge from the current path</li>
 	 * 		</ol>
 	 * <li> returns true</li>
@@ -115,7 +115,7 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 	 * <br>
 	 * <b>Pattern : </b> This method implements the <b>Visitor</b> GoF pattern.
 	 * 
-	 * @param beginning_edge The constrained component ID from which the graph is explored.
+	 * @param current_vertex_id The constrained component ID from which the graph is explored.
 	 * @param graph_visitor  The visitor invoked on each edge.
 	 * @return true if none of the explored edge made the GraphVisitor.visitNode() returned true.
 	 */

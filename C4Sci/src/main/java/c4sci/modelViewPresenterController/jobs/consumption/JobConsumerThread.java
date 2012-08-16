@@ -95,7 +95,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * the input job queue is empty. <br>
 	 * 
 	 * This method can be overridden to implement custom max waiting time
-	 * @param actual waiting_time_millisec
+	 * @param waiting_time_millisec the actual  waiting time in milliseconds
 	 * @return next waiting time in milliseconds, >= 1.
 	 */
 	public long computeWaitingTimeOnEmptyQueue(long waiting_time_millisec){
