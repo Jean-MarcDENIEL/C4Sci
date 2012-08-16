@@ -1,9 +1,11 @@
 package c4sci.data;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.NoSuchParameterException;
@@ -15,6 +17,8 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * <li>Internal data are DataParameters.
  * <li>Child Data are HierarchicalData.
  * </ul>
+ * <br>
+ * Several children data can share the same token : there is no mapping.
  * @author jeanmarc.deniel
  *
  */
@@ -25,7 +29,7 @@ public class HierarchicalData implements VisitableData{
 	private InternationalizableTerm			dataName;
 	private InternationalizableTerm			dataDescription;
 	private Map<String,DataParameter>		parameterMap;
-	private Map<String,HierarchicalData>	subDataMap;
+	private Set<HierarchicalData>			subDataSet;
 
 
 	private static Map<DataIdentity, HierarchicalData>	identityDataMap = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
@@ -71,7 +75,7 @@ public class HierarchicalData implements VisitableData{
 		dataName		= data_name;
 		dataDescription	= data_description;
 		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
-		subDataMap		= new ConcurrentHashMap<String, HierarchicalData>();
+		subDataSet		= new HashSet<HierarchicalData>();
 	}
 	
 	/**
@@ -128,23 +132,17 @@ public class HierarchicalData implements VisitableData{
 	}
 	
 	public void addSubData(HierarchicalData child_data){
-		subDataMap.put(child_data.getDataToken(), child_data);
+		synchronized (subDataSet) {
+			subDataSet.add(child_data);		
+		}
+
 	}
 	/**
-	 * Removes all subdata corresponding to the argument.
+	 * Removes <b>all</b> data children corresponding to the argument.
 	 */
 	public void removeSubData(HierarchicalData child_data){
-		synchronized(subDataMap){
-			if (subDataMap.containsValue(child_data)){
-				Set<Map.Entry<String, HierarchicalData>> _entry_set = subDataMap.entrySet();
-				Iterator<Map.Entry<String, HierarchicalData>> _it = _entry_set.iterator();
-				while (_it.hasNext()){
-					Map.Entry<String, HierarchicalData> _entry = _it.next();
-					if (_entry.getValue().getDataIdentity().equals(child_data.getDataIdentity())){
-						_it.remove();
-					}
-				}
-			}
+		synchronized (subDataSet) {
+			subDataSet.remove(child_data);
 		}
 	}
 	
@@ -164,7 +162,7 @@ public class HierarchicalData implements VisitableData{
 		for (Iterator<DataParameter> _it = parameterMap.values().iterator(); _it.hasNext();){
 			data_visitor.performTreatmentOn(_it.next());
 		}
-		for (Iterator<HierarchicalData> _it = subDataMap.values().iterator(); _it.hasNext();){
+		for (Iterator<HierarchicalData> _it = subDataSet.iterator(); _it.hasNext();){
 			_it.next().acceptVisitor(data_visitor);
 		}
 	}

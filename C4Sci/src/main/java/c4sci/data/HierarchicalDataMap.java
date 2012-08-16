@@ -9,7 +9,16 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.internationalization.InternationalizableTerm;
-
+/**
+ * This map stores mapping relationship between HierarchicalData, based on the use of HierarchicalData's methods related to DataIdentity.<br>
+ * <br>
+ * To achieve persistence these relationships are stored internally and as child data at the same time.<br>
+ * Modifying methods (add ...) impact on the two.
+ * @author jeanmarc.deniel
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class HierarchicalDataMap<K extends HierarchicalData, V extends HierarchicalData> extends HierarchicalData implements Map<K, V> {
 
 	private Map<DataIdentity, HDMapEntry>	keyEntryMap;
@@ -18,11 +27,13 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description) {
 		super(data_token, data_name, data_description);
-
 		keyEntryMap = new ConcurrentHashMap<DataIdentity, HDMapEntry>();
 	}
 
 	//CHECKSTYLE:OFF
+	/**
+	 * @returns the number of mapping elements.
+	 */
 	public int size() {
 		//CHECKSTYLE:ON
 		return keyEntryMap.size();
@@ -33,6 +44,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	}
 
 	public boolean containsKey(Object key_) {
+		if (key_ == null){
+			return false;
+		}
 		try{
 			return keyEntryMap.containsKey(((HierarchicalData)key_).getDataIdentity());
 		}
@@ -41,6 +55,8 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	}
 
 	public boolean containsValue(Object value_) {
+		if (value_ == null)
+			return false;
 		try{
 			DataIdentity _value_id = ((HierarchicalData)value_).getDataIdentity();
 			Iterator<HDMapEntry> _it = keyEntryMap.values().iterator();
@@ -58,6 +74,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	@SuppressWarnings("unchecked")
 	//CHECKSTYLE:OFF
 	public V get(Object key_) {
+		if (key_ == null){
+			return null;
+		}
 		//CHECKSTYLE:ON
 		try{
 			return (V) HierarchicalData.getIdentifiedData(keyEntryMap.get(((HierarchicalData)key_).getDataIdentity()).getValueIdentity());
@@ -65,8 +84,17 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		catch(ClassCastException _e){}
 		return null;
 	}
+
+	/**
+	 * Inserts a new (K,V) mapping and adds this relationship as a child data.<br>
+	 * An existing (K,?) relationship will be replaced by the new one, as mapping and as child data.<br>
+	 * @return null if key_ == null otherwise returns value_
+	 */
 	//CHECKSTYLE:OFF
 	public V put(K key_, V value_) {
+		if ((key_ == null)||(value_ == null)){
+			return null;
+		}
 		//CHECKSTYLE:ON
 		DataIdentity _id_k = key_.getDataIdentity();
 		if (keyEntryMap.containsKey(_id_k)){
@@ -76,21 +104,58 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		addSubData(new HDMapEntry(_id_k, value_.getDataIdentity()));
 		return value_;
 	}
-	//@SuppressWarnings("unchecked")
+	/**
+	 * @param child_data If child_data is an instance of HDMapEntry, then it will added to the mapping relationships. <br>
+	 * Only one HDMapEntry data will be inserted for a given HDMapEntry key: one mapping entry = one child data.
+	 */
 	public void addSubData(HierarchicalData child_data){
+		if (child_data == null){
+			return;
+		}
 		try{
 			if (child_data instanceof HDMapEntry){
 				HDMapEntry _entry = (HDMapEntry) child_data;
+				boolean _key_contained = keyEntryMap.containsKey(_entry.getKeyIdentity());
+				
+				if (_key_contained){
+					removeSubData(keyEntryMap.get(_entry.getKeyIdentity()));
+				}
 				keyEntryMap.put(_entry.getKeyIdentity(), _entry);
+				super.addSubData(child_data);
+			}
+			else{
+				super.addSubData(child_data);
 			}
 		}
-		catch(ClassCastException _e){}
-		super.addSubData(child_data);
+		catch(ClassCastException _e){
+			super.addSubData(child_data);
+		}
+
+	}
+	/**
+	 * @param if child_data is an instance of HDMapEntry, then it is removed as a mapping relationship and as a child data.
+	 */
+	public void removeSubData(HierarchicalData child_data){
+		if (child_data == null){
+			return;
+		}
+		if (child_data instanceof HDMapEntry){
+			HDMapEntry _entry = (HDMapEntry) child_data;
+			keyEntryMap.remove(_entry.getKeyIdentity());
+		}
+		super.removeSubData(child_data);
 	}
 
 	@SuppressWarnings("unchecked")
 	//CHECKSTYLE:OFF
+	/**
+	 * Removes a relationship from the mapping and the corresponding HDMapEntry child data.
+	 * @return null if key_ is not a valid mapping key.
+	 */
 	public V remove(Object key_) {
+		if (key_ == null){
+			return null;
+		}
 		//CHECKSTYLE:ON
 		try{
 			K _key = (K)key_;
@@ -98,8 +163,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 			if (!keyEntryMap.containsKey(_id_key)){
 				return null;
 			}
+			V _ret = (V) HierarchicalData.getIdentifiedData(keyEntryMap.get(_id_key).getValueIdentity());
 			removeSubData(keyEntryMap.get(_id_key));
-			return (V) HierarchicalData.getIdentifiedData(keyEntryMap.remove(_id_key).getValueIdentity());
+			return _ret;
 		}
 		catch(ClassCastException _e){}
 		return null;
@@ -115,11 +181,14 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	}
 
 	//CHECKSTYLE:OFF
+	/**
+	 * All mapping relationships are removed as well as mappings and child data
+	 */
 	public void clear() {
 		//CHECKSTYLE:ON
 		while (!isEmpty()){
-			HierarchicalData _value = HierarchicalData.getIdentifiedData(keyEntryMap.keySet().iterator().next());
-			removeSubData(_value);
+			HierarchicalData _removed_entry = keyEntryMap.values().iterator().next();
+			removeSubData(_removed_entry);
 		}
 	}
 
