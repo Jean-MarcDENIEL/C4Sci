@@ -67,7 +67,7 @@ Regular expressions (as used in checkstyle rules):
 	_local_variable_names	^(_[a-z][a-z0-9]*)+$
 	memberNames				^[a-z][a-z0-9]*([A-Z][a-z0-9]+)+$
 	methodNames				^[a-z][a-z0-9]*([A-Z][a-z0-9]+)+$
-	package.names			^[a-z]+(\.[a-zA-Z_][a-zA-Z0-9_]*)*$
+	package.names			^[a-z][a-z0-9]*(\.[a-z][a-zA-Z0-9]*)*$
 	parameter_names			^[a-z][a-z0-9]*(_[a-z][a-z0-9]*)+$
 	
 	
