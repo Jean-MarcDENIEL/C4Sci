@@ -4,11 +4,11 @@ import java.util.Date;
 
 /**
  * This class is used to identify and retrieve HierarchicalData through persistent values.<br>
- * Coherence is achieved through two values :
- * <lo>
+ * Uniqueness of identity values is achieved through two values :
+ * <ul>
  * <li>a time stamp</li>
  * <li>a counter value that is unique for a given time stamp</li>
- * </lo>
+ * </ul>
  * 
  * @author jeanmarc.deniel
  *
@@ -24,6 +24,9 @@ public class DataIdentity {
 		return currentCountStamp ++;
 	}
 	
+	/**
+	 * Creates a new Identity with unique time stamp and count stamp. 
+	 */
 	public DataIdentity() {
 		timeStamp = currentTimeStamp;
 		countStamp = createCountStamp();
@@ -32,16 +35,27 @@ public class DataIdentity {
 	public long getTimeStamp(){
 		return timeStamp;
 	}
+	/**
+	 * <b>Warning : </b> This method can break the DataIdentity uniqueness assumption.
+	 * @param time_stamp the Identity timestamp.
+	 */
 	public void setTimeStamp(long time_stamp){
 		timeStamp = time_stamp;
 	}
 	public long getCountStamp(){
 		return countStamp;
 	}
+	/**
+	 * <b>Warning : </b> This method can break the DataIdentity uniqueness assumption.
+	 * @param count_stamp the Identity count stamp
+	 */
 	public void setCountStamp(long count_stamp){
 		countStamp = count_stamp;
 	}
 	
+	/**
+	 * @return true if obj_ if of DataIdentity type and the time stamp and the count stamp are identical. 
+	 */
 	//CHECKSTYLE:OFF
 	public boolean equals(Object obj_){
 		//CHECKSTYLE:ON
