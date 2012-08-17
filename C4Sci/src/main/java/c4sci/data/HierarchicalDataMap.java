@@ -139,11 +139,13 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		if (child_data == null){
 			return;
 		}
+		super.removeSubData(child_data);
 		if (child_data instanceof HDMapEntry){
 			HDMapEntry _entry = (HDMapEntry) child_data;
 			keyEntryMap.remove(_entry.getKeyIdentity());
+			child_data.forgetIdentity(); 					// to allow garbage collecting as the entry will not be used anymore
 		}
-		super.removeSubData(child_data);
+
 	}
 
 	@SuppressWarnings("unchecked")
