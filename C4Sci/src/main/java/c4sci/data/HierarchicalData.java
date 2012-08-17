@@ -59,6 +59,7 @@ public class HierarchicalData implements VisitableData{
 	
 	/**
 	 * Removes from the HierarchicalData retrieving mechanism.<br>
+	 * This method can be called for every data that is not intended to be persistent. 
 	 * Calling this method is necessary to achieve HierarchicalData garbage collecting.
 	 */
 	public final void forgetIdentity(){
