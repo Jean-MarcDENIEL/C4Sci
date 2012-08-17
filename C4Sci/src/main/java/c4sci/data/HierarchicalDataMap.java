@@ -55,8 +55,9 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	}
 
 	public boolean containsValue(Object value_) {
-		if (value_ == null)
+		if (value_ == null){
 			return false;
+		}
 		try{
 			DataIdentity _value_id = ((HierarchicalData)value_).getDataIdentity();
 			Iterator<HDMapEntry> _it = keyEntryMap.values().iterator();
