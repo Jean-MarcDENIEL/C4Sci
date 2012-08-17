@@ -21,7 +21,7 @@ public class TestJobConsumerThread {
 		}
 		public TestCommandA(int int_val){
 			addValue = int_val;
-			setFlag(1);
+			setCommandID(1);
 		}
 	};
 	
@@ -32,7 +32,7 @@ public class TestJobConsumerThread {
 			return false;
 		}
 		public TestCommandB(){
-			setFlag(2);
+			setCommandID(2);
 		}
 	}
 	

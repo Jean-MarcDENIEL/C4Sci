@@ -16,7 +16,7 @@ public abstract class Command {
 	private boolean		alreadyProcessed;
 	private int 		commandPriority;
 	private int			commandCost;
-	private long		commandFlag;
+	private long		commandID;
 	
 	private static long	flagCount = 0;
 	/**
@@ -37,7 +37,7 @@ public abstract class Command {
 		alreadyProcessed	= false;
 		commandPriority		= 0;
 		commandCost			= 0;
-		commandFlag			= 0;
+		commandID			= 0;
 	}
 
  	/**
@@ -51,37 +51,22 @@ public abstract class Command {
  		modified_command.alreadyProcessed = hasBeenProcessed();
  		modified_command.setPriority(getPriority());
  		modified_command.setCost(getCost());
- 		modified_command.setFlag(getFlag());
+ 		modified_command.setCommandID(getCommandID());
  	}
- 	public final synchronized void setFlag(long flag_val){
- 		commandFlag = flag_val;
+ 	/**
+ 	 * Sets the command type identifier 
+ 	 * @param flag_val
+ 	 */
+ 	public final synchronized void setCommandID(long flag_val){
+ 		commandID = flag_val;
  	}
- 	public final synchronized long getFlag(){
- 		return commandFlag;
+ 	/**
+ 	 * Identifies the type of command.
+ 	 * @return
+ 	 */
+ 	public final synchronized long getCommandID(){
+ 		return commandID;
  	}
- 	
-	/**
-	 * Method to call to do the process.
-	 */
-	/*public final synchronized void doProcess(){
-		if (!alreadyProcessed){
-			processJob();
-			alreadyProcessed = true;
-		}
-	}*/
- 	
-	/**
-	 * Method to call to undo the process.
-	 */
-	/*
-	public final synchronized void undoProcess(){
-
-		if (isUndoable() && alreadyProcessed){
-			unprocessJob();
-			alreadyProcessed = false;
-		}
-	}
-	 */
  	
  	/**
 	 * 

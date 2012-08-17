@@ -23,8 +23,8 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * 
  * <b>Pattern :</b> This class makes use of the <b>Strategy Method</b> GoF pattern :<br>
  * job processing is defined in JobProcessor subclasses.<br><br>
- * <b>Consistency warning :</b> The JobconsumerThread will be submitted Commands with different flags. The thread must have a strategy JobProcessor 
- * for every flag otherwise the Commands will be lost without having been processed.
+ * <b>Consistency warning :</b> The JobconsumerThread will be submitted Commands with different ID. The thread must have a strategy JobProcessor 
+ * for every ID otherwise the Commands will be lost without having been processed.
  * <br><br>
  * 
  * In the sequence below a JobConsumerThread pulls requests and  pushes results in a single RequestResultInterface:<br>
@@ -70,7 +70,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
 	public C_result 	processJob(C_request job_req){
-		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(Long.valueOf(job_req.getFlag()));
+		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(Long.valueOf(job_req.getCommandID()));
 		if (_job_proc == null){
 			return null;
 		}
