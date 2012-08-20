@@ -14,11 +14,12 @@ public class TestWaitingJobQueue {
 
 	class TestCommand extends Command{
 		TestCommand(int val_to_test){
+			super(null);
 		}
 		void setTestValue(int t_val){
 		}
 		@Override
-		protected boolean isUndoable() {
+		public boolean isUndoable() {
 			return false;
 		}
 		

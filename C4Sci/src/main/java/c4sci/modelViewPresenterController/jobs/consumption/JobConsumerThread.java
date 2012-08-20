@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
 
 /**

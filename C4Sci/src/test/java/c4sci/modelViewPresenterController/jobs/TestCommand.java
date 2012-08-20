@@ -12,7 +12,7 @@ public class TestCommand extends Command{
 	}
 
 	@Override
-	protected boolean isUndoable() {
+	public boolean isUndoable() {
 		return true;
 	}
 	/********************************************************/
@@ -22,7 +22,7 @@ public class TestCommand extends Command{
 	
 	public int actualValue;
 	public TestCommand(){
-
+		super(null);
 		actualValue = 0;
 	}
 	

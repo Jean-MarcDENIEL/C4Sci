@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 
 import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
-import c4sci.modelViewPresenterController.jobs.consumption.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler;
 import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
@@ -16,10 +15,11 @@ public class TestJobConsumerThread {
 	class TestCommandA extends Command{
 		public int	addValue;
 		@Override
-		protected boolean isUndoable() {
+		public boolean isUndoable() {
 			return false;
 		}
 		public TestCommandA(int int_val){
+			super(null);
 			addValue = int_val;
 			setCommandID(1);
 		}
@@ -28,10 +28,11 @@ public class TestJobConsumerThread {
 	class TestCommandB extends Command{
 		public int		multValue;
 		@Override
-		protected boolean isUndoable() {
+		public boolean isUndoable() {
 			return false;
 		}
 		public TestCommandB(){
+			super(null);
 			setCommandID(2);
 		}
 	}

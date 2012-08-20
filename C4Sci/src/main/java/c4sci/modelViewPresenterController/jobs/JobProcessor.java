@@ -1,9 +1,9 @@
-package c4sci.modelViewPresenterController.jobs.consumption;
+package c4sci.modelViewPresenterController.jobs;
 
-import c4sci.modelViewPresenterController.jobs.Command;
 
 /**
- * This class implements a job treatment on a Command
+ * This class implements a job treatment on a Command.<br>
+ * <b>Pattern : </b> This class implements the <b>Strategy</b> GoF pattern.
  * @author jeanmarc.deniel
  *
  */

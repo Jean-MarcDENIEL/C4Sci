@@ -21,10 +21,10 @@ public abstract class Component {
 	private PlaneVector		relativeSize;
 	
 	public Component(){
-		parentComponent 	= null;
-		componentIdentity 	= new DataIdentity();
+		parentComponent 			= null;
+		componentIdentity 			= new DataIdentity();
 		relativeUpperLeftCorner		= new PlaneVector();
-		relativeSize		= new PlaneVector();
+		relativeSize				= new PlaneVector();
 	}
 
 	/**

@@ -1,5 +1,12 @@
 package c4sci.modelViewPresenterController.jobs;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * This class encapsulates jobs to do.<br>
  * Commands can be chained to previous and followings.
@@ -11,12 +18,27 @@ package c4sci.modelViewPresenterController.jobs;
  *
  */
 public abstract class Command {
+	// chronological order of Commands
 	private Command		ancestorCommand;
 	private Command		descendantCommand;
-	private boolean		alreadyProcessed;
+	// the parent Command : the Command that needs 
+	// other sub-commands to be processed
+	private Command		parentCommand;
+	// the child Commands : Commands that need to be processed 
+	// in order to get the actual command entirely processed.
+	private List<Command>	childCommandsList;
+	
+	// true if "this" command has been processed
+	// does not mean that child command have been processed
+	private AtomicBoolean		alreadyProcessed;
 	private int 		commandPriority;
 	private int			commandCost;
 	private long		commandID;
+	
+	// JobProcessor / Result / Request
+	// Results and requests commands can be null
+	private Map<JobProcessor<Command, Command>, Command>	jobProcessorRequestMap;
+	private Map<JobProcessor<Command, Command>, Command>	jobProcessorResultMap;
 	
 	private static long	flagCount = 0;
 	/**
@@ -27,18 +49,55 @@ public abstract class Command {
 		return flagCount++;
 	}
 	
+	@SuppressWarnings("unused")
+	private Command(){}
+	
 	/**
 	 * Creates a command without any ancestor nor descendant, and with a new flag.<br>
 	 * Cost and priority and flag are set to 0.
+	 * @param parent_command the command depending on "this"or null if there is no parent command.
 	 */
- 	Command(){
+ 	Command(Command parent_command){
 		ancestorCommand 	= null;
 		descendantCommand	= null;
-		alreadyProcessed	= false;
+		
+		setParentCommand(parent_command);
+		childCommandsList	= new ArrayList<Command>();
+		
+		alreadyProcessed	= new AtomicBoolean(false);
+		
 		commandPriority		= 0;
 		commandCost			= 0;
+		
 		commandID			= 0;
+		
+		jobProcessorRequestMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
+		jobProcessorResultMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
 	}
+ 	/**
+ 	 * This method has no side-effect on the passed argument
+ 	 * @param parent_command the Command whose "this" is a sub-command
+ 	 */
+ 	public final void setParentCommand(final Command parent_command){
+ 		parentCommand = parent_command;
+ 	}
+ 	/**
+ 	 * 
+ 	 * @return the parent Command or null if there's no
+ 	 */
+ 	public final Command getParentCommand(){
+ 		return parentCommand;
+ 	}
+ 	/**
+ 	 * This method has no side-effect on the passed argument.
+ 	 * @param child_command
+ 	 */
+ 	public void addChildCommand(final Command child_command){
+ 		childCommandsList.add(child_command);
+ 	}
+ 	public Iterator<Command> getChildCommandsIterator(){
+ 		return childCommandsList.iterator();
+ 	}
 
  	/**
  	 * This method copies internal state into the passed parameter.<br>
@@ -48,9 +107,16 @@ public abstract class Command {
  	void modifyAsClone(Command modified_command){
  		modified_command.setPreviousCommand(getPreviousCommand());
  		modified_command.setFollowingCommand(getFollowingCommand());
- 		modified_command.alreadyProcessed = hasBeenProcessed();
+ 		
+ 		modified_command.setParentCommand(getParentCommand());
+
+ 		modified_command.childCommandsList.addAll(childCommandsList);
+ 		
+ 		modified_command.alreadyProcessed.set(hasBeenProcessed());
+ 		
  		modified_command.setPriority(getPriority());
  		modified_command.setCost(getCost());
+ 		
  		modified_command.setCommandID(getCommandID());
  	}
  	/**
@@ -126,8 +192,23 @@ public abstract class Command {
 			commandCost = 0;
 		}
 	}
-	public final synchronized boolean hasBeenProcessed(){
-		return alreadyProcessed;
+	/**
+	 * This method indicates if the current Command and all its child Commands have been processed.<br>
+	 * To work properly, this method needs the {link {@link #doProcess()} method to be called when the Command  is used.
+	 * @return true if and only if the Command and all its sub-commands have been processed. False otherwise.
+	 */
+	public final boolean hasBeenProcessed(){
+		if (!alreadyProcessed.get()){
+			return false;
+		}
+		else{
+			for (Iterator<Command> _it = getChildCommandsIterator(); _it.hasNext(); ){
+				if (!_it.next().hasBeenProcessed()){
+					return false;
+				}
+			}
+			return alreadyProcessed.get();
+		}
 	}
 	public final boolean hasUnprocessedAncestor(){
 		for (Command _ancestor = getPreviousCommand(); _ancestor != null; _ancestor = _ancestor.getPreviousCommand()){
@@ -139,22 +220,35 @@ public abstract class Command {
 	}
 	
 	/**
+	 * This method should always be called when working with a Command object.<br>
+	 * <ol>
+	 * <li> this method computes results of the {link {@link JobProcessor#processJob(Command)} method on all added JobProcessors</li>
+	 * <li> this method modifies the internal state in order for the {link{@link #hasBeenProcessed()} method to work properly
+	 * </ol>
+	 */
+	public final void doProcess(){
+		for (Iterator<JobProcessor<Command, Command>> _it=jobProcessorRequestMap.keySet().iterator(); _it.hasNext();){
+			JobProcessor<Command, Command> _job_proc = _it.next();
+			jobProcessorResultMap.put(_job_proc, _job_proc.processJob(jobProcessorRequestMap.get(_job_proc)));
+		}
+		alreadyProcessed.set(true);
+	}
+	
+	/**
 	 * 
 	 * @return true is the command can be undone.
 	 */
-	protected abstract boolean	isUndoable();
+	public abstract boolean	isUndoable();
 	/**
 	 * This method describes how to do the job. This method should be called nowhere else than in doProcess().
 	 */
-	/*
-	protected abstract void 	processJob();
-	*/
+	//protected abstract void 	processJob();
+	
 	/**
 	 * This method describes how to undo the job. This method should be called nowhere else than in undoProcess().
 	 */
-	/*
-	abstract void 		unprocessJob();
-	*/
+	//abstract void 		unprocessJob();
+	
 
 	
 }
