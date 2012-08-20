@@ -15,12 +15,6 @@ public class TestHighestCostFirstScheduler {
 		}
 		void setTestValue(int t_val){
 		}
-		@Override
-		public boolean isUndoable() {
-			return false;
-		}
-
-		
 	};
 	@Test
 	public void testChooseJobToProcess() {

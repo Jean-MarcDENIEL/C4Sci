@@ -235,10 +235,26 @@ public abstract class Command {
 	}
 	
 	/**
-	 * 
-	 * @return true is the command can be undone.
+	 * Gets the result of the job processing, as computed by the {@link #doProcess()} method.
+	 * @param job_proc The job processor whose result is wanted.
+	 * @return The result or null in the following cases :
+	 * <ul>
+	 * <li>{@link #doProcess()} has not been yet called</li>
+	 * <li> {@link job_proc.processJob()) returned null</li>
+	 * <li> or job_proc has not been added as a JobProcessor to the Command through the 
 	 */
-	public abstract boolean	isUndoable();
+	public final Command getProcessResult(final JobProcessor<Command, Command> job_proc){
+		return jobProcessorResultMap.get(job_proc);
+	}
+	/**
+	 * Adds a work to be processed when {@link #doProcess()} is called.
+	 * @param job_proc A JobProcessor whose {@link JobProcessor#processJob(Command)} will be called.
+	 * @param job_request The request passed to 
+	 */
+	public final void addProcess(final JobProcessor<Command, Command> job_proc, Command job_request){
+		jobProcessorRequestMap.put(job_proc, job_request);
+	}
+
 
 	
 }

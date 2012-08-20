@@ -14,10 +14,7 @@ public class TestJobConsumerThread {
 
 	class TestCommandA extends Command{
 		public int	addValue;
-		@Override
-		public boolean isUndoable() {
-			return false;
-		}
+
 		public TestCommandA(int int_val){
 			super(null);
 			addValue = int_val;
@@ -27,10 +24,7 @@ public class TestJobConsumerThread {
 	
 	class TestCommandB extends Command{
 		public int		multValue;
-		@Override
-		public boolean isUndoable() {
-			return false;
-		}
+
 		public TestCommandB(){
 			super(null);
 			setCommandID(2);

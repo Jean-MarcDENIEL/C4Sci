@@ -7,16 +7,10 @@ import org.junit.Test;
 public class TestCommand extends Command{
 
 	@Test
-	public void testIsUndoable() {
-		assertTrue(isUndoable());
+	public void testCommand() {
+		fail("not implemented yet");
 	}
 
-	@Override
-	public boolean isUndoable() {
-		return true;
-	}
-	/********************************************************/
-	
 
 	public final int JOB_SETTED_VALUE = 10;
 	

@@ -18,10 +18,7 @@ public class TestWaitingJobQueue {
 		}
 		void setTestValue(int t_val){
 		}
-		@Override
-		public boolean isUndoable() {
-			return false;
-		}
+
 		
 	};
 	
