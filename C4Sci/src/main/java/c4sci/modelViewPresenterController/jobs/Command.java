@@ -239,16 +239,6 @@ public abstract class Command {
 	 * @return true is the command can be undone.
 	 */
 	public abstract boolean	isUndoable();
-	/**
-	 * This method describes how to do the job. This method should be called nowhere else than in doProcess().
-	 */
-	//protected abstract void 	processJob();
-	
-	/**
-	 * This method describes how to undo the job. This method should be called nowhere else than in undoProcess().
-	 */
-	//abstract void 		unprocessJob();
-	
 
 	
 }
