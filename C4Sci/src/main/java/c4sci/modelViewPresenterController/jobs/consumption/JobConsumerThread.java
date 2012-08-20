@@ -14,9 +14,10 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * <br><br>
  * Until told to die in case of empty waiting job queue, its loop is the following :  
  * <ol>
- * <li> pulling a job (request or result) out of a first RequestResultInterface by calling the abstract <b>pullJobToProcess()</b> method
- * <li> processing the job by calling the abstract <b>processJob()</b> method
- * <li> pushing the result into a second RequestResultInterface< by calling the abstract <b>pushProcessedJob()</b> method
+ * <li> pull a job (request or result) out of a first RequestResultInterface by calling the abstract {@link #pullJobToProcess()}method,
+ * <li> make process the Command by the corresponding JobProcessor through its {@link JobProcessor#processJob(Command)} method,
+ * <li> process the Command itself by calling its {@link Command#doProcess()} method,
+ * <li> push the result into a second RequestResultInterface< by calling the abstract {@link #pushProcessedJob(Command)} method.
  * </ol>
  * Note : the RequestResultInterfaces can be the same one.<br><br>
  * <b>Pattern :</b> This class makes use of the <b>Template Method </b>GoF pattern : <br>
