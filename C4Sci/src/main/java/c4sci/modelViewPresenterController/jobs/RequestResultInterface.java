@@ -1,5 +1,8 @@
 package c4sci.modelViewPresenterController.jobs;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -41,22 +44,57 @@ public final class RequestResultInterface <C extends Command>{
 	/**
 	 * Number of pushed requests minus number of pulled results
 	 */
-	private int 			requestResultBalance;
+	//private int 			requestResultBalance;
 	private ReentrantLock 	internalLock;
 	private Condition 		isBalancedCondition;
 	private Condition		requestQueueNotEmptyCondition;
 	private Condition		resultQueueNotEmptyCondition;
 	private boolean			isOpenedForRequestsFlag;
+	private List<C>			jobsToAnalyseForBalanceList;
 
+	
+	class BalanceReflex implements Command.CommandReflex{
+		public void doReflex(Command processed_command) {
+			System.out.println(RequestResultInterface.this+": 						doReflex()");
+			if (processed_command.hasBeenProcessed()){
+				internalLock.lock();
+				try{
+					//requestResultBalance --;
+					//System.out.println(RequestResultInterface.this+":						doReflex() : balance="+requestResultBalance);
+					jobsToAnalyseForBalanceList.remove(processed_command);
+				}
+				finally{
+					internalLock.unlock();
+				}
+				
+			}
+			if (isBalanced()){
+				System.out.println(RequestResultInterface.this+":						doReflex() : isBalanced()");
+				internalLock.lock();
+				try{
+
+
+						System.out.println(RequestResultInterface.this+":						doReflex: notifyAll()");
+						isBalancedCondition.signalAll();
+
+				}
+				finally{
+					internalLock.unlock();
+				}
+			}
+		}
+	}
+	
 	public RequestResultInterface(){
 		requestQueue 		= new WaitingJobQueue<C>();
 		resultQueue  		= new WaitingJobQueue<C>();
-		requestResultBalance = 0;
+		//requestResultBalance = 0;
 		internalLock 		= new ReentrantLock();
 		isBalancedCondition 			= internalLock.newCondition();
 		requestQueueNotEmptyCondition 	= internalLock.newCondition();
 		resultQueueNotEmptyCondition	= internalLock.newCondition();
 		isOpenedForRequestsFlag = true;
+		jobsToAnalyseForBalanceList		= new ArrayList<C>();
 	}
 	public void setRequestQueueScheduler(JobScheduler<C> job_sch){
 		requestQueue.setJobScheduler(job_sch);
@@ -66,10 +104,21 @@ public final class RequestResultInterface <C extends Command>{
 	}
 	/**
 	 * 
-	 * @return true is all requests have been processed and corresponding results have been pushed in.
+	 * @return true is all requests answer true
 	 */
 	public boolean isBalanced(){
-		return requestResultBalance == 0;
+		
+		System.out.println(this+" : 						Jobs to analyze : "+jobsToAnalyseForBalanceList.size());
+		
+		for (Iterator<C> _it=jobsToAnalyseForBalanceList.iterator(); _it.hasNext();){
+			if (_it.next().hasBeenProcessed()){
+				_it.remove();
+			}
+			else{
+				return false;
+			}
+		}
+		return true;
 	}
 	/**
 	 * Stops permitting requests to be pushed in.
@@ -105,16 +154,17 @@ public final class RequestResultInterface <C extends Command>{
 	 * Waits until all requests have been processed and results have been pulled out.
 	 */
 	public void waitUntilBalanced(){
-		internalLock.lock();
-		try{
-			while (!isBalanced()){
+		System.out.println(this+":						waitUntilBalanced balance =");
+		while (!isBalanced()){		
+			internalLock.lock();
+			try{
 				isBalancedCondition.await();
+			} 
+			catch (InterruptedException _e) {
 			}
-		} 
-		catch (InterruptedException _e) {
-		}
-		finally{
-			internalLock.unlock();
+			finally{
+				internalLock.unlock();
+			}
 		}
 	}
 	/**
@@ -125,11 +175,18 @@ public final class RequestResultInterface <C extends Command>{
 		if (req_cmd == null){
 			return;
 		}
+	
+		req_cmd.addReflexOnChildNotification(new BalanceReflex());
+		
 		internalLock.lock();
 		try{
 			if (isOpenedForRequests()){
 				requestQueue.appendJobAtLastPosition(req_cmd);
-				requestResultBalance ++;
+				// sets the command to be analyzed when computing balance
+				jobsToAnalyseForBalanceList.add(req_cmd);
+				
+				//requestResultBalance ++;
+				
 				requestQueueNotEmptyCondition.signalAll();
 			}
 		}
@@ -147,9 +204,10 @@ public final class RequestResultInterface <C extends Command>{
 		internalLock.lock();
 		try{
 			if (res_cmd == null){
-				balanceOnPulledResult();
+				//balanceOnPulledResult();
 			}
 			else{
+				res_cmd.addReflexOnChildNotification(new BalanceReflex());
 				resultQueue.appendJobAtLastPosition(res_cmd);
 				resultQueueNotEmptyCondition.signalAll();
 			}
@@ -158,12 +216,12 @@ public final class RequestResultInterface <C extends Command>{
 			internalLock.unlock();
 		}
 	}
-	private void balanceOnPulledResult(){
+	/*private void balanceOnPulledResult(){
 		-- requestResultBalance;
 		if (isBalanced()){
 			isBalancedCondition.signalAll();
 		}
-	}
+	}*/
 	
 	/**
 	 * 
@@ -182,16 +240,16 @@ public final class RequestResultInterface <C extends Command>{
 				}
 			}
 			C _res = resultQueue.extractAJobToProcess();
-			balanceOnPulledResult();
+			//balanceOnPulledResult();
 			return _res;
 		}
 		catch (NoJobToProcessException _e) {
-			isBalancedCondition.signalAll();
+			//isBalancedCondition.signalAll();
 			return null;
 		}
 		catch (InterruptedException _e) {
 			if (isBalanced()){
-				isBalancedCondition.signalAll();
+				//isBalancedCondition.signalAll();
 			}
 			return null;
 		}

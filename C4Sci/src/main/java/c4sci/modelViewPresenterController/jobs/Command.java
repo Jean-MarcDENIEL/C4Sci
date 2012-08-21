@@ -54,23 +54,25 @@ public abstract class Command {
 	
 	
 	public interface CommandReflex{
-		void doReflex(Command processed_child_command);
+		void doReflex(Command processed_command);
 	};
-	
-	@SuppressWarnings("unused")
 
-private Command(){}
-	
+	@SuppressWarnings("unused")
+	private Command(){}
+
 	/**
 	 * Creates a command without any ancestor nor descendant, and with a new flag.<br>
 	 * Cost and priority and flag are set to 0.
-	 * @param parent_command the command depending on "this"or null if there is no parent command.
+	 * @param parent_command the command depending on "this"or null if there is no parent command. parent_command will be added "this" child and vice-versa
 	 */
  	Command(Command parent_command){
 		ancestorCommand 	= null;
 		descendantCommand	= null;
 		
 		setParentCommand(parent_command);
+		if (parent_command != null){
+			parent_command.addChildCommand(this);
+		}
 		childCommandsList	= new ArrayList<Command>();
 		
 		alreadyProcessed	= new AtomicBoolean(false);
@@ -234,8 +236,8 @@ private Command(){}
 	 * This method should always be called when working with a Command object.<br>
 	 * This method 
 	 * <ol>
-	 * <li> computes results of the {link {@link JobProcessor#processJob(Command)} method on all added JobProcessors</li>
-	 * <li> modifies the internal state in order for the {link{@link #hasBeenProcessed()} method to work properly</li>
+	 * <li> computes results of the {@link JobProcessor#processJob(Command)} method on all added JobProcessors</li>
+	 * <li> modifies the internal state in order for the {@link #hasBeenProcessed()} method to work properly</li>
 	 * <li> notify the parent Command that its been processed (but there could be child Commands still unprocessed).
 	 * </ol>
 	 */
@@ -245,9 +247,8 @@ private Command(){}
 			jobProcessorResultMap.put(_job_proc, _job_proc.processJob(jobProcessorRequestMap.get(_job_proc)));
 		}
 		alreadyProcessed.set(true);
-		if (parentCommand != null){
-			parentCommand.notifyOnProcessChild(this);
-		}
+		notifyOnProcessed();
+
 	}
 	
 	/**
@@ -271,19 +272,22 @@ private Command(){}
 		jobProcessorRequestMap.put(job_proc, job_request);
 	}
 
-	private void notifyOnProcessChild(Command child_cmd){
+	/**
+	 * Method to call when "this" or one of its child Command has been processed.
+	 */
+	private void notifyOnProcessed(){
 		for (Iterator<CommandReflex> _it=childNotificationReflexList.iterator(); _it.hasNext();){
-			_it.next().doReflex(child_cmd);
+			_it.next().doReflex(this);
 		}
 		if (parentCommand != null){
-			parentCommand.notifyOnProcessChild(this);
+			parentCommand.notifyOnProcessed();
 		}
 	}
 	/**
 	 * Adds a routine triggered on each notification received from a child Command.
 	 * @param reflex_
 	 */
-	public final void assReflexOnChildNotification(CommandReflex reflex_){
+	public final void addReflexOnChildNotification(CommandReflex reflex_){
 		childNotificationReflexList.add(reflex_);
 	}
 	

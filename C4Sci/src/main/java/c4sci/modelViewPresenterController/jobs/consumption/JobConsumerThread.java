@@ -17,7 +17,7 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * <li> pull a job (request or result) out of a first RequestResultInterface by calling the abstract {@link #pullJobToProcess()}method,
  * <li> make process the Command by the corresponding JobProcessor through its {@link JobProcessor#processJob(Command)} method,
  * <li> process the Command itself by calling its {@link Command#doProcess()} method,
- * <li> push the result into a second RequestResultInterface< by calling the abstract {@link #pushProcessedJob(Command)} method.
+ * <li> push the result into a second RequestResultInterface by calling the abstract {@link #pushProcessedJob(Command)} method.
  * </ol>
  * Note : the RequestResultInterfaces can be the same one.<br><br>
  * <b>Pattern :</b> This class makes use of the <b>Template Method </b>GoF pattern : <br>
@@ -68,6 +68,8 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * 		<li>otherwise returns null
 	 * 	<ul>
 	 * </ol>  
+	 * If overridden this method should always finish by : return super.processJob(job_req).
+	 * 
 	 * @param job_req the job to process
 	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
@@ -80,14 +82,14 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	}
 
 	/**
-	 * This method must be defined to call whether pullRequestJobToProcess()
-	 * or pullResultJobToProcess()
+	 * This method must be defined to call whether {@link #pullRequestJobToProcess()}
+	 * or {@link #pullResultJobToProcess()}
 	 * @return null if there is no job to process
 	 */
 	public abstract C_request	pullJobToProcess();
 	/**
-	 * This method must be defined to just call whether pushJobResultAsRequest()
-	 * or pushJobResultAsResult()
+	 * This method must be defined to just call whether {@link #pushJobResultAsRequest()}
+	 * or {@link #pushJobResultAsResult()}
 	 * @param job_res may be null, meaning there is no result to treat but balance should be achieved nonetheless.
 	 */
 	public abstract void pushProcessedJob(C_result job_res);
@@ -158,6 +160,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 			else{
 				waitingTimeMillisec = 1;
 				C_result _res_job = processJob(_job_to_do);
+				_job_to_do.doProcess();
 				pushProcessedJob(_res_job);
 			}
 		}

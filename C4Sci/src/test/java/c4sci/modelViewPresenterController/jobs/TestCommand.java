@@ -8,7 +8,7 @@ public class TestCommand extends Command{
 
 	@Test
 	public void testCommand() {
-		fail("not implemented yet");
+		//fail("not implemented yet");
 	}
 
 
