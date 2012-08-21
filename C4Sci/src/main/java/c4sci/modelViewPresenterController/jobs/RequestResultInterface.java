@@ -55,7 +55,7 @@ public final class RequestResultInterface <C extends Command>{
 	
 	class BalanceReflex implements Command.CommandReflex{
 		public void doReflex(Command processed_command) {
-			System.out.println(RequestResultInterface.this+": 						doReflex()");
+			System.out.println("			"+(Object)RequestResultInterface.this+":		doReflex()");
 			if (processed_command.hasBeenProcessed()){
 				internalLock.lock();
 				try{
@@ -69,12 +69,12 @@ public final class RequestResultInterface <C extends Command>{
 				
 			}
 			if (isBalanced()){
-				System.out.println(RequestResultInterface.this+":						doReflex() : isBalanced()");
+				System.out.println("			"+(Object)RequestResultInterface.this+":	doReflex() : isBalanced()");
 				internalLock.lock();
 				try{
 
 
-						System.out.println(RequestResultInterface.this+":						doReflex: notifyAll()");
+						System.out.println("			"+(Object)RequestResultInterface.this+":	doReflex: notifyAll()");
 						isBalancedCondition.signalAll();
 
 				}
@@ -107,8 +107,9 @@ public final class RequestResultInterface <C extends Command>{
 	 * @return true is all requests answer true
 	 */
 	public boolean isBalanced(){
-		
-		System.out.println(this+" : 						Jobs to analyze : "+jobsToAnalyseForBalanceList.size());
+		internalLock.lock();
+		try{
+		System.out.println("			"+(Object)this+" :		Jobs to analyze : "+jobsToAnalyseForBalanceList.size());
 		
 		for (Iterator<C> _it=jobsToAnalyseForBalanceList.iterator(); _it.hasNext();){
 			if (_it.next().hasBeenProcessed()){
@@ -119,6 +120,9 @@ public final class RequestResultInterface <C extends Command>{
 			}
 		}
 		return true;
+		}finally{
+			internalLock.unlock();
+		}
 	}
 	/**
 	 * Stops permitting requests to be pushed in.
@@ -154,7 +158,7 @@ public final class RequestResultInterface <C extends Command>{
 	 * Waits until all requests have been processed and results have been pulled out.
 	 */
 	public void waitUntilBalanced(){
-		System.out.println(this+":						waitUntilBalanced balance =");
+		System.out.println("			"+(Object)this+":	waitUntilBalanced balance =");
 		while (!isBalanced()){		
 			internalLock.lock();
 			try{

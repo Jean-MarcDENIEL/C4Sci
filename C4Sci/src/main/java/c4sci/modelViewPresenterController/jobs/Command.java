@@ -210,7 +210,7 @@ public abstract class Command {
 	 * To work properly, this method needs the {link {@link #doProcess()} method to be called when the Command  is used.
 	 * @return true if and only if the Command and all its sub-commands have been processed. False otherwise.
 	 */
-	public final boolean hasBeenProcessed(){
+	public final synchronized boolean hasBeenProcessed(){
 		if (!alreadyProcessed.get()){
 			return false;
 		}
@@ -223,7 +223,7 @@ public abstract class Command {
 			return alreadyProcessed.get();
 		}
 	}
-	public final boolean hasUnprocessedAncestor(){
+	public final synchronized boolean hasUnprocessedAncestor(){
 		for (Command _ancestor = getPreviousCommand(); _ancestor != null; _ancestor = _ancestor.getPreviousCommand()){
 			if (!_ancestor.hasBeenProcessed()){
 				return true;
@@ -268,7 +268,7 @@ public abstract class Command {
 	 * @param job_proc A JobProcessor whose {@link JobProcessor#processJob(Command)} will be called.
 	 * @param job_request The request passed to 
 	 */
-	public final void addProcess(final JobProcessor<Command, Command> job_proc, Command job_request){
+	public final synchronized void addProcess(final JobProcessor<Command, Command> job_proc, Command job_request){
 		jobProcessorRequestMap.put(job_proc, job_request);
 	}
 
