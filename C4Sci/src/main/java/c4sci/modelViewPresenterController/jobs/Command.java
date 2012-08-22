@@ -3,17 +3,22 @@ package c4sci.modelViewPresenterController.jobs;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * This class encapsulates jobs to do.<br>
- * Commands can be chained to previous and followings.
+ * This class encapsulates jobs to do and processing mechanisms :<br>
+ * <ul>
+ * <li>Commands can be chained to previous and followings Commands (chronological order) : following and ancestor Commands</li>
+ * <li>Commands can have child Commands (and recursively) : i.e Commands that need to be processed in order to get the parent Command fully processed.</li>
+ * <li>Commands have a notification mechanism associated with reflex methods that are called each time a child Command notifies them.</li>
+ * <li>Commands have ID that identifies their "type".</li>
+ * <li>Commands have Priority, Cost in order to schedule them according to various strategies.</li>
+ * </ul>
  * <br><br>
  * 
  * 
  * <b>Pattern : </b>This class instantiates the <b>Command</b> GoF pattern.
+ * <b>Pattern : </b>Reflex methods use the <b>Strategy</b> GoF pattern.
  * @author jeanmarc.deniel
  *
  */
@@ -24,7 +29,7 @@ public abstract class Command {
 	// the parent Command : the Command that needs 
 	// other sub-commands to be processed
 	private Command		parentCommand;
-	// the child Commands : Commands that need to be processed 
+	// the child Commands : Commands that need to be processed in order to get "this" fully processed.
 	// in order to get the actual command entirely processed.
 	private List<Command>	childCommandsList;
 	
@@ -37,8 +42,8 @@ public abstract class Command {
 	
 	// JobProcessor / Result / Request
 	// Results and requests commands can be null
-	private Map<JobProcessor<Command, Command>, Command>	jobProcessorRequestMap;
-	private Map<JobProcessor<Command, Command>, Command>	jobProcessorResultMap;
+	//private Map<JobProcessor<Command, Command>, Command>	jobProcessorRequestMap;
+	//private Map<JobProcessor<Command, Command>, Command>	jobProcessorResultMap;
 	
 	// post processing on notification from child commands
 	private List<CommandReflex>		childNotificationReflexList;
@@ -82,8 +87,8 @@ public abstract class Command {
 		
 		commandID			= 0;
 		
-		jobProcessorRequestMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
-		jobProcessorResultMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
+		//jobProcessorRequestMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
+		//jobProcessorResultMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
 		
 		childNotificationReflexList	= new ArrayList<Command.CommandReflex>();
 	}
@@ -242,10 +247,11 @@ public abstract class Command {
 	 * </ol>
 	 */
 	public final void doProcess(){
+		/*
 		for (Iterator<JobProcessor<Command, Command>> _it=jobProcessorRequestMap.keySet().iterator(); _it.hasNext();){
 			JobProcessor<Command, Command> _job_proc = _it.next();
 			jobProcessorResultMap.put(_job_proc, _job_proc.processJob(jobProcessorRequestMap.get(_job_proc)));
-		}
+		}*/
 		alreadyProcessed.set(true);
 		notifyOnProcessed();
 
@@ -260,17 +266,20 @@ public abstract class Command {
 	 * <li> {@link job_proc.processJob()) returned null</li>
 	 * <li> or job_proc has not been added as a JobProcessor to the Command through the 
 	 */
+	/*
 	public final Command getProcessResult(final JobProcessor<Command, Command> job_proc){
 		return jobProcessorResultMap.get(job_proc);
-	}
+	}*/
+	
 	/**
 	 * Adds a work to be processed when {@link #doProcess()} is called.
 	 * @param job_proc A JobProcessor whose {@link JobProcessor#processJob(Command)} will be called.
-	 * @param job_request The request passed to 
+	 * @param job_request The request passed to job_proc {@link JobProcessor#processJob(Command)} method.
 	 */
+	/*
 	public final synchronized void addProcess(final JobProcessor<Command, Command> job_proc, Command job_request){
 		jobProcessorRequestMap.put(job_proc, job_request);
-	}
+	}*/
 
 	/**
 	 * Method to call when "this" or one of its child Command has been processed.
