@@ -44,7 +44,6 @@ public final class RequestResultInterface <C extends Command>{
 	/**
 	 * Number of pushed requests minus number of pulled results
 	 */
-	//private int 			requestResultBalance;
 	private ReentrantLock 	internalLock;
 	private Condition 		isBalancedCondition;
 	private Condition		requestQueueNotEmptyCondition;
@@ -58,8 +57,6 @@ public final class RequestResultInterface <C extends Command>{
 			if (processed_command.hasBeenProcessed()){
 				internalLock.lock();
 				try{
-					//requestResultBalance --;
-					//System.out.println(RequestResultInterface.this+":						doReflex() : balance="+requestResultBalance);
 					jobsToAnalyseForBalanceList.remove(processed_command);
 				}
 				finally{
@@ -70,7 +67,7 @@ public final class RequestResultInterface <C extends Command>{
 			if (isBalanced()){
 				internalLock.lock();
 				try{
-						isBalancedCondition.signalAll();
+					isBalancedCondition.signalAll();
 				}
 				finally{
 					internalLock.unlock();
@@ -82,7 +79,6 @@ public final class RequestResultInterface <C extends Command>{
 	public RequestResultInterface(){
 		requestQueue 		= new WaitingJobQueue<C>();
 		resultQueue  		= new WaitingJobQueue<C>();
-		//requestResultBalance = 0;
 		internalLock 		= new ReentrantLock();
 		isBalancedCondition 			= internalLock.newCondition();
 		requestQueueNotEmptyCondition 	= internalLock.newCondition();
@@ -180,8 +176,6 @@ public final class RequestResultInterface <C extends Command>{
 				// sets the command to be analyzed when computing balance
 				jobsToAnalyseForBalanceList.add(req_cmd);
 				
-				//requestResultBalance ++;
-				
 				requestQueueNotEmptyCondition.signalAll();
 			}
 		}
@@ -226,21 +220,15 @@ public final class RequestResultInterface <C extends Command>{
 				}
 			}
 			C _res = resultQueue.extractAJobToProcess();
-			//balanceOnPulledResult();
 			return _res;
 		}
 		catch (NoJobToProcessException _e) {
-			//isBalancedCondition.signalAll();
 			return null;
 		}
 		catch (InterruptedException _e) {
-			if (isBalanced()){
-				//isBalancedCondition.signalAll();
-			}
 			return null;
 		}
 		finally {
-			
 			internalLock.unlock();
 		}
 	}
@@ -265,6 +253,4 @@ public final class RequestResultInterface <C extends Command>{
 			internalLock.unlock();
 		}
 	}
-	
-	
 }
