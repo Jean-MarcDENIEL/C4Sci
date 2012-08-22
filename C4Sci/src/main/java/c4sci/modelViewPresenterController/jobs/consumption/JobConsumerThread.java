@@ -124,14 +124,6 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 			outputQueue.pushResult(_it.next());
 		}
 	}
-	/**
-	 * Makes the Thread to push back a null result in the input result queue.<br>
-	 * This method is useful in the case where no result should be passed to the output RequestResultInterface,
-	 * as it ensure the good balancing of the input RequestResultInterface.
-	 */
-	public final void shutRequestJob(){
-		inputQueue.pushResult(null);
-	}
 	
 	public JobConsumerThread(RequestResultInterface<C_request> req_queue, RequestResultInterface<C_result> res_queue){
 		inputQueue =	req_queue;

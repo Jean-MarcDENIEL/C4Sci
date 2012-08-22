@@ -100,9 +100,8 @@ public class TestJobConsumerThread {
 
 		class InternalAdderJobProcessor extends AdderJobProcessor{
 			public List<TestCommandB> processJob(TestCommandA processing_cmd){
-				// tests the shutdown method
+				// tests the fact of not creating child commands
 				if (processing_cmd.addValue < 0){
-					shutRequestJob();
 					return null;
 				}
 				else{
