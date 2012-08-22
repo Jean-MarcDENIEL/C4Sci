@@ -50,15 +50,18 @@ public class TestJobConsumerThread {
 	}
 	
 	/*
-	 * Multiplies the CommandB value by 2 and adds it to _atom_res.
+	 * Multiplies the CommandB value by 2 through two child Command.
 	 */
 	class MulJobProcessor extends JobProcessor<TestCommandB, TestCommandB>{
 		@Override
 		public List<TestCommandB> processJob(TestCommandB processing_cmd) {
 			List<TestCommandB> _res = new ArrayList<TestCommandB>();
-			TestCommandB _res_cmd = new TestCommandB(processing_cmd);
-			_res.add(_res_cmd);
-			_res_cmd.multValue = processing_cmd.multValue * 2;
+			TestCommandB _res_cmd_1 = new TestCommandB(processing_cmd);
+			_res.add(_res_cmd_1);
+			_res_cmd_1.multValue = processing_cmd.multValue;
+			TestCommandB _res_cmd_2 = new TestCommandB(processing_cmd);
+			_res.add(_res_cmd_2);
+			_res_cmd_2.multValue = processing_cmd.multValue;
 			return _res;
 		}
 	}
