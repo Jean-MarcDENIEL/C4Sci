@@ -187,7 +187,7 @@ public class TestJobConsumerThread {
 		_result_thread.associateFlagToProcessor(1, new FinishJobProcessor());
 		
 		int _sum = 0;
-		for (int _i=-10; _i<5; _i++){
+		for (int _i=-10; _i<3; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
 			if (_i >=0){
 				_sum += (_i+2)*2;
@@ -204,40 +204,50 @@ public class TestJobConsumerThread {
 		System.out.println("Basic jobs finish.");
 		assertTrue("basic thread job does not work : "+_atom_res.get()+"instead of "+_sum, _sum == _atom_res.get());	
 
-		if (true)return;
+		//if (true)return;
 		
 		// ensure feeding with alive threads works
 		_sum = 0;
+		_atom_res.set(0);
 		for (int _i=0; _i<10; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
-			_sum += (_i+2)*2;
+			if (_i >=0){
+				_sum += (_i+2)*2;
+			}
 		}
 		_add_RRI.waitUntilBalanced();
-		assertTrue("feeding with alive thread does not work", _sum*2 == _atom_res.get());	
+		System.out.println("Feeding with alive thread finished.");
+		assertTrue("feeding with alive thread does not work : "+_atom_res.get()+" instead of "+_sum, _sum == _atom_res.get());	
 		//System.out.println("feeding with alive threads works");
 		
 		// ensure closing with alive threads works
 		_add_RRI.closeForRequests();
 		_sum = 0;
+		_atom_res.set(0);
 		for (int _i=0; _i<10; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
-			_sum += (_i+2)*2;
+			if (_i >=0){
+				_sum += (_i+2)*2;
+			}
 		}
 		_add_RRI.waitUntilBalanced();
-		assertTrue("closing with alive threads does not work", _sum*2 == _atom_res.get());	
-		//System.out.println("closing with alive thread works");
+		System.out.println("closing with alive thread finished.");
+		assertTrue("closing with alive threads does not work : "+_atom_res.get()+" instead of " + 0, 0 == _atom_res.get());	
+
 
 		// ensure reopening with alive threads works
 		_add_RRI.openForRequests();
 		_sum = 0;
+		_atom_res.set(0);
 		for (int _i=0; _i<10; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
-			_sum += (_i+2)*2;
+			if (_i >=0){
+				_sum += (_i+2)*2;
+			}
 		}
 		_add_RRI.waitUntilBalanced();
-		assertTrue("reopeing with alive threads does not work",_sum*3 == _atom_res.get());	
-		//System.out.println("reopening with alive threads works");
-		
+		System.out.println("reopening with alive threads finished");
+		assertTrue("reopeing with alive threads does not work : "+_atom_res.get()+" instead of "+_sum,_sum == _atom_res.get());	
 		
 		_result_thread.setToDieUnused();
 		_mul_thread.setToDieUnused();
@@ -252,13 +262,13 @@ public class TestJobConsumerThread {
 		
 		// ensure all threads are dead
 		_sum = 0;
+		_atom_res.set(0);
 		for (int _i=0; _i<10; _i++){
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
 			_sum += (_i+2)*2;
 		}
-		assertTrue(_sum*3 == _atom_res.get());	
-		//System.out.println("Ensuring all threads are dead works");
-
+		System.out.println("Ensuring all threads are dead finished.");
+		assertTrue("All threads dead : "+_atom_res.get()+" instead of 0", 0 == _atom_res.get());	
 
 	}
 
