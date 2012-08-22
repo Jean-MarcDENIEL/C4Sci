@@ -2,6 +2,8 @@ package c4sci.modelViewPresenterController.jobs;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
@@ -36,9 +38,11 @@ public class TestJobConsumerThread {
 	 */
 	class AdderJobProcessor  extends JobProcessor<TestCommandA, TestCommandB>{
 		@Override
-		public TestCommandB processJob(TestCommandA processing_cmd) {
-			TestCommandB _res = new TestCommandB(processing_cmd);
-			_res.multValue = processing_cmd.addValue + 2;
+		public List<TestCommandB> processJob(TestCommandA processing_cmd) {
+			List<TestCommandB> _res = new ArrayList<TestCommandB>();
+			TestCommandB _res_cmd = new TestCommandB(processing_cmd);
+			_res_cmd.multValue = processing_cmd.addValue + 2;
+			_res.add(_res_cmd);
 			return _res;
 		}
 	}
@@ -48,16 +52,18 @@ public class TestJobConsumerThread {
 	 */
 	class MulJobProcessor extends JobProcessor<TestCommandB, TestCommandB>{
 		@Override
-		public TestCommandB processJob(TestCommandB processing_cmd) {
-			TestCommandB _res = new TestCommandB(processing_cmd);
-			_res.multValue = processing_cmd.multValue * 2;
+		public List<TestCommandB> processJob(TestCommandB processing_cmd) {
+			List<TestCommandB> _res = new ArrayList<TestCommandB>();
+			TestCommandB _res_cmd = new TestCommandB(processing_cmd);
+			_res.add(_res_cmd);
+			_res_cmd.multValue = processing_cmd.multValue * 2;
 			return _res;
 		}
 	}
 	
 	class TransJobProcessor extends JobProcessor<TestCommandB, TestCommandA>{
 		@Override
-		public TestCommandA processJob(TestCommandB processing_cmd) {
+		public List<TestCommandA> processJob(TestCommandB processing_cmd) {
 			if (processing_cmd.multValue < 10){
 				// tests that balancing by null result pushing works
 				_atom_res.addAndGet(processing_cmd.multValue);
@@ -65,7 +71,9 @@ public class TestJobConsumerThread {
 				return null;
 			}
 			System.out.println("     TransJobConsumer - process : "+processing_cmd.multValue);
-			TestCommandA _res = new TestCommandA(processing_cmd.multValue, processing_cmd);
+			List<TestCommandA> _res = new ArrayList<TestCommandA>();
+			TestCommandA _res_cmd = new TestCommandA(processing_cmd.multValue, processing_cmd);
+			_res.add(_res_cmd);
 			return _res;
 		}
 	}
@@ -73,7 +81,7 @@ public class TestJobConsumerThread {
 	class FinishJobProcessor extends JobProcessor<TestCommandA, TestCommandA>{
 
 		@Override
-		public TestCommandA processJob(TestCommandA processing_cmd) {
+		public List<TestCommandA> processJob(TestCommandA processing_cmd) {
 			_atom_res.addAndGet(processing_cmd.addValue);
 			System.out.println("              FinishJobConsumer - process : "+processing_cmd.addValue);
 			return null;
@@ -91,7 +99,7 @@ public class TestJobConsumerThread {
 		}
 
 		class InternalAdderJobProcessor extends AdderJobProcessor{
-			public TestCommandB processJob(TestCommandA processing_cmd){
+			public List<TestCommandB> processJob(TestCommandA processing_cmd){
 				// tests the shutdown method
 				if (processing_cmd.addValue < 0){
 					shutRequestJob();
@@ -103,7 +111,7 @@ public class TestJobConsumerThread {
 				}
 			}
 		};
-		public TestCommandB processJob(TestCommandA job_req) {
+		public List<TestCommandB> processJob(TestCommandA job_req) {
 			try {
 				Thread.sleep((long) (Math.random()*10.0));
 			} 
@@ -114,7 +122,7 @@ public class TestJobConsumerThread {
 		public TestCommandA pullJobToProcess() {
 			return pullRequestJobToProcess();
 		}
-		public void pushProcessedJob(TestCommandB job_res) {
+		public void pushProcessedJob(List<TestCommandB> job_res) {
 			pushJobResultAsRequest(job_res);
 		}
 	};
@@ -137,7 +145,7 @@ public class TestJobConsumerThread {
 
 		JobConsumerThread<TestCommandB, TestCommandB> _mul_thread = new
 				JobConsumerThread<TestCommandB, TestCommandB>( _mul_RRI, _mul_RRI) {
-			public TestCommandB processJob(TestCommandB job_req) {
+			public List<TestCommandB> processJob(TestCommandB job_req) {
 				try {
 					Thread.sleep((long) (Math.random()*10.0));
 				} 
@@ -149,7 +157,7 @@ public class TestJobConsumerThread {
 			public TestCommandB pullJobToProcess() {
 				return pullRequestJobToProcess();
 			}
-			public void pushProcessedJob(TestCommandB job_res) {
+			public void pushProcessedJob(List<TestCommandB> job_res) {
 				pushJobResultAsResult(job_res);
 			}
 		};
@@ -157,7 +165,7 @@ public class TestJobConsumerThread {
 
 		JobConsumerThread<TestCommandB, TestCommandA> _trans_thread = new
 				JobConsumerThread<TestCommandB, TestCommandA>(_mul_RRI, _add_RRI) {
-			public TestCommandA processJob(TestCommandB job_req) {
+			public List<TestCommandA> processJob(TestCommandB job_req) {
 				try {
 					Thread.sleep((long) (Math.random()*10.0));
 				} 
@@ -168,7 +176,7 @@ public class TestJobConsumerThread {
 			public TestCommandB pullJobToProcess() {
 				return pullResultJobToProcess();
 			}
-			public void pushProcessedJob(TestCommandA job_res) {
+			public void pushProcessedJob(List<TestCommandA> job_res) {
 				pushJobResultAsResult(job_res);
 			}
 		};
@@ -179,7 +187,7 @@ public class TestJobConsumerThread {
 			public TestCommandA pullJobToProcess() {
 				return pullResultJobToProcess();
 			}
-			public void pushProcessedJob(TestCommandA job_res) {
+			public void pushProcessedJob(List<TestCommandA> job_res) {
 				// tests that pushing null request has no effect
 				pushJobResultAsRequest(job_res);
 			}

@@ -1,5 +1,7 @@
 package c4sci.modelViewPresenterController.jobs.consumption;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +75,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * @param job_req the job to process
 	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
-	public C_result 	processJob(C_request job_req){
+	public List<C_result> 	processJob(C_request job_req){
 		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(Long.valueOf(job_req.getCommandID()));
 		if (_job_proc == null){
 			return null;
@@ -92,7 +94,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * or {@link #pushJobResultAsResult()}
 	 * @param job_res may be null, meaning there is no result to treat but balance should be achieved nonetheless.
 	 */
-	public abstract void pushProcessedJob(C_result job_res);
+	public abstract void pushProcessedJob(List<C_result> job_res);
 	
 	/**
 	 * This method sets the max delay to wait in the case 
@@ -112,11 +114,15 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	protected final C_request pullResultJobToProcess(){
 			return inputQueue.pullResult(waitingTimeMillisec, TimeUnit.MILLISECONDS);
 	}
-	protected final void pushJobResultAsRequest(C_result job_res){
-		outputQueue.pushRequest(job_res);
+	protected final void pushJobResultAsRequest(List<C_result> job_res){
+		for (Iterator<C_result> _it=job_res.iterator(); _it.hasNext();){
+			outputQueue.pushRequest(_it.next());
+		}
 	}
-	protected final void pushJobResultAsResult(C_result job_res){
-		outputQueue.pushResult(job_res);
+	protected final void pushJobResultAsResult(List<C_result> job_res){
+		for (Iterator<C_result> _it=job_res.iterator(); _it.hasNext();){
+			outputQueue.pushResult(_it.next());
+		}
 	}
 	/**
 	 * Makes the Thread to push back a null result in the input result queue.<br>
@@ -159,9 +165,11 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 			}
 			else{
 				waitingTimeMillisec = 1;
-				C_result _res_job = processJob(_job_to_do);
+				List<C_result> _res_job = processJob(_job_to_do);
 				_job_to_do.doProcess();
-				pushProcessedJob(_res_job);
+				if (_res_job != null){
+					pushProcessedJob(_res_job);
+				}
 			}
 		}
 	}
