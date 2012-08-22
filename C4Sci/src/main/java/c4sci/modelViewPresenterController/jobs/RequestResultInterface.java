@@ -219,8 +219,7 @@ public final class RequestResultInterface <C extends Command>{
 					return null;
 				}
 			}
-			C _res = resultQueue.extractAJobToProcess();
-			return _res;
+			return resultQueue.extractAJobToProcess();
 		}
 		catch (NoJobToProcessException _e) {
 			return null;
