@@ -55,7 +55,6 @@ public final class RequestResultInterface <C extends Command>{
 	
 	class BalanceReflex implements Command.CommandReflex{
 		public void doReflex(Command processed_command) {
-			System.out.println("			"+(Object)RequestResultInterface.this+":		doReflex()");
 			if (processed_command.hasBeenProcessed()){
 				internalLock.lock();
 				try{
@@ -69,14 +68,9 @@ public final class RequestResultInterface <C extends Command>{
 				
 			}
 			if (isBalanced()){
-				System.out.println("			"+(Object)RequestResultInterface.this+":	doReflex() : isBalanced()");
 				internalLock.lock();
 				try{
-
-
-						System.out.println("			"+(Object)RequestResultInterface.this+":	doReflex: notifyAll()");
 						isBalancedCondition.signalAll();
-
 				}
 				finally{
 					internalLock.unlock();
@@ -109,17 +103,15 @@ public final class RequestResultInterface <C extends Command>{
 	public boolean isBalanced(){
 		internalLock.lock();
 		try{
-		System.out.println("			"+(Object)this+" :		Jobs to analyze : "+jobsToAnalyseForBalanceList.size());
-		
-		for (Iterator<C> _it=jobsToAnalyseForBalanceList.iterator(); _it.hasNext();){
-			if (_it.next().hasBeenProcessed()){
-				_it.remove();
+			for (Iterator<C> _it=jobsToAnalyseForBalanceList.iterator(); _it.hasNext();){
+				if (_it.next().hasBeenProcessed()){
+					_it.remove();
+				}
+				else{
+					return false;
+				}
 			}
-			else{
-				return false;
-			}
-		}
-		return true;
+			return true;
 		}finally{
 			internalLock.unlock();
 		}
@@ -158,7 +150,6 @@ public final class RequestResultInterface <C extends Command>{
 	 * Waits until all requests have been processed and results have been pulled out.
 	 */
 	public void waitUntilBalanced(){
-		System.out.println("			"+(Object)this+":	waitUntilBalanced balance =");
 		while (!isBalanced()){		
 			internalLock.lock();
 			try{
@@ -207,10 +198,7 @@ public final class RequestResultInterface <C extends Command>{
 	public void pushResult(C res_cmd){
 		internalLock.lock();
 		try{
-			if (res_cmd == null){
-				//balanceOnPulledResult();
-			}
-			else{
+			if (res_cmd != null){
 				res_cmd.addReflexOnChildNotification(new BalanceReflex());
 				resultQueue.appendJobAtLastPosition(res_cmd);
 				resultQueueNotEmptyCondition.signalAll();
@@ -220,13 +208,7 @@ public final class RequestResultInterface <C extends Command>{
 			internalLock.unlock();
 		}
 	}
-	/*private void balanceOnPulledResult(){
-		-- requestResultBalance;
-		if (isBalanced()){
-			isBalancedCondition.signalAll();
-		}
-	}*/
-	
+
 	/**
 	 * 
 	 * @param time_out the time to wait for a new C to be pushed in

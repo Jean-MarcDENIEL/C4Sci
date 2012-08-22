@@ -14,6 +14,8 @@ import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler
 
 public class TestJobConsumerThread {
 
+	static final boolean	printTraces = false;
+	
 	class TestCommandA extends Command{
 		public int	addValue;
 
@@ -67,10 +69,10 @@ public class TestJobConsumerThread {
 			if (processing_cmd.multValue < 10){
 				// tests that balancing by null result pushing works
 				_atom_res.addAndGet(processing_cmd.multValue);
-				System.out.println("     TransJobConsumer - process : "+processing_cmd.multValue +"-> null");
+				if (printTraces) System.out.println("     TransJobConsumer - process : "+processing_cmd.multValue +"-> null");
 				return null;
 			}
-			System.out.println("     TransJobConsumer - process : "+processing_cmd.multValue);
+			if (printTraces) System.out.println("     TransJobConsumer - process : "+processing_cmd.multValue);
 			List<TestCommandA> _res = new ArrayList<TestCommandA>();
 			TestCommandA _res_cmd = new TestCommandA(processing_cmd.multValue, processing_cmd);
 			_res.add(_res_cmd);
@@ -83,7 +85,7 @@ public class TestJobConsumerThread {
 		@Override
 		public List<TestCommandA> processJob(TestCommandA processing_cmd) {
 			_atom_res.addAndGet(processing_cmd.addValue);
-			System.out.println("              FinishJobConsumer - process : "+processing_cmd.addValue);
+			if (printTraces) System.out.println("              FinishJobConsumer - process : "+processing_cmd.addValue);
 			return null;
 		}
 		
@@ -105,7 +107,7 @@ public class TestJobConsumerThread {
 					return null;
 				}
 				else{
-					System.out.println("AddingJobConsumer - process : "+processing_cmd.addValue);
+					if (printTraces) System.out.println("AddingJobConsumer - process : "+processing_cmd.addValue);
 					return super.processJob(processing_cmd);
 				}
 			}
@@ -150,7 +152,7 @@ public class TestJobConsumerThread {
 				} 
 				catch (InterruptedException _e) {
 				}
-				System.out.println("  _mult_thread - process : "+job_req.multValue);
+				if (printTraces) System.out.println("  _mult_thread - process : "+job_req.multValue);
 				return super.processJob(job_req);
 			}
 			public TestCommandB pullJobToProcess() {
@@ -208,7 +210,7 @@ public class TestJobConsumerThread {
 		
 		// ensure basic jobs work 
 		_add_RRI.waitUntilBalanced();
-		System.out.println("Basic jobs finish.");
+		if (printTraces) System.out.println("Basic jobs finish.");
 		assertTrue("basic thread job does not work : "+_atom_res.get()+"instead of "+_sum, _sum == _atom_res.get());	
 
 		//if (true)return;
@@ -223,9 +225,8 @@ public class TestJobConsumerThread {
 			}
 		}
 		_add_RRI.waitUntilBalanced();
-		System.out.println("Feeding with alive thread finished.");
+		if (printTraces) System.out.println("Feeding with alive thread finished.");
 		assertTrue("feeding with alive thread does not work : "+_atom_res.get()+" instead of "+_sum, _sum == _atom_res.get());	
-		//System.out.println("feeding with alive threads works");
 		
 		// ensure closing with alive threads works
 		_add_RRI.closeForRequests();
@@ -238,7 +239,7 @@ public class TestJobConsumerThread {
 			}
 		}
 		_add_RRI.waitUntilBalanced();
-		System.out.println("closing with alive thread finished.");
+		if (printTraces) System.out.println("closing with alive thread finished.");
 		assertTrue("closing with alive threads does not work : "+_atom_res.get()+" instead of " + 0, 0 == _atom_res.get());	
 
 
@@ -253,7 +254,7 @@ public class TestJobConsumerThread {
 			}
 		}
 		_add_RRI.waitUntilBalanced();
-		System.out.println("reopening with alive threads finished");
+		if (printTraces) System.out.println("reopening with alive threads finished");
 		assertTrue("reopeing with alive threads does not work : "+_atom_res.get()+" instead of "+_sum,_sum == _atom_res.get());	
 		
 		_result_thread.setToDieUnused();
@@ -274,7 +275,7 @@ public class TestJobConsumerThread {
 			_add_RRI.pushRequest(new TestCommandA(_i, null));
 			_sum += (_i+2)*2;
 		}
-		System.out.println("Ensuring all threads are dead finished.");
+		if (printTraces) System.out.println("Ensuring all threads are dead finished.");
 		assertTrue("All threads dead : "+_atom_res.get()+" instead of 0", 0 == _atom_res.get());	
 
 	}
