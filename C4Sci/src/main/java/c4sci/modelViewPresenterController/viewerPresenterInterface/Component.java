@@ -8,7 +8,9 @@ import c4sci.math.geometry.plane.PlaneVector;
 /**
  * Components are visual elements composing the GUI.<br>
  * <br>
- * This abstract class is made to avoid coupling with GUI implementations.
+ * This abstract class is made to avoid coupling with GUI implementations.<br>
+ * <br>
+ * <b>Pattern : </b> This class instantiates the <b>Composite</b> GoF pattern.
  * 
  * @author jeanmarc.deniel
  *
@@ -109,21 +111,30 @@ public abstract class Component {
 	 */
 	abstract Iterator<Component> getChildComponentIterator();
 	/**
+	 * Adds a child component depending on the actual component.
+	 * @param child_comp The child component. Its {@link #setParentcomponent(Component)} method will be called.
+	 * @throws CannotPerformSuchChangeException in the case the actual component does not accept child components.
+	 */
+	abstract void addChildComponent(Component child_comp) throws CannotPerformSuchChangeException;
+	
+	/**
 	 * Describes whether the Component can have interactions with the user.
 	 * @return true if the Component can interact with the user. False otherwise.
 	 */
-	abstract boolean isActive();
+	//abstract boolean isActive();
 	/**
 	 * Sets the Component to be able to interact with the user.
 	 * @param act_ true to make the Component active. False otherwise.
 	 */
-	abstract void setActivity(boolean act_);
+	//abstract void setActivity(boolean act_);
 	
 	/**
 	 * Updates the Component according to the request argument.<br>
+	 * <br>
+	 * 
 	 * @param comp_change The update request.
 	 * @throws CannotPerformSuchChangeException is the component can't perform such an update
 	 */
-	abstract void performChange(ComponentChange comp_change) throws CannotPerformSuchChangeException;
+	abstract Runnable performChange(ComponentChange comp_change) throws CannotPerformSuchChangeException;
 	
 }
