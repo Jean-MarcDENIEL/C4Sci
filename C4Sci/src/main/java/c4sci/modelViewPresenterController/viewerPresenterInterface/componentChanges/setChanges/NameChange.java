@@ -1,8 +1,9 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
 
 import c4sci.data.DataIdentity;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange;
 
 /**
  * This class indicates a change of name

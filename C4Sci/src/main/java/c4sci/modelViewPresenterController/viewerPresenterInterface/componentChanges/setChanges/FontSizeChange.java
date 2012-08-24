@@ -1,7 +1,9 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
 
 import c4sci.data.DataIdentity;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.OneDimensionalChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange.ChangeID;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.OneDimensionalChange;
 
 public class FontSizeChange extends OneDimensionalChange {
 

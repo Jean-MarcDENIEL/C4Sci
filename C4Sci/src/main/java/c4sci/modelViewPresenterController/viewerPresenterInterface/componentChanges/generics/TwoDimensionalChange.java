@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics;
 
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;

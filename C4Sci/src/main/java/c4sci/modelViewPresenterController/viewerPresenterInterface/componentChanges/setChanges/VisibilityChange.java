@@ -1,7 +1,8 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 
 /**
  * This class is related to Components visibility (whether they appear or not).

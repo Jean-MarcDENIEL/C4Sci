@@ -1,7 +1,8 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.OneDimensionalChange;
 
 /**
  * Transparency is ranged between 0.0 (opaque) and 1.0 (purely transparent).

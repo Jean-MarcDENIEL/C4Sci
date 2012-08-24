@@ -1,7 +1,8 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 /**
  * This class indicates whether a Component is active (i.e it can received user interactions) or not.
  * @author jeanmarc.deniel

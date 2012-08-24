@@ -39,7 +39,8 @@ public abstract class ComponentChange {
 		SET_DESCRIPTION,
 		SET_SPECIAL_FEATURE,
 		
-		CREATE_COMPONENT,
+		CREATE_STANDARD_COMPONENT,
+		CREATE_SPECIAL_COMPONENT,
 		
 		RECEIVED_MOUSE_PRESS,
 		RECEIVED_MOUSE_RELEASE,
@@ -60,7 +61,8 @@ public abstract class ComponentChange {
 	
 	/**
 	 * 
-	 * @return the identification of the asked {@link ChangeID}
+	 * @return the type of the asked change
+	 * @see ChangeID
 	 */
 	public abstract ChangeID getChangeID();
 	/**
