@@ -8,14 +8,27 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * This class encapsulates jobs to do and processing mechanisms :<br>
  * <ul>
- * <li>Commands can be chained to previous and followings Commands (chronological order) : following and ancestor Commands</li>
+ * <li>Commands can be chained in a chronological order one-to-many relationship to previous and followings Commands.</li>
  * <li>Commands can have child Commands (and recursively) : i.e Commands that need to be processed in order to get the parent Command fully processed.</li>
  * <li>Commands have a notification mechanism associated with reflex methods that are called each time a child Command notifies them.</li>
  * <li>Commands have ID that identifies their "type".</li>
  * <li>Commands have Priority, Cost in order to schedule them according to various strategies.</li>
  * </ul>
  * <br><br>
- * 
+ * Command scheduling can use chronological order and childhood relationships at the same time. <br>
+ * e.g. : How to make an A Command launch three parallel B C D computations then get their result processed in a E Command ?
+ * <ol>
+ * <li> A command is created and queued</li>
+ * <li> A command is chosen to be processed</li>
+ * <li> A command creates B, C, D and E Commands</li>
+ * <li> A is declared as <i>parent</i> Command of B, C, D but not as <i> previous</i> Command of them</li>
+ * <li> A is declared as <i>previous</i> Command of E but not as <i>parent</i> of E</li>
+ * <li> B, C, D and E are queued to be processed</li>
+ * <li> At first, only B, C and D can be chosen because their {@link Command#hasUnprocessedAncestor()} returns false whereas E returns true.</li>
+ * <li> B, C, D are processed and their {@link #hasBeenProcessed()} method returns true</li>
+ * <li> Then A {@link #hasBeenProcessed()} method returns true.</li>
+ * <li> Then E {@link #hasBeenProcessed()} method returns true : E is chosen to be processed.</li> 
+ * </ol>
  * 
  * <b>Pattern : </b>This class instantiates the <b>Command</b> GoF pattern.
  * <b>Pattern : </b>Reflex methods use the <b>Strategy</b> GoF pattern.
@@ -23,22 +36,22 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  */
 public abstract class Command {
-	// chronological order of Commands
-	private Command		ancestorCommand;
-	private Command		descendantCommand;
+	// chronological order of Commands : one-to-many relationship
+	private Command				ancestorCommand;
+	private List<Command>		descendantCommands;
 	// the parent Command : the Command that needs 
 	// other sub-commands to be processed
-	private Command		parentCommand;
+	private Command				parentCommand;
 	// the child Commands : Commands that need to be processed in order to get "this" fully processed.
 	// in order to get the actual command entirely processed.
-	private List<Command>	childCommandsList;
+	private List<Command>		childCommandsList;
 	
 	// true if "this" command has been processed
 	// does not mean that child command have been processed
 	private AtomicBoolean		alreadyProcessed;
-	private int 		commandPriority;
-	private int			commandCost;
-	private long		commandID;
+	private int 				commandPriority;
+	private int					commandCost;
+	private long				commandID;
 	
 	// JobProcessor / Result / Request
 	// Results and requests commands can be null
@@ -68,12 +81,13 @@ public abstract class Command {
 	/**
 	 * Creates a command without any ancestor nor descendant, and with a new flag.<br>
 	 * Cost and priority and flag are set to 0.
-	 * @param parent_command the command depending on "this"or null if there is no parent command. parent_command will be added "this" child and vice-versa
+	 * @param parent_command the command depending on "this"or null if there is no parent command. <br>
+	 * parent_command will be added "this" child and vice-versa
 	 */
  	Command(Command parent_command){
 		ancestorCommand 	= null;
-		descendantCommand	= null;
-		
+		descendantCommands	= new ArrayList<Command>();
+
 		setParentCommand(parent_command);
 		if (parent_command != null){
 			parent_command.addChildCommand(this);
@@ -93,7 +107,8 @@ public abstract class Command {
 		childNotificationReflexList	= new ArrayList<Command.CommandReflex>();
 	}
  	/**
- 	 * This method has no side-effect on the passed argument
+ 	 * This method has no side-effect on the passed argument.<br>
+ 	 * 
  	 * @param parent_command the Command whose "this" is a sub-command
  	 */
  	public final void setParentCommand(final Command parent_command){
@@ -109,6 +124,9 @@ public abstract class Command {
  	/**
  	 * This method has no side-effect on the passed argument.
  	 * @param child_command
+ 	 * 	<li>an ancestor</li>
+ 	 *  <li> 
+ 	 * </ul>at the same time.
  	 */
  	public void addChildCommand(final Command child_command){
  		childCommandsList.add(child_command);
@@ -124,7 +142,7 @@ public abstract class Command {
  	 */
  	void modifyAsClone(Command modified_command){
  		modified_command.setPreviousCommand(getPreviousCommand());
- 		modified_command.setFollowingCommand(getFollowingCommand());
+ 		modified_command.addFollowingCommands(getFollowingCommands());
  		
  		modified_command.setParentCommand(getParentCommand());
 
@@ -163,15 +181,19 @@ public abstract class Command {
 	 * 
 	 * @return null if there is no Command following this.
 	 */
-	public final synchronized Command getFollowingCommand(){
-		return descendantCommand;
+	public final synchronized List<Command> getFollowingCommands(){
+		return descendantCommands;
 	}
 	public final synchronized void setPreviousCommand(final Command anc_command){
 		ancestorCommand = anc_command;
 	}
-	public final synchronized void setFollowingCommand(final Command desc_command){
-		descendantCommand = desc_command;
+	public final synchronized void addFollowingCommand(final Command desc_command){
+		descendantCommands.add(desc_command);
 	}
+	public final synchronized void addFollowingCommands(final List<Command> desc_commands){
+		descendantCommands.addAll(desc_commands);
+	}
+	
 	/**
 	 * 	
 	 * @return A subjective positive or 0 value
@@ -211,6 +233,18 @@ public abstract class Command {
 		}
 	}
 	/**
+	 * 
+	 * @return true if all the child Commands have been processed.
+	 */
+	public final synchronized boolean hasAllChildrenProcessed(){
+		for (Iterator<Command> _it = getChildCommandsIterator(); _it.hasNext(); ){
+			if (!_it.next().hasBeenProcessed()){
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
 	 * This method indicates if the current Command and all its child Commands have been processed.<br>
 	 * To work properly, this method needs the {link {@link #doProcess()} method to be called when the Command  is used.
 	 * @return true if and only if the Command and all its sub-commands have been processed. False otherwise.
@@ -220,14 +254,13 @@ public abstract class Command {
 			return false;
 		}
 		else{
-			for (Iterator<Command> _it = getChildCommandsIterator(); _it.hasNext(); ){
-				if (!_it.next().hasBeenProcessed()){
-					return false;
-				}
-			}
-			return alreadyProcessed.get();
+			return hasAllChildrenProcessed();
 		}
 	}
+	/**
+	 * 
+	 * @return true if an (even indirect) ancestor {@link Command#hasBeenProcessed()} method returns false.
+	 */
 	public final synchronized boolean hasUnprocessedAncestor(){
 		for (Command _ancestor = getPreviousCommand(); _ancestor != null; _ancestor = _ancestor.getPreviousCommand()){
 			if (!_ancestor.hasBeenProcessed()){
