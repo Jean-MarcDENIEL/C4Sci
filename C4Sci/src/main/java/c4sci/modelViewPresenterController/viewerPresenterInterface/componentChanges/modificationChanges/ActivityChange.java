@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.setChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
