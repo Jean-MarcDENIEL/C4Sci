@@ -27,9 +27,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <li> At first, only B, C and D can be chosen because their {@link Command#hasUnprocessedAncestor()} returns false whereas E returns true.</li>
  * <li> B, C, D are processed and their {@link #hasBeenProcessed()} method returns true</li>
  * <li> Then A {@link #hasBeenProcessed()} method returns true.</li>
- * <li> Then E {@link #hasBeenProcessed()} method returns true : E is chosen to be processed.</li> 
+ * <li> Then E {@link #hasUnprocessedAncestor()} method returns false : E can be chosen to be processed.</li> 
  * </ol>
- * 
+ * <br>
+ * <b> Warning : </b> It is the responsibility of the API user to avoid cycles through the simultaneous use of previous/following and parent/child relationships : <br>
+ * a child command of an "x" Command should not be a following command of this "x" command at the same time.<br> 
+ * <br>
  * <b>Pattern : </b>This class instantiates the <b>Command</b> GoF pattern.
  * <b>Pattern : </b>Reflex methods use the <b>Strategy</b> GoF pattern.
  * @author jeanmarc.deniel
