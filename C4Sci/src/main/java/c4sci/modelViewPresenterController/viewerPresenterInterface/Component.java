@@ -129,10 +129,11 @@ public abstract class Component {
 	//abstract void setActivity(boolean act_);
 	
 	/**
-	 * Updates the Component according to the request argument.<br>
+	 * Furnish a Runnable that is able to update the Component according to the request argument.<br>
 	 * <br>
 	 * 
 	 * @param comp_change The update request.
+	 * @return The Runnable to {@link java.lang.Runnable#run()} in order to obtain the asked change.
 	 * @throws CannotPerformSuchChangeException is the component can't perform such an update
 	 */
 	abstract Runnable performChange(ComponentChange comp_change) throws CannotPerformSuchChangeException;
