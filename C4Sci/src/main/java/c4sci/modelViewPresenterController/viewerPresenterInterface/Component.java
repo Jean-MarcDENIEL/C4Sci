@@ -1,6 +1,8 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
@@ -21,12 +23,14 @@ public abstract class Component {
 	private DataIdentity	componentIdentity;
 	private PlaneVector		relativeUpperLeftCorner;
 	private PlaneVector		relativeSize;
+	private ComponentChangeRunnableFactory	changePerformerFactory;
 	
 	public Component(){
 		parentComponent 			= null;
 		componentIdentity 			= new DataIdentity();
 		relativeUpperLeftCorner		= new PlaneVector();
 		relativeSize				= new PlaneVector();
+		changePerformerFactory		= new ComponentChangeRunnableFactory();
 	}
 
 	/**
@@ -127,15 +131,13 @@ public abstract class Component {
 	 * @param act_ true to make the Component active. False otherwise.
 	 */
 	//abstract void setActivity(boolean act_);
-	
+
 	/**
-	 * Furnish a Runnable that is able to update the Component according to the request argument.<br>
-	 * <br>
 	 * 
-	 * @param comp_change The update request.
-	 * @return The Runnable to {@link java.lang.Runnable#run()} in order to obtain the asked change.
-	 * @throws CannotPerformSuchChangeException is the component can't perform such an update
+	 * @return The factory of {@link ComponentChangeRunnable} to perform various kinds of {@link ComponentChange}.
 	 */
-	abstract Runnable performChange(ComponentChange comp_change) throws CannotPerformSuchChangeException;
+	public ComponentChangeRunnableFactory getChangePerformerFactory(){
+		return changePerformerFactory;
+	}
 	
 }

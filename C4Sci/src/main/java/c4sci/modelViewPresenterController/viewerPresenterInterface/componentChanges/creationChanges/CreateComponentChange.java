@@ -2,8 +2,6 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFactory;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange;
 
 /**
  * This class encapsulates a message asking for Component creation.
