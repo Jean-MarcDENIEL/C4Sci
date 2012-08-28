@@ -56,12 +56,13 @@ public class SpaceVector {
 	/**************** FLOW METHODS ********************************/
 	public final String toString(){
 		StringBuffer _res = new StringBuffer();
-		for (int _i =0; _i<Commons.NB_COOR; _i++){
+		for (int _i =0; _i<Commons.NB_COOR-1; _i++){
 			_res.append(getCoor(_i));
 			if (_i<Commons.NB_COOR-1){
 				_res.append(" ");
 			}
 		}
+		_res.append("1.0");
 		return _res.toString();
 	}
 	

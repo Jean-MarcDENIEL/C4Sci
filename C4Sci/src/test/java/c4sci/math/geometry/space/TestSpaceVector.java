@@ -190,5 +190,8 @@ public class TestSpaceVector {
 				assertTrue(true);
 			}
 		}
+		
+		SpaceVector _vec_c = new SpaceVector(1.0f, 2.0f, 3.0f, 2.0f);
+		assertTrue(_vec_c.isEqualTo(SpaceVector.parseVector(_vec_c.toString())));
 	}
 }
