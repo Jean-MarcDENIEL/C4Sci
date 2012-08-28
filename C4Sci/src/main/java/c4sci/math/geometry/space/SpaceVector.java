@@ -65,6 +65,24 @@ public class SpaceVector {
 		return _res.toString();
 	}
 	
+	public static final SpaceVector parseVector(String str_to_parse) throws NumberFormatException{
+		if (str_to_parse == null){
+			throw new NumberFormatException(null);
+		}
+		String[] _substrings = str_to_parse.split(" ");
+		if (_substrings.length != Commons.NB_COOR){
+			throw new NumberFormatException(str_to_parse);
+		}
+		SpaceVector _res = new SpaceVector();
+		_res.setW(1.0f);
+		for (int _i=0; _i<_substrings.length; _i++){
+			_res.setCoor(_i, Float.parseFloat(_substrings[_i]));
+		}
+		if (Floatings.isEqual(_res.getW(), 0.0f)){
+			throw new NumberFormatException(str_to_parse);
+		}
+		return _res;
+	}
 	
 	/**************** GET/SET METHODS *****************************/
 	/**

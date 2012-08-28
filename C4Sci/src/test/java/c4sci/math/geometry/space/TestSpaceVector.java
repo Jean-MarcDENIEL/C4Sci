@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.math.geometry.plane.PlaneVector;
+
 public class TestSpaceVector {
 
 	@Test
@@ -158,5 +160,35 @@ public class TestSpaceVector {
 		
 		SpaceVector _res2 = _res1.opDiv(2.0f);
 		assertTrue(_res2.isEqualTo(_vec_d));
+	}
+	
+	@Test
+	public void testStringOps(){
+		SpaceVector _vec_a = new SpaceVector(1.0f, 2.0f, 3.0f);
+		SpaceVector _vec_b = new SpaceVector(0.0f, -2.0f, 5.0f);
+
+		assertTrue(_vec_b.isEqualTo(SpaceVector.parseVector(_vec_b.toString())));
+		assertFalse(_vec_b.isEqualTo(SpaceVector.parseVector(_vec_a.toString())));
+		
+		String[] _tab_good_exp ={"0.0 0.0 0.0 1.0", "1.0 2 -02.3 1", "1 2 .0 2.0", "1 2.00000 5 2","0.05 -2.3 2.65 2", "00001 0000. 0002 5"};
+		for (String _tab_str : _tab_good_exp){
+			try{
+				_vec_a.opEquals(SpaceVector.parseVector(_tab_str));
+			}
+			catch(NumberFormatException _e){
+				fail("should not fail here :" +_e.getMessage());
+			}
+		}
+		
+		String[] _tab_bad_exp = {"1.a 2 4 1", "0..0 5 2 1", "1", null, "1.0 ..2 10 1", "1 b 4 1","2 3 1", " 1 2 2 1","1  2 3 1","1 1 1 0", "1 2 3 0.00000001"};
+		for (String _tab_str : _tab_bad_exp){
+			try{
+				_vec_a.opEquals(SpaceVector.parseVector(_tab_str));
+				fail("should have throw here :"+_tab_str);
+			}
+			catch(NumberFormatException _e){
+				assertTrue(true);
+			}
+		}
 	}
 }

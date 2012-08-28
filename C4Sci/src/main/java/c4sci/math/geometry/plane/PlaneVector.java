@@ -31,7 +31,7 @@ public class PlaneVector {
 	
 	public static final PlaneVector parseVector(String str_to_parse) throws NumberFormatException{
 		if (str_to_parse == null)
-			throw new NumberFormatException();
+			throw new NumberFormatException(null);
 		String[] _substrings = str_to_parse.split(" ");
 		PlaneVector _res = new PlaneVector();
 		if (_substrings.length == 2){
@@ -39,7 +39,7 @@ public class PlaneVector {
 			_res.setY(Float.parseFloat(_substrings[1]));
 		}
 		else {
-			throw new NumberFormatException();
+			throw new NumberFormatException(str_to_parse);
 		}
 		return _res;
 	}

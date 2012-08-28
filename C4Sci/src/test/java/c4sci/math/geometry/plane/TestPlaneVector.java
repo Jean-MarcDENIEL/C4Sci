@@ -35,7 +35,7 @@ public class TestPlaneVector {
 			fail("should not fail here");
 		}
 		
-		String[] _tab_good_exp ={"0.0 0.0", "1.0 2", "1 2", "1 2.00000"};
+		String[] _tab_good_exp ={"0.0 0.0", "1.0 2", "1 2", "1 2.00000","-2.3 2.65", "0000 0002"};
 		for (String _tab_str : _tab_good_exp){
 			try{
 				_v1.equalOp(PlaneVector.parseVector(_tab_str));
@@ -45,10 +45,11 @@ public class TestPlaneVector {
 			}
 		}
 		
-		String[] _tab_bad_exp = {"1.a 2", "0..0 5", "1", null, "1.0 ..2", "1 b"};
+		String[] _tab_bad_exp = {"1.a 2", "0..0 5", "1", null, "1.0 ..2", "1 b"," 1 2"," ","2 3 5"};
 		for (String _tab_str : _tab_bad_exp){
 			try{
 				_v1.equalOp(PlaneVector.parseVector(_tab_str));
+				fail("should have thrown here : \""+ _tab_str+"\"");
 			}
 			catch(NumberFormatException _e){
 				assertTrue(true);
