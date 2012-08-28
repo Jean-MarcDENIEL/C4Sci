@@ -56,25 +56,30 @@ public class PlaneVector {
 	public final void setY(float y_coor) {
 		this.yCoor = y_coor;
 	}
-	public final float dotOp(PlaneVector other_v){
+	public final float opDot(PlaneVector other_v){
 		return getX()*other_v.getX() + getY()*other_v.getY();
 	}
 	/**
 	 * @return this - other_v
 	 */
-	public final PlaneVector minusOp(PlaneVector other_v){
+	public final PlaneVector opMinus(PlaneVector other_v){
 		return new PlaneVector(getX()-other_v.getX(), getY()-other_v.getY());
 	}
 	/**
 	 * @return this + other_v
 	 */
-	public final PlaneVector plusOp(PlaneVector other_v){
+	public final PlaneVector opPlus(PlaneVector other_v){
 		return new PlaneVector(getX()+other_v.getX(), getY() + other_v.getY());
 	}
-	public final boolean isEqualOp(PlaneVector other_v){
+	public final boolean isEqualTo(PlaneVector other_v){
 		return Floatings.isEqual(getX(), other_v.getX()) && Floatings.isEqual(getY(), other_v.getY());
 	}
-	public final PlaneVector equalOp(PlaneVector other_v){
+	/**
+	 * Receives the argument values
+	 * @param other_v the new values to get.
+	 * @return
+	 */
+	public final PlaneVector opEquals(PlaneVector other_v){
 		setX(other_v.getX());
 		setY(other_v.getY());
 		return this;

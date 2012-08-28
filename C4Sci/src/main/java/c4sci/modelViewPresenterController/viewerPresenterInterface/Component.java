@@ -70,7 +70,7 @@ public abstract class Component {
 	 * @param corn_coor The coordinates bounded to [0-1]² range.
 	 * */
 	public void		setUpperLeftOrigin(final PlaneVector corn_coor){
-		relativeUpperLeftCorner.equalOp(corn_coor);
+		relativeUpperLeftCorner.opEquals(corn_coor);
 		limitTo01Range(relativeUpperLeftCorner);
 	}
 	/**
@@ -87,7 +87,7 @@ public abstract class Component {
 	 * The coordinates are bounded to the [0-1] range.
 	 * */
 	public void 		setSize(final PlaneVector comp_size){
-		relativeSize.equalOp(comp_size);
+		relativeSize.opEquals(comp_size);
 		limitTo01Range(relativeSize);
 	}
 	/**

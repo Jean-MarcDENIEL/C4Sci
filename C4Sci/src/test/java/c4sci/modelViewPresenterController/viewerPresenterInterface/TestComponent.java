@@ -51,26 +51,26 @@ public class TestComponent {
 	public void testOrigin() {
 		Component comp_1 = new Comp1();
 		comp_1.setUpperLeftOrigin(new PlaneVector(4.0f, 1.5f));
-		assertTrue(new PlaneVector(1.0f, 1.0f).isEqualOp(comp_1.getUpperLeftOrigin()));
+		assertTrue(new PlaneVector(1.0f, 1.0f).isEqualTo(comp_1.getUpperLeftOrigin()));
 
 		comp_1.setUpperLeftOrigin(new PlaneVector(-0.5f, -1.0f));
-		assertTrue(new PlaneVector(0.0f, 0.0f).isEqualOp(comp_1.getUpperLeftOrigin()));
+		assertTrue(new PlaneVector(0.0f, 0.0f).isEqualTo(comp_1.getUpperLeftOrigin()));
 
 		comp_1.setUpperLeftOrigin(new PlaneVector(0.35f, 0.0f));
-		assertTrue(new PlaneVector(0.35f,  0.0f).isEqualOp(comp_1.getUpperLeftOrigin()));
+		assertTrue(new PlaneVector(0.35f,  0.0f).isEqualTo(comp_1.getUpperLeftOrigin()));
 	}
 
 	@Test
 	public void testSize() {
 		Component comp_1 = new Comp1();
 		comp_1.setSize(new PlaneVector(4.0f, 1.5f));
-		assertTrue(new PlaneVector(1.0f, 1.0f).isEqualOp(comp_1.getSize()));
+		assertTrue(new PlaneVector(1.0f, 1.0f).isEqualTo(comp_1.getSize()));
 
 		comp_1.setSize(new PlaneVector(-0.5f, -1.0f));
-		assertTrue(new PlaneVector(0.0f, 0.0f).isEqualOp(comp_1.getSize()));
+		assertTrue(new PlaneVector(0.0f, 0.0f).isEqualTo(comp_1.getSize()));
 
 		comp_1.setSize(new PlaneVector(0.35f, 0.0f));
-		assertTrue(new PlaneVector(0.35f,  0.0f).isEqualOp(comp_1.getSize()));
+		assertTrue(new PlaneVector(0.35f,  0.0f).isEqualTo(comp_1.getSize()));
 	}
 
 	@Test
