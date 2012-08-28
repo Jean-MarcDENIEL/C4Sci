@@ -1,4 +1,3 @@
-
 /**
  * 
  * This package contains all the classes that are shared between the Viewer and the Presenter layers

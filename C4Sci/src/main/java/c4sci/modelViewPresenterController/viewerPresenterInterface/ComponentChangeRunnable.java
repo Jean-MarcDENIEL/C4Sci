@@ -17,7 +17,9 @@ abstract class ComponentChangeRunnable implements Runnable{
 	/**
 	 * The method to call in order to get the changes performed on the Component.
 	 */
+	//CHECKSTYLE:OFF
 	public abstract void run();
+	//CHECKSTYLE:ON
 	/**
 	 * Creates a {@link ComponentChangeRunnable} of the same type of "this".<br>
 	 * <b>Pattern :</b> This method instantiates the <b>Prototype</b> GoF pattern.

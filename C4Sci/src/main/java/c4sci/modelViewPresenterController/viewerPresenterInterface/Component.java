@@ -44,7 +44,7 @@ public abstract class Component {
 	 * Sets the parent Component.
 	 * @param comp_parent The Component to consider as the parent of this.
 	 */
-	public void		setParentcomponent(Component comp_parent){
+	public void		setParentComponent(Component comp_parent){
 		parentComponent = comp_parent;
 	}
 	/**
@@ -116,7 +116,7 @@ public abstract class Component {
 	abstract Iterator<Component> getChildComponentIterator();
 	/**
 	 * Adds a child component depending on the actual component.
-	 * @param child_comp The child component. Its {@link #setParentcomponent(Component)} method will be called.
+	 * @param child_comp The child component. Its {@link #setParentComponent(Component)} method will be called.
 	 * @throws CannotPerformSuchChangeException in the case the actual component does not accept child components.
 	 */
 	abstract void addChildComponent(Component child_comp) throws CannotPerformSuchChangeException;
