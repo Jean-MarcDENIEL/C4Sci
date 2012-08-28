@@ -1,9 +1,6 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
 

@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestHierarchicalDataMap {
@@ -407,10 +406,6 @@ public class TestHierarchicalDataMap {
 		HierarchicalData _data_3 = new HierarchicalData("data_3",
 				new InternationalizableTerm(""), 
 				new InternationalizableTerm(""));
-		HierarchicalData _data_4 = new HierarchicalData("data_4",
-				new InternationalizableTerm(""), 
-				new InternationalizableTerm(""));
-		
 		final HDMapEntry _1_2_entry = new HDMapEntry(_data_1.getDataIdentity(), _data_2.getDataIdentity());
 		_map_1.addSubData(_1_2_entry);
 		assertTrue(_map_1.size() == 1);

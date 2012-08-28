@@ -1,7 +1,5 @@
 package c4sci.modelViewPresenterController.jobs;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class TestCommand extends Command{
