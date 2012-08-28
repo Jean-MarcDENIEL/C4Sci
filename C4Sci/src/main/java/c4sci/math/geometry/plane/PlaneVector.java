@@ -25,6 +25,25 @@ public class PlaneVector {
 		setY(other_v.getY());
 	}
 	
+	public String toString(){
+		return "" + getX() + " " + getY();
+	}
+	
+	public static final PlaneVector parseVector(String str_to_parse) throws NumberFormatException{
+		if (str_to_parse == null)
+			throw new NumberFormatException();
+		String[] _substrings = str_to_parse.split(" ");
+		PlaneVector _res = new PlaneVector();
+		if (_substrings.length == 2){
+			_res.setX(Float.parseFloat(_substrings[0]));
+			_res.setY(Float.parseFloat(_substrings[1]));
+		}
+		else {
+			throw new NumberFormatException();
+		}
+		return _res;
+	}
+	
 	public final float getX() {
 		return xCoor;
 	}
