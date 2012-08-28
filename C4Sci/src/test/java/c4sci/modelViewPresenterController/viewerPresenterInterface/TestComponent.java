@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
@@ -112,6 +113,21 @@ public class TestComponent {
 			_nb_child ++;
 		}
 		assertTrue(_nb_child == 0);
+		Iterator<Component> _it_tmp = _comp_1.getChildComponentIterator();
+		try{
+			Component _cmp_tmp = _it_tmp.next();
+			fail("should have thrown");
+		}
+		catch(NoSuchElementException _e){
+			assertTrue(true);
+		}
+		try{
+			_it_tmp.remove();
+			fail("should have thrown");
+		}
+		catch(UnsupportedOperationException _e){
+			assertTrue(true);
+		}
 		
 		Component _comp_2 = new Comp2();
 		for (int _i=0; _i<10; _i++){

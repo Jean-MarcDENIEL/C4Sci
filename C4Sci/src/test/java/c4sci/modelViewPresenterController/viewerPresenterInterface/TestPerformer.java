@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange.ChangeID;
 
 public class TestPerformer {
 
@@ -39,24 +40,35 @@ public class TestPerformer {
 		
 		int _nb_performers = 0;
 		
-		
-		for(ComponentChange.ChangeID _chg_id : ComponentChange.ChangeID.values()){
-			_nb_performers ++;
-			_factory.addChangePerformingAbility(_chg_id, new ComponentChangeRunnable(null) {
-				
-				@Override
-				public void run() {
-					counterOne ++;
-					
-				}
-				
-				@Override
-				public ComponentChangeRunnable clonePrototype(ComponentChange comp_change) {
-					return this;
-				}
-			});
+		class TestRunnable extends ComponentChangeRunnable {
+
+			public TestRunnable(){
+				super();
+			}
+			public TestRunnable(ComponentChange comp_change) {
+				super(comp_change);
+			}
+
+			@Override
+			public void run() {
+				counterOne ++;
+			}
+
+			@Override
+			public ComponentChangeRunnable clonePrototype(ComponentChange comp_change) {
+				if (comp_change.getChangeID() != ChangeID.RECEIVED_FOCUS_LOSS)
+					return new TestRunnable(comp_change);
+				return null;
+			}
 		}
-		
+
+		for(ComponentChange.ChangeID _chg_id : ComponentChange.ChangeID.values()){
+			if (_chg_id != ChangeID.RECEIVED_FOCUS_GAIN){
+				_nb_performers ++;
+				_factory.addChangePerformingAbility(_chg_id, new TestRunnable());
+			}
+		}
+
 		class TestCompChange extends ComponentChange{
 			public ComponentChange.ChangeID changeID;
 			public TestCompChange(DataIdentity comp_id) {
@@ -75,12 +87,14 @@ public class TestPerformer {
 			_comp_chg.changeID = _chg_id;
 			try {
 				ComponentChangeRunnable _runnable =  _comp.getChangePerformerFactory().createChangePerformer(_comp_chg);
+				assertTrue(_runnable.getComponentChange().getComponentIdentity().equals(_comp_chg.getComponentIdentity()));
+				assertTrue(_runnable.getComponentChange().getComponentIdentity().equals(_comp.getIdentity()));
 				_runnable.run();
 			} catch (CannotPerformSuchChangeException _e) {
-				fail("should not throw here");
+				assertTrue("should not throw on "+_chg_id,(_chg_id == ChangeID.RECEIVED_FOCUS_GAIN)||(_chg_id == ChangeID.RECEIVED_FOCUS_LOSS));
 			}
 		}
-		assertTrue(counterOne == _nb_performers);
+		assertTrue(counterOne == _nb_performers-1);
 	}
 
 }

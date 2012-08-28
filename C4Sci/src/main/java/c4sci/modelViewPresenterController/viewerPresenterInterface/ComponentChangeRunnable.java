@@ -13,8 +13,10 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
  */
 public abstract class ComponentChangeRunnable implements Runnable{
 	private ComponentChange		compChange;
-	@SuppressWarnings("unused")
-	private ComponentChangeRunnable(){}
+
+	public ComponentChangeRunnable(){
+		compChange = null;
+	}
 	public ComponentChangeRunnable(ComponentChange comp_change){
 		compChange = comp_change;
 	}

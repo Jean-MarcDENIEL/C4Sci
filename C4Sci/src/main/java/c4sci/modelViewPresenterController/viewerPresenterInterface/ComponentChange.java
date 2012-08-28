@@ -14,11 +14,11 @@ import c4sci.data.DataIdentity;
 public abstract class ComponentChange {
 	/**
 	 * This enumerates the possible change cases.<br>
-	 * The meaning of {@link ComponentChange#getComponentID()} depends on the enum value :<br>
+	 * The meaning of {@link ComponentChange#getComponentIdentity()} depends on the enum value :<br>
 	 * <ul>
-	 * <li>SET_... : {@link ComponentChange#getComponentID()} indicates the modified Component</li>
-	 * <li>CREATE_... : {@link ComponentChange#getComponentID()} is the identity of the component to create</li>
-	 * <li>RECEIVED_... : {@link ComponentChange#getComponentID()} is the identity of the user accessed Component</li>
+	 * <li>SET_... : {@link ComponentChange#getComponentIdentity()} indicates the modified Component</li>
+	 * <li>CREATE_... : {@link ComponentChange#getComponentIdentity()} is the identity of the component to create</li>
+	 * <li>RECEIVED_... : {@link ComponentChange#getComponentIdentity()} is the identity of the user accessed Component</li>
 	 * </ul>
 	 */
 	public enum ChangeID { 
@@ -38,10 +38,8 @@ public abstract class ComponentChange {
 		SET_NAME,
 		SET_DESCRIPTION,
 		SET_SPECIAL_FEATURE,
-		
 		CREATE_STANDARD_COMPONENT,
 		CREATE_SPECIAL_COMPONENT,
-		
 		RECEIVED_MOUSE_LEFT_BUTTON_PRESSED,
 		RECEIVED_MOUSE_LEFT_BUTTON_RELEASED,
 		RECEIVED_MOUSE_RIGHT_BUTTON_PRESSED,
@@ -51,27 +49,21 @@ public abstract class ComponentChange {
 		RECEIVED_FOCUS_LOSS,
 		RECEIVED_MODIFIED_CONTENT,
 	};
-	
 	private DataIdentity componentIdentity;
-	
 	@SuppressWarnings("unused")
 	private ComponentChange() {}
-	
 	public ComponentChange(DataIdentity comp_id){
 		componentIdentity = comp_id;
 	}
-	
 	/**
-	 * 
 	 * @return the type of the asked change
 	 * @see ChangeID
 	 */
 	public abstract ChangeID getChangeID();
 	/**
-	 * 
 	 * @return	The identity of the Component asked to change.
 	 */
-	public DataIdentity	getComponentID(){
+	public DataIdentity	getComponentIdentity(){
 		return componentIdentity;
 	}
 }
