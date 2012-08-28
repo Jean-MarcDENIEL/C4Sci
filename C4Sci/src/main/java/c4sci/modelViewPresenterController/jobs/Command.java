@@ -14,7 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <li>Commands have ID that identifies their "type".</li>
  * <li>Commands have Priority, Cost in order to schedule them according to various strategies.</li>
  * </ul>
- * <br><br>
+ * <br>
+ * <b>Commands scheduling :</b><br>
  * Command scheduling can use chronological order and childhood relationships at the same time. <br>
  * e.g. : How to make an A Command launch three parallel B C D computations then get their result processed in a E Command ?
  * <ol>
@@ -32,6 +33,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <br>
  * <b> Warning : </b> It is the responsibility of the API user to avoid cycles through the simultaneous use of previous/following and parent/child relationships : <br>
  * a child command of an "x" Command should not be a following command of this "x" command at the same time.<br> 
+ * <br>
+ * <b>Reflexes :</b><br>
+ * A Command is notified each time a child Command has been processed.<br>
+ * In this case, all the {@link CommandReflex} added through the {@link #addReflexOnChildNotification(CommandReflex)} method <br>
+ * have their {@link CommandReflex#doReflex(Command)} method called.<br>
+ * This can be useful when results from child Commands need to be reused. In this case, the {@link #doProcess()} method must be overridden<br>
+ * and called in {@link CommandReflex#doReflex(Command)} methods.<br>
  * <br>
  * <b>Pattern : </b>This class instantiates the <b>Command</b> GoF pattern.
  * <b>Pattern : </b>Reflex methods use the <b>Strategy</b> GoF pattern.
@@ -51,16 +59,10 @@ public abstract class Command {
 	
 	// true if "this" command has been processed
 	// does not mean that child command have been processed
-	private AtomicBoolean		alreadyProcessed;
+	protected AtomicBoolean		alreadyProcessed;
 	private int 				commandPriority;
 	private int					commandCost;
 	private long				commandID;
-	
-	// JobProcessor / Result / Request
-	// Results and requests commands can be null
-	//private Map<JobProcessor<Command, Command>, Command>	jobProcessorRequestMap;
-	//private Map<JobProcessor<Command, Command>, Command>	jobProcessorResultMap;
-	
 	// post processing on notification from child commands
 	private List<CommandReflex>		childNotificationReflexList;
 	
@@ -275,22 +277,18 @@ public abstract class Command {
 	
 	/**
 	 * This method should always be called when working with a Command object.<br>
-	 * This method 
+	 * This method can be overridden to achieve special behavior. e.g waiting for child Command to be processed in order to set {@link #alreadyProcessed} to true.<br>
+	 * In this case, the super.{@link #doProcess()} method can be called in {@link CommandReflex#doReflex(Command)} methods of sub classes {@link CommandReflex reflexes}.<br>
+	 * <br>
+	 * The basic behavior of this method is : 
 	 * <ol>
-	 * <li> computes results of the {@link JobProcessor#processJob(Command)} method on all added JobProcessors</li>
-	 * <li> modifies the internal state in order for the {@link #hasBeenProcessed()} method to work properly</li>
-	 * <li> notify the parent Command that its been processed (but there could be child Commands still unprocessed).
+	 * <li> modifies the internal {@link #alreadyProcessed} state in order for the {@link #hasBeenProcessed()} method to work properly</li>
+	 * <li> notify the parent Command that its been processed (but there could be child Commands still unprocessed) by calling {@link #notifyOnProcessed()}.
 	 * </ol>
 	 */
-	public final void doProcess(){
-		/*
-		for (Iterator<JobProcessor<Command, Command>> _it=jobProcessorRequestMap.keySet().iterator(); _it.hasNext();){
-			JobProcessor<Command, Command> _job_proc = _it.next();
-			jobProcessorResultMap.put(_job_proc, _job_proc.processJob(jobProcessorRequestMap.get(_job_proc)));
-		}*/
+	public void doProcess(){
 		alreadyProcessed.set(true);
 		notifyOnProcessed();
-
 	}
 	
 	/**
