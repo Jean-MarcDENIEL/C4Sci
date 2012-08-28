@@ -1,10 +1,17 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 /**
- * This class encapsulates the processing of a change on to a Component.
+ * This class encapsulates the processing of a change on to a Component.<br>
+ * Its main interests are :
+ * <ul>
+ * <li> being able to clone itself : <b>prototype</b> GoF pattern,
+ * <li> knowing the {@link ComponentChange} to work on.
+ * </ul> 
+ * <br>
+ * This class is simply used by calling its {@link #run()} method.
  * @author jeanmarc.deniel
  *
  */
-abstract class ComponentChangeRunnable implements Runnable{
+public abstract class ComponentChangeRunnable implements Runnable{
 	private ComponentChange		compChange;
 	@SuppressWarnings("unused")
 	private ComponentChangeRunnable(){}
