@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.internationalization.InternationalizableTerm;
-import c4sci.modelViewPresenterController.presenterControllerInterface.UnitScales.NoSuchScaleExistsException;
 
 public class TestUnitScales {
 
@@ -30,6 +29,22 @@ public class TestUnitScales {
 			} catch (NoSuchScaleExistsException _e) {
 				fail("should not fail on "+_abbrev);
 			}
+		}
+		
+		try{
+			float _scale_bad = _unit.getScalingFactor("lk");
+			fail("should have thrown");
+		}
+		catch(NoSuchScaleExistsException _e){
+			assertTrue(true);
+		}
+		
+		try{
+			float _scale_null = _unit.getScalingFactor(null);
+			fail("should have thrown");
+		}
+		catch(NoSuchScaleExistsException _e){
+			assertTrue(true);
 		}
 	}
 
