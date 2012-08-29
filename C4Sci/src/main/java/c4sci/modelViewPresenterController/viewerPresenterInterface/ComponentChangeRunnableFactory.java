@@ -7,7 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * This classes creates {@link ComponentChangeRunnable ComponentChangeRunnables} that are able to perform certain {@link ComponentChange ComponentChanges}.<br>
  * <br>
  * <b>Pattern :</b> This class instantiates the <b>Factory </b> GoF pattern.<br>
- * <b>Pattern :</b> This class uses the <b>strategy</b> and <b>prototype</b> GoF patterns in order to avoid having abstract factories.<br>
+ * <b>Pattern :</b> This class uses the <b>Strategy</b> and <b>Prototype</b> GoF patterns in order to avoid having abstract factories.<br>
+ * <b>Pattern :</b> this class uses the <b>Decorator</b> pattern to get new behaviors.
  *   
  */
 public class ComponentChangeRunnableFactory {
