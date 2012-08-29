@@ -1,6 +1,5 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface;
 
-import c4sci.data.DataParameter;
 
 /**
  * This interface permit data bindings between {@link StepElement StepElements} and {@link DataParameter DataParameters}. 
