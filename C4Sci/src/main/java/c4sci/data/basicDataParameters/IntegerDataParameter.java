@@ -18,11 +18,11 @@ public class IntegerDataParameter extends DataParameter {
 		paramValue			= 0;
 	}
 	
-	public String getParameterValue() {
+	public synchronized String getParameterValue() {
 		return Integer.toString(paramValue);
 	}
 
-	public void setParameterValue(String str_to_parse)
+	public synchronized void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
 		if (str_to_parse == null){
 			throw new DataValueParsingException("Integer", "(null)", "parsing error : null argument", null);
@@ -35,10 +35,10 @@ public class IntegerDataParameter extends DataParameter {
 		}
 	}
 
-	public int getIntegerValue(){
+	public synchronized int getIntegerValue(){
 		return paramValue;
 	}
-	public void setIntegerValue(final int int_val){
+	public synchronized void setIntegerValue(final int int_val){
 		paramValue = int_val;
 	}
 

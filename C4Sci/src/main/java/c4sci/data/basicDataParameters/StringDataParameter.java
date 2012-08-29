@@ -16,20 +16,20 @@ public class StringDataParameter extends DataParameter {
 	}
 
 	@Override
-	public String getParameterValue() {
+	public synchronized String getParameterValue() {
 		return stringData;
 	}
 
 	@Override
-	public void setParameterValue(String str_to_parse)
+	public synchronized void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
 		stringData = str_to_parse;
 	}
 
-	public String getStringValue(){
+	public synchronized String getStringValue(){
 		return stringData;
 	}
-	public void setStringValue(String str_val){
+	public synchronized void setStringValue(String str_val){
 		stringData = str_val;
 	}
 	

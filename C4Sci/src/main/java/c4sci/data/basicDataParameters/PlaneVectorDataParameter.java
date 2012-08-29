@@ -21,12 +21,12 @@ public class PlaneVectorDataParameter extends DataParameter {
 	}
 
 	@Override
-	public String getParameterValue() {
+	public synchronized String getParameterValue() {
 		return planeVector.toString();
 	}
 
 	@Override
-	public void setParameterValue(String str_to_parse)
+	public synchronized void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
 		try{
 		planeVector.opEquals(PlaneVector.parseVector(str_to_parse));
@@ -34,6 +34,14 @@ public class PlaneVectorDataParameter extends DataParameter {
 		catch (NumberFormatException _e){
 			throw new DataValueParsingException("x(float) y(float)", str_to_parse, "bad string", _e);
 		}
+	}
+	
+	public synchronized PlaneVector getPlaneVectorValue(){
+		return new PlaneVector(planeVector);
+	}
+	
+	public synchronized void setPlaneVectorValue(final PlaneVector other_vec){
+		planeVector.opEquals(other_vec);
 	}
 
 	@Override

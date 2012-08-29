@@ -13,11 +13,11 @@ public class FloatDataParameter extends DataParameter {
 		
 	}
 
-	public String getParameterValue() {
+	public synchronized String getParameterValue() {
 		return Float.toString(paramValue);
 	}
 
-	public void setParameterValue(String str_to_parse)
+	public synchronized void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
 		if (str_to_parse == null){
 			throw new DataValueParsingException("float", "(null)", "parsing error : null parameter", null);
@@ -31,10 +31,10 @@ public class FloatDataParameter extends DataParameter {
 
 	}
 
-	public float getFloatValue(){
+	public synchronized float getFloatValue(){
 		return paramValue;
 	}
-	public void setFloatValue(final float fl_val){
+	public synchronized void setFloatValue(final float fl_val){
 		paramValue = fl_val;
 	}
 
