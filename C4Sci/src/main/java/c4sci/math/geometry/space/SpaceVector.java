@@ -65,8 +65,13 @@ public class SpaceVector {
 		_res.append("1.0");
 		return _res.toString();
 	}
-	
-	public static final SpaceVector parseVector(String str_to_parse) throws NumberFormatException{
+	/**
+	 * 
+	 * @param str_to_parse the string to parse.
+	 * @return The SpaceVecotr whose coordinates have been given in the argument.
+	 * @throws NumberFormatException in the case str_to_parse does not correspond to the SpaceVector format.
+	 */
+	public static final SpaceVector parseVector(String str_to_parse){
 		if (str_to_parse == null){
 			throw new NumberFormatException(null);
 		}

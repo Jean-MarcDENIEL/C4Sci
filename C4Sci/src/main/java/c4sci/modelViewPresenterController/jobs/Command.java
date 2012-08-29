@@ -59,7 +59,7 @@ public abstract class Command {
 	
 	// true if "this" command has been processed
 	// does not mean that child command have been processed
-	protected AtomicBoolean		alreadyProcessed;
+	private AtomicBoolean		alreadyProcessed;
 	private int 				commandPriority;
 	private int					commandCost;
 	private long				commandID;

@@ -29,9 +29,16 @@ public class PlaneVector {
 		return "" + getX() + " " + getY();
 	}
 	
-	public static final PlaneVector parseVector(String str_to_parse) throws NumberFormatException{
-		if (str_to_parse == null)
+	/**
+	 * 
+	 * @param str_to_parse the string to parse
+	 * @return A PlaneVector whose coordinates correspond to the passedargument.
+	 * @throws NumberFormatException if the string does not correspond to PlaneVector format.
+	 */
+	public static final PlaneVector parseVector(String str_to_parse){
+		if (str_to_parse == null){
 			throw new NumberFormatException(null);
+		}
 		String[] _substrings = str_to_parse.split(" ");
 		PlaneVector _res = new PlaneVector();
 		if (_substrings.length == 2){
