@@ -51,5 +51,4 @@ public class BooleanDataParameter extends DataParameter {
 	protected DataParameter getSameDataParameterInstance() {
 		return new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
-
 }

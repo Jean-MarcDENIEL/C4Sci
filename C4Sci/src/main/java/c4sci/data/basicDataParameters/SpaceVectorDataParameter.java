@@ -46,5 +46,4 @@ public class SpaceVectorDataParameter extends DataParameter {
 		_res.spaceVector.opEquals(spaceVector);
 		return _res;
 	}
-
 }

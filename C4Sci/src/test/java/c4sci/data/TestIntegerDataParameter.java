@@ -49,6 +49,13 @@ public class TestIntegerDataParameter {
 		
 		_param.setIntegerValue(3);
 		assertEquals(_param.getIntegerValue(), 3);
+		
+		DataParameter _clone = _param.getClone();
+		assertTrue(_clone.getClass() == _param.getClass());
+		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+
 	}
 
 }

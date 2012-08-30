@@ -37,5 +37,4 @@ public class StringDataParameter extends DataParameter {
 	protected DataParameter getSameDataParameterInstance() {
 		return new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
-
 }

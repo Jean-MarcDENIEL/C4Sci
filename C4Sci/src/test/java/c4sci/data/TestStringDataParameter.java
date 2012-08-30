@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -34,5 +35,19 @@ public class TestStringDataParameter {
 		assertTrue("param1 value".compareTo(_param_1.getStringValue())==0);
 
 	}
+	
+	@Test
+	public void testClone(){
+		StringDataParameter _param = new StringDataParameter("test1", 
+				new InternationalizableTerm("test param 1"), 
+				new InternationalizableTerm("test param 1 descr"));
+		DataParameter _clone = _param.getClone();
+		assertTrue(_clone.getClass() == _param.getClass());
+		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+
+	}
+
 }
 

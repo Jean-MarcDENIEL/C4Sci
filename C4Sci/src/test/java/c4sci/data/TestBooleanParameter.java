@@ -42,6 +42,12 @@ public class TestBooleanParameter {
 		
 		assertTrue("true".compareTo(_param.getParameterValue())==0);
 		
+		DataParameter _clone = _param.getClone();
+		assertTrue(_clone.getClass() == _param.getClass());
+		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+		
 	}
 
 }

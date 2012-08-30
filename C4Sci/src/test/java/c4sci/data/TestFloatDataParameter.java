@@ -58,5 +58,17 @@ public class TestFloatDataParameter {
 		_param.setFloatValue(2.5f);
 		assertEquals(_param.getFloatValue(), 2.5, .01);
 	}
+	@Test
+	public void testClone(){
+		FloatDataParameter _param = new FloatDataParameter("test1", 
+				new InternationalizableTerm("test param 1"), 
+				new InternationalizableTerm("test param 1 descr"));
+		DataParameter _clone = _param.getClone();
+		assertTrue(_clone.getClass() == _param.getClass());
+		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+
+	}
 
 }

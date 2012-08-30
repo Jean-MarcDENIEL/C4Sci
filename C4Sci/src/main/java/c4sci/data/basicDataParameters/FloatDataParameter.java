@@ -1,22 +1,15 @@
 package c4sci.data.basicDataParameters;
-
 import c4sci.data.DataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
-
 public class FloatDataParameter extends DataParameter {
-
 	private float paramValue;
-	
 	public FloatDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term) {
 		super(token_str, name_term, descr_term);
-		
 	}
-
 	public synchronized String getParameterValue() {
 		return Float.toString(paramValue);
 	}
-
 	public synchronized void setParameterValue(String str_to_parse)
 			throws DataValueParsingException {
 		if (str_to_parse == null){
@@ -28,16 +21,13 @@ public class FloatDataParameter extends DataParameter {
 		catch (NumberFormatException _e){
 			throw new DataValueParsingException("float", str_to_parse, "parsing error", _e);
 		}
-
 	}
-
 	public synchronized float getFloatValue(){
 		return paramValue;
 	}
 	public synchronized void setFloatValue(final float fl_val){
 		paramValue = fl_val;
 	}
-
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
 		return new FloatDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
