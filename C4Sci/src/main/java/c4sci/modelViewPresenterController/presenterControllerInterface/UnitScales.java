@@ -89,24 +89,19 @@ public class UnitScales {
 	 * 
 	 * @param main_scale_value The value to choose the best fitted scale to. It is expressed in the main scale.
 	 * @return the best fitted scale abbreviation or the smallest if 0.0 is passed as argument.
-	 * @throws NullPointerException if there is an internal issue.
 	 */
 	public final String chooseBestFittedScale(float main_scale_value){
 		if (Floatings.isEqual(main_scale_value, 0.0f)){
 			return getSortedAbbreviations()[0];
 		}
-		main_scale_value = Math.abs(main_scale_value);
-		float _min_dist;
-		if (main_scale_value >= 1.0)
-			_min_dist = Math.abs(main_scale_value - 1.0f);
-		else
-			_min_dist = Math.abs(1.0f/main_scale_value - 1.0f);
+		float _abs_main_scale_value = Math.abs(main_scale_value);
+		float _min_dist = _abs_main_scale_value >= 1.0 ? Math.abs(_abs_main_scale_value - 1.0f) : Math.abs(1.0f/_abs_main_scale_value - 1.0f);
 		String[] _abbrev_tab = getSortedAbbreviations();
 		try {
 			String _res = getAbbreviation(1.0f);
 			for (String _abbrev : _abbrev_tab){
 				float _scale = getScalingFactor(_abbrev);
-				float _scaled_value = main_scale_value/_scale; // number of units at _abbrev scale
+				float _scaled_value = _abs_main_scale_value/_scale; // number of units at _abbrev scale
 				float _dist;
 				if (_scaled_value >= 1.0f){
 					_dist = _scaled_value - 1.0f;
@@ -123,17 +118,23 @@ public class UnitScales {
 		} catch (NoSuchScaleExistsException _e) {
 			// should not throw here
 			_e.printStackTrace();
-			throw new NullPointerException();
+			return null;
 		}
 	}
 	
+	public static final float MILLIMETER_SCALE	= 0.001f;
+	public static final float CENTIMETER_SCALE	= 0.01f;
+	public static final float DECIMETER_SCALE	= 0.1f;
+	public static final float DECAMETER_SCALE	= 10f;
+	public static final float KILOMETER_SCALE	= 1000f;
 	public static UnitScales createMeterUnitSCales(){
-		UnitScales _res = new UnitScales("m", new InternationalizableTerm("meter"));		
-		_res.addScale("mm",new InternationalizableTerm("millimeter"),0.001f);
-		_res.addScale("cm",new InternationalizableTerm("centimeter"),0.01f);
-		_res.addScale("dm", new InternationalizableTerm("decimeter"),0.1f);
-		_res.addScale("dam", new InternationalizableTerm("decameter"), 10f);
-		_res.addScale("km", new InternationalizableTerm("kilometer"),1000.0f);
+		UnitScales _res = new UnitScales("m", new InternationalizableTerm("meter"));	
+	
+		_res.addScale("mm",	new InternationalizableTerm("millimeter"),	MILLIMETER_SCALE);
+		_res.addScale("cm",	new InternationalizableTerm("centimeter"),	CENTIMETER_SCALE);
+		_res.addScale("dm", new InternationalizableTerm("decimeter"),	DECIMETER_SCALE);
+		_res.addScale("dam",new InternationalizableTerm("decameter"), 	DECAMETER_SCALE);
+		_res.addScale("km", new InternationalizableTerm("kilometer"),	KILOMETER_SCALE);
 		return _res;
 	}
 }
