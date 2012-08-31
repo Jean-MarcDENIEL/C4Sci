@@ -56,11 +56,12 @@ public abstract class DataParameter {
 	 * Test whereas a string could be successfully parsed to set the DataParameter value.
 	 * @param str_to_parse The string to parse.
 	 * @return <i>true</i> if the string can be successfully parsed to set the DataParameter value. <br>
-	 * <i>false</i> if arg is null or {@link #setParameterValue(String)} would throw a {@link DataValueParsingException}. 
+	 * <i>false</i> if the argument is null or {@link #setParameterValue(String)} would throw a {@link DataValueParsingException}. 
 	 */
-	public boolean isValidValue(String str_to_parse){
-		if (str_to_parse == null)
+	public boolean validatesRegularExpression(String str_to_parse){
+		if (str_to_parse == null){
 			return false;
+		}
 		return Pattern.matches(getRegExp(), str_to_parse);
 	}
 	/**

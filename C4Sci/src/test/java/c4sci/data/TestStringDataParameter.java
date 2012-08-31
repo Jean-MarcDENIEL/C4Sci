@@ -47,10 +47,10 @@ public class TestStringDataParameter {
 		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
 		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
 
-		assertFalse(_param.isValidValue(null));
+		assertFalse(_param.validatesRegularExpression(null));
 		String[] _tab ={""," ","534",".",":lk","564klj"};
 		for (String _exp : _tab){
-			assertTrue(_exp,_param.isValidValue(_exp));
+			assertTrue(_exp,_param.validatesRegularExpression(_exp));
 		}
 	}
 
