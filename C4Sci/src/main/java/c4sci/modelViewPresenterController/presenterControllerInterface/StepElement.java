@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 
 /**
  * StepElements are elements of the application that are concerned at a certain application step.<br>
@@ -32,12 +31,11 @@ public abstract class StepElement {
 	
 	private List<StepElement>			resourceElements;		// elements from which "this" depends
 	private List<StepElement>			dependentElements;		// elements that depend on "this"
-	private Map<Integer, StepElement>	subElements;			// elements composing the current element
+
 	
 	public StepElement() {
 		resourceElements 	= Collections.synchronizedList(new ArrayList<StepElement>());
 		dependentElements	= Collections.synchronizedList(new ArrayList<StepElement>());
-		subElements			= new ConcurrentHashMap<Integer, StepElement>();
 	}
 	/**
 	 * Tests whether an element as an internal state that is coherent, independently from<br>
@@ -60,7 +58,7 @@ public abstract class StepElement {
 				return false;
 			}
 		}
-		for (Iterator<StepElement> _it=subElements.values().iterator(); _it.hasNext();){
+		for (Iterator<StepElement> _it=getSubElementsIterator(); _it.hasNext();){
 			if (!_it.next().isOverallCoherent()){
 				return false;
 			}
@@ -78,9 +76,9 @@ public abstract class StepElement {
 	 * 
 	 * @return an iterator that gives access to sub elements.
 	 */
-	public final Iterator<StepElement> getSubElementsIterator(){
-		return subElements.values().iterator();
-	}
+	public abstract Iterator<StepElement> getSubElementsIterator();
+
+
 	/**
 	 * 
 	 * @return an iterator that gives access to resource elements.
@@ -100,5 +98,14 @@ public abstract class StepElement {
 	 * @return true if the element corresponds to a data that can be modified through an interaction with the element.
 	 */
 	public abstract boolean isEditable();
-	
+	/**
+	 * @return The bindings to the data that are directly necessary for the StepElement to work. 
+	 */
+	public abstract List<ElementBinding> getBindings();
+	/**
+	 * @return The {@link UnitScales units} in which the StepElement is expressed. Or null if there is no unit to apply to.  
+	 */
+	public UnitScales getUnits(){
+		return null;
+	}
 }

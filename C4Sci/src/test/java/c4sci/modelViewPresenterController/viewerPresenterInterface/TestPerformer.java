@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import c4sci.NoChildIterator;
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange.ChangeID;
 

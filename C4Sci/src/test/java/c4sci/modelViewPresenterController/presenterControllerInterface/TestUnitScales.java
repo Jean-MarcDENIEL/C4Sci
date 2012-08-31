@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.NoSuchScaleExistsException;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 
 public class TestUnitScales {
 

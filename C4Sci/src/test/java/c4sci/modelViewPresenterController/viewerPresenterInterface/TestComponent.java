@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import c4sci.NoChildIterator;
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
 
@@ -17,7 +18,7 @@ public class TestComponent {
 	class Comp1 extends Component{
 		@Override
 		Iterator<Component> getChildComponentIterator() {
-			return new NoChildIterator();
+			return new NoChildIterator<Component>();
 		}
 
 		@Override
@@ -115,6 +116,7 @@ public class TestComponent {
 		assertTrue(_nb_child == 0);
 		Iterator<Component> _it_tmp = _comp_1.getChildComponentIterator();
 		try{
+			@SuppressWarnings("unused")
 			Component _cmp_tmp = _it_tmp.next();
 			fail("should have thrown");
 		}
@@ -144,7 +146,7 @@ public class TestComponent {
 		_nb_child = 0;
 		for (Iterator<Component> _it=_comp_2.getChildComponentIterator(); _it.hasNext();){
 			Component _comp_tmp = _it.next();
-			assertFalse(_comp_tmp.getChildComponentIterator() instanceof NoChildIterator);
+			assertFalse(_comp_tmp.getChildComponentIterator().getClass() ==  NoChildIterator.class);
 			assertTrue(_comp_tmp.getParentComponent() == _comp_2);
 			_nb_child++;
 		}

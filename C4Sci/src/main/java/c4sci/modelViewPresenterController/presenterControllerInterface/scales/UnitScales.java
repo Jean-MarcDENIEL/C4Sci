@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface;
+package c4sci.modelViewPresenterController.presenterControllerInterface.scales;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;

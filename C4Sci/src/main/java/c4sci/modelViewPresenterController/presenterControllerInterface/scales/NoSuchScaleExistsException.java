@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface;
+package c4sci.modelViewPresenterController.presenterControllerInterface.scales;
 
 public class NoSuchScaleExistsException extends Exception{
 
