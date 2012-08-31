@@ -56,6 +56,15 @@ public class TestIntegerDataParameter {
 		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
 		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
 
+		
+		String[] _bad_str_tab = {null,"", " ","2.3",".","a","203.","1 2","1 "," 1"};
+		for (String _str : _bad_str_tab){
+			assertFalse(_param.isValidValue(_str));
+		}
+		String[] _good_str_tab = {"0","00","01","10","1225"};
+		for (String _str : _good_str_tab){
+			assertTrue(_param.isValidValue(_str));
+		}
 	}
 
 }

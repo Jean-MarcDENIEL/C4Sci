@@ -16,7 +16,7 @@ public class FloatDataParameter extends DataParameter {
 			throw new DataValueParsingException("float", "(null)", "parsing error : null parameter", null);
 		}
 		try{
-		paramValue = Float.parseFloat(str_to_parse);
+			paramValue = Float.parseFloat(str_to_parse);
 		}
 		catch (NumberFormatException _e){
 			throw new DataValueParsingException("float", str_to_parse, "parsing error", _e);
@@ -31,5 +31,10 @@ public class FloatDataParameter extends DataParameter {
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
 		return new FloatDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+	}
+
+	@Override
+	public String getRegExp() {
+		return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$";
 	}
 }

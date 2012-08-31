@@ -45,6 +45,15 @@ public class TestSpaceVectorDataParameter {
 		assertTrue(_param.getSpaceVectorValue().isEqualTo(new SpaceVector(5f, 4f, 3f)));
 		
 			
+		String[] _good_exp_tab = {"1 2 3 4","1 2 5 6","2.3 2.3 1.6 1.0","1. .02 .0 1"};
+		for (String _exp : _good_exp_tab){
+			assertTrue(_exp, _param.isValidValue(_exp));
+		}
+		
+		String[] _bad_exp_tab = {"",null,"1 2 3","1","1 2 3 4 5","..02 2 3 4","1 --2 3 4"};
+		for (String _exp : _bad_exp_tab){
+			assertFalse(_exp, _param.isValidValue(_exp));
+		}
 	}
 
 	@Test

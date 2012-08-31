@@ -48,6 +48,11 @@ public class TestBooleanParameter {
 		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
 		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
 		
+		assertFalse(_param.isValidValue(null));
+		String[] _tab_good_regexp = {"true","false","lkjklj","2345jkh",",",":llm"};
+		for (String _regexp : _tab_good_regexp){
+			assertTrue(_regexp,_param.isValidValue(_regexp));
+		}
 	}
 
 }

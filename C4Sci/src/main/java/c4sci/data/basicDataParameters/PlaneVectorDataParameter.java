@@ -51,4 +51,8 @@ public class PlaneVectorDataParameter extends DataParameter {
 		return _res;
 	}
 
+	@Override
+	public String getRegExp() {
+		return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$";
+	}
 }

@@ -46,4 +46,8 @@ public class SpaceVectorDataParameter extends DataParameter {
 		_res.spaceVector.opEquals(spaceVector);
 		return _res;
 	}
+	@Override
+	public String getRegExp() {
+		return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$";
+	}
 }

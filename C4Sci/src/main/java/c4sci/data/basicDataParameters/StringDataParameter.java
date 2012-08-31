@@ -37,4 +37,9 @@ public class StringDataParameter extends DataParameter {
 	protected DataParameter getSameDataParameterInstance() {
 		return new StringDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
+	@Override
+	public String getRegExp() {
+		//return "\\w*|\\W*";
+		return ".*";
+	}
 }

@@ -46,4 +46,12 @@ public class IntegerDataParameter extends DataParameter {
 	protected DataParameter getSameDataParameterInstance() {
 		return new IntegerDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 	}
+
+	@Override
+	public String getRegExp() {
+		return "^(\\+|-)?\\d+$";
+		// too : ^[-+]?\d*$ for empty strings
+	}
+
+
 }

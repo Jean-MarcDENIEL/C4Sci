@@ -1,6 +1,8 @@
 
 package c4sci.data.basicDataParameters;
 
+import java.text.DecimalFormat;
+
 import c4sci.data.DataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -50,5 +52,12 @@ public class BooleanDataParameter extends DataParameter {
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
 		return new BooleanDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+	}
+
+
+	@Override
+	public String getRegExp() {
+		//return "\\w*|\\W*";
+		return ".*";
 	}
 }

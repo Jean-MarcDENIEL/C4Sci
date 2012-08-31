@@ -52,6 +52,14 @@ public class TestPlaneVectorDataParameter {
 		assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterName().getDefaultValue())==0);
 		assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterDescription().getDefaultValue())==0);
 		
+		String[] _good_str_tab = {"1 2","1.2 3.25",".002 .2","-.225 25.","0.25 -25"};
+		for(String _str : _good_str_tab){
+			assertTrue(_str, _param.isValidValue(_str));
+		}
+		String[] _bad_str_tab = {"1","0.2","1.2 .","--2 25","3 2 5"};
+		for(String _str : _bad_str_tab){
+			assertFalse(_str, _param.isValidValue(_str));
+		}
 	}
 
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.NoSuchParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -66,6 +67,11 @@ public class TestHierarchicalData {
 		@Override
 		protected DataParameter getSameDataParameterInstance() {
 			return new TestDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+		}
+
+		@Override
+		public String getRegExp() {
+			return "\\w*|\\W*";
 		}
 
 	};

@@ -1,5 +1,7 @@
 package c4sci.data;
 
+import java.util.regex.Pattern;
+
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -50,7 +52,22 @@ public abstract class DataParameter {
 	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
 	 */
 	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
-
+	/**
+	 * Test whereas a string could be successfully parsed to set the DataParameter value.
+	 * @param str_to_parse The string to parse.
+	 * @return <i>true</i> if the string can be successfully parsed to set the DataParameter value. <br>
+	 * <i>false</i> if arg is null or {@link #setParameterValue(String)} would throw a {@link DataValueParsingException}. 
+	 */
+	public boolean isValidValue(String str_to_parse){
+		if (str_to_parse == null)
+			return false;
+		return Pattern.matches(getRegExp(), str_to_parse);
+	}
+	/**
+	 * The regular expression corresponding to the valid parameter entries.
+	 * @return
+	 */
+	public abstract String getRegExp();
 	/**
 	 * <b>Pattern</b> This method is part of the Template Method GoF pattern.<br>
 	 * Only DataParameter values must be copied from "this".
