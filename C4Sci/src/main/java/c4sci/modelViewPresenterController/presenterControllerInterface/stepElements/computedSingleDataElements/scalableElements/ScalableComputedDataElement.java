@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.computedSingleDataElements.scaledElements;
+package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.computedSingleDataElements.scalableElements;
 
 import c4sci.data.DataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
@@ -8,11 +8,11 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  * @author jeanmarc.deniel
  *
  */
-public abstract class ScaledComputedDataElement extends ComputedDataElement {
+public abstract class ScalableComputedDataElement extends ComputedDataElement {
 
 	private UnitScales		unitScales;
 	
-	public ScaledComputedDataElement(DataParameter data_p, UnitScales units_) {
+	public ScalableComputedDataElement(DataParameter data_p, UnitScales units_) {
 		super(data_p);
 		unitScales = units_;
 	}
