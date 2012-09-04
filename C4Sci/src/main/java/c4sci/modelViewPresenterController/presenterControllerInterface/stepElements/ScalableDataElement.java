@@ -18,9 +18,8 @@ public class ScalableDataElement extends SingleDataStepElement {
 	private SingleDataStepElement	scaledElement;
 	
 	public ScalableDataElement(SingleDataStepElement single_data, UnitScales units_) {
-		super(single_data.getDataParameter());
 		setUnitScales(units_);
-		setScaledElement(single_data);
+		scaledElement = single_data;
 	}
 
 	@Override
@@ -34,38 +33,25 @@ public class ScalableDataElement extends SingleDataStepElement {
 	public void setUnitScales(UnitScales unit_scales) {
 		this.unitScales = unit_scales;
 	}
-	/**
-	 * 
-	 * @return The {@link SingleDataStepElement} that has been encapsulated.
-	 */
-	public SingleDataStepElement getScaledElement() {
-		return scaledElement;
-	}
-	/**
-	 * @param scaledElement The {@link SingleDataStepElement} to encapsulate.
-	 */
-	private void setScaledElement(SingleDataStepElement scaledElement) {
-		this.scaledElement = scaledElement;
-	}
 
 	@Override
-	protected ElementBinding getSingleBinding() {
-		return getScaledElement().getSingleBinding();
+	public ElementBinding getSingleBinding() {
+		return scaledElement.getSingleBinding();
 	}
 
 	@Override
 	public boolean isInternallyCoherent() {
-		return getScaledElement().isInternallyCoherent();
+		return scaledElement.isInternallyCoherent();
 	}
 
 	@Override
 	public void ensureCoherentInternalState() {
-		getScaledElement().ensureCoherentInternalState();
+		scaledElement.ensureCoherentInternalState();
 	}
 
 	@Override
 	public boolean isEditable() {
-		return getScaledElement().isEditable();
+		return scaledElement.isEditable();
 	}
 
 }

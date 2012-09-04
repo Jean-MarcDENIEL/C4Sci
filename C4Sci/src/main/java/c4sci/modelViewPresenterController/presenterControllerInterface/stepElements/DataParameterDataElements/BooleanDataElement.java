@@ -1,17 +1,17 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.editablesingleDataElements;
+package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements;
 
 import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.BooleanValueBinding;
 
-public class BooleanEditableDataElement extends EditableDataElement {
+public class BooleanDataElement extends DataParameterDataElement {
 
-	public BooleanEditableDataElement(BooleanDataParameter data_p) {
+	public BooleanDataElement(BooleanDataParameter data_p) {
 		super(data_p);
 	}
 
 	@Override
-	protected ElementBinding getSingleBinding() {
+	public ElementBinding getSingleBinding() {
 		return new BooleanValueBinding(this, getDataParameter());
 	}
 
@@ -22,5 +22,13 @@ public class BooleanEditableDataElement extends EditableDataElement {
 
 	@Override
 	public void ensureCoherentInternalState() {}
+
+	@Override
+	/**
+	 * As a default behavior, it is editable.
+	 */
+	public boolean isEditable() {
+		return true;
+	}
 
 }
