@@ -117,10 +117,10 @@ public abstract class StepElement {
 	public UnitScales getUnits(){
 		return null;
 	}
-	public float getElementImportance() {
+	public final float getElementImportance() {
 		return elementImportance;
 	}
-	public void setElementImportance(float elementImportance) {
-		this.elementImportance = elementImportance;
+	public final void setElementImportance(float element_importance) {
+		this.elementImportance = element_importance;
 	}
 }

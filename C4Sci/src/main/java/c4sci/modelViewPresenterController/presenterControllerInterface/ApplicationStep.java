@@ -20,8 +20,9 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * In this case, sub steps may create a previous/next relationship sequence.<br>
  * <br>
  * <b>Step contents</b><br>
- * Each step is about a certain number of {@link StepElement elements}. E.g calculations or data.<br>
- * These elements are referenced by integer values whose meaning only depends on the current ApplicationStep.
+ * Each application step is about a certain number of {@link StepElement elements}. E.g calculations or data.<br>
+ * These elements are referenced by integer values whose meaning only depends on the current {@link ApplicationStep}.
+ * 
  * @author jeanmarc.deniel
  *
  */
