@@ -163,6 +163,8 @@ public class TestStepElements {
 		_data.upperIntBound.setIntegerValue(5);
 		_data.boundedInteger.setIntegerValue(7);
 		assertFalse(_bounded_int.isInternallyCoherent());
+		_data.boundedInteger.setIntegerValue(-2);
+		assertFalse(_bounded_int.isInternallyCoherent());
 		assertFalse(_label.isOverallCoherent());
 		assertFalse(_compound.isOverallCoherent());
 
