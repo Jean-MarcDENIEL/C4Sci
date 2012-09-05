@@ -1,13 +1,10 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import c4sci.NoChildIterator;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
-import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 /**
  * This class encapsulates a {@link SingleDataStepElement} that is bounded by two other {@link SingleDataStepElement} of the same type.<br>
@@ -17,7 +14,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  * @author jeanmarc.deniel
  *
  */
-public class BoundedStepElement<C extends SingleDataStepElement> extends StepElement {
+public class BoundedStepElement<C extends SingleDataStepElement> extends SingleDataStepElement {
 
 	private C			lowerBound;
 	private C			upperBound;
@@ -62,10 +59,10 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends StepEle
 		}
 	}
 
-	@Override
+	/*@Override
 	public Iterator<StepElement> getSubElementsIterator() {
 		return new NoChildIterator<StepElement>();
-	}
+	}*/
 
 	/**
 	 * @return the bounded value {@link #isEditable()} result.
@@ -77,9 +74,14 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends StepEle
 	@Override
 	public List<ElementBinding> getBindings() {
 		List<ElementBinding> _res = new ArrayList<ElementBinding>();
-		_res.addAll(lowerBound.getBindings());
-		_res.addAll(upperBound.getBindings());
-		_res.addAll(boundedElement.getBindings());
+		//_res.addAll(lowerBound.getBindings());
+		//_res.addAll(upperBound.getBindings());
+		_res.add(boundedElement.getSingleBinding());
 		return _res;
+	}
+
+	@Override
+	public ElementBinding getSingleBinding() {
+		return boundedElement.getSingleBinding();
 	}
 }

@@ -15,16 +15,11 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.StepEleme
  *
  */
 public abstract class SingleDataStepElement extends StepElement {
-
-	public SingleDataStepElement() {
-
-	}
-
-	
+	public SingleDataStepElement() {}
 	public abstract ElementBinding getSingleBinding();
 	@Override
 	/**
-	 * <b>Pattern</b> This class uses the <b>Factory method</b> GoF pattern by calling {@link #getSingleBinding()} sub classes method.
+	 * <b>Pattern : </b> This class implements the <b>Factory method</b> GoF pattern by calling {@link #getSingleBinding()} sub classes method.
 	 */
 	public List<ElementBinding> getBindings() {
 		List<ElementBinding> _res = new ArrayList<ElementBinding>();
