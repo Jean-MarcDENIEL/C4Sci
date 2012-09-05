@@ -1,8 +1,11 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import c4sci.NoChildIterator;
+import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 
@@ -11,7 +14,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.scales.Un
  * @author jeanmarc.deniel
  *
  */
-public abstract class TreatmentStepElement extends StepElement {
+public class TreatmentStepElement extends StepElement {
 
 	public TreatmentStepElement() {}
 
@@ -35,5 +38,10 @@ public abstract class TreatmentStepElement extends StepElement {
 	@Override
 	public Iterator<StepElement> getSubElementsIterator(){
 		return new NoChildIterator<StepElement>();
+	}
+
+	@Override
+	public List<ElementBinding> getBindings() {
+		return new ArrayList<ElementBinding>();
 	}
 }

@@ -21,6 +21,13 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.scales.Un
  * <b>Sub elements</b><br>
  * An element can contain sub elements. These are referenced by integer value which meaning is up to "this" element.<br>
  * <br>
+ * <b>Importance</b><br>
+ * Each StepElement is assigned an importance value, that can be useful for the presenter to improve the application usability.<br>
+ * Importance ranges from 0.0 (least important) to 1.0 (most important). Default value is 1.0/<br>
+ * Importance is defined relatively to the parent importance. <br>
+ * E.g if parent's importance is 0.5 and current element's importance is 0.35,  
+ * then it's computed importance compared to other elements is 0.5*0.35=0.175.
+ * <br>
  * <b>Pattern : </b> StepElement structure is based on the <b>Composite</b> GoF pattern.
  * <br>
  * @author jeanmarc.deniel
@@ -31,11 +38,12 @@ public abstract class StepElement {
 	
 	private List<StepElement>			resourceElements;		// elements from which "this" depends
 	private List<StepElement>			dependentElements;		// elements that depend on "this"
-
+	private float						elementImportance;		// [0-1]
 	
 	public StepElement() {
 		resourceElements 	= Collections.synchronizedList(new ArrayList<StepElement>());
 		dependentElements	= Collections.synchronizedList(new ArrayList<StepElement>());
+		setElementImportance(1.0f);
 	}
 	/**
 	 * Tests whether an element as an internal state that is coherent, independently from<br>
@@ -99,7 +107,8 @@ public abstract class StepElement {
 	 */
 	public abstract boolean isEditable();
 	/**
-	 * @return The bindings to the data that are directly necessary for the StepElement to work. 
+	 * @return The bindings to the data that are directly necessary for the StepElement to work.<br>
+	 * If there is no element to work on, then the {@link List} will be empty (but not null). 
 	 */
 	public abstract List<ElementBinding> getBindings();
 	/**
@@ -107,5 +116,11 @@ public abstract class StepElement {
 	 */
 	public UnitScales getUnits(){
 		return null;
+	}
+	public float getElementImportance() {
+		return elementImportance;
+	}
+	public void setElementImportance(float elementImportance) {
+		this.elementImportance = elementImportance;
 	}
 }
