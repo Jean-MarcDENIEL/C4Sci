@@ -5,12 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import c4sci.NoChildIterator;
-import c4sci.data.DataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 
 /**
- * This class corresponds to single {@link DataParameter DataParameters} being involved during an ApplicationStep.<br>
+ * This class corresponds to single Data being involved during an ApplicationStep.<br>
  * <br>
  * @author jeanmarc.deniel
  *

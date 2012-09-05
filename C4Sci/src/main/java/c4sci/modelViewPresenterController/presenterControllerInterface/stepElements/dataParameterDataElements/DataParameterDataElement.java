@@ -1,8 +1,12 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements;
+package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
 import c4sci.data.DataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement;
-
+/**
+ * This class makes a link between a {@link SingleDataStepElement} and a {@link DataParameter}
+ * @author jeanmarc.deniel
+ *
+ */
 public abstract class DataParameterDataElement extends SingleDataStepElement {
 	private DataParameter	dataParameter;
 	

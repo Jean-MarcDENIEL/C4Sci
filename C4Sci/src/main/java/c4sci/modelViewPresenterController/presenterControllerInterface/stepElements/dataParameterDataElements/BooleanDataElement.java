@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements;
+package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
 import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;

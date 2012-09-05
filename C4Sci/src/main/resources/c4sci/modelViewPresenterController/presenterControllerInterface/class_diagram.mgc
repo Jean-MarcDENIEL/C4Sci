@@ -2,7 +2,7 @@
 <ClassDiagram>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.LabelDataElement"
-        x="889" y="367">
+        x="1040" y="385">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -36,7 +36,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.IntegerDataElement"
-        x="669" y="368">
+        x="820" y="386">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -49,7 +49,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.BooleanDataElement"
-        x="273" y="368">
+        x="424" y="386">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -62,7 +62,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.EditableDataElement"
-        x="21" y="269">
+        x="73" y="290">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -79,7 +79,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.DataParameterDataElement"
-        x="552" y="270">
+        x="763" y="288">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -134,7 +134,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ScalableDataElement"
-        x="793" y="267">
+        x="526" y="288">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -151,7 +151,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement"
-        x="292" y="272">
+        x="310" y="289">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -168,7 +168,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.FloatDataElement"
-        x="473" y="367">
+        x="624" y="385">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>

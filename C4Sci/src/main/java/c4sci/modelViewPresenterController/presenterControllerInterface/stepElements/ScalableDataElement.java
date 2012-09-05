@@ -23,14 +23,14 @@ public class ScalableDataElement extends SingleDataStepElement {
 	}
 
 	@Override
-	public UnitScales getUnits() {
+	public final UnitScales getUnits() {
 		return unitScales;
 	}
 	/**
 	 * Sets the units corresponding to the encapsulated {@link SingleDataStepElement}
 	 * @param unit_scales The unit scale to affect.
 	 */
-	public void setUnitScales(UnitScales unit_scales) {
+	public final void setUnitScales(UnitScales unit_scales) {
 		this.unitScales = unit_scales;
 	}
 

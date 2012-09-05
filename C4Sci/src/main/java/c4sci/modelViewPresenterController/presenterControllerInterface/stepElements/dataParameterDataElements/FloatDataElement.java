@@ -1,9 +1,8 @@
-package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements;
+package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
 import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.FloatValueBinding;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement;
 
 /**
  * This class encapsulates a float parameter.
