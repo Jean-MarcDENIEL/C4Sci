@@ -1,5 +1,6 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 /**
- * This class instantiates the <b>Composite</b> GoF pattern used by its {@link StepElement} superclass.
+ * This class instantiates the <b>Composite</b> GoF pattern used by its {@link StepElement} superclass.<br>
+ * all its methods are delegated to its sub elements.
  * @author jeanmarc.deniel
  *
  */
-public abstract class CompoundStepElement extends StepElement {
+public class CompoundStepElement extends StepElement {
 
 	private Map<Integer, StepElement>	subElements;			// elements composing the current element
 	
@@ -26,21 +27,53 @@ public abstract class CompoundStepElement extends StepElement {
 	}
 	
 	@Override
+	/**
+	 * 
+	 * @return true if and only if all its sub elements are editable.
+	 */
 	public boolean isEditable() {
-		// TODO Auto-generated method stub
-		return false;
+		for (Iterator<StepElement> _it=getSubElementsIterator(); _it.hasNext();){
+			if (!_it.next().isEditable()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
+	/**
+	 * 
+	 * @return all its sub elements bindings
+	 */
 	public List<ElementBinding> getBindings() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ElementBinding> _res = new ArrayList<ElementBinding>();
+		for (Iterator<StepElement> _it=getSubElementsIterator();_it.hasNext();){
+			List<ElementBinding> _sub_res = _it.next().getBindings();
+			_res.addAll(_sub_res);
+		}
+		return _res;
 	}
 
-	@Override
-	public UnitScales getUnits() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * @return true if and only if all its sub elements are internally coherent.
+	 */
+	public boolean isInternallyCoherent() {
+		for (Iterator<StepElement> _it=getSubElementsIterator();_it.hasNext();){
+			if (!_it.next().isInternallyCoherent()){
+				return false;
+			}
+		}
+		return true;
 	}
+
+	/**
+	 * Ensure coherent state to all of its sub elements
+	 */
+	public void ensureCoherentInternalState() {
+		for (Iterator<StepElement> _it=getSubElementsIterator();_it.hasNext();){
+			_it.next().ensureCoherentInternalState();
+		}
+	}
+
 
 }
