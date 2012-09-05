@@ -14,12 +14,12 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.scales.Un
  * <ul>
  * 	<li> an A element is a resource for a B element : if A is updated, B must be updated,
  *  <li> an A element is a resource for a B element : B won't be coherent if A isn't,
- *  <li> an element is not coherent if one or more of its sub elements are not coherent.  
+ *  <li> an element is not overall coherent if one or more of its sub elements are not coherent.  
  * </ul>
  * <b>Warning :</b> It is the responsibility of the API user not to introduce cycles through these relationships.<br>
  * <br>
  * <b>Sub elements</b><br>
- * An element can contain sub elements. These are referenced by integer value which meaning is up to "this" element.<br>
+ * An element can contain sub elements.<br>
  * <br>
  * <b>Importance</b><br>
  * Each StepElement is assigned an importance value, that can be useful for the presenter to improve the application usability.<br>
