@@ -34,16 +34,13 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.scales.Un
  *
  */
 public abstract class StepElement {
-
-	
 	private List<StepElement>			resourceElements;		// elements from which "this" depends
 	private List<StepElement>			dependentElements;		// elements that depend on "this"
 	private float						elementImportance;		// [0-1]
-	
 	public StepElement() {
 		resourceElements 	= Collections.synchronizedList(new ArrayList<StepElement>());
 		dependentElements	= Collections.synchronizedList(new ArrayList<StepElement>());
-		setElementImportance(1.0f);
+		setImportance(1.0f);
 	}
 	/**
 	 * Tests whether an element as an internal state that is coherent, independently from<br>
@@ -73,7 +70,6 @@ public abstract class StepElement {
 		}
 		return true;
 	}
-
 	/**
 	 * Sets the internal state of "this" element so that {@link #isInternallyCoherent()} answers true.<br>
 	 * This method is especially useful when {@link #isInternallyCoherent()} answers false at first time.<br>
@@ -81,30 +77,36 @@ public abstract class StepElement {
 	 */
 	public abstract void ensureCoherentInternalState();
 	/**
-	 * 
 	 * @return an iterator that gives access to sub elements.
 	 */
 	public abstract Iterator<StepElement> getSubElementsIterator();
-
-
 	/**
-	 * 
 	 * @return an iterator that gives access to resource elements.
 	 */
 	public final Iterator<StepElement> getResourcesIterator(){
 		return resourceElements.iterator();
 	}
 	/**
-	 * 
 	 * @return an iterator that gives access to dependent elements.
 	 */
 	public final Iterator<StepElement> getDependentsIterator(){
 		return dependentElements.iterator();
 	}
 	/**
+	 * Modifies the argument StepElements to create a resource/dependent relation ship between to StepElements.<br>
+	 * 
+	 * @param resource_elt The element considered as a resource for the other.
+	 * @param dependant_elt The element considered as depending from the other.
+	 */
+	static public final void createRessourceDependentRelationship(StepElement resource_elt, StepElement dependant_elt){
+		resource_elt.dependentElements.add(dependant_elt);
+		dependant_elt.resourceElements.add(resource_elt);
+	}
+	
+	/**
 	 * 
 	 * @return true if the element corresponds to a data that can be modified through an interaction with the element.
-	 */
+	 */	
 	public abstract boolean isEditable();
 	/**
 	 * @return The bindings to the data that are directly necessary for the StepElement to work.<br>
@@ -117,10 +119,24 @@ public abstract class StepElement {
 	public UnitScales getUnits(){
 		return null;
 	}
-	public final float getElementImportance() {
+	public final float getImportance() {
 		return elementImportance;
 	}
-	public final void setElementImportance(float element_importance) {
-		this.elementImportance = element_importance;
+	/**
+	 * Importance will be limited to the [0.0-1.0] range.
+	 * @param element_importance the importance to affect to the element.
+	 */
+	public final void setImportance(float element_importance) {
+		if (element_importance > 1.0f){
+			elementImportance = 1.0f;
+		}
+		else{
+			if (element_importance < 0.0f){
+				elementImportance = 0.0f;
+			}
+			else{
+				this.elementImportance = element_importance;
+			}
+		}
 	}
 }

@@ -3,6 +3,7 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepElem
 import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.BooleanValueBinding;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;
 
 public class BooleanDataElement extends DataParameterDataElement {
 

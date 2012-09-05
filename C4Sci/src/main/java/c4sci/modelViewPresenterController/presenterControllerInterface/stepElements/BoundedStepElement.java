@@ -6,9 +6,9 @@ import java.util.List;
 
 import c4sci.NoChildIterator;
 import c4sci.data.exceptions.DataValueParsingException;
-import c4sci.math.algebra.Floatings;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 /**
  * This class encapsulates a {@link SingleDataStepElement} that is bounded by two other {@link SingleDataStepElement} of the same type.<br>
  * The {@link BoundedStepElement} creation needs the API user to furnish a comparator.
@@ -22,70 +22,13 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends StepEle
 	private C			lowerBound;
 	private C			upperBound;
 	private C			boundedElement;	
-	private Comparator	elementComparator; 
+	private BoundsComparator	elementComparator; 
 	
-	public abstract class Comparator{
-		public abstract boolean isGreaterOrEqual(String val_1, String val_2);
-		public abstract boolean isLesserOrEqual(String val_1, String val_2);
-	}
-	
-	public class FloatComparator extends Comparator{
 
-		@Override
-		public boolean isGreaterOrEqual(String val_1, String val_2) {
-			try{
-				float _fl_1 = Float.valueOf(val_1);
-				float _fl_2 = Float.valueOf(val_2);
-				return Floatings.isGreaterEqual(_fl_1, _fl_2);
-			}
-			catch(NumberFormatException _e){
-				return false;
-			}
-		}
-
-		@Override
-		public boolean isLesserOrEqual(String val_1, String val_2) {
-			try{
-				float _fl_1 = Float.valueOf(val_1);
-				float _fl_2 = Float.valueOf(val_2);
-				return Floatings.isLessEqual(_fl_1, _fl_2);
-			}
-			catch(NumberFormatException _e){
-				return false;
-			}
-		}
-	}
-	
-	public class IntegerComparator extends Comparator{
-
-		@Override
-		public boolean isGreaterOrEqual(String val_1, String val_2) {
-			try{
-				int _int_1 = Integer.valueOf(val_1);
-				int _int_2 = Integer.valueOf(val_2);
-				return _int_1 >= _int_2;
-			}
-			catch(NumberFormatException _e){
-				return false;
-			}
-		}
-
-		@Override
-		public boolean isLesserOrEqual(String val_1, String val_2) {
-			try{
-				int _int_1 = Integer.valueOf(val_1);
-				int _int_2 = Integer.valueOf(val_2);
-				return _int_1 <= _int_2;
-			}
-			catch(NumberFormatException _e){
-				return false;
-			}
-		}
-	}
 	/**
 	 * <b>null</b> arguments are not accepted.
 	 */
-	public BoundedStepElement(C lower_bound, C upper_bound, C bounded_elt, Comparator elt_comp) {
+	public BoundedStepElement(C lower_bound, C upper_bound, C bounded_elt, BoundsComparator elt_comp) {
 		lowerBound			= lower_bound;
 		upperBound			= upper_bound;
 		boundedElement		= bounded_elt;

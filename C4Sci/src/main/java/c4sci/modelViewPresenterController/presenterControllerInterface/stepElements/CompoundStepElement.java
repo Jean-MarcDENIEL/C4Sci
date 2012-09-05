@@ -26,6 +26,18 @@ public class CompoundStepElement extends StepElement {
 		return subElements.values().iterator();
 	}
 	
+	public final void setSubElement(int sub_elt_ref, StepElement sub_elt){
+		subElements.put(Integer.valueOf(sub_elt_ref), sub_elt);
+	}
+	/**
+	 * 
+	 * @param sub_elt_ref The reference key of the sub element.
+	 * @return The corresponding sub element or null if there is no one for the argument key.
+	 */
+	public final StepElement getSubElement(int sub_elt_ref){
+		return subElements.get(Integer.valueOf(sub_elt_ref));
+	}
+	
 	@Override
 	/**
 	 * 
