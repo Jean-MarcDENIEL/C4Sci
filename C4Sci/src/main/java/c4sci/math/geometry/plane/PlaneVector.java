@@ -84,7 +84,7 @@ public class PlaneVector {
 	/**
 	 * Receives the argument values
 	 * @param other_v the new values to get.
-	 * @return
+	 * @return this
 	 */
 	public final PlaneVector opEquals(PlaneVector other_v){
 		setX(other_v.getX());

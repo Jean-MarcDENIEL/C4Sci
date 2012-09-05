@@ -5,8 +5,8 @@ import c4sci.data.DataIdentity;
 /**
  * This interface represents the update commands that can be thrown to Component, like : set foreground, set an indicator ....<br>
  * <br> 
- * ComponentChange requests are usually used for special cases that are not treated by Component 
- * methods like {@link Component#setActivity(boolean) setActivity()}
+ * ComponentChange requests are usually used for special cases that are not treated by {@link Component} 
+ * methods.
  * @author jeanmarc.deniel
  * @see Component
  *

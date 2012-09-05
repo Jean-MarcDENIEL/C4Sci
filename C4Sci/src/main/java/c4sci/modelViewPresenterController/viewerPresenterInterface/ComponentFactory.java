@@ -28,7 +28,7 @@ public interface ComponentFactory {
 	Component createStandardComponent(StandardComponentSet comp_type) throws CannotCreateSuchComponentException;
 	/**
 	 * 
-	 * @param comp_id the component type, as defined in the factory documentation.
+	 * @param comp_type the component type, as defined in the factory documentation.
 	 * @return A Component of comp_type type.
 	 * @throws CannotCreateSuchComponentException if the factory can't instantiate the asked component.
 	 */

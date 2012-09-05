@@ -314,7 +314,7 @@ public class SpaceVector {
 	/**
 	 * Tests for "absolute less than" on X and Y and Y
 	 * @param other_vec
-	 * @return
+	 * @return true if X, Y and Z of this are less than the argument's.
 	 */
 	public final boolean isLessThan(final SpaceVector other_vec){
 		return 

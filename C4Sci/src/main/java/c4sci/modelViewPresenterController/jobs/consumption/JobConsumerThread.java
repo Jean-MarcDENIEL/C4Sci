@@ -19,7 +19,7 @@ import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
  * <li> pull a job (request or result) out of a first RequestResultInterface by calling the abstract {@link #pullJobToProcess()}method,
  * <li> make process the Command by the corresponding JobProcessor through its {@link JobProcessor#processJob(Command)} method,
  * <li> process the Command itself by calling its {@link Command#doProcess()} method,
- * <li> push the result into a second RequestResultInterface by calling the abstract {@link #pushProcessedJob(Command)} method.
+ * <li> push the result into a second RequestResultInterface by calling the abstract {@link #pushProcessedJob(List)} method.
  * </ol>
  * Note : the RequestResultInterfaces can be the same one.<br><br>
  * <b>Pattern :</b> This class makes use of the <b>Template Method </b>GoF pattern : <br>
@@ -90,8 +90,8 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 */
 	public abstract C_request	pullJobToProcess();
 	/**
-	 * This method must be defined to just call whether {@link #pushJobResultAsRequest()}
-	 * or {@link #pushJobResultAsResult()}
+	 * This method must be defined to just call whether {@link #pushJobResultAsRequest(List)}
+	 * or {@link #pushJobResultAsResult(List)}
 	 * @param job_res may be null, meaning there is no result to treat but balance should be achieved nonetheless.
 	 */
 	public abstract void pushProcessedJob(List<C_result> job_res);

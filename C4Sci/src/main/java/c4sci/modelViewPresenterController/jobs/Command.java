@@ -169,7 +169,7 @@ public abstract class Command {
  	}
  	/**
  	 * Identifies the type of command.
- 	 * @return
+ 	 * @return the type of the command.
  	 */
  	public final synchronized long getCommandID(){
  		return commandID;

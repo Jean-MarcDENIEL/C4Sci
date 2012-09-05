@@ -32,7 +32,7 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 
 	//CHECKSTYLE:OFF
 	/**
-	 * @returns the number of mapping elements.
+	 * @return the number of mapping elements.
 	 */
 	public int size() {
 		//CHECKSTYLE:ON

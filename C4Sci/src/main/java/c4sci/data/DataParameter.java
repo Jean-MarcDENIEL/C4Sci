@@ -28,8 +28,8 @@ public abstract class DataParameter {
 		return paramToken;
 	}
 	/**
-	 * The name to associate with the parameter in containers
-	 * @return
+	 * 
+	 * @return The name to associate with the parameter in containers
 	 */
 	public final InternationalizableTerm getParameterName() {
 		return paramName;
@@ -65,8 +65,8 @@ public abstract class DataParameter {
 		return Pattern.matches(getRegExp(), str_to_parse);
 	}
 	/**
-	 * The regular expression corresponding to the valid parameter entries.
-	 * @return
+	 * 
+	 * @return The regular expression corresponding to the valid parameter entries.
 	 */
 	public abstract String getRegExp();
 	/**
@@ -79,7 +79,7 @@ public abstract class DataParameter {
 	 * <b>Pattern</b> This method instantiates the Prototype GoF pattern.<br>
 	 * <b>Pattern</b> This method uses the Template Method pattern<br>
 	 * @see DataParameter#getSameDataParameterInstance()
-	 * @return
+	 * @return a clone of this, with same Parameter value
 	 */
 	public final DataParameter getClone(){
 		DataParameter _res = getSameDataParameterInstance();

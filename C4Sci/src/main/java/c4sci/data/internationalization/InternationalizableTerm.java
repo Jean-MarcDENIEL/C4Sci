@@ -41,7 +41,7 @@ public class InternationalizableTerm {
 	/**
 	 * Gets the term corresponding to the specified language
 	 * @param express_language
-	 * @return
+	 * @return the term corresponding to the specified language
 	 * @throws NoCorrespondingLanguageException
 	 */
 	public String getValue(Language express_language) throws NoCorrespondingLanguageException{
