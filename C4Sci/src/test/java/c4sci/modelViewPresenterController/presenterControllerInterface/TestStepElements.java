@@ -222,6 +222,9 @@ public class TestStepElements {
 		assertTrue(Floatings.isEqual(_bool.getImportance(), 0.0f));
 		_bool.setImportance(0.42f);
 		assertTrue(Floatings.isEqual(_bool.getImportance(), 0.42f));
+		
+		assertTrue(_bounded_int.getSingleBinding().getBoundElement() == _value_int);
+		assertTrue(_bool.getSingleBinding().getBoundElement() == _bool);
 	}
 
 }

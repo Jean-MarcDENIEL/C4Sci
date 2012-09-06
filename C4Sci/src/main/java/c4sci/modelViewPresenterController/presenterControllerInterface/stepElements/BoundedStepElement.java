@@ -40,12 +40,12 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 			return false;
 		}
 		
-		String lower_bound		= lowerBound.getSingleBinding().getBoundParameter().getParameterValue();
-		String upper_bound		= upperBound.getSingleBinding().getBoundParameter().getParameterValue();
-		String bounded_value	= boundedElement.getSingleBinding().getBoundParameter().getParameterValue();
+		String _lower_bound		= lowerBound.getSingleBinding().getBoundParameter().getParameterValue();
+		String _upper_bound		= upperBound.getSingleBinding().getBoundParameter().getParameterValue();
+		String _bounded_value	= boundedElement.getSingleBinding().getBoundParameter().getParameterValue();
 		
-		return 	elementComparator.isLesserOrEqual(lower_bound, bounded_value) &&
-				elementComparator.isGreaterOrEqual(upper_bound, bounded_value);
+		return 	elementComparator.isLesserOrEqual(_lower_bound, _bounded_value) &&
+				elementComparator.isGreaterOrEqual(_upper_bound, _bounded_value);
 	}
 
 	/**

@@ -57,11 +57,13 @@ public final class ApplicationStep {
 	/**
 	 * Creates a next/previous relationship between "this" and the passed argument. <br>
 	 * <b>Side effect :</b> "this" and the passed argument are modified.
-	 * @param next_step The step to be considered as the next step after "this".
+	 * @param next_step The step to be considered as the next step after "this". Can be <i>null</i>.
 	 */
 	public void setNextStep(ApplicationStep next_step) {
 		this.nextStep = next_step;
+		if (next_step != null){
 		next_step.previousStep = this;
+		}
 	}
 
 	public ApplicationStep getPreviousStep() {
@@ -70,11 +72,13 @@ public final class ApplicationStep {
 	/**
 	 * Creates a next/previous relationship between "this" and the passed argument.<br>
 	 * <b>Side effect :</b> "this" and the passed argument are modified. 
-	 * @param previous_step The step to be considered as the previous step before "this".
+	 * @param previous_step The step to be considered as the previous step before "this". Can be <i>null</i>
 	 */
 	public void setPreviousStep(ApplicationStep previous_step) {
 		this.previousStep = previous_step;
-		previous_step.nextStep = this;
+		if (previous_step != null){
+			previous_step.nextStep = this;
+		}
 	}
 	/**
 	 * Creates a parent / sub step relation ship and ensure a previous/next relationship with the last entered sub steps.
@@ -89,7 +93,8 @@ public final class ApplicationStep {
 		}
 		subSteps.add(sub_step);
 		if (_previous_sub_step != null){
-			_previous_sub_step.setPreviousStep(sub_step);
+			_previous_sub_step.setNextStep(sub_step);
+			sub_step.setPreviousStep(_previous_sub_step);
 		}
 	}
 	/**
@@ -99,6 +104,12 @@ public final class ApplicationStep {
 	 */
 	public void addSubStep(ApplicationStep sub_step){
 		sub_step.setParentStep(this);
+		sub_step.setPreviousStep(null);
+		ApplicationStep _previous_sub_step = null;
+		if (subSteps.size() > 0){
+			_previous_sub_step = subSteps.get(subSteps.size()-1);
+			_previous_sub_step.setNextStep(null);
+		}
 		subSteps.add(sub_step);
 	}
 	/**

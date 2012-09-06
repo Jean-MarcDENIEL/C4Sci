@@ -98,7 +98,7 @@ public abstract class StepElement {
 	 * @param resource_elt The element considered as a resource for the other.
 	 * @param dependant_elt The element considered as depending from the other.
 	 */
-	static public final void createRessourceDependentRelationship(StepElement resource_elt, StepElement dependant_elt){
+	public static final void createRessourceDependentRelationship(StepElement resource_elt, StepElement dependant_elt){
 		resource_elt.dependentElements.add(dependant_elt);
 		dependant_elt.resourceElements.add(resource_elt);
 	}
