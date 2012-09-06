@@ -14,9 +14,14 @@ import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.algebra.Floatings;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.BoundedStepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.CompoundStepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.EditableDataElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ScalableDataElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.TreatmentStepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.FloatComparator;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.IntegerComparator;
@@ -193,6 +198,15 @@ public class TestStepElements {
 		assertFalse(_compound.isInternallyCoherent());
 		_bounded_int.ensureCoherentInternalState();
 		assertTrue(_compound.isInternallyCoherent());
+		
+		assertFalse(_compound.getSubElement(3).isEditable());
+		StepElement _step_3 = _compound.getSubElement(3).getBindings().iterator().next().getBoundElement();
+		assertTrue(""+_step_3.getClass(), _step_3 == _bounded_int.getSingleBinding().getBoundElement());
+		
+		_data.boundedInteger.setIntegerValue(100);
+		assertFalse(_compound.isInternallyCoherent());
+		_compound.ensureCoherentInternalState();
+		assertTrue(_compound.isInternallyCoherent());
 
 		_bounded_fl.ensureCoherentInternalState();
 		assertTrue(Floatings.isEqual(_data.boundedFloat.getFloatValue(), _data.lowerFloatBound.getFloatValue()));
@@ -225,6 +239,31 @@ public class TestStepElements {
 		
 		assertTrue(_bounded_int.getSingleBinding().getBoundElement() == _value_int);
 		assertTrue(_bool.getSingleBinding().getBoundElement() == _bool);
+		
+		ScalableDataElement _scalable = new ScalableDataElement(_bounded_int, UnitScales.createMeterUnitSCales());
+		_data.boundedInteger.setIntegerValue(1000);
+		String _km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundParameter().getParameterValue()));
+		assertTrue(_km, _km.compareTo("km")==0);
+		assertFalse(_scalable.isInternallyCoherent());
+		assertTrue(_scalable.isEditable());
+		_scalable.ensureCoherentInternalState();
+		_km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundParameter().getParameterValue()));
+		assertTrue(_km, _km.compareTo("m")==0);
+		
+		EditableDataElement _editable = new EditableDataElement(_bounded_int);
+		assertTrue(_editable.isEditable());
+		_data.boundedInteger.setIntegerValue(12);
+		assertFalse(_editable.isInternallyCoherent());
+		_editable.ensureCoherentInternalState();
+		assertTrue(_editable.isInternallyCoherent());
+		assertTrue(_editable.getSingleBinding().getBoundParameter() == _data.boundedInteger);
+		
+		TreatmentStepElement _treat = new TreatmentStepElement();
+		assertFalse(_treat.isEditable());
+		assertTrue(_treat.isInternallyCoherent());
+		assertTrue(_treat.getUnits() == null);
+		_treat.ensureCoherentInternalState();
+		assertFalse(_treat.getSubElementsIterator().hasNext());
+		assertTrue(_treat.getBindings().size() == 0);
 	}
-
 }
