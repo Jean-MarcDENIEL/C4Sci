@@ -60,6 +60,7 @@ public abstract class ComponentChange extends Command{
 	public ComponentChange(DataIdentity comp_id, Command parent_command){
 		super(parent_command);
 		componentIdentity = comp_id;
+		setCommandID(getCommandID());
 	}
 	/**
 	 * @return the type of the asked change
