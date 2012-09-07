@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.WaitingJobQueue.JobChainLink"
+        x="215" y="82">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.RequestResultInterface"
+        x="458" y="229">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.Command.CommandReflex"
+        x="210" y="485">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler"
+        x="991" y="458">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread"
+        x="441" y="13">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+    </Class>
+    <Class name="c4sci.modelViewPresenterController.jobs.Command"
+        x="173" y="287">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="childCommandsList" kind="Simple">
+            <Point x="151" y="344"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="descendantCommands" kind="Simple">
+            <Point x="158" y="372"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="ancestorCommand" kind="Simple">
+            <Point x="161" y="413"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="parentCommand" kind="Simple">
+            <Point x="81" y="265"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command.CommandReflex"
+            endpointName="childNotificationReflexList" kind="Simple"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command.CommandReflex"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler"
+        x="776" y="457">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.modelViewPresenterController.jobs.JobProcessor"
+        x="849" y="138">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.WaitingJobQueue"
+        x="188" y="10">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+    </Class>
+    <Class name="c4sci.modelViewPresenterController.jobs.JobScheduler"
+        x="942" y="385">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.jobs.RequestResultInterface.BalanceReflex"
+        x="511" y="476">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.jobs.Command.CommandReflex"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+    </Class>
+</ClassDiagram>

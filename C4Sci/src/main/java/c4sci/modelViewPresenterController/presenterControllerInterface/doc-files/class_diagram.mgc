@@ -15,7 +15,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
-        x="481" y="63">
+        x="470" y="45">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -26,12 +26,12 @@
         <Association
             destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
             endpointName="dependentElements" kind="Simple">
-            <Point x="730" y="75"/>
+            <Point x="887" y="61"/>
         </Association>
         <Association
             destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
             endpointName="resourceElements" kind="Simple">
-            <Point x="729" y="45"/>
+            <Point x="733" y="30"/>
         </Association>
     </Class>
     <Class
@@ -103,7 +103,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding"
-        x="154" y="63">
+        x="155" y="65">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -117,7 +117,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.CompoundStepElement"
-        x="655" y="183">
+        x="662" y="181">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -135,7 +135,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.BoundedStepElement"
-        x="25" y="186">
+        x="14" y="224">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -143,7 +143,8 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
     </Class>
     <Class
@@ -162,6 +163,18 @@
             endpointName="scaledElement" kind="Simple"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.SingleDataStepElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.TreatmentStepElement"
+        x="909" y="179">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement"
@@ -192,17 +205,5 @@
             accessors-accepted="true" constructors-accepted="true"/>
         <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.DataParameterDataElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElements.DataParameterDataElement"/>
-    </Class>
-    <Class
-        name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.TreatmentStepElement"
-        x="909" y="179">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
     </Class>
 </ClassDiagram>

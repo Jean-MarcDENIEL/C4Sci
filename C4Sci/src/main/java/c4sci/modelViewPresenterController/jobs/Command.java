@@ -50,8 +50,7 @@ public abstract class Command {
 	// chronological order of Commands : one-to-many relationship
 	private Command				ancestorCommand;
 	private List<Command>		descendantCommands;
-	// the parent Command : the Command that needs 
-	// other sub-commands to be processed
+	// the parent Command : the Command that needs other sub-commands to be processed
 	private Command				parentCommand;
 	// the child Commands : Commands that need to be processed in order to get "this" fully processed.
 	// in order to get the actual command entirely processed.
