@@ -16,7 +16,7 @@ public class TestPerformer {
 
 		@Override
 		Iterator<Component> getChildComponentIterator() {
-			return new NoChildIterator();
+			return new NoChildIterator<Component>();
 		}
 
 		@Override
@@ -73,7 +73,7 @@ public class TestPerformer {
 		class TestCompChange extends ComponentChange{
 			public ComponentChange.ChangeID changeID;
 			public TestCompChange(DataIdentity comp_id) {
-				super(comp_id);
+				super(comp_id, null);
 			}
 
 			@Override

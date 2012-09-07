@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 /**
@@ -10,8 +11,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
  */
 public class ActivityChange extends BooleanChange {
 
-	public ActivityChange(DataIdentity comp_id, boolean activity_val) {
-		super(comp_id, activity_val);
+	public ActivityChange(DataIdentity comp_id, boolean activity_val, Command parent_cmd) {
+		super(comp_id, activity_val, parent_cmd);
 	}
 
 	@Override

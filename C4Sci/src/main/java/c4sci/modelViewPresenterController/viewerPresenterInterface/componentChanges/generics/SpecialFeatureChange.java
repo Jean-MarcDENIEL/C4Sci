@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -12,8 +13,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
  */
 public class SpecialFeatureChange extends IntegerChange {
 
-	public SpecialFeatureChange(DataIdentity comp_id, int feature_val) {
-		super(comp_id, feature_val);
+	public SpecialFeatureChange(DataIdentity comp_id, int feature_val, Command parent_cmd) {
+		super(comp_id, feature_val, parent_cmd);
 	}
 
 	@Override

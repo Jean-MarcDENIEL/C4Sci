@@ -2,6 +2,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.space.SpaceVector;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange;
 /**
@@ -11,8 +12,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
  */
 public class FontColorChange extends ThreeDimensionalChange {
 
-	public FontColorChange(DataIdentity comp_id, SpaceVector font_color) {
-		super(comp_id, font_color);
+	public FontColorChange(DataIdentity comp_id, SpaceVector font_color, Command parent_cmd) {
+		super(comp_id, font_color, parent_cmd);
 	}
 
 	@Override

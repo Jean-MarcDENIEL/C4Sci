@@ -88,7 +88,7 @@ public abstract class Command {
 	 * @param parent_command the command depending on "this"or null if there is no parent command. <br>
 	 * parent_command will be added "this" child and vice-versa
 	 */
- 	Command(Command parent_command){
+ 	protected Command(Command parent_command){
 		ancestorCommand 	= null;
 		descendantCommands	= new ArrayList<Command>();
 

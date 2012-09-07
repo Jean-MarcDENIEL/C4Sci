@@ -2,6 +2,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 /**
  * This class notifies that the mouse left button has been released.<br>
@@ -11,8 +12,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
  */
 public class MouseLeftButtonReleasedChange extends MouseChange {
 
-	public MouseLeftButtonReleasedChange(DataIdentity comp_id, PlaneVector mouse_coor) {
-		super(comp_id, mouse_coor);
+	public MouseLeftButtonReleasedChange(DataIdentity comp_id, PlaneVector mouse_coor, Command parent_cmd) {
+		super(comp_id, mouse_coor, parent_cmd);
 	}
 
 	@Override

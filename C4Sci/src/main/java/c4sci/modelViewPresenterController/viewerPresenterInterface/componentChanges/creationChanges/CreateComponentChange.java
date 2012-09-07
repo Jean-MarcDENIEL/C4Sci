@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -18,8 +19,8 @@ public abstract class CreateComponentChange extends ComponentChange {
 	 * @param comp_id Identity of the Component to create.
 	 * @param parent_id Identity of the parent Component. May be null.
 	 */
-	public CreateComponentChange(DataIdentity comp_id, DataIdentity parent_id) {
-		super(comp_id);
+	public CreateComponentChange(DataIdentity comp_id, DataIdentity parent_id, Command parent_cmd) {
+		super(comp_id, parent_cmd);
 		parentComponentIdentity = parent_id;
 	}
 	

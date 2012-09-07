@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -14,11 +15,11 @@ public abstract class OneDimensionalChange extends ComponentChange {
 	private float		oneDimensionalValue;
 
 	private OneDimensionalChange(){
-		super(null);
+		super(null, null);
 	}
 	
-	public OneDimensionalChange(DataIdentity comp_id, float one_d_val){
-		super(comp_id);
+	public OneDimensionalChange(DataIdentity comp_id, float one_d_val, Command parent_cmd){
+		super(comp_id, parent_cmd);
 		oneDimensionalValue 	= one_d_val;
 	}
 	

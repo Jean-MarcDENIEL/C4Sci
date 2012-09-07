@@ -2,6 +2,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -13,8 +14,8 @@ public abstract class InternationalizableTermChange extends ComponentChange {
 
 	private InternationalizableTerm		termValue;
 	
-	public InternationalizableTermChange(DataIdentity comp_id, InternationalizableTerm term_value) {
-		super(comp_id);
+	public InternationalizableTermChange(DataIdentity comp_id, InternationalizableTerm term_value, Command parent_cmd) {
+		super(comp_id, parent_cmd);
 		termValue = term_value;
 	}
 

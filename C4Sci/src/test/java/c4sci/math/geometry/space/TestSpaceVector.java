@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.math.geometry.plane.PlaneVector;
-
 public class TestSpaceVector {
 
 	@Test

@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.Command;
 
 /**
  * This interface represents the update commands that can be thrown to Component, like : set foreground, set an indicator ....<br>
@@ -11,7 +12,7 @@ import c4sci.data.DataIdentity;
  * @see Component
  *
  */
-public abstract class ComponentChange {
+public abstract class ComponentChange extends Command{
 	/**
 	 * This enumerates the possible change cases.<br>
 	 * The meaning of {@link ComponentChange#getComponentIdentity()} depends on the enum value :<br>
@@ -55,9 +56,9 @@ public abstract class ComponentChange {
 		public long getChangeValue(){return changeValue;}
 	};
 	private DataIdentity componentIdentity;
-	@SuppressWarnings("unused")
-	private ComponentChange() {}
-	public ComponentChange(DataIdentity comp_id){
+	private ComponentChange() {super(null);}
+	public ComponentChange(DataIdentity comp_id, Command parent_command){
+		super(parent_command);
 		componentIdentity = comp_id;
 	}
 	/**
