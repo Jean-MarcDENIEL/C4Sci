@@ -14,9 +14,12 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
 public abstract class ComponentChangeRunnable implements Runnable{
 	private ComponentChange		compChange;
 
-	public ComponentChangeRunnable(){
-		compChange = null;
-	}
+	@SuppressWarnings("unused")
+	private ComponentChangeRunnable(){}
+	/**
+	 * 
+	 * @param comp_change The {@link ComponentChange} to work on.
+	 */
 	public ComponentChangeRunnable(ComponentChange comp_change){
 		compChange = comp_change;
 	}
@@ -32,7 +35,7 @@ public abstract class ComponentChangeRunnable implements Runnable{
 	/**
 	 * Creates a {@link ComponentChangeRunnable} of the same type of "this".<br>
 	 * <b>Pattern :</b> This method instantiates the <b>Prototype</b> GoF pattern.
-	 * @param comp_change
+	 * @param comp_change The {@link ComponentChange} the return value should work on.
 	 * @return <i>null</i> if cannot create the adapted clone to comp_change, or the ComponentChangeRunnable to {@link #run()}.
 	 */
 	public abstract ComponentChangeRunnable clonePrototype(ComponentChange comp_change);
