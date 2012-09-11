@@ -8,11 +8,6 @@ public class StepForwardStepChange extends StepChange {
 	public StepForwardStepChange(Command parent_command) {
 		super(parent_command);
 	}
-
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.STEP_FORWARD;
-	}
 	
 
 }

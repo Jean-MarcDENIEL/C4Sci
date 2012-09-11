@@ -9,9 +9,4 @@ public class ElementSuppressedStepChange extends StepChange {
 		super(parent_command);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.ELEMENT_SUPPRESSED;
-	}
-
 }

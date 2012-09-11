@@ -9,9 +9,4 @@ public class ElementFeedbackModificationStepChange extends StepChange {
 		super(parent_command);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.ELEMENT_FEEDBACK_MODIFICATION;
-	}
-
 }

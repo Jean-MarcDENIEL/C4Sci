@@ -13,11 +13,6 @@ public class ElementReactiveModificationStepChange extends StepChange {
 		setModifiedElement(step_elt);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.ELEMENT_REACTIVE_MODIFICATION;
-	}
-
 	public StepElement getModifiedElement() {
 		return modifiedElement;
 	}
