@@ -49,7 +49,10 @@ public abstract class ComponentChange extends Command{
 		RECEIVED_MOUSE_MOVE(23),
 		RECEIVED_FOCUS_GAIN(24),
 		RECEIVED_FOCUS_LOSS(25),
-		RECEIVED_MODIFIED_CONTENT(26);
+		RECEIVED_MODIFIED_CONTENT(26),
+		SET_INTEGER_VALUE(27),
+		SET_BOOLEAN_VALUE(28),
+		SET_FLOAT_VALUE(29);
 		
 		private long changeValue;
 		ChangeID(long change_value){changeValue = change_value;}
