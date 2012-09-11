@@ -10,9 +10,6 @@ public class TestCommand extends Command{
 	public void testCommand() {
 		Command _cmd_1 = new TestCommand();
 		Command _cmd_2 = new TestCommand();
-		_cmd_1.setCommandID(Command.createNewFlag());
-		_cmd_2.setCommandID(Command.createNewFlag());
-		assertTrue(_cmd_1.getCommandID() != _cmd_2.getCommandID());
 		_cmd_2.setParentCommand(_cmd_1);
 
 		assertTrue(_cmd_2.getParentCommand() == _cmd_1);
@@ -25,7 +22,6 @@ public class TestCommand extends Command{
 		_cmd_2.addFollowingCommand(_cmd_4);
 		
 		_cmd_2.modifyAsClone(_cmd_3);
-		assertTrue(_cmd_2.getCommandID() == _cmd_3.getCommandID());
 		assertTrue(_cmd_2.getCost() == _cmd_3.getCost());
 		assertTrue(_cmd_2.getParentCommand() == _cmd_3.getParentCommand());
 		assertTrue(_cmd_2.getPreviousCommand() == _cmd_3.getPreviousCommand());

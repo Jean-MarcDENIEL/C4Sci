@@ -22,7 +22,6 @@ public class TestJobConsumerThread {
 		public TestCommandA(int int_val, Command parent_cmd){
 			super(parent_cmd);
 			addValue = int_val;
-			setCommandID(1);
 		}
 	};
 
@@ -31,7 +30,6 @@ public class TestJobConsumerThread {
 
 		public TestCommandB(Command parent_cmd){
 			super(parent_cmd);
-			setCommandID(2);
 		}
 	}
 
@@ -317,11 +315,9 @@ public class TestJobConsumerThread {
 			List<TestCommandA> _res = new ArrayList<TestCommandA>();
 			for (int _i=0; _i<3; _i++){
 				TestCommandD _test_child = new TestCommandD(1, processing_cmd);
-				_test_child.setCommandID(4);
 				_res.add(_test_child);
 			}
 			TestCommandE _finishing_next = new TestCommandE(4, null);
-			_finishing_next.setCommandID(5);
 			_finishing_next.setPreviousCommand(processing_cmd);
 			_res.add(_finishing_next);
 			return _res;
@@ -402,7 +398,6 @@ public class TestJobConsumerThread {
 		int _val_test_anc = 2;
 		
 		TestCommandA _test_anc_req = new TestCommandC(_val_test_anc, null);
-		_test_anc_req.setCommandID(3);
 		_add_RRI.pushRequest(_test_anc_req);
 		
 		_test_ancestry_thread.setToDieUnused();

@@ -61,7 +61,6 @@ public abstract class Command {
 	private AtomicBoolean		alreadyProcessed;
 	private int 				commandPriority;
 	private int					commandCost;
-	private long				commandID;
 	// post processing on notification from child commands
 	private List<CommandReflex>		childNotificationReflexList;
 	
@@ -102,11 +101,6 @@ public abstract class Command {
 		
 		commandPriority		= 0;
 		commandCost			= 0;
-		
-		commandID			= 0;
-		
-		//jobProcessorRequestMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
-		//jobProcessorResultMap	= new ConcurrentHashMap<JobProcessor<Command,Command>, Command>();
 		
 		childNotificationReflexList	= new ArrayList<Command.CommandReflex>();
 	}
@@ -156,22 +150,6 @@ public abstract class Command {
  		
  		modified_command.setPriority(getPriority());
  		modified_command.setCost(getCost());
- 		
- 		modified_command.setCommandID(getCommandID());
- 	}
- 	/**
- 	 * Sets the command type identifier 
- 	 * @param flag_val
- 	 */
- 	public final synchronized void setCommandID(long flag_val){
- 		commandID = flag_val;
- 	}
- 	/**
- 	 * Identifies the type of command.
- 	 * @return the type of the command.
- 	 */
- 	public final synchronized long getCommandID(){
- 		return commandID;
  	}
  	
  	/**
@@ -290,30 +268,6 @@ public abstract class Command {
 		notifyOnProcessed();
 	}
 	
-	/**
-	 * Gets the result of the job processing, as computed by the {@link #doProcess()} method.
-	 * @param job_proc The job processor whose result is wanted.
-	 * @return The result or null in the following cases :
-	 * <ul>
-	 * <li>{@link #doProcess()} has not been yet called</li>
-	 * <li> {@link job_proc.processJob()) returned null</li>
-	 * <li> or job_proc has not been added as a JobProcessor to the Command through the 
-	 */
-	/*
-	public final Command getProcessResult(final JobProcessor<Command, Command> job_proc){
-		return jobProcessorResultMap.get(job_proc);
-	}*/
-	
-	/**
-	 * Adds a work to be processed when {@link #doProcess()} is called.
-	 * @param job_proc A JobProcessor whose {@link JobProcessor#processJob(Command)} will be called.
-	 * @param job_request The request passed to job_proc {@link JobProcessor#processJob(Command)} method.
-	 */
-	/*
-	public final synchronized void addProcess(final JobProcessor<Command, Command> job_proc, Command job_request){
-		jobProcessorRequestMap.put(job_proc, job_request);
-	}*/
-
 	/**
 	 * Method to call when "this" or one of its child Command has been processed.
 	 */
