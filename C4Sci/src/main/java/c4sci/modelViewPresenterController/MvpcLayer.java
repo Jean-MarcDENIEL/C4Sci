@@ -25,7 +25,7 @@ public interface MvpcLayer <C_Reactive extends Command, C_Feedback extends Comma
 	 * <b>Pattern : </b> This method relies on the <b>Strategy</b> pattern implemented by the {@link JobConsumerThread} class.   
 	 * @param consumer_thread The thread to program.
 	 */
-	void uploadReactiveThreadStrategy(JobConsumerThread<C_Reactive, C_Feedback> consumer_thread);
+	void uploadReactiveThreadStrategies(JobConsumerThread<C_Reactive, C_Feedback> consumer_thread);
 	/**
 	 * This method programs a {@link JobConsumerThread} in order to properly process {@link Command Commands} with different {@link Command#getCommandID()} values incoming from the "feedback side" {@link RequestResultInterface}.<br>
 	 * To achieve this goal, the argument thread's {@link JobConsumerThread#associateFlagToProcessor(long, c4sci.modelViewPresenterController.jobs.JobProcessor) associateFlagToProcessor(...)} method is called for the various {@link Command#getCommandID()} values.<br>
@@ -33,5 +33,5 @@ public interface MvpcLayer <C_Reactive extends Command, C_Feedback extends Comma
 	 * <b>Pattern : </b> This method relies on the <b>Strategy</b> pattern implemented by the {@link JobConsumerThread} class.   
 	 * @param consumer_thread The thread to program.
 	 */
-	void uploadFeedbackThreadStrategy(JobConsumerThread<C_Reactive, C_Feedback> consumer_thread);
+	void uploadFeedbackThreadStrategies(JobConsumerThread<C_Feedback, C_Reactive> consumer_thread);
 }

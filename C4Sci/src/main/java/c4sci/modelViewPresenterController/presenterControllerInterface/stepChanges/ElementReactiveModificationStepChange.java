@@ -2,16 +2,28 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepChan
 
 import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 
 public class ElementReactiveModificationStepChange extends StepChange {
 
-	public ElementReactiveModificationStepChange(Command parent_command) {
+	private StepElement modifiedElement;
+	
+	public ElementReactiveModificationStepChange(Command parent_command, StepElement step_elt) {
 		super(parent_command);
+		setModifiedElement(step_elt);
 	}
 
 	@Override
 	public ChangeID getChangeID() {
 		return ChangeID.ELEMENT_REACTIVE_MODIFICATION;
+	}
+
+	public StepElement getModifiedElement() {
+		return modifiedElement;
+	}
+
+	public void setModifiedElement(StepElement modifiedElement) {
+		this.modifiedElement = modifiedElement;
 	}
 
 }
