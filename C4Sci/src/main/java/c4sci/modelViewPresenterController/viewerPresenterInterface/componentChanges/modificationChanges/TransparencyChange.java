@@ -2,7 +2,6 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.OneDimensionalChange;
 
 /**
@@ -18,11 +17,6 @@ public class TransparencyChange extends OneDimensionalChange {
 	 */
 	public TransparencyChange(DataIdentity comp_id, float transp_value, Command parent_cmd) {
 		super(comp_id, transp_value, parent_cmd);
-	}
-
-	@Override
-	public ChangeID getChangeID() {
-		return ComponentChange.ChangeID.SET_TRANSPARENCY;
 	}
 
 }

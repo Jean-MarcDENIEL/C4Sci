@@ -11,9 +11,4 @@ public class IntegerValueChange extends IntegerChange {
 		super(comp_id, int_val, parent_cmd);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.SET_INTEGER_VALUE;
-	}
-
 }

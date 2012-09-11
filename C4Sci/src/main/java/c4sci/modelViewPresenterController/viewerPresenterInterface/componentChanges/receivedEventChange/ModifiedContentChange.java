@@ -17,9 +17,4 @@ public class ModifiedContentChange extends ComponentChange {
 		super(comp_id, parent_cmd);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ComponentChange.ChangeID.RECEIVED_MODIFIED_CONTENT;
-	}
-
 }

@@ -2,7 +2,6 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
  * The special component depends on the implementation of the Presenter and Viewer layers.
@@ -21,11 +20,6 @@ public class CreateSpecialComponentChange extends CreateComponentChange {
 			DataIdentity parent_id, int spec_comp_type, Command parent_cmd) {
 		super(comp_id, parent_id, parent_cmd);
 		specialComponentIdentity = spec_comp_type;
-	}
-
-	@Override
-	public ChangeID getChangeID() {
-		return ComponentChange.ChangeID.CREATE_SPECIAL_COMPONENT;
 	}
 	
 	/**

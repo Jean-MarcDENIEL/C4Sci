@@ -2,7 +2,6 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface.componentCha
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 
 /**
@@ -19,11 +18,6 @@ public class VisibilityChange extends BooleanChange {
 	 */
 	public VisibilityChange(DataIdentity comp_id, boolean visibility_val, Command parent_cmd) {
 		super(comp_id, visibility_val, parent_cmd);
-	}
-
-	@Override
-	public ChangeID getChangeID() {
-		return ComponentChange.ChangeID.SET_VISIBILITY;
 	}
 
 }

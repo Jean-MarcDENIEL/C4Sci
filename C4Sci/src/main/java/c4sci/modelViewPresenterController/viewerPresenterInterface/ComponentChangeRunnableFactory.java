@@ -13,10 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ComponentChangeRunnableFactory {
 
-	private Map<ComponentChange.ChangeID, ComponentChangeRunnable> changePerformersMap;
+	@SuppressWarnings("rawtypes")
+	private Map<Class, ComponentChangeRunnable> changePerformersMap;
 	
+	@SuppressWarnings("rawtypes")
 	public ComponentChangeRunnableFactory() {
-		changePerformersMap					= new ConcurrentHashMap<ComponentChange.ChangeID, ComponentChangeRunnable>();
+		changePerformersMap					= new ConcurrentHashMap<Class, ComponentChangeRunnable>();
 	}
 	
 	/**
@@ -29,7 +31,7 @@ public class ComponentChangeRunnableFactory {
 	 * @throws CannotPerformSuchChangeException is "this" component can't perform such an update.
 	 */
 	public ComponentChangeRunnable createChangePerformer(ComponentChange comp_change) throws CannotPerformSuchChangeException{
-		ComponentChangeRunnable _prototype = changePerformersMap.get(comp_change.getChangeID());
+		ComponentChangeRunnable _prototype = changePerformersMap.get(comp_change.getClass());
 		if (_prototype == null){
 			throw new CannotPerformSuchChangeException("No runnable for this kind of change.");
 		}
@@ -46,7 +48,8 @@ public class ComponentChangeRunnableFactory {
 	 * @param comp_chgt The ID of the {@link ComponentChange ComponentChanges} to perform.
 	 * @param change_performer_prototype The prototype of the {@link ComponentChangeRunnable} adapted to perform changes of comp_chgt id.
 	 */
-	public void addChangePerformingAbility(ComponentChange.ChangeID comp_chgt, ComponentChangeRunnable change_performer_prototype){
+	@SuppressWarnings("rawtypes")
+	public void addChangePerformingAbility(Class comp_chgt, ComponentChangeRunnable change_performer_prototype){
 		changePerformersMap.put(comp_chgt, change_performer_prototype);
 	}
 

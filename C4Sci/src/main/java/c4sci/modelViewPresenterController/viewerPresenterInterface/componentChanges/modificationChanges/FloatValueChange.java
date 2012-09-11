@@ -11,9 +11,4 @@ public class FloatValueChange extends FloatChange {
 		super(comp_id, new_value, parent_command);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.SET_FLOAT_VALUE;
-	}
-
 }

@@ -11,9 +11,4 @@ public class BooleanValueChange extends BooleanChange {
 		super(comp_id, bool_val, parent_cmd);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ChangeID.SET_BOOLEAN_VALUE;
-	}
-
 }

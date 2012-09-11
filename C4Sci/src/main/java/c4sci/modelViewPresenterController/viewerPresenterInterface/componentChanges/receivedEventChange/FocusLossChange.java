@@ -14,9 +14,4 @@ public class FocusLossChange extends ComponentChange {
 		super(comp_id, parent_cmd);
 	}
 
-	@Override
-	public ChangeID getChangeID() {
-		return ComponentChange.ChangeID.RECEIVED_FOCUS_LOSS;
-	}
-
 }
