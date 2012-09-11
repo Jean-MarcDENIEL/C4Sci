@@ -1,19 +1,13 @@
 package c4sci.modelViewPresenterController.presenter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
-import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementReactiveModificationStepChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 
 public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 
