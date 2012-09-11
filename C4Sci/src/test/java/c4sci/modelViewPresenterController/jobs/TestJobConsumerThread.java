@@ -100,7 +100,7 @@ public class TestJobConsumerThread {
 				RequestResultInterface<TestCommandA> req_queue,
 				RequestResultInterface<TestCommandB> res_queue) {
 			super(req_queue, res_queue);
-			associateFlagToProcessor(1, new InternalAdderJobProcessor());
+			associateFlagToProcessor(TestCommandA.class, new InternalAdderJobProcessor());
 		}
 
 		class InternalAdderJobProcessor extends AdderJobProcessor{
@@ -169,7 +169,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsResult(job_res);
 			}
 		};
-		_mul_thread.associateFlagToProcessor(2, new MulJobProcessor());
+		_mul_thread.associateFlagToProcessor(TestCommandB.class, new MulJobProcessor());
 
 		JobConsumerThread<TestCommandB, TestCommandA> _trans_thread = new
 				JobConsumerThread<TestCommandB, TestCommandA>(_mul_RRI, _add_RRI) {
@@ -188,7 +188,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsResult(job_res);
 			}
 		};
-		_trans_thread.associateFlagToProcessor(2, new TransJobProcessor());
+		_trans_thread.associateFlagToProcessor(TestCommandB.class, new TransJobProcessor());
 
 		JobConsumerThread<TestCommandA, TestCommandA> _result_thread = new
 				JobConsumerThread<TestCommandA, TestCommandA>(_add_RRI, _add_RRI){
@@ -200,7 +200,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsRequest(job_res);
 			}
 		};
-		_result_thread.associateFlagToProcessor(1, new FinishJobProcessor());
+		_result_thread.associateFlagToProcessor(TestCommandA.class, new FinishJobProcessor());
 
 		int _sum = 0;
 		for (int _i=-10; _i<3; _i++){
@@ -288,6 +288,22 @@ public class TestJobConsumerThread {
 	}
 	
 	final boolean printTracesAncestry = false;
+	
+	class TestCommandD extends TestCommandA{
+
+		public TestCommandD(int int_val, Command parent_cmd) {
+			super(int_val, parent_cmd);
+		}
+		
+	}
+	
+	class TestCommandE extends TestCommandA{
+
+		public TestCommandE(int int_val, Command parent_cmd) {
+			super(int_val, parent_cmd);
+		}
+		
+	}
 
 	class TestAncestryJobProcessor3 extends JobProcessor<TestCommandA, TestCommandA>{
 
@@ -300,11 +316,11 @@ public class TestJobConsumerThread {
 			
 			List<TestCommandA> _res = new ArrayList<TestCommandA>();
 			for (int _i=0; _i<3; _i++){
-				TestCommandA _test_child = new TestCommandA(1, processing_cmd);
+				TestCommandD _test_child = new TestCommandD(1, processing_cmd);
 				_test_child.setCommandID(4);
 				_res.add(_test_child);
 			}
-			TestCommandA _finishing_next = new TestCommandA(4, null);
+			TestCommandE _finishing_next = new TestCommandE(4, null);
 			_finishing_next.setCommandID(5);
 			_finishing_next.setPreviousCommand(processing_cmd);
 			_res.add(_finishing_next);
@@ -341,9 +357,9 @@ public class TestJobConsumerThread {
 				RequestResultInterface<TestCommandA> req_queue,
 				RequestResultInterface<TestCommandA> res_queue) {
 			super(req_queue, res_queue);
-			associateFlagToProcessor(3, new TestAncestryJobProcessor3());
-			associateFlagToProcessor(4, new TestAncestryJobProcessor4());
-			associateFlagToProcessor(5, new TestAncestryJobProcessor5());
+			associateFlagToProcessor(TestCommandC.class, new TestAncestryJobProcessor3());
+			associateFlagToProcessor(TestCommandD.class, new TestAncestryJobProcessor4());
+			associateFlagToProcessor(TestCommandE.class, new TestAncestryJobProcessor5());
 		}
 
 		@Override
@@ -359,6 +375,15 @@ public class TestJobConsumerThread {
 	}
 
 
+	class TestCommandC extends TestCommandA{
+
+		public TestCommandC(int int_val, Command parent_cmd) {
+			super(int_val, parent_cmd);
+		}
+		
+	}
+	
+	
 	
 	@Test
 	public void testAncestry() {
@@ -376,7 +401,7 @@ public class TestJobConsumerThread {
 		
 		int _val_test_anc = 2;
 		
-		TestCommandA _test_anc_req = new TestCommandA(_val_test_anc, null);
+		TestCommandA _test_anc_req = new TestCommandC(_val_test_anc, null);
 		_test_anc_req.setCommandID(3);
 		_add_RRI.pushRequest(_test_anc_req);
 		

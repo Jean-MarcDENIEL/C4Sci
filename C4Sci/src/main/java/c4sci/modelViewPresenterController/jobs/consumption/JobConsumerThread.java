@@ -54,7 +54,8 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	private RequestResultInterface<C_result>  	outputQueue;
 	private AtomicBoolean 						shouldDie;
 	private long 								waitingTimeMillisec;
-	private Map<Long, JobProcessor<C_request, C_result>>	processorMap;
+	@SuppressWarnings("rawtypes")
+	private Map<Class, JobProcessor<C_request, C_result>>	processorMap;
 	
 	
 	private static final long					MAX_WAITING_TIME_MILLISEC = 256;
@@ -76,7 +77,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * @return null in the case where there is no result to treat afterward, and a C_result otherwise
 	 */
 	public List<C_result> 	processJob(C_request job_req){
-		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(Long.valueOf(job_req.getCommandID()));
+		JobProcessor<C_request, C_result>	_job_proc = processorMap.get(job_req.getClass());
 		if (_job_proc == null){
 			return null;
 		}
@@ -125,16 +126,18 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public JobConsumerThread(RequestResultInterface<C_request> req_queue, RequestResultInterface<C_result> res_queue){
 		inputQueue =	req_queue;
 		outputQueue = 	res_queue;
 		waitingTimeMillisec	=	1;
 		shouldDie = new AtomicBoolean(false);
-		processorMap	= new ConcurrentHashMap<Long, JobProcessor<C_request,C_result>>();
+		processorMap	= new ConcurrentHashMap<Class , JobProcessor<C_request,C_result>>();
 	}
 	
-	public final void associateFlagToProcessor(long flag_val, JobProcessor<C_request, C_result> job_proc){
-		processorMap.put(Long.valueOf(flag_val), job_proc);
+	@SuppressWarnings("rawtypes")
+	public final void associateFlagToProcessor(Class req_class, JobProcessor<C_request, C_result> job_proc){
+		processorMap.put(req_class, job_proc);
 	}
 	
 	/**
