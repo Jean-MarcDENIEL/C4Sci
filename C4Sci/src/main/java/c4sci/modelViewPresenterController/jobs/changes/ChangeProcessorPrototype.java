@@ -24,14 +24,14 @@ public abstract class ChangeProcessorPrototype<C_request extends Command, C_resu
 	 * @param change_command The {@link Command} the return value should work on.
 	 * @return <i>null</i> if cannot create the clone adapted to the parameter.
 	 */	
-	abstract public ChangeProcessorPrototype<C_request, C_result> getClone(C_request change_command);
+	public abstract ChangeProcessorPrototype<C_request, C_result> getClone(C_request change_command);
 
 	public final C_request getChangeCommand() {
 		return changeCommand;
 	}
 
-	public final void setChangeCommand(C_request changeCommand) {
-		this.changeCommand = changeCommand;
+	public final void setChangeCommand(C_request change_command) {
+		this.changeCommand = change_command;
 	}
 	/**
 	 * The method to call in order to get the changes performed on the {@link Command}.
