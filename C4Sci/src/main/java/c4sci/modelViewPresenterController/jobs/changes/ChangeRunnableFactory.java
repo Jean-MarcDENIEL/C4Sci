@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChangeRunnable;
+
 
 /**
  * This class is able to give the {@link ChangeRunnablePrototype} corresponding to a certain {@link Command}.<br>
