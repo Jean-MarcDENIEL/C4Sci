@@ -158,8 +158,8 @@ public class TestStepElements {
 		assertTrue(_bool.getUnits() == null);
 		assertTrue(_bool.isOverallCoherent());
 		
-		StepElement.createRessourceDependentRelationship(_bounded_fl, _bounded_int);
-		StepElement.createRessourceDependentRelationship(_bounded_int, _label);
+		StepElement.createResourceDependentRelationship(_bounded_fl, _bounded_int);
+		StepElement.createResourceDependentRelationship(_bounded_int, _label);
 		
 		
 		

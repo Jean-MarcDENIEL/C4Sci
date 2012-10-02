@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface;
+package c4sci.modelViewPresenterController.jobs.changes;
 
 public class CannotPerformSuchChangeException extends Exception {
 

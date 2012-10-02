@@ -3,6 +3,8 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
+
 /**
  * This classes creates {@link ComponentChangeRunnable ComponentChangeRunnables} that are able to perform certain {@link ComponentChange ComponentChanges}.<br>
  * <br>
@@ -35,7 +37,7 @@ public class ComponentChangeRunnableFactory {
 		if (_prototype == null){
 			throw new CannotPerformSuchChangeException("No runnable for this kind of change.");
 		}
-		ComponentChangeRunnable _res = _prototype.clonePrototype(comp_change);
+		ComponentChangeRunnable _res = _prototype.getClone(comp_change);
 		if (_res == null){
 			throw new CannotPerformSuchChangeException("Prototype ComponentChangeRunnable cannot clone");
 		}

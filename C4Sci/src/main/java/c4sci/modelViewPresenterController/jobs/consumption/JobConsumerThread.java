@@ -136,7 +136,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public final void associateFlagToProcessor(Class req_class, JobProcessor<C_request, C_result> job_proc){
+	public final void associateProcessor(Class req_class, JobProcessor<C_request, C_result> job_proc){
 		processorMap.put(req_class, job_proc);
 	}
 	

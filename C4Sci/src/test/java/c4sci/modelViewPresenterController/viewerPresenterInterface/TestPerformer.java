@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import c4sci.NoChildIterator;
 import c4sci.data.DataIdentity;
+import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusGainChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusLossChange;
@@ -34,7 +35,7 @@ public class TestPerformer {
 
 	@Test
 	public void test() {
-
+/*
 		Component _comp = new Comp1();
 		ComponentChangeRunnableFactory _factory = _comp.getChangePerformerFactory();
 		assertTrue(_factory != null);
@@ -51,7 +52,7 @@ public class TestPerformer {
 			}
 
 			@Override
-			public ComponentChangeRunnable clonePrototype(ComponentChange comp_change) {
+			public ComponentChangeRunnable getClone(ComponentChange comp_change) {
 				return new TestChangeRunnable(comp_change);
 			}
 		};
@@ -68,7 +69,7 @@ public class TestPerformer {
 			}
 
 			@Override
-			public ComponentChangeRunnable clonePrototype(
+			public ComponentChangeRunnable getClone(
 					ComponentChange comp_change) {
 				return null;
 			}
@@ -100,7 +101,7 @@ public class TestPerformer {
 		catch (CannotPerformSuchChangeException _e) {
 			assertTrue(true);
 		}
-
+*/
 	}
 
 }

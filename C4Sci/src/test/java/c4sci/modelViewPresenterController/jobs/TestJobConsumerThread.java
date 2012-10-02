@@ -98,7 +98,7 @@ public class TestJobConsumerThread {
 				RequestResultInterface<TestCommandA> req_queue,
 				RequestResultInterface<TestCommandB> res_queue) {
 			super(req_queue, res_queue);
-			associateFlagToProcessor(TestCommandA.class, new InternalAdderJobProcessor());
+			associateProcessor(TestCommandA.class, new InternalAdderJobProcessor());
 		}
 
 		class InternalAdderJobProcessor extends AdderJobProcessor{
@@ -167,7 +167,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsResult(job_res);
 			}
 		};
-		_mul_thread.associateFlagToProcessor(TestCommandB.class, new MulJobProcessor());
+		_mul_thread.associateProcessor(TestCommandB.class, new MulJobProcessor());
 
 		JobConsumerThread<TestCommandB, TestCommandA> _trans_thread = new
 				JobConsumerThread<TestCommandB, TestCommandA>(_mul_RRI, _add_RRI) {
@@ -186,7 +186,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsResult(job_res);
 			}
 		};
-		_trans_thread.associateFlagToProcessor(TestCommandB.class, new TransJobProcessor());
+		_trans_thread.associateProcessor(TestCommandB.class, new TransJobProcessor());
 
 		JobConsumerThread<TestCommandA, TestCommandA> _result_thread = new
 				JobConsumerThread<TestCommandA, TestCommandA>(_add_RRI, _add_RRI){
@@ -198,7 +198,7 @@ public class TestJobConsumerThread {
 				pushJobResultAsRequest(job_res);
 			}
 		};
-		_result_thread.associateFlagToProcessor(TestCommandA.class, new FinishJobProcessor());
+		_result_thread.associateProcessor(TestCommandA.class, new FinishJobProcessor());
 
 		int _sum = 0;
 		for (int _i=-10; _i<3; _i++){
@@ -353,9 +353,9 @@ public class TestJobConsumerThread {
 				RequestResultInterface<TestCommandA> req_queue,
 				RequestResultInterface<TestCommandA> res_queue) {
 			super(req_queue, res_queue);
-			associateFlagToProcessor(TestCommandC.class, new TestAncestryJobProcessor3());
-			associateFlagToProcessor(TestCommandD.class, new TestAncestryJobProcessor4());
-			associateFlagToProcessor(TestCommandE.class, new TestAncestryJobProcessor5());
+			associateProcessor(TestCommandC.class, new TestAncestryJobProcessor3());
+			associateProcessor(TestCommandD.class, new TestAncestryJobProcessor4());
+			associateProcessor(TestCommandE.class, new TestAncestryJobProcessor5());
 		}
 
 		@Override

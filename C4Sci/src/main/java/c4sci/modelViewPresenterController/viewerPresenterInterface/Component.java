@@ -3,6 +3,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
 import java.util.Iterator;
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
+import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
 
 /**
  * Components are visual elements composing the GUI.<br>
@@ -20,14 +21,12 @@ public abstract class Component {
 	private DataIdentity	componentIdentity;
 	private PlaneVector		relativeUpperLeftCorner;
 	private PlaneVector		relativeSize;
-	private ComponentChangeRunnableFactory	changePerformerFactory;
 	
 	public Component(){
 		parentComponent 			= null;
 		componentIdentity 			= new DataIdentity();
 		relativeUpperLeftCorner		= new PlaneVector();
 		relativeSize				= new PlaneVector();
-		changePerformerFactory		= new ComponentChangeRunnableFactory();
 	}
 
 	/**
@@ -129,12 +128,6 @@ public abstract class Component {
 	 */
 	//abstract void setActivity(boolean act_);
 
-	/**
-	 * 
-	 * @return The factory of {@link ComponentChangeRunnable} to perform various kinds of {@link ComponentChange}.
-	 */
-	public ComponentChangeRunnableFactory getChangePerformerFactory(){
-		return changePerformerFactory;
-	}
+
 	
 }

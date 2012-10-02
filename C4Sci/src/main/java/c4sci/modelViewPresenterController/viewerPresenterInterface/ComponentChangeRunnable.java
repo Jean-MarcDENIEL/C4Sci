@@ -38,5 +38,5 @@ public abstract class ComponentChangeRunnable implements Runnable{
 	 * @param comp_change The {@link ComponentChange} the return value should work on.
 	 * @return <i>null</i> if cannot create the adapted clone to comp_change, or the ComponentChangeRunnable to {@link #run()}.
 	 */
-	public abstract ComponentChangeRunnable clonePrototype(ComponentChange comp_change);
+	public abstract ComponentChangeRunnable getClone(ComponentChange comp_change);
 }
