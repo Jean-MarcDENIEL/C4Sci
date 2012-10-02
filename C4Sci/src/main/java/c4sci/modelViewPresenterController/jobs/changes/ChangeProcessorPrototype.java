@@ -1,5 +1,7 @@
 package c4sci.modelViewPresenterController.jobs.changes;
 
+import java.util.List;
+
 import c4sci.modelViewPresenterController.jobs.Command;
 
 /**
@@ -9,33 +11,31 @@ import c4sci.modelViewPresenterController.jobs.Command;
  * @author jeanmarc.deniel
  *
  */
-public abstract class ChangeRunnablePrototype<C extends Command> implements Runnable {
+public abstract class ChangeProcessorPrototype<C_request extends Command, C_result extends Command> {
 
-	private C changeCommand; 
+	private C_request changeCommand; 
 	
-	public ChangeRunnablePrototype(C change_command){
+	public ChangeProcessorPrototype(C_request change_command){
 		setChangeCommand(change_command);
 	}
 	/**
-	 * Creates a {@link ChangeRunnablePrototype} of the same type of "this".<br>
+	 * Creates a {@link ChangeProcessorPrototype} of the same type of "this".<br>
 	 * <b>Pattern :</b> This method instantiates the <b>Prototype</b> GoF pattern.
 	 * @param change_command The {@link Command} the return value should work on.
 	 * @return <i>null</i> if cannot create the clone adapted to the parameter.
 	 */	
-	abstract public ChangeRunnablePrototype<C> getClone(C change_command);
+	abstract public ChangeProcessorPrototype<C_request, C_result> getClone(C_request change_command);
 
-	public final C getChangeCommand() {
+	public final C_request getChangeCommand() {
 		return changeCommand;
 	}
 
-	public final void setChangeCommand(C changeCommand) {
+	public final void setChangeCommand(C_request changeCommand) {
 		this.changeCommand = changeCommand;
 	}
 	/**
 	 * The method to call in order to get the changes performed on the {@link Command}.
 	 */
-	//CHECKSTYLE:OFF
-	public abstract void run();
-	//CHECKSTYLE:ON
+	public abstract List<C_result> processCommand();
 
 }
