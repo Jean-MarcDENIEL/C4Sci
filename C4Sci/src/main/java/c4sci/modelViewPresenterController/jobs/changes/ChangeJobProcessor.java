@@ -16,7 +16,7 @@ public class ChangeJobProcessor<C_request extends Command, C_result extends Comm
 	
 	public List<C_result> processJob(C_request processing_cmd) {
 		try {
-			ChangeProcessorPrototype<C_request, C_result> _processor = processorFactory.createChangePerformer(processing_cmd);
+			ChangeProcessor<C_request, C_result> _processor = processorFactory.createChangePerformer(processing_cmd);
 			return _processor.processCommand();
 		} catch (CannotPerformSuchChangeException _e) {
 			return new ArrayList<C_result>();
