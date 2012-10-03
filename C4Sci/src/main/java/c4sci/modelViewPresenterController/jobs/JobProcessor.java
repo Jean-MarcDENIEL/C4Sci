@@ -22,5 +22,14 @@ public abstract class JobProcessor<C_request extends Command, C_result extends C
 	 * <b>Pattern :</b> this method instantiates the <b>Prototype</b> GoF pattern.
 	 * @return an instance of the same type of "this", or <i>null</i> if cannot perform such an operation.
 	 */
-	public abstract JobProcessor<C_request, C_result> getClone();
+	@SuppressWarnings("unchecked")
+	public JobProcessor<C_request, C_result> getClone(){
+		try {
+			return getClass().newInstance();
+		} catch (InstantiationException _e) {
+			return null;
+		} catch (IllegalAccessException _e) {
+			return null;
+		}
+	}
 }
