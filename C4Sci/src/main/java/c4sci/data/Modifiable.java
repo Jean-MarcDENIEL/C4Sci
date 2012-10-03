@@ -29,5 +29,5 @@ public interface Modifiable {
 	 * 
 	 * @return The regular expression corresponding to the valid parameter entries.
 	 */
-	public abstract String getRegExp();
+	String getRegExp();
 }
