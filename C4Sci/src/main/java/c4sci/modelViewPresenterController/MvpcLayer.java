@@ -2,6 +2,8 @@ package c4sci.modelViewPresenterController;
 
 import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
+import c4sci.modelViewPresenterController.jobs.JobProcessor;
+import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 
 /**
  * MVPC Layers offer services that are necessary to initialize the application.<br>
@@ -19,19 +21,17 @@ import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
  */
 public interface MvpcLayer <C_Reactive extends Command, C_Feedback extends Command>{
 	/**
-	 * This method programs a {@link JobConsumerThread} in order to properly process {@link Command Commands} with different {@link Command#getCommandID()} values incoming from the "reactive side" {@link RequestResultInterface}.<br>
-	 * To achieve this goal, the argument thread's {@link JobConsumerThread#associateProcessor(long, c4sci.modelViewPresenterController.jobs.JobProcessor) associateFlagToProcessor(...)} method is called for the various {@link Command#getCommandID()} values.<br>
-	 * <br>
-	 * <b>Pattern : </b> This method relies on the <b>Strategy</b> pattern implemented by the {@link JobConsumerThread} class.   
-	 * @param consumer_thread The thread to program.
+	 * 
+	 * This method gives the {@link JobProcessorFactory} containing the layer strategies in order to treat messages in the <b>reactive-to-feedback</b> direction. 
+	 * 
+	 * @return The {@link JobProcessorFactory} that is able to create the {@link JobProcessor} instances to treat {@link Command Commands} coming from the reactive interface and send {@link Command commands} to the feedback interface.
 	 */
-	void uploadReactiveThreadStrategies(JobConsumerThread<C_Reactive, C_Feedback> consumer_thread);
+	JobProcessorFactory<C_Reactive, C_Feedback> getReactiveJobProcessorFactory();
+
 	/**
-	 * This method programs a {@link JobConsumerThread} in order to properly process {@link Command Commands} with different {@link Command#getCommandID()} values incoming from the "feedback side" {@link RequestResultInterface}.<br>
-	 * To achieve this goal, the argument thread's {@link JobConsumerThread#associateProcessor(long, c4sci.modelViewPresenterController.jobs.JobProcessor) associateFlagToProcessor(...)} method is called for the various {@link Command#getCommandID()} values.<br>
-	 * <br>
-	 * <b>Pattern : </b> This method relies on the <b>Strategy</b> pattern implemented by the {@link JobConsumerThread} class.   
-	 * @param consumer_thread The thread to program.
+	 * This method gives the {@link JobProcessorFactory} containing the layer strategies in order to treat messages in the <b>feedback-to-reactive</b> direction. 
+	 * 
+	 * @return The {@link JobProcessorFactory} that is able to create the {@link JobProcessor} instances to treat {@link Command Commands} coming from the feedback interface and send {@link Command commands} to the reactive interface.
 	 */
-	void uploadFeedbackThreadStrategies(JobConsumerThread<C_Feedback, C_Reactive> consumer_thread);
+	JobProcessorFactory<C_Feedback, C_Reactive> getFeedbackJobProcessorFactory();
 }
