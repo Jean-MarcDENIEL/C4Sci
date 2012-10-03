@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public abstract class DataParameter {
+public abstract class DataParameter implements Modifiable {
 	private String					paramToken;
 	private InternationalizableTerm	paramName;
 	private InternationalizableTerm	paramDescription;
@@ -45,18 +45,18 @@ public abstract class DataParameter {
 	 * 
 	 * @return A String that could be parsed to retrieve the real parameter value.
 	 */
-	public abstract String getParameterValue();
+	public abstract String getValue();
 
 	/** 
 	 * Parses a String to set the value.
 	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
 	 */
-	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
+	public abstract void setValue(String str_to_parse) throws DataValueParsingException;
 	/**
 	 * Test whereas a string could be successfully parsed to set the DataParameter value.
 	 * @param str_to_parse The string to parse.
 	 * @return <i>true</i> if the string can be successfully parsed to set the DataParameter value. <br>
-	 * <i>false</i> if the argument is null or {@link #setParameterValue(String)} would throw a {@link DataValueParsingException}. 
+	 * <i>false</i> if the argument is null or {@link #setValue(String)} would throw a {@link DataValueParsingException}. 
 	 */
 	public boolean validatesRegularExpression(String str_to_parse){
 		if (str_to_parse == null){
@@ -84,7 +84,7 @@ public abstract class DataParameter {
 	public final DataParameter getClone(){
 		DataParameter _res = getSameDataParameterInstance();
 		try {
-			_res.setParameterValue(getParameterValue());
+			_res.setValue(getValue());
 		} catch (DataValueParsingException _e) {
 			// should never happen as getParameterValue() return value must be parsed by setParameterValue() 
 			_e.printStackTrace();

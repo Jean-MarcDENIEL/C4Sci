@@ -131,16 +131,16 @@ public class TestStepElements {
 		assertTrue(_bool.getUnits()==null);
 		
 		try {
-			_label.getSingleBinding().getBoundParameter().setParameterValue("string testing");
+			_label.getSingleBinding().getBoundData().setValue("string testing");
 			assertTrue(true);
 		} catch (DataValueParsingException _e) {
 			fail("should not throw here");
 		}
 		
 		try {
-			_bool.getSingleBinding().getBoundParameter().setParameterValue("true");
+			_bool.getSingleBinding().getBoundData().setValue("true");
 			assertTrue(_data.boolParam.getBooleanValue());
-			_bool.getSingleBinding().getBoundParameter().setParameterValue("54de");
+			_bool.getSingleBinding().getBoundData().setValue("54de");
 			assertFalse(_data.boolParam.getBooleanValue());
 		} catch (DataValueParsingException _e) {
 			fail();
@@ -210,7 +210,7 @@ public class TestStepElements {
 		_bounded_fl.ensureCoherentInternalState();
 		assertTrue(Floatings.isEqual(_data.boundedFloat.getFloatValue(), _data.lowerFloatBound.getFloatValue()));
 		assertTrue(_label.isOverallCoherent());
-		assertTrue("2.0".compareTo(_bounded_fl.getSingleBinding().getBoundParameter().getParameterValue())==0);
+		assertTrue("2.0".compareTo(_bounded_fl.getSingleBinding().getBoundData().getValue())==0);
 		assertTrue(_bounded_2.isInternallyCoherent());
 		assertTrue(_bounded_fl.isEditable());
 		assertTrue(_bounded_fl.getBindings().size() == 1);
@@ -241,12 +241,12 @@ public class TestStepElements {
 		
 		ScalableDataElement _scalable = new ScalableDataElement(_bounded_int, UnitScales.createMeterUnitSCales());
 		_data.boundedInteger.setIntegerValue(1000);
-		String _km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundParameter().getParameterValue()));
+		String _km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundData().getValue()));
 		assertTrue(_km, _km.compareTo("km")==0);
 		assertFalse(_scalable.isInternallyCoherent());
 		assertTrue(_scalable.isEditable());
 		_scalable.ensureCoherentInternalState();
-		_km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundParameter().getParameterValue()));
+		_km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundData().getValue()));
 		assertTrue(_km, _km.compareTo("m")==0);
 		
 		EditableDataElement _editable = new EditableDataElement(_bounded_int);
@@ -255,7 +255,7 @@ public class TestStepElements {
 		assertFalse(_editable.isInternallyCoherent());
 		_editable.ensureCoherentInternalState();
 		assertTrue(_editable.isInternallyCoherent());
-		assertTrue(_editable.getSingleBinding().getBoundParameter() == _data.boundedInteger);
+		assertTrue(_editable.getSingleBinding().getBoundData() == _data.boundedInteger);
 		
 		TreatmentStepElement _treat = new TreatmentStepElement();
 		assertFalse(_treat.isEditable());

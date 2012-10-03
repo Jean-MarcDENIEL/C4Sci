@@ -48,7 +48,7 @@ public class TestHierarchicalData {
 			paramValue = 0;
 		}
 		private int	paramValue;
-		public void setParameterValue(String str_to_parse)
+		public void setValue(String str_to_parse)
 				throws DataValueParsingException {
 			try{
 				paramValue = Integer.parseInt(str_to_parse);
@@ -59,7 +59,7 @@ public class TestHierarchicalData {
 			
 		}
 		
-		public String getParameterValue() {
+		public String getValue() {
 			return Integer.toString(paramValue);
 		}
 

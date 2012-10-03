@@ -40,9 +40,9 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 			return false;
 		}
 		
-		String _lower_bound		= lowerBound.getSingleBinding().getBoundParameter().getParameterValue();
-		String _upper_bound		= upperBound.getSingleBinding().getBoundParameter().getParameterValue();
-		String _bounded_value	= boundedElement.getSingleBinding().getBoundParameter().getParameterValue();
+		String _lower_bound		= lowerBound.getSingleBinding().getBoundData().getValue();
+		String _upper_bound		= upperBound.getSingleBinding().getBoundData().getValue();
+		String _bounded_value	= boundedElement.getSingleBinding().getBoundData().getValue();
 		
 		return 	elementComparator.isLesserOrEqual(_lower_bound, _bounded_value) &&
 				elementComparator.isGreaterOrEqual(_upper_bound, _bounded_value);
@@ -53,7 +53,7 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 	 */
 	public void ensureCoherentInternalState() {
 		try {
-			boundedElement.getSingleBinding().getBoundParameter().setParameterValue(lowerBound.getSingleBinding().getBoundParameter().getParameterValue());
+			boundedElement.getSingleBinding().getBoundData().setValue(lowerBound.getSingleBinding().getBoundData().getValue());
 		} catch (DataValueParsingException _e) {
 			_e.printStackTrace();
 		}

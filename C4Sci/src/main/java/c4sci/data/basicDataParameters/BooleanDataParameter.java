@@ -25,13 +25,13 @@ public class BooleanDataParameter extends DataParameter {
 
 
 	@Override
-	public synchronized String getParameterValue() {
+	public synchronized String getValue() {
 		return Boolean.toString(paramValue);
 	}
 
 
 	@Override
-	public synchronized void setParameterValue(String str_to_parse)
+	public synchronized void setValue(String str_to_parse)
 			throws DataValueParsingException {
 		if (str_to_parse == null){
 			throw new DataValueParsingException("Boolean", "(null)", "parsing error : null argument", null);

@@ -16,28 +16,28 @@ public class TestFloatDataParameter {
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		try {
-			_param.setParameterValue("0.5");
-			_param.setParameterValue("10");
+			_param.setValue("0.5");
+			_param.setValue("10");
 			assertTrue(true);
 		} catch (DataValueParsingException e) {
 			fail();
 		}
 		
 		try {
-			_param.setParameterValue("ae");
+			_param.setValue("ae");
 			fail();
 		} catch (DataValueParsingException e) {
 			assertTrue(true);
 		}
 		
 		try {
-			_param.setParameterValue(null);
+			_param.setValue(null);
 			fail();
 		} catch (DataValueParsingException e) {
 			assertTrue(true);
 		}
 		
-		assertTrue("10.0".compareTo(_param.getParameterValue())==0);
+		assertTrue("10.0".compareTo(_param.getValue())==0);
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class TestFloatDataParameter {
 				new InternationalizableTerm("test param 1 descr"));
 		
 		try {
-			_param.setParameterValue("10.5");
+			_param.setValue("10.5");
 			assertTrue(true);
 		} catch (DataValueParsingException e) {
 			fail();

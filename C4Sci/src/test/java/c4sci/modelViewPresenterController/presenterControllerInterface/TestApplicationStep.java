@@ -48,7 +48,7 @@ public class TestApplicationStep {
 			_step.putElement(_i, new IntegerDataElement(_param));
 		}
 		for (int _i=0; _i<10; _i++){
-			String _value = _step.getElement(_i).getBindings().iterator().next().getBoundParameter().getParameterValue();
+			String _value = _step.getElement(_i).getBindings().iterator().next().getBoundData().getValue();
 			assertTrue(""+_value+" instead of "+_i, (""+_i).compareTo(_value)==0);
 		}
 	}

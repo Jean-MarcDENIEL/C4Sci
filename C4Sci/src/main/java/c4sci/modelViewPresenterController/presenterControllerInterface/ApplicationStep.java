@@ -81,7 +81,7 @@ public final class ApplicationStep {
 		}
 	}
 	/**
-	 * Creates a parent / sub step relation ship and ensure a previous/next relationship with the last entered sub steps.
+	 * Creates a parent / sub step relation ship and ensure a previous/next relationship with the last entered sub steps.<br>
 	 * <b>Side effect :</b> "this" and the passed argument are modified as well as existing sub steps.
 	 * @param sub_step The sub step to be append as the last sub step, and link to the actual last existing one.
 	 */
@@ -98,7 +98,7 @@ public final class ApplicationStep {
 		}
 	}
 	/**
-	 * Creates a parent / sub step relation ship without any previous/next relationship with the last entered sub steps.
+	 * Creates a parent / sub step relation ship without any previous/next relationship with the last entered sub steps.<br>
 	 * <b>Side effect :</b> "this" and the passed argument are modified.
 	 * @param sub_step
 	 */
@@ -111,6 +111,13 @@ public final class ApplicationStep {
 			_previous_sub_step.setNextStep(null);
 		}
 		subSteps.add(sub_step);
+	}
+	/**
+	 * The sub steps are sorted to respect previous/next relationships between them.
+	 * @return the sub steps of the current step.
+	 */
+	public List<ApplicationStep> getSubSteps(){
+		return subSteps;
 	}
 	/**
 	 * 

@@ -116,7 +116,7 @@ public class HierarchicalData implements VisitableData{
 		if (_data_param == null){
 			throw new NoSuchParameterException(data_token, "in "+getDataName());
 		}
-		_data_param.setParameterValue(value_to_parse);
+		_data_param.setValue(value_to_parse);
 	}
 	/**
 	 * Access a DataParameter given its token<br><br>
@@ -127,7 +127,7 @@ public class HierarchicalData implements VisitableData{
 		if (_data_param == null){
 			throw new NoSuchParameterException(data_token, "in "+getDataName());
 		}
-		return _data_param.getParameterValue();
+		return _data_param.getValue();
 	}
 	
 	public void addSubData(HierarchicalData child_data){

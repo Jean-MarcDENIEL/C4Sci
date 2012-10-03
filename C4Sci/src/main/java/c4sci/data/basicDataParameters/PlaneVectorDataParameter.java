@@ -21,12 +21,12 @@ public class PlaneVectorDataParameter extends DataParameter {
 	}
 
 	@Override
-	public synchronized String getParameterValue() {
+	public synchronized String getValue() {
 		return planeVector.toString();
 	}
 
 	@Override
-	public synchronized void setParameterValue(String str_to_parse)
+	public synchronized void setValue(String str_to_parse)
 			throws DataValueParsingException {
 		try{
 		planeVector.opEquals(PlaneVector.parseVector(str_to_parse));

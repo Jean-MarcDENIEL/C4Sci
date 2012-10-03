@@ -16,9 +16,9 @@ public class TestStringDataParameter {
 				new InternationalizableTerm("param one"),
 				new InternationalizableTerm("param one to test"));
 		try {
-			_param_1.setParameterValue("param1 value");
+			_param_1.setValue("param1 value");
 			assertTrue(true);
-			assertTrue("param1 value".compareTo(_param_1.getParameterValue())==0);
+			assertTrue("param1 value".compareTo(_param_1.getValue())==0);
 		} catch (DataValueParsingException e) {
 			fail("should not have raised an exception");
 		}

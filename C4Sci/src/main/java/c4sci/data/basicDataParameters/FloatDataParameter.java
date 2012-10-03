@@ -7,10 +7,10 @@ public class FloatDataParameter extends DataParameter {
 	public FloatDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term) {
 		super(token_str, name_term, descr_term);
 	}
-	public synchronized String getParameterValue() {
+	public synchronized String getValue() {
 		return Float.toString(paramValue);
 	}
-	public synchronized void setParameterValue(String str_to_parse)
+	public synchronized void setValue(String str_to_parse)
 			throws DataValueParsingException {
 		if (str_to_parse == null){
 			throw new DataValueParsingException("float", "(null)", "parsing error : null parameter", null);
