@@ -12,7 +12,7 @@ import org.junit.Test;
 import c4sci.NoChildIterator;
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
-import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
 
 public class TestComponent {
 

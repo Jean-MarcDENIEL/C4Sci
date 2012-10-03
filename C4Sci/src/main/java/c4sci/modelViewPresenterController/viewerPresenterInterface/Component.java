@@ -3,7 +3,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
 import java.util.Iterator;
 import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
-import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
 
 /**
  * Components are visual elements composing the GUI.<br>

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import c4sci.NoChildIterator;
 import c4sci.data.DataIdentity;
-import c4sci.modelViewPresenterController.jobs.changes.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusGainChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusLossChange;

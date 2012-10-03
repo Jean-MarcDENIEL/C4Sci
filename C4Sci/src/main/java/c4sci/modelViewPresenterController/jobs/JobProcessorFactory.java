@@ -1,29 +1,29 @@
-package c4sci.modelViewPresenterController.jobs.changes;
+package c4sci.modelViewPresenterController.jobs;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import c4sci.modelViewPresenterController.jobs.Command;
 
 
 /**
- * This class is able to give the {@link ChangeProcessor} corresponding to a certain {@link Command}.<br>
+ * This class is able to give the {@link JobProcessor} corresponding to a certain {@link Command}.<br>
  * <br>
  * <b>Pattern :</b> This class instantiates the <b>Abstract Factory</b> GoF pattern. 
  * @author jeanmarc.deniel
  *
  */
-public class ChangeProcessorFactory <C_request extends Command, C_result extends Command>{
+public class JobProcessorFactory <C_request extends Command, C_result extends Command>{
 	@SuppressWarnings("rawtypes")
-	private Map<Class, ChangeProcessor<C_request,C_result>> changePerformersMap;
+	private Map<Class, JobProcessor<C_request,C_result>> jobPerformersMap;
 	
 	@SuppressWarnings("rawtypes")
-	public ChangeProcessorFactory() {
-		changePerformersMap					= new ConcurrentHashMap<Class, ChangeProcessor<C_request,C_result>>();
+	public JobProcessorFactory() {
+		jobPerformersMap					= new ConcurrentHashMap<Class, JobProcessor<C_request,C_result>>();
 	}
 	
 	/**
-	 * Furnish a {@link ChangeProcessor} that is able to process the {@link Command} according to the request argument.<br>
+	 * Furnish a {@link JobProcessor} that is able to process the {@link Command} according to the request argument.<br>
 	 * <br>
 	 * <b>Pattern :</b> This method instantiates the <b>factory method</b> GoF pattern.<br>
 	 * <b>Pattern :</b> This method uses to <b>prototype</b> ability of {@link ComponentChangeRunnable ComponentChangeRunnables}.<br>
@@ -31,12 +31,13 @@ public class ChangeProcessorFactory <C_request extends Command, C_result extends
 	 * @return The Runnable to {@link java.lang.Runnable#run()} in order to obtain the asked change.
 	 * @throws CannotPerformSuchChangeException is "this" component can't perform such an update.
 	 */
-	public ChangeProcessor<C_request,C_result> createChangePerformer(C_request change_command) throws CannotPerformSuchChangeException{
-		ChangeProcessor<C_request,C_result> _prototype = changePerformersMap.get(change_command.getClass());
+	@SuppressWarnings("rawtypes")
+	public JobProcessor<C_request,C_result> createJobProcessor(Class change_command) throws CannotPerformSuchChangeException{
+		JobProcessor<C_request,C_result> _prototype = jobPerformersMap.get(change_command);
 		if (_prototype == null){
 			throw new CannotPerformSuchChangeException("No runnable for this kind of change.");
 		}
-		ChangeProcessor<C_request,C_result> _res = _prototype.getClone(change_command);
+		JobProcessor<C_request,C_result> _res = _prototype.getClone();
 		if (_res == null){
 			throw new CannotPerformSuchChangeException("Prototype ComponentChangeRunnable cannot clone");
 		}
@@ -50,8 +51,13 @@ public class ChangeProcessorFactory <C_request extends Command, C_result extends
 	 * @param change_performer_prototype The prototype of the {@link ComponentChangeRunnable} adapted to perform changes of comp_chgt id.
 	 */
 	@SuppressWarnings("rawtypes")
-	public void addChangePerformingAbility(Class comp_chgt, ChangeProcessor<C_request,C_result> change_performer_prototype){
-		changePerformersMap.put(comp_chgt, change_performer_prototype);
+	public void addChangePerformingAbility(Class comp_chgt, JobProcessor<C_request,C_result> change_performer_prototype){
+		jobPerformersMap.put(comp_chgt, change_performer_prototype);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Set<Class> getManagedCommandTypes(){
+		return jobPerformersMap.keySet();
 	}
 
 }

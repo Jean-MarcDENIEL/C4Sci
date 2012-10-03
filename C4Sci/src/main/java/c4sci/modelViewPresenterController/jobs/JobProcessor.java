@@ -17,4 +17,10 @@ public abstract class JobProcessor<C_request extends Command, C_result extends C
 	 * @return null if no result to treat afterward, or a list of child Commands of processing_cmd
 	 */
 	public abstract List<C_result> processJob(C_request processing_cmd);
+	
+	/**
+	 * <b>Pattern :</b> this method instantiates the <b>Prototype</b> GoF pattern.
+	 * @return an instance of the same type of "this", or <i>null</i> if cannot perform such an operation.
+	 */
+	public abstract JobProcessor<C_request, C_result> getClone();
 }

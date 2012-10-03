@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController;
 
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
+import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 
 /**
  * MVPC Layers offer services that are necessary to initialize the application.<br>

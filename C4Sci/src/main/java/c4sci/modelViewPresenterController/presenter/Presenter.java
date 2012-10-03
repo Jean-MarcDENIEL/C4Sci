@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
-import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
+import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;

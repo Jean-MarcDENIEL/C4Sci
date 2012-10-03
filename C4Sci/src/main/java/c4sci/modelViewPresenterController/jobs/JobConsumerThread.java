@@ -1,15 +1,13 @@
-package c4sci.modelViewPresenterController.jobs.consumption;
+package c4sci.modelViewPresenterController.jobs;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.jobs.JobProcessor;
-import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
 
 /**
  * This subclass of thread is designed to process jobs waiting in a WaitingJobQueue.
@@ -138,6 +136,22 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	@SuppressWarnings("rawtypes")
 	public final void associateProcessor(Class req_class, JobProcessor<C_request, C_result> job_proc){
 		processorMap.put(req_class, job_proc);
+	}
+	
+	/**
+	 * Associates all Command types in the {@link JobProcessorFactory} argument with the corresponding
+	 * {@link JobProcessor} instances created by this argument.
+	 * @param job_proc_factory The {@link JobProcessorFactory} containing the associations to integrate.
+	 */
+	@SuppressWarnings("rawtypes")
+	public final void associateProcessors(JobProcessorFactory<C_request, C_result> job_proc_factory){
+		Set<Class> _set = job_proc_factory.getManagedCommandTypes();
+		for (Iterator<Class> _it = _set.iterator(); _it.hasNext();){
+			Class _class = _it.next();
+			try {
+				associateProcessor(_class, job_proc_factory.createJobProcessor(_class));
+			} catch (CannotPerformSuchChangeException _e) {}
+		}
 	}
 	
 	/**

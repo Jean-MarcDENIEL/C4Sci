@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
-import c4sci.modelViewPresenterController.jobs.consumption.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.schedulers.HighestCostPriorityFirstJobScheduler;
 import c4sci.modelViewPresenterController.jobs.schedulers.SequentialJobScheduler;
 
@@ -36,7 +35,7 @@ public class TestJobConsumerThread {
 	/*
 	 * * Adds 2 to the CommandA value and put it into the CommandB result.
 	 */
-	class AdderJobProcessor  extends JobProcessor<TestCommandA, TestCommandB>{
+	class AdderJobProcessor extends JobProcessor<TestCommandA, TestCommandB>{
 		@Override
 		public List<TestCommandB> processJob(TestCommandA processing_cmd) {
 			List<TestCommandB> _res = new ArrayList<TestCommandB>();
@@ -44,6 +43,11 @@ public class TestJobConsumerThread {
 			_res_cmd.multValue = processing_cmd.addValue + 2;
 			_res.add(_res_cmd);
 			return _res;
+		}
+
+		@Override
+		public JobProcessor<TestCommandA, TestCommandB> getClone() {
+			return new AdderJobProcessor();
 		}
 	}
 
@@ -62,6 +66,11 @@ public class TestJobConsumerThread {
 			_res_cmd_2.multValue = processing_cmd.multValue;
 			return _res;
 		}
+
+		@Override
+		public JobProcessor<TestCommandB, TestCommandB> getClone() {
+			return new MulJobProcessor();
+		}
 	}
 
 	class TransJobProcessor extends JobProcessor<TestCommandB, TestCommandA>{
@@ -79,6 +88,11 @@ public class TestJobConsumerThread {
 			_res.add(_res_cmd);
 			return _res;
 		}
+
+		@Override
+		public JobProcessor<TestCommandB, TestCommandA> getClone() {
+			return new TransJobProcessor();
+		}
 	}
 
 	class FinishJobProcessor extends JobProcessor<TestCommandA, TestCommandA>{
@@ -88,6 +102,11 @@ public class TestJobConsumerThread {
 			_atom_res.addAndGet(processing_cmd.addValue);
 			if (printTraces) System.out.println("              FinishJobConsumer - process : "+processing_cmd.addValue);
 			return null;
+		}
+
+		@Override
+		public JobProcessor<TestCommandA, TestCommandA> getClone() {
+			return new FinishJobProcessor();
 		}
 
 	}
@@ -323,6 +342,11 @@ public class TestJobConsumerThread {
 			return _res;
 		}
 
+		@Override
+		public JobProcessor<TestCommandA, TestCommandA> getClone() {
+			return new TestAncestryJobProcessor3();
+		}
+
 	}
 
 	class TestAncestryJobProcessor4 extends JobProcessor<TestCommandA, TestCommandA>{
@@ -332,6 +356,11 @@ public class TestJobConsumerThread {
 			if (printTracesAncestry) System.out.println("JobProc4 : updated value = " + _atom_res.get());
 			
 			return null;
+		}
+
+		@Override
+		public JobProcessor<TestCommandA, TestCommandA> getClone() {
+			return new TestAncestryJobProcessor4();
 		}
 	}
 	static AtomicInteger _atom_res = new AtomicInteger(0);		
@@ -344,6 +373,11 @@ public class TestJobConsumerThread {
 			_atom_res.addAndGet(_atom_res.get()+processing_cmd.addValue);
 			if (printTracesAncestry) System.out.println("			after : _atom = "+_atom_res.get());
 			return null;
+		}
+
+		@Override
+		public JobProcessor<TestCommandA, TestCommandA> getClone() {
+			return new TestAncestryJobProcessor5();
 		}
 	}
 
