@@ -4,21 +4,25 @@ import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 
+/**
+ * this class describes a change in a property, that can be expressed through a String value.
+ * @author jeanmarc.deniel
+ *
+ */
 public class ElementReactiveModificationStepChange extends StepChange {
 
-	private StepElement modifiedElement;
+	private String		modificationValue;
 	
-	public ElementReactiveModificationStepChange(Command parent_command, StepElement step_elt) {
-		super(parent_command);
-		setModifiedElement(step_elt);
+	public ElementReactiveModificationStepChange(Command parent_command, StepElement step_elt, String modification_value) {
+		super(parent_command, step_elt);
 	}
 
-	public StepElement getModifiedElement() {
-		return modifiedElement;
+	public String getModificationValue() {
+		return modificationValue;
 	}
 
-	public void setModifiedElement(StepElement modifiedElement) {
-		this.modifiedElement = modifiedElement;
+	public void setModificationValue(String modificationValue) {
+		this.modificationValue = modificationValue;
 	}
 
 }

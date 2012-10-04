@@ -10,7 +10,18 @@ import c4sci.modelViewPresenterController.jobs.Command;
  */
 public abstract class StepChange extends Command {
 
-	public StepChange(Command parent_command) {
+	private StepElement	stepElement;
+	
+	public StepChange(Command parent_command, StepElement step_element) {
 		super(parent_command);
+		setStepElement(step_element);
+	}
+
+	public StepElement getStepElement() {
+		return stepElement;
+	}
+
+	public void setStepElement(StepElement stepElement) {
+		this.stepElement = stepElement;
 	}
 }

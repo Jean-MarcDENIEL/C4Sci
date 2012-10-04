@@ -2,11 +2,12 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepChan
 
 import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 
 public class StepForwardStepChange extends StepChange {
 
-	public StepForwardStepChange(Command parent_command) {
-		super(parent_command);
+	public StepForwardStepChange(Command parent_command, StepElement step_element) {
+		super(parent_command, step_element);
 	}
 	
 
