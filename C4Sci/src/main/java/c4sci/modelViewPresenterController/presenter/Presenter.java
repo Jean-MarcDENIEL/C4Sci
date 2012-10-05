@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
-import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
@@ -39,27 +38,23 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 		JobProcessorFactory<ComponentChange, StepChange> 	_reactive_job_processor_factory = new JobProcessorFactory<ComponentChange, StepChange>();
 		
 		_reactive_job_processor_factory.addChangePerformingAbility(BooleanValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
-			
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
 				return reactionToBooleanValueChange(processing_cmd);
 			}
 		});
 		_reactive_job_processor_factory.addChangePerformingAbility(FloatValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
-
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
 				return reactionToFloatValueChange(processing_cmd);
 			}
 		});
 		_reactive_job_processor_factory.addChangePerformingAbility(IntegerValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
-
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
 				return reactionToIntegerValueChange(processing_cmd);
 			}
 		});
-		
 		
 		return _reactive_job_processor_factory;
 	}
@@ -104,9 +99,9 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 	
 	private List<StepChange> oneElementReactiveNotificationChange(ComponentChange comp_chg, String value_str){
 		List<StepChange> _res = new ArrayList<StepChange>();
-		StepElement _correspElement = componentElementMap.get(comp_chg.getComponentIdentity());
-		if (_correspElement != null){
-			_res.add(new ElementReactiveModificationStepChange(null, _correspElement, value_str));
+		StepElement _corresp_element = componentElementMap.get(comp_chg.getComponentIdentity());
+		if (_corresp_element != null){
+			_res.add(new ElementReactiveModificationStepChange(null, _corresp_element, value_str));
 		}
 		return _res;
 	}
@@ -137,7 +132,6 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 				res_list.add(new LabelChange(comp_id, _elt_value, null));
 			}
 		}
-
 		Iterator<StepElement> _it = step_elt.getSubElementsIterator();
 		while (_it.hasNext()){
 			StepElement _sub_elt = _it.next();
@@ -146,7 +140,5 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 				computeDefaultFeedback(_sub_id, _sub_elt, res_list);
 			}
 		}
-		// ICI
 	}
-	
 }

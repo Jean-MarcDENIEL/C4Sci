@@ -46,12 +46,12 @@ public class JobProcessorFactory <C_request extends Command, C_result extends Co
 	 * This method adds the Component the ability to perform some {@link ComponentChange}.<br>
 	 * <b>Pattern : </b> This method instantiates the <b>strategy</b> GoF pattern.<br>
 	 * <b>Pattern : </b> This method relies on the <b>prototyping</b> ability of the {@link ComponentChangeRunnable} class.
-	 * @param comp_chgt The ID of the {@link ComponentChange ComponentChanges} to perform.
+	 * @param comp_chg_class The ID of the {@link ComponentChange ComponentChanges} to perform.
 	 * @param change_performer_prototype The prototype of the {@link ComponentChangeRunnable} adapted to perform changes of comp_chgt id.
 	 */
 	@SuppressWarnings("rawtypes")
-	public void addChangePerformingAbility(Class comp_chgt, JobProcessor<C_request,C_result> change_performer_prototype){
-		jobPerformersMap.put(comp_chgt, change_performer_prototype);
+	public void addChangePerformingAbility(Class comp_chg_class, JobProcessor<C_request,C_result> change_performer_prototype){
+		jobPerformersMap.put(comp_chg_class, change_performer_prototype);
 	}
 	
 	@SuppressWarnings("rawtypes")

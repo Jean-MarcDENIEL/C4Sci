@@ -7,6 +7,7 @@ package c4sci.modelViewPresenterController.viewerPresenterInterface;
  */
 public interface ComponentFactory {
 	public enum StandardComponentSet{
+		PANEL,
 		BUTTON,
 		CHECKBOX,
 		COMBO_BOX,
