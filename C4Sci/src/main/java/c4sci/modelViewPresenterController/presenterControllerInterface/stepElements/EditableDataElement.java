@@ -9,6 +9,10 @@ public class EditableDataElement extends SingleDataStepElement {
 	public EditableDataElement(SingleDataStepElement data_elt) {
 		editableElement = data_elt;
 	}
+	
+	public final SingleDataStepElement getEditableElement(){
+		return editableElement;
+	}
 
 	@Override
 	public boolean isEditable() {

@@ -21,6 +21,10 @@ public class ScalableDataElement extends SingleDataStepElement {
 		setUnitScales(units_);
 		scaledElement = single_data;
 	}
+	
+	public final SingleDataStepElement getScaledElement(){
+		return scaledElement;
+	}
 
 	@Override
 	public final UnitScales getUnits() {

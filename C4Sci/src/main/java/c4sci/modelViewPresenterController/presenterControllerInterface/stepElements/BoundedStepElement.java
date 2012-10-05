@@ -19,6 +19,19 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 	private C			lowerBound;
 	private C			upperBound;
 	private C			boundedElement;	
+	
+	public C getLowerBound() {
+		return lowerBound;
+	}
+
+	public C getUpperBound() {
+		return upperBound;
+	}
+
+	public C getBoundedElement() {
+		return boundedElement;
+	}
+
 	private BoundsComparator	elementComparator; 
 	
 

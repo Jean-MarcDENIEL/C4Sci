@@ -34,4 +34,7 @@ public class ComputedDataElement extends SingleDataStepElement {
 		return computedElement.getSingleBinding();
 	}
 
+	public final SingleDataStepElement getComputedElement(){
+		return computedElement;
+	}
 }

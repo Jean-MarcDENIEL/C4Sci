@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <li>Commands can be chained in a chronological order one-to-many relationship to previous and followings Commands.</li>
  * <li>Commands can have child Commands (and recursively) : i.e Commands that need to be processed in order to get the parent Command fully processed.</li>
  * <li>Commands have a notification mechanism associated with reflex methods that are called each time a child Command notifies them.</li>
- * <li>Commands have ID that identifies their "type".</li>
  * <li>Commands have Priority, Cost in order to schedule them according to various strategies.</li>
  * </ul>
  * <br>
