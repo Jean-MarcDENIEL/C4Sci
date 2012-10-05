@@ -1,14 +1,21 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
+import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 /**
  * This class encapsulates a {@link SingleDataStepElement} that is bounded by two other {@link SingleDataStepElement} of the same type.<br>
- * The {@link BoundedStepElement} creation needs the API user to furnish a comparator.
+ * The {@link BoundedStepElement} creation needs the API user to furnish a comparator.<br>
+ * Sub elements are composed of :
+ * <ul>
+ * <li>the bounded element</li>
+ * <li>the upper and lower bounds<li>
+ * </ul>
  * <br>
  * <b>Warning :</b> It is the responsibility of the API user to create a coherent {@link BoundedStepElement}. 
  * @author jeanmarc.deniel
@@ -72,10 +79,14 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 		}
 	}
 
-	/*@Override
+
 	public Iterator<StepElement> getSubElementsIterator() {
-		return new NoChildIterator<StepElement>();
-	}*/
+		List<StepElement> _list = new ArrayList<StepElement>();
+		_list.add(getBoundedElement());
+		_list.add(getLowerBound());
+		_list.add(getUpperBound());
+		return _list.iterator();
+	}
 
 	/**
 	 * @return the bounded value {@link #isEditable()} result.
@@ -97,4 +108,17 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 	public ElementBinding getSingleBinding() {
 		return boundedElement.getSingleBinding();
 	}
+
+	@Override
+	public boolean containsProperValue() {
+		return false;
+	}
+
+	@Override
+	public String getProperValue() {
+		return null;
+	}
+
+	@Override
+	public void setProperValue(String str_value) {}
 }

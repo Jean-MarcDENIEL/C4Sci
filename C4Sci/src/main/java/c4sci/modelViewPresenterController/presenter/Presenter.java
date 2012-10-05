@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.swing.text.LabelView;
-
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
 import c4sci.modelViewPresenterController.jobs.Command;
@@ -16,10 +14,6 @@ import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementReactiveModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.BoundedStepElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.EditableDataElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ScalableDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.BooleanDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.FloatDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement;
@@ -128,30 +122,22 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 	}
 	
 	private void computeDefaultFeedback(DataIdentity comp_id, StepElement step_elt, List<ComponentChange> res_list){
-		if (step_elt instanceof BooleanDataElement){
-			res_list.add(new BooleanValueChange(comp_id, Boolean.parseBoolean(((BooleanDataElement)step_elt).getDataParameter().getValue()), null));
+		if (step_elt.containsProperValue()){
+			String _elt_value = step_elt.getProperValue();
+			if (step_elt instanceof BooleanDataElement){
+				res_list.add(new BooleanValueChange(comp_id, Boolean.parseBoolean(_elt_value), null));
+			}
+			if (step_elt instanceof FloatDataElement){
+				res_list.add(new FloatValueChange(comp_id, Float.parseFloat(_elt_value), null));
+			}
+			if (step_elt instanceof IntegerDataElement){
+				res_list.add(new IntegerValueChange(comp_id, Integer.parseInt(_elt_value), null));
+			}
+			if (step_elt instanceof LabelDataElement){
+				res_list.add(new LabelChange(comp_id, _elt_value, null));
+			}
 		}
-		if (step_elt instanceof FloatDataElement){
-			res_list.add(new FloatValueChange(comp_id, Float.parseFloat(((FloatDataElement)step_elt).getDataParameter().getValue()), null));
-		}
-		if (step_elt instanceof IntegerDataElement){
-			res_list.add(new IntegerValueChange(comp_id, Integer.parseInt(((IntegerDataElement)step_elt).getDataParameter().getValue()), null));
-		}
-		if (step_elt instanceof LabelDataElement){
-			res_list.add(new LabelChange(comp_id, ((LabelDataElement)step_elt).getDataParameter().getValue(), null));
-		}
-		if (step_elt instanceof BoundedStepElement){
-			computeDefaultFeedback(comp_id, ((BoundedStepElement<?>)step_elt).getBoundedElement(), res_list);
-		}
-		if (step_elt instanceof EditableDataElement){
-			computeDefaultFeedback(comp_id, ((EditableDataElement)step_elt).getEditableElement(), res_list);
-		}
-		if (step_elt instanceof ComputedDataElement){
-			computeDefaultFeedback(comp_id, ((ComputedDataElement)step_elt).getComputedElement(), res_list);
-		}
-		if (step_elt instanceof ScalableDataElement){
-			computeDefaultFeedback(comp_id, ((ScalableDataElement)step_elt).getScaledElement(), res_list);
-		}
+
 		Iterator<StepElement> _it = step_elt.getSubElementsIterator();
 		while (_it.hasNext()){
 			StepElement _sub_elt = _it.next();

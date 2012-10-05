@@ -44,4 +44,17 @@ public class TreatmentStepElement extends StepElement {
 	public List<ElementBinding> getBindings() {
 		return new ArrayList<ElementBinding>();
 	}
+
+	@Override
+	public boolean containsProperValue() {
+		return false;
+	}
+
+	@Override
+	public String getProperValue() {
+		return null;
+	}
+
+	@Override
+	public void setProperValue(String str_value) {}
 }

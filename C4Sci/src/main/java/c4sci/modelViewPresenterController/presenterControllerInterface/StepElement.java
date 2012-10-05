@@ -77,6 +77,25 @@ public abstract class StepElement {
 	 */
 	public abstract void ensureCoherentInternalState();
 	/**
+	 * Indicates whether the {@link StepElement} contains a value that is not included in a sub 
+	 * element.
+	 *   
+	 * @return <i>true</i> if the {@link StepElement} contains this kind of value. 
+	 */
+	public abstract boolean containsProperValue();
+	/**
+	 * 
+	 * @return a String representation of the proper value included in the current {@link StepElement} or <i>null</i> if there's no such proper value.
+	 */
+	public abstract String	getProperValue();
+	/**
+	 * Sets the proper value of the StepElement by parsing the argument.<br>
+	 * Has no effect in the case the argument cannot be successfully parsed.
+	 * @param str_value the String to parse.
+	 */
+	public abstract void 	setProperValue(String str_value);
+	
+	/**
 	 * @return an iterator that gives access to sub elements.
 	 */
 	public abstract Iterator<StepElement> getSubElementsIterator();

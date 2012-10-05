@@ -76,4 +76,14 @@ public class CompoundStepElement extends StepElement {
 			_it.next().ensureCoherentInternalState();
 		}
 	}
+	@Override
+	public boolean containsProperValue() {
+		return false;
+	}
+	@Override
+	public String getProperValue() {
+		return null;
+	}
+	@Override
+	public void setProperValue(String str_value) {}
 }
