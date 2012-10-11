@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 /**
  * This class concerns the change parameterized by an integer value.<br>
@@ -13,8 +13,8 @@ public abstract class IntegerChange extends ComponentChange {
 
 	private int	integerValue;
 	
-	public IntegerChange(DataIdentity comp_id, int int_val, Command parent_cmd) {
-		super(comp_id, parent_cmd);
+	public IntegerChange(Component comp_, int int_val, Command parent_cmd) {
+		super(comp_, parent_cmd);
 		integerValue = int_val;
 	}
 

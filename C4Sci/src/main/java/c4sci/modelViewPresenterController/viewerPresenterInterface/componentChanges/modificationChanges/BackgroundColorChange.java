@@ -3,9 +3,9 @@
  */
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
-import c4sci.data.DataIdentity;
 import c4sci.math.geometry.space.SpaceVector;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange;
 
 /**
@@ -19,7 +19,7 @@ public class BackgroundColorChange extends ThreeDimensionalChange {
 	private BackgroundColorChange() {
 		super(null, null, null);
 	}
-	public BackgroundColorChange(DataIdentity comp_id, SpaceVector back_color, Command parent_cmd){
-		super(comp_id, back_color, parent_cmd);
+	public BackgroundColorChange(Component comp_, SpaceVector back_color, Command parent_cmd){
+		super(comp_, back_color, parent_cmd);
 	}
 }

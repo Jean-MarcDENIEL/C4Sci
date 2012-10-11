@@ -109,13 +109,13 @@ public abstract class Component {
 	 * 
 	 * @return An iterator that gives access to the child components.
 	 */
-	abstract Iterator<Component> getChildComponentIterator();
+	public abstract Iterator<Component> getChildComponentIterator();
 	/**
 	 * Adds a child component depending on the actual component.
 	 * @param child_comp The child component. Its {@link #setParentComponent(Component)} method will be called.
 	 * @throws CannotPerformSuchChangeException in the case the actual component does not accept child components.
 	 */
-	abstract void addChildComponent(Component child_comp) throws CannotPerformSuchChangeException;
+	public abstract void addChildComponent(Component child_comp) throws CannotPerformSuchChangeException;
 	
 	/**
 	 * Describes whether the Component can have interactions with the user.

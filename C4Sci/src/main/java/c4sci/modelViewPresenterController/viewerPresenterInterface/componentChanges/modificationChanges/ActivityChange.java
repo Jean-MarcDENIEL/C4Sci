@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
 /**
  * This class indicates whether a Component is active (i.e it can received user interactions) or not.
@@ -10,8 +10,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
  */
 public class ActivityChange extends BooleanChange {
 
-	public ActivityChange(DataIdentity comp_id, boolean activity_val, Command parent_cmd) {
-		super(comp_id, activity_val, parent_cmd);
+	public ActivityChange(Component comp_, boolean activity_val, Command parent_cmd) {
+		super(comp_, activity_val, parent_cmd);
 	}
 
 }

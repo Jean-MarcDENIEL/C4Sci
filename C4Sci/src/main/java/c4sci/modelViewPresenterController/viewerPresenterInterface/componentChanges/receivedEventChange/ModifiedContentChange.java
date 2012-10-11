@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -13,8 +13,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
  */
 public class ModifiedContentChange extends ComponentChange {
 
-	public ModifiedContentChange(DataIdentity comp_id, Command parent_cmd) {
-		super(comp_id, parent_cmd);
+	public ModifiedContentChange(Component comp_, Command parent_cmd) {
+		super(comp_, parent_cmd);
 	}
 
 }

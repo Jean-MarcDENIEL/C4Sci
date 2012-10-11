@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 /**
  * This class indicates that the focus has been gained by the Component.
@@ -10,8 +10,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
  */
 public class FocusGainChange extends ComponentChange {
 
-	public FocusGainChange(DataIdentity comp_id, Command parent_cmd) {
-		super(comp_id, parent_cmd);
+	public FocusGainChange(Component comp_, Command parent_cmd) {
+		super(comp_, parent_cmd);
 	}
 
 }

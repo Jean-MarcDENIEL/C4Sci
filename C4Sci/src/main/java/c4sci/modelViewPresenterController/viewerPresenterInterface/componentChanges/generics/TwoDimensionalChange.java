@@ -1,8 +1,8 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics;
 
-import c4sci.data.DataIdentity;
 import c4sci.math.geometry.plane.PlaneVector;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 
 /**
@@ -19,8 +19,8 @@ public abstract class TwoDimensionalChange extends ComponentChange {
 		super(null, null);
 	}
 
-	public TwoDimensionalChange(DataIdentity comp_id, PlaneVector two_d_value, Command parent_cmd){
-		super(comp_id, parent_cmd);
+	public TwoDimensionalChange(Component comp_, PlaneVector two_d_value, Command parent_cmd){
+		super(comp_, parent_cmd);
 		twoDimensionalChange = two_d_value;
 	}
 	

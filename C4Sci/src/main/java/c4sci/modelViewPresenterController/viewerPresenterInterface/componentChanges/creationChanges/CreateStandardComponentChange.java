@@ -1,8 +1,8 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFactory;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
 
 /**
  * This class encapsulates an ask for creating a Component among the standard ComponentFactory set.
@@ -12,14 +12,14 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFact
  */
 public class CreateStandardComponentChange extends CreateComponentChange {
 
-	private ComponentFactory.StandardComponentSet	compType;
+	private ComponentFamily.StandardComponentSet	compType;
 	
-	public CreateStandardComponentChange(DataIdentity comp_id, DataIdentity parent_id, ComponentFactory.StandardComponentSet comp_type, Command parent_cmd) {
-		super(comp_id, parent_id, parent_cmd);
+	public CreateStandardComponentChange(Component comp_, ComponentFamily.StandardComponentSet comp_type, Command parent_cmd) {
+		super(comp_, parent_cmd);
 		compType = comp_type;
 	}
 	
-	public ComponentFactory.StandardComponentSet getChange(){
+	public ComponentFamily.StandardComponentSet getChange(){
 		return compType;
 	}
 

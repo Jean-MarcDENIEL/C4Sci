@@ -6,11 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
+import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.CannotCreateSuchComponentException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFactory;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.SpecialFeatureChange;
@@ -35,20 +37,29 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 
 public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChange>{
 
-	private ComponentFactory	componentFactory;
-	Map<DataIdentity, Component>	componentIdentificationMap;
-	
+
+	private Map<DataIdentity, ComponentSupport>	componentIdentificationMap;
+
+
 	public Viewer(){
-		componentFactory = null;
-		componentIdentificationMap = new ConcurrentHashMap<DataIdentity, Component>();
-	}
-	
-	public ComponentFactory getComponentFactory() {
-		return componentFactory;
+		componentIdentificationMap = new ConcurrentHashMap<DataIdentity, ComponentSupport>();
 	}
 
-	public void setComponentFactory(ComponentFactory component_factory) {
-		this.componentFactory = component_factory;
+
+	/**
+	 * 
+	 * @param comp_id the identity of the component the method retrieves. 
+	 * @return The component which {@link DataIdentity} equals the passed argument or <i>null</i> if there's no one.
+	 */
+	public ComponentSupport getComponent(DataIdentity comp_id){
+		return componentIdentificationMap.get(comp_id);
+	}
+	/**
+	 * Records the component so that it can be retrieved through the {@link #getComponent(DataIdentity)} method.
+	 * @param comp_to_store
+	 */
+	public void storeComponent(ComponentSupport comp_to_store){
+		componentIdentificationMap.put(comp_to_store.getSupportedComponent().getIdentity(), comp_to_store);
 	}
 
 	public JobProcessorFactory<ComponentChange, ComponentChange> getReactiveJobProcessorFactory() {
@@ -57,7 +68,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 
 	public JobProcessorFactory<ComponentChange, ComponentChange> getFeedbackJobProcessorFactory() {
 		JobProcessorFactory<ComponentChange, ComponentChange> _res = new JobProcessorFactory<ComponentChange, ComponentChange>();
-		
+
 		_res.addChangePerformingAbility(CreateSpecialComponentChange.class, new JobProcessor<ComponentChange, ComponentChange>() {	
 			@Override
 			public List<ComponentChange> processJob(ComponentChange processing_cmd) {
@@ -65,7 +76,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(CreateStandardComponentChange.class, new JobProcessor<ComponentChange, ComponentChange>(){
 			@Override
 			public List<ComponentChange> processJob(
@@ -74,7 +85,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(ActivityChange.class, new JobProcessor<ComponentChange, ComponentChange>(){
 			@Override
 			public List<ComponentChange> processJob(
@@ -83,7 +94,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(VisibilityChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -92,7 +103,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(BooleanValueChange.class, new JobProcessor<ComponentChange, ComponentChange>(){
 			@Override
 			public List<ComponentChange> processJob(
@@ -101,7 +112,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FloatValueChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -110,7 +121,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(IntegerValueChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -119,7 +130,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FocusOrderChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -128,7 +139,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(SpecialFeatureChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -137,7 +148,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(TransparencyChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -146,7 +157,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FontSizeChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -155,7 +166,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(PositionChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -164,7 +175,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(SizeChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -173,7 +184,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(BackgroundColorChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -182,7 +193,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(ForegroundColorChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -191,7 +202,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FontColorChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -200,7 +211,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(NameChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -209,7 +220,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(DescriptionChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -218,7 +229,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(LabelChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -227,7 +238,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FontTypeChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -236,7 +247,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		_res.addChangePerformingAbility(FontStyleChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
 			@Override
 			public List<ComponentChange> processJob(
@@ -245,51 +256,143 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 				return null;
 			}
 		});
-		
+
 		return _res;
 	}
+	/**
+	 * Treats {@link CreateSpecialComponentChange} coming from the "feedback" side.
+	 * @param comp_chg The {@link Command} to treat.
+	 */
+	void feedbackToCreateSpecialComponentChange(CreateSpecialComponentChange comp_chg){
+		try {
+			ComponentSupport _created_comp = treatFeedbackCreateSpecialComponent(comp_chg);
+			componentIdentificationMap.put(comp_chg.getComponentIdentity(), _created_comp);
+
+		} catch (CannotCreateSuchComponentException _e) {
+			treatUnableToCreateSpecialComponent(comp_chg);
+		}
+	}
+	/**
+	 * Treats a {@link CreateStandardComponentChange} coming from the "feedback" side.
+	 * @param comp_chg contains all the data needed to create the result {@link Component} including {@link ComponentChange#getComponentIdentity()}.
+	 */
+	public void feedbackToCreateStandardComponentChange(CreateStandardComponentChange comp_chg) {
+		try {
+			ComponentSupport _created_comp = treatFeedbackCreateStandardComponent(comp_chg);
+			componentIdentificationMap.put(comp_chg.getComponentIdentity(), _created_comp);
+			
+		} catch (CannotCreateSuchComponentException _e) {
+			treatUnableToCreateStandardComponent(comp_chg);
+		}
+	}
+
+	/**
+	 * Contains the treatment to run in the case a {@link StandardComponentSet} {@link Component} cannot be created.
+	 */
+	protected abstract void treatUnableToCreateStandardComponent(CreateStandardComponentChange comp_chg);
+	/**
+	 * Contains the treatment to run in the case a special {@link Component} cannot be created.
+	 */
+	protected abstract void treatUnableToCreateSpecialComponent(CreateSpecialComponentChange comp_chg);
 	
-	abstract void feedbackToCreateSpecialComponentChange(CreateSpecialComponentChange comp_chg);
+	protected abstract ComponentSupport treatFeedbackCreateStandardComponent(CreateStandardComponentChange comp_chg) throws CannotCreateSuchComponentException;
 	
-	abstract void feedbackToCreateStandardComponentChange(CreateStandardComponentChange comp_chg);
-	
-	abstract void feedbackToActivityChange(ActivityChange comp_chg);
-	
-	abstract void feedbackToVisibilityChange(VisibilityChange comp_chg);
-	
-	abstract void feedbackToBooleanValueChange(BooleanValueChange comp_chg);
-	
-	abstract void feedbackToFloatValueChange(FloatValueChange comp_chg);
-	
-	abstract void feedbackToIntegerValueChange(IntegerValueChange comp_chg);
-	
-	abstract void feedbackToFocusOrderChange(FocusOrderChange comp_chg);
-	
-	abstract void feedbackToSpecialFeatureChange(SpecialFeatureChange comp_chg);
-	
-	abstract void feedbackToTransparenceyChange(TransparencyChange comp_chg);
-	
-	abstract void feedbackToFontSizeChange(FontSizeChange comp_chg);
-	
-	abstract void feedbackToPositionChange(PositionChange comp_chg);
-	
-	abstract void feedbackToSizeChange(SizeChange comp_chg);
-	
-	abstract void feedbackToBackgroundColorChange(BackgroundColorChange comp_chg);
-	
-	abstract void feedbackToForegroundColorChange(ForegroundColorChange comp_chg);
-	
-	abstract void feedbackToFontColorChange(FontColorChange comp_chg);
-	
-	abstract void feedbackToNameChange(NameChange comp_chg);
-	
-	abstract void feedbackToDescriptionChange(DescriptionChange comp_chg);
-	
-	abstract void feedbackToLabelChange(LabelChange comp_chg);
-	
-	abstract void feedbackToFontTypeChange(FontTypeChange comp_chg);
-	
-	abstract void feedbackToFontStyleChange(FontStyleChange comp_chg);
+	protected abstract ComponentSupport treatFeedbackCreateSpecialComponent(CreateSpecialComponentChange comp_chg) throws CannotCreateSuchComponentException;
+
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg {@link ActivityChange} {@link Command} to treat.
+	 */
+	protected abstract void feedbackToActivityChange(ActivityChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg {@link VisibilityChange} {@link Command} to treat.
+	 */
+	protected abstract void feedbackToVisibilityChange(VisibilityChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg {@link BooleanValueChange} {@link Command} to treat.
+	 */
+	protected abstract void feedbackToBooleanValueChange(BooleanValueChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg {@link FloatValueChange} to treat.
+	 */
+	protected abstract void feedbackToFloatValueChange(FloatValueChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg An {@link IntegerValueChange} to treat.
+	 */
+	protected abstract void feedbackToIntegerValueChange(IntegerValueChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link FocusOrderChange} to treat.
+	 */
+	protected abstract void feedbackToFocusOrderChange(FocusOrderChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link SpecialFeatureChange} to treat.
+	 */
+	protected abstract void feedbackToSpecialFeatureChange(SpecialFeatureChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link TransparencyChange} to treat.
+	 */
+	protected abstract void feedbackToTransparenceyChange(TransparencyChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link FontSizeChange} to treat.
+	 */
+	protected abstract void feedbackToFontSizeChange(FontSizeChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg a {@link PositionChange} to treat.
+	 */
+	protected abstract void feedbackToPositionChange(PositionChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link SizeChange} to treat.
+	 */
+	protected abstract void feedbackToSizeChange(SizeChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link BackgroundColorChange} to treat.
+	 */
+	protected abstract void feedbackToBackgroundColorChange(BackgroundColorChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link ForegroundColorChange} to treat.
+	 */
+	protected abstract void feedbackToForegroundColorChange(ForegroundColorChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link FontColorChange} to treat.
+	 */
+	protected abstract void feedbackToFontColorChange(FontColorChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link NameChange} to treat.
+	 */
+	protected abstract void feedbackToNameChange(NameChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link DescriptionChange} to treat.
+	 */
+	protected abstract void feedbackToDescriptionChange(DescriptionChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link LabelChange} to treat.
+	 */
+	protected abstract void feedbackToLabelChange(LabelChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link FontTypeChange} to treat.
+	 */
+	protected abstract void feedbackToFontTypeChange(FontTypeChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link FontStyleChange} to treat.
+	 */
+	protected abstract void feedbackToFontStyleChange(FontStyleChange comp_chg);
 
 }
- 

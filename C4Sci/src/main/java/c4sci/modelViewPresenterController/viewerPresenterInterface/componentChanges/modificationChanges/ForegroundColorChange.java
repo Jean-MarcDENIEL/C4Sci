@@ -3,9 +3,9 @@
  */
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
-import c4sci.data.DataIdentity;
 import c4sci.math.geometry.space.SpaceVector;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange;
 
 /**
@@ -20,7 +20,7 @@ public class ForegroundColorChange extends ThreeDimensionalChange {
 		super(null, null, null);
 	}
 	
-	public ForegroundColorChange(DataIdentity comp_id, SpaceVector fore_color, Command parent_cmd){
-		super(comp_id, fore_color, parent_cmd);
+	public ForegroundColorChange(Component comp_, SpaceVector fore_color, Command parent_cmd){
+		super(comp_, fore_color, parent_cmd);
 	}
 }

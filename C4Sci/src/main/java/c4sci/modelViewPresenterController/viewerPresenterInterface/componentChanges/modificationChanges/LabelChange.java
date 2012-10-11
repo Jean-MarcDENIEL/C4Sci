@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges;
 
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.Command;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.StringChange;
 /**
  * this class indicates a label change.
@@ -10,8 +10,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
  */
 public class LabelChange extends StringChange {
 
-	public LabelChange(DataIdentity comp_id, String label_str, Command parent_cmd) {
-		super(comp_id, label_str, parent_cmd);
+	public LabelChange(Component comp_, String label_str, Command parent_cmd) {
+		super(comp_, label_str, parent_cmd);
 	}
 
 }
