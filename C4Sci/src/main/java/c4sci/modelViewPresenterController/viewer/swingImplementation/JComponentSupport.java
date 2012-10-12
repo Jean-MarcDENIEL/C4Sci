@@ -12,13 +12,13 @@ import c4sci.modelViewPresenterController.viewer.ComponentSupport;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
 /**
- * This kind of Component is composed of a {@link JComponent} without any child {@link Component}.
+ * This class is a Swing implementation of the {@link ComponentSupport} facade.
+ * 
  * @author jeanmarc.deniel
  *
  */
 public class JComponentSupport extends ComponentSupport {
 
-	private final int RGBA_SIZE = 4;
 	private final int R_INDEX = 0;
 	private final int G_INDEX = 1;
 	private final int B_INDEX = 2;
@@ -26,11 +26,22 @@ public class JComponentSupport extends ComponentSupport {
 	
 	private JComponent swingComponent;
 	
+	private String		toolTipText;
+	private String		nameText;
+	private String		descriptionText;
+	
 	public JComponentSupport( JComponent swing_component, Component supported_component, Map<ComponentFamily.StandardComponentProperty, String> prop_values_map) {
 		super(supported_component);
 		swingComponent = swing_component;
+		toolTipText		= "(no tip)";
+		nameText		= "(no name)";
+		descriptionText	= "(no description)";
 	}
 
+	public JComponent getSwingComponent(){
+		return swingComponent;
+	}
+	
 	/**
 	 * Sets the background color with 4 [0-1] channel values : R G B alpha.
 	 * @param rvba_01 The 4 channel float values in the 0.0 - 1.0 range.
@@ -72,10 +83,17 @@ public class JComponentSupport extends ComponentSupport {
 	}
 	/**
 	 * Sets the text to be displayed as an help about the component.
-	 * @param tool_tip
+	 * @param tool_tip The text that is appended to the {@link JComponent#getName()} value.
 	 */
 	public void setToolTipText(String tool_tip){
-		swingComponent.setToolTipText(tool_tip);
+		toolTipText = tool_tip;
+		formatToolTipText();
+	}
+	private void formatToolTipText(){
+		swingComponent.setToolTipText(
+						"<b>"+nameText + "</b> : <br>"+ 
+						"<b>Description:</b> :<br>" + descriptionText +"<br>" +
+						"<b>Tip</b> :<br>" + toolTipText);
 	}
 	/**
 	 * Sets the component to be visible or not.
@@ -123,5 +141,15 @@ public class JComponentSupport extends ComponentSupport {
 		return swingComponent.getSize();
 	}
 	
+	public void setName(String comp_name){
+		swingComponent.setName(comp_name);
+		nameText = comp_name;
+		formatToolTipText();
+	}
+	
+	public void setDescription(String comp_descr){
+		descriptionText = comp_descr;
+		formatToolTipText();
+	}
 	
 }

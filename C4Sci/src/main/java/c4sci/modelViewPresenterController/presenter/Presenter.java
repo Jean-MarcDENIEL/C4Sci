@@ -27,6 +27,7 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 
 	private Map<DataIdentity, StepElement> componentElementMap;
 	private Map<StepElement, DataIdentity> elementComponentMap;
+
 	
 	public Presenter(){
 		componentElementMap = new ConcurrentHashMap<DataIdentity, StepElement>();

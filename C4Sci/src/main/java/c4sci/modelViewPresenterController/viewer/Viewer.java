@@ -267,7 +267,6 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 		try {
 			ComponentSupport _created_comp = treatFeedbackCreateSpecialComponent(comp_chg);
 			componentIdentificationMap.put(comp_chg.getComponentIdentity(), _created_comp);
-
 		} catch (CannotCreateSuchComponentException _e) {
 			treatUnableToCreateSpecialComponent(comp_chg);
 		}
@@ -280,7 +279,6 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 		try {
 			ComponentSupport _created_comp = treatFeedbackCreateStandardComponent(comp_chg);
 			componentIdentificationMap.put(comp_chg.getComponentIdentity(), _created_comp);
-			
 		} catch (CannotCreateSuchComponentException _e) {
 			treatUnableToCreateStandardComponent(comp_chg);
 		}
@@ -294,7 +292,16 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 	 * Contains the treatment to run in the case a special {@link Component} cannot be created.
 	 */
 	protected abstract void treatUnableToCreateSpecialComponent(CreateSpecialComponentChange comp_chg);
-	
+	/**
+	 * contains the treatment to run in the case a {@link ComponentChange} cannot be properly processed.
+	 */
+	protected abstract void treatUnableToProcessCommand(ComponentChange comp_chg);
+	/**
+	 * 
+	 * @param comp_chg
+	 * @return a {@link ComponentSupport}
+	 * @throws CannotCreateSuchComponentException in case it canot create a {@link ComponentSupport}
+	 */
 	protected abstract ComponentSupport treatFeedbackCreateStandardComponent(CreateStandardComponentChange comp_chg) throws CannotCreateSuchComponentException;
 	
 	protected abstract ComponentSupport treatFeedbackCreateSpecialComponent(CreateSpecialComponentChange comp_chg) throws CannotCreateSuchComponentException;

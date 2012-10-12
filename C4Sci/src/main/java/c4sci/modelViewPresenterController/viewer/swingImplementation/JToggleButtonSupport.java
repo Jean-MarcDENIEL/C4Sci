@@ -25,7 +25,7 @@ public class JToggleButtonSupport extends JComponentSupport implements BooleanBo
 	}
 
 	public void setBooleanValue(boolean bool_value) {
-		toggleComponent.setEnabled(bool_value);
+		toggleComponent.setSelected(bool_value);
 	}
 
 	public void setText(String text_value) {
