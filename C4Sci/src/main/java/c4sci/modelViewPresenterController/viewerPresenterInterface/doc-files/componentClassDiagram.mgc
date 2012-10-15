@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange"
+        x="69" y="15">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="true"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.Component"
+            endpointName="boundComponent" kind="Simple"/>
+        <Communication destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.Component"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.Component"
+        x="108" y="273">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="true"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.Component"
+            endpointName="parentComponent" kind="Simple">
+            <Point x="338" y="539"/>
+        </Association>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.presenterControllerInterface.StepChange"
+        x="702" y="9">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="true"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.jobs.Command"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
+            endpointName="stepElement" kind="Simple"/>
+    </Class>
+    <Class name="c4sci.modelViewPresenterController.jobs.Command"
+        x="461" y="-363">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="true"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="childCommandsList" kind="Simple">
+            <Point x="850" y="-281"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="descendantCommands" kind="Simple">
+            <Point x="285" y="-204"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="ancestorCommand" kind="Simple">
+            <Point x="300" y="-295"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.jobs.Command"
+            endpointName="parentCommand" kind="Simple">
+            <Point x="452" y="-46"/>
+        </Association>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
+        x="621" y="178">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="true"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="true"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
+            endpointName="dependentElements" kind="Simple">
+            <Point x="941" y="543"/>
+        </Association>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
+            endpointName="resourceElements" kind="Simple">
+            <Point x="703" y="554"/>
+        </Association>
+    </Class>
+</ClassDiagram>
