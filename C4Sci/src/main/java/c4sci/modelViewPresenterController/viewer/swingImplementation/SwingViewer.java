@@ -1,14 +1,21 @@
 package c4sci.modelViewPresenterController.viewer.swingImplementation;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.Point;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -22,13 +29,18 @@ import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
 import c4sci.data.DataIdentity;
+import c4sci.data.DataParameter;
+import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.math.geometry.plane.PlaneVector;
 import c4sci.math.geometry.space.SpaceVector;
+import c4sci.modelViewPresenterController.presenter.components.NoChildComponent;
 import c4sci.modelViewPresenterController.viewer.ComponentSupport;
 import c4sci.modelViewPresenterController.viewer.Viewer;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.CannotCreateSuchComponentException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.SpecialFeatureChange;
@@ -50,6 +62,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.SizeChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.TransparencyChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.VisibilityChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.EndSessionChange;
 /**
  * This class is a viewer implementing {@link Component} through {@link SwingViewer} components.
  * @author jeanmarc.deniel
@@ -79,12 +93,30 @@ public class SwingViewer extends Viewer {
 	private Map<DataIdentity, TextShowerComponentInterface>		identityTextShowerComponentMap;	
 
 	private JPanelSupport										currentPanel;
+	
+	private boolean												sessionChangeOpened;
+	
+	private final JFrame										windowFrame;
 
 	private final JPanelSupport getCurrentPanel() {
 		return currentPanel;
 	}
 	private final void setCurrentPanel(JPanelSupport current_panel) {
-		this.currentPanel = current_panel;
+		
+		final JPanelSupport _previous = current_panel;
+		
+		
+		final JPanel _jpanel = (JPanel) current_panel.getSwingComponent();
+		
+		invokeSwing(new Runnable() {public void run() {
+			_jpanel.setLayout(null);
+			_jpanel.setBackground(Color.red);
+			_jpanel.setSize(windowFrame.getSize());
+			_jpanel.setVisible(true);
+			windowFrame.add(_jpanel);
+			}}, "setCurrentPanel");
+		
+		currentPanel = current_panel;
 	}
 
 	public SwingViewer() {
@@ -94,7 +126,18 @@ public class SwingViewer extends Viewer {
 		identityIntegerBoundComponentMap	= new ConcurrentHashMap<DataIdentity, IntegerBoundComponentInterface>();
 		identityTextShowerComponentMap		= new ConcurrentHashMap<DataIdentity, TextShowerComponentInterface>();
 
-		setCurrentPanel(null);
+		currentPanel						= null;
+		
+		sessionChangeOpened					= false;
+		
+		windowFrame							= new JFrame();
+		invokeSwing(new Runnable() {
+			public void run() {
+				windowFrame.setSize(500, 500);
+				windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				windowFrame.setVisible(true);
+			}}, "SwingViewer Constructor");
+
 	}
 
 	@Override
@@ -106,25 +149,39 @@ public class SwingViewer extends Viewer {
 		setMainPaneTitle("unable to create special component : " + comp_chg.getChange());
 	}
 	@Override
-	protected void treatUnableToProcessCommand(ComponentChange comp_chg) {
-		setMainPaneTitle("unable to process component change "  + comp_chg.getClass().getName());
+	protected void treatUnableToProcessCommand(ComponentChange comp_chg, String compl_msg) {
+		if (compl_msg == null)
+			compl_msg = "";
+		setMainPaneTitle("unable to process component change "  + comp_chg.getClass().getName()+" : "+compl_msg);
+	}
+	@Override
+	protected void treatUnableToProcessCommand(ComponentChange comp_chg){
+		treatUnableToProcessCommand(comp_chg, null);
 	}
 
 	private void setMainPaneTitle(final String new_title){
 		final JPanelSupport _jpanel = getCurrentPanel();
 		invokeSwing(new Runnable() {
 			public void run() {
-				if (_jpanel != null){
-					_jpanel.getSwingComponent().getRootPane().setName(new_title);
-				}
+				windowFrame.setTitle(new_title);
 			}
 		}, "SetMainTitle : "+new_title);
 	}
 
+	/**
+	 * Launches swing operations in a thread safe way.<br>
+	 * In the case the {@link #sessionChangeOpened} == false, forces a paint of the current panel.
+	 * 
+	 * @param feedback_runnable
+	 * @param feedback_name
+	 */
 	private void invokeSwing(Runnable feedback_runnable, String feedback_name){
 
 		try{
 			SwingUtilities.invokeAndWait(feedback_runnable);
+			if (!sessionChangeOpened){
+				SwingUtilities.invokeAndWait(new Runnable() {public void run() {windowFrame.repaint();}});
+			}
 		} catch (InvocationTargetException _e) {
 			setMainPaneTitle(feedback_name + " InvocationTargetException");
 		} catch (InterruptedException _e) {
@@ -243,13 +300,13 @@ public class SwingViewer extends Viewer {
 					_y = (int) (((float)(_parent_dim.height)) * comp_chg.getChange().getY());
 				}
 				else{
-					_x = (int) (((float)(_jcomp_support.getSwingComponent().getRootPane().getWidth())) *comp_chg.getChange().getX());
-					_y = (int) (((float)(_jcomp_support.getSwingComponent().getRootPane().getHeight())) *comp_chg.getChange().getY());
+					_x = (int) (((float)(windowFrame.getWidth())) *comp_chg.getChange().getX());
+					_y = (int) (((float)(windowFrame.getHeight())) *comp_chg.getChange().getY());
 				}
 			}
 			else{
-				_x = (int) (((float)(_jcomp_support.getSwingComponent().getRootPane().getWidth())) *comp_chg.getChange().getX());
-				_y = (int) (((float)(_jcomp_support.getSwingComponent().getRootPane().getHeight())) *comp_chg.getChange().getY());
+				_x = (int) (((float)(windowFrame.getWidth())) *comp_chg.getChange().getX());
+				_y = (int) (((float)(windowFrame.getHeight())) *comp_chg.getChange().getY());
 			}
 			invokeSwing(new Runnable() {public void run() {_jcomp_support.setLocation(new Point(_x,_y));}}, "PositionChange");
 		}
@@ -271,9 +328,12 @@ public class SwingViewer extends Viewer {
 				_parent_dim = _jparent.getSize();
 			}
 			else{
-				_parent_dim = _jcomp_support.getSwingComponent().getRootPane().getSize();
+				_parent_dim = windowFrame.getSize();
 			}
-			invokeSwing(new Runnable() {public void run() {_jcomp_support.setSize(_parent_dim);}}, "SizeChange");
+			final Dimension _comp_dim = new Dimension(
+					(int)(_parent_dim.getWidth()*comp_chg.getChange().getX()), 
+					(int)(_parent_dim.getHeight()*comp_chg.getChange().getY()));
+			invokeSwing(new Runnable() {public void run() {_jcomp_support.setSize(_comp_dim);}}, "SizeChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -283,9 +343,10 @@ public class SwingViewer extends Viewer {
 	@Override
 	protected void feedbackToBackgroundColorChange(final BackgroundColorChange comp_chg) {
 		final JComponentSupport _jcomp_support = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		
 		SpaceVector _color = comp_chg.getChange();
-		final float _color_tab[] = {_color.getX(), _color.getY(), _color.getZ(), 0.0f};
 		if (_jcomp_support != null){
+			final float _color_tab[] = {_color.getX(), _color.getY(), _color.getZ(), _jcomp_support.getTransparency()};
 			invokeSwing(new Runnable() {public void run() {_jcomp_support.setBackground(_color_tab);}}, "BackgroundColorChange");
 		}
 		else{
@@ -378,7 +439,7 @@ public class SwingViewer extends Viewer {
 		switch (comp_chg.getChange()){
 		case PANEL : 
 			JPanel _jpane = new JPanel();
-			JPanelSupport _jpane_support = new JPanelSupport(_jpane, currentPanel, comp_chg.getBoundComponent(), prop_value_map);
+			JPanelSupport _jpane_support = new JPanelSupport(_jpane, currentPanel, comp_chg.getBoundComponent(), prop_value_map);	
 			setCurrentPanel(_jpane_support);
 			_res = _jpane_support;
 			break;
@@ -447,18 +508,24 @@ public class SwingViewer extends Viewer {
 		//
 		// _res swing component is added to its parent if there is one
 		//
-		JComponentSupport 	_jparent_support;
+		final JComponentSupport 	_jparent_support;
+		final JComponent			_added_comp = _res.getSwingComponent();
 		Component			parent;
 		if (((parent = comp_chg.getBoundComponent().getParentComponent()) != null) &&
 				((_jparent_support = identitySwingComponentMap.get(parent.getIdentity())) != null)&&
 				(_jparent_support != getCurrentPanel())){
-			_jparent_support.getSwingComponent().add(_res.getSwingComponent());
+			invokeSwing(new Runnable() {public void run() {_jparent_support.getSwingComponent().add(_added_comp);}}, "treatCreateStandardComponent");
 		}else{
 			//
 			// _res is added to the current panel (if it's not itself the current panel)
 			//
 			if (getCurrentPanel() != _res){
-				getCurrentPanel().getSwingComponent().add(_res.getSwingComponent());
+				if (getCurrentPanel() != null){
+					getCurrentPanel().getSwingComponent().add(_res.getSwingComponent());
+				}
+				else{
+					treatUnableToProcessCommand(comp_chg);
+				}
 			}
 		}
 		return _res;
@@ -478,6 +545,58 @@ public class SwingViewer extends Viewer {
 
 		return _res;
 	}
+	@Override
+	protected void feedbackToBeginSessionChange(BeginSessionChange comp_chg) {
+		sessionChangeOpened = true;
+		
+	}
+	@Override
+	protected void feedbackToEndSessionChange(EndSessionChange comp_chg) {
+		sessionChangeOpened = false;
+		invokeSwing(new Runnable() {public void run() {/*do nothing*/}}, "EndSessionChange");
+	}
+	
+	public static void waitAndText(int milli_, String txt_){
+		try {
+			Thread.sleep(milli_);
+		} catch (InterruptedException _e) {
+			// TODO Auto-generated catch block
+			_e.printStackTrace();
+		}
+		System.out.println(txt_);
+	}
 
 
+	static public void main(String[] args){
+		SwingViewer	_viewer = new SwingViewer();
+		
+		SwingViewer.waitAndText(1000,"changes ...");
+
+		List<ComponentChange> _list = new ArrayList<ComponentChange>();
+		
+		NoChildComponent 	_comp_1_panel 	= new NoChildComponent();
+
+		
+		//_viewer.feedbackToBeginSessionChange(new BeginSessionChange(null, null));
+		System.out.println("Create Pannel");
+		_viewer.feedbackToCreateStandardComponentChange(new CreateStandardComponentChange(_comp_1_panel, StandardComponentSet.PANEL, null));
+
+		SwingViewer.waitAndText(1000, "Panel background -> green");
+		_viewer.feedbackToBackgroundColorChange(new BackgroundColorChange(_comp_1_panel, new SpaceVector(0.0f, 1.0f, 0.1f), null));
+		_viewer.feedbackToVisibilityChange(new VisibilityChange(_comp_1_panel, true, null));
+		
+		SwingViewer.waitAndText(1000, "Button");
+		NoChildComponent	_comp_1_val1	= new NoChildComponent(); 
+		_comp_1_val1.setParentComponent(_comp_1_panel);
+		_viewer.feedbackToBeginSessionChange(new BeginSessionChange(null, null));
+		_viewer.feedbackToCreateStandardComponentChange(new CreateStandardComponentChange(_comp_1_val1, StandardComponentSet.BUTTON, null));
+		_viewer.feedbackToSizeChange(new SizeChange(_comp_1_val1, new PlaneVector(0.15f, 0.25f), null));
+		_viewer.feedbackToPositionChange(new PositionChange(_comp_1_val1, new PlaneVector(0.05f,0.25f), null));
+		_viewer.feedbackToVisibilityChange(new VisibilityChange(_comp_1_val1, true, null));
+		_viewer.feedbackToLabelChange(new LabelChange(_comp_1_val1, new InternationalizableTerm("label"), null));
+		_viewer.feedbackToBackgroundColorChange(new BackgroundColorChange(_comp_1_val1, new SpaceVector(1.0f,0.5f,0.8f), null));
+		_viewer.feedbackToEndSessionChange(new EndSessionChange(null, null));
+		
+		SwingViewer.waitAndText(1000, "fin");
+	}
 }

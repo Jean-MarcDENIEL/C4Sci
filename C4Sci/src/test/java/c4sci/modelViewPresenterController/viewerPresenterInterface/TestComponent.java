@@ -18,12 +18,12 @@ public class TestComponent {
 
 	class Comp1 extends Component{
 		@Override
-		Iterator<Component> getChildComponentIterator() {
+		public Iterator<Component> getChildComponentIterator() {
 			return new NoChildIterator<Component>();
 		}
 
 		@Override
-		void addChildComponent(Component child_comp)
+		public void addChildComponent(Component child_comp)
 				throws CannotPerformSuchChangeException {
 			throw new CannotPerformSuchChangeException();
 		}
@@ -38,12 +38,12 @@ public class TestComponent {
 		}
 		
 		@Override
-		Iterator<Component> getChildComponentIterator() {
+		public Iterator<Component> getChildComponentIterator() {
 			return childComponents.iterator();
 		}
 
 		@Override
-		void addChildComponent(Component child_comp)
+		public void addChildComponent(Component child_comp)
 				throws CannotPerformSuchChangeException {
 			childComponents.add(child_comp);
 		}

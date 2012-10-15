@@ -1,29 +1,23 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 
-import static org.junit.Assert.*;
-
 import java.util.Iterator;
 
 import org.junit.Test;
 
 import c4sci.NoChildIterator;
-import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusGainChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.FocusLossChange;
 
 public class TestPerformer {
 
 	class Comp1 extends Component{
 
 		@Override
-		Iterator<Component> getChildComponentIterator() {
+		public Iterator<Component> getChildComponentIterator() {
 			return new NoChildIterator<Component>();
 		}
 
 		@Override
-		void addChildComponent(Component child_comp)
+		public void addChildComponent(Component child_comp)
 				throws CannotPerformSuchChangeException {
 			throw new CannotPerformSuchChangeException();
 		}

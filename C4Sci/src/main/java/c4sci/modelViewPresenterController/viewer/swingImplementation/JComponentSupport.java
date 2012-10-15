@@ -102,7 +102,10 @@ public class JComponentSupport extends ComponentSupport {
 	public void setVisible(boolean is_visible){
 		swingComponent.setVisible(is_visible);
 	}
-	
+	/**
+	 * 
+	 * @param alpha_01 ranges form 0 (transparent) or 1.0 (opaque)
+	 */
 	public void setTransparency(float alpha_01){
 		float[] _backgrd = swingComponent.getBackground().getRGBComponents(null);
 		float[] _foregrd = swingComponent.getForeground().getRGBComponents(null);
@@ -112,6 +115,14 @@ public class JComponentSupport extends ComponentSupport {
 		
 		setBackground(_backgrd);
 		setForeground(_foregrd);
+	}
+	/**
+	 * 
+	 * @return transparency value ranging form 0 (transprent) or 1.0 (opaque)
+	 */
+	public float getTransparency(){
+		Color _back = swingComponent.getBackground();
+		return ((float)_back.getAlpha())/255.0f;
 	}
 	/**
 	 * Sets the component location relatively to its parent coordinate space.

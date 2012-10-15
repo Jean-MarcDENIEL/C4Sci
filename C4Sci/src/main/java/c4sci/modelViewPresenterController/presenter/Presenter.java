@@ -7,31 +7,40 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
+import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.MvpcLayer;
 import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementActivatedStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementAddedStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementFeedbackModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementInactivatedStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementReactiveModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementSuppressedStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.StepBackwardStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.StepForwardStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.BooleanDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.FloatDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.LabelDataElement;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BooleanValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FloatValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.IntegerValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange;
 
-public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
+public abstract class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 
-	private Map<DataIdentity, StepElement> componentElementMap;
-	private Map<StepElement, DataIdentity> elementComponentMap;
+	private Map<Component, StepElement> componentElementMap;
+	private Map<StepElement, Component> elementComponentMap;
 
 	
 	public Presenter(){
-		componentElementMap = new ConcurrentHashMap<DataIdentity, StepElement>();
-		elementComponentMap	= new ConcurrentHashMap<StepElement, DataIdentity>();
+		componentElementMap = new ConcurrentHashMap<Component, StepElement>();
+		elementComponentMap	= new ConcurrentHashMap<StepElement, Component>();
 	}
 
 
@@ -66,6 +75,35 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 		return _feedback_job_processor_factory;
 	}
 	
+	/********************* FEEDBACK METHODS ***************************************************/
+	public abstract List<ComponentChange> feedbackToElementActivatedStepChange(ElementActivatedStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToElementAddedStepChange(ElementAddedStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToElementSuppressedStepChange(ElementSuppressedStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToStepBackwardStepChange(StepBackwardStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToStepForwardStepChange(StepForwardStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToElementInactivatedStepChange(ElementInactivatedStepChange step_chg);
+	public abstract List<ComponentChange> feedbackToElementFeedbackModificationStepChange(ElementFeedbackModificationStepChange step_chg);
+	/**
+	 * Feedback to an element having been modified :
+	 * <ul>
+	 * 	<li>BooleanDataElement
+	 * </ul>. <br>
+	 * This method contains the default behavior and can be overridden. 
+	 * @param step_chg
+	 * @return
+	 */
+	public List<ComponentChange> feedbackToElementFeedbackModificationStepChange(StepChange step_chg){
+		Component _corresp_comp = elementComponentMap.get(step_chg.getStepElement());
+		List<ComponentChange> _feedback_comp_chg = null;
+		if (_corresp_comp != null){
+			_feedback_comp_chg = new ArrayList<ComponentChange>();	
+			computeDefaultFeedback(_corresp_comp, step_chg.getStepElement(), _feedback_comp_chg);
+		}
+		return _feedback_comp_chg;
+	}
+	
+	/********************* REACTION METHODS **************************************************/
+	
 	/**
 	 * Reaction to a boolean value change.<br>
 	 * Default behavior is passing it to the "feedback side". It can be overridden to achieve special behavior.
@@ -73,7 +111,7 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 	 * @return The corresponding {@link StepChange} list.
 	 */
 	public List<StepChange> reactionToBooleanValueChange(ComponentChange cmd_chg){
-		String _str_val = Boolean.toString(((BooleanValueChange)cmd_chg).getChange());
+		final String _str_val = Boolean.toString(((BooleanValueChange)cmd_chg).getChange());
 		return oneElementReactiveNotificationChange(cmd_chg, _str_val);
 	}
 	/**
@@ -83,7 +121,7 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 	 * @return The corresponding {@link StepChange} list.
 	 */
 	public List<StepChange> reactionToFloatValueChange(ComponentChange cmd_chg){
-		String _float_str = Float.toString(((FloatValueChange)cmd_chg).getChange());
+		final String _float_str = Float.toString(((FloatValueChange)cmd_chg).getChange());
 		return oneElementReactiveNotificationChange(cmd_chg, _float_str);
 	}
 	/**
@@ -93,7 +131,7 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 	 * @return The corresponding {@link StepChange} list.
 	 */
 	public List<StepChange> reactionToIntegerValueChange(ComponentChange comp_chg){
-		String _int_str = Integer.toString(((IntegerValueChange)comp_chg).getChange());
+		final String _int_str = Integer.toString(((IntegerValueChange)comp_chg).getChange());
 		return oneElementReactiveNotificationChange(comp_chg, _int_str);
 	}
 	
@@ -107,36 +145,26 @@ public class Presenter implements MvpcLayer<ComponentChange, StepChange>{
 		return _res;
 	}
 	
-	public List<ComponentChange> feedbackToElementFeedbackModificationStepChange(StepChange step_chg){
-		DataIdentity _corresp_id = elementComponentMap.get(step_chg.getStepElement());
-		List<ComponentChange> _feedback_comp_chg = null;
-		if (_corresp_id != null){
-			_feedback_comp_chg = new ArrayList<ComponentChange>();	
-			computeDefaultFeedback(_corresp_id, step_chg.getStepElement(), _feedback_comp_chg);
-		}
-		return _feedback_comp_chg;
-	}
-	
-	private void computeDefaultFeedback(DataIdentity comp_id, StepElement step_elt, List<ComponentChange> res_list){
+	private void computeDefaultFeedback(Component comp_elt, StepElement step_elt, List<ComponentChange> res_list){
 		if (step_elt.containsProperValue()){
 			String _elt_value = step_elt.getProperValue();
 			if (step_elt instanceof BooleanDataElement){
-				res_list.add(new BooleanValueChange(comp_id, Boolean.parseBoolean(_elt_value), null));
+				res_list.add(new BooleanValueChange(comp_elt, Boolean.parseBoolean(_elt_value), null));
 			}
 			if (step_elt instanceof FloatDataElement){
-				res_list.add(new FloatValueChange(comp_id, Float.parseFloat(_elt_value), null));
+				res_list.add(new FloatValueChange(comp_elt, Float.parseFloat(_elt_value), null));
 			}
 			if (step_elt instanceof IntegerDataElement){
-				res_list.add(new IntegerValueChange(comp_id, Integer.parseInt(_elt_value), null));
+				res_list.add(new IntegerValueChange(comp_elt, Integer.parseInt(_elt_value), null));
 			}
 			if (step_elt instanceof LabelDataElement){
-				res_list.add(new LabelChange(comp_id, _elt_value, null));
+				res_list.add(new LabelChange(comp_elt, new InternationalizableTerm(_elt_value), null));
 			}
 		}
 		Iterator<StepElement> _it = step_elt.getSubElementsIterator();
 		while (_it.hasNext()){
 			StepElement _sub_elt = _it.next();
-			DataIdentity _sub_id = elementComponentMap.get(_sub_elt);
+			Component _sub_id = elementComponentMap.get(_sub_elt);
 			if (_sub_id != null){
 				computeDefaultFeedback(_sub_id, _sub_elt, res_list);
 			}

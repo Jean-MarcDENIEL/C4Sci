@@ -34,6 +34,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.SizeChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.TransparencyChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.VisibilityChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.EndSessionChange;
 
 public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChange>{
 
@@ -293,14 +295,21 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 	 */
 	protected abstract void treatUnableToCreateSpecialComponent(CreateSpecialComponentChange comp_chg);
 	/**
-	 * contains the treatment to run in the case a {@link ComponentChange} cannot be properly processed.
+	 * Contains the treatment to run in the case a {@link ComponentChange} cannot be properly processed.
+	 * @param comp_chg The message that cannot be properly processed
+	 * @param compl_msg A complementary info message.
+	 */
+	protected abstract void treatUnableToProcessCommand(ComponentChange comp_chg, String compl_msg);
+	/**
+	 * Contains the treatment to run in the case a {@link ComponentChange} cannot be properly processed.
+	 * @param comp_chg The message that cannot be properly processed
 	 */
 	protected abstract void treatUnableToProcessCommand(ComponentChange comp_chg);
 	/**
 	 * 
 	 * @param comp_chg
 	 * @return a {@link ComponentSupport}
-	 * @throws CannotCreateSuchComponentException in case it canot create a {@link ComponentSupport}
+	 * @throws CannotCreateSuchComponentException in case it cannot create a {@link ComponentSupport}
 	 */
 	protected abstract ComponentSupport treatFeedbackCreateStandardComponent(CreateStandardComponentChange comp_chg) throws CannotCreateSuchComponentException;
 	
@@ -401,5 +410,20 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 	 * @param comp_chg A {@link FontStyleChange} to treat.
 	 */
 	protected abstract void feedbackToFontStyleChange(FontStyleChange comp_chg);
+	/**
+	 * Indicates the beginning of several changes to process.
+	 * @param comp_chg unused at the moment.
+	 */
+	protected abstract void feedbackToBeginSessionChange(BeginSessionChange comp_chg);
+	/**
+	 * Indicates the end of several changes that have been processed.
+	 * @param comp_chg unused at the moment
+	 */
+	protected abstract void feedbackToEndSessionChange(EndSessionChange comp_chg);
+	
 
+	static public void main(){
+		System.out.println("Debut");
+	}
+	
 }
