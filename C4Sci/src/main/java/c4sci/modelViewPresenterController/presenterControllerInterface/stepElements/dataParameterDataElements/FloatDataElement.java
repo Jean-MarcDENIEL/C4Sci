@@ -31,11 +31,5 @@ public class FloatDataElement extends DataParameterDataElement {
 	public void ensureCoherentInternalState() {
 		floatElement.setFloatValue(0.0f);
 	}
-	@Override
-	/**
-	 * As a basic behavior it is editable.
-	 */
-	public boolean isEditable() {
-		return true;
-	}
+
 }

@@ -135,9 +135,9 @@ public abstract class StepElement {
 	/**
 	 * @return The {@link UnitScales units} in which the StepElement is expressed. Or null if there is no unit to apply to.  
 	 */
-	public UnitScales getUnits(){
-		return null;
-	}
+	public abstract UnitScales getUnits(); //{
+		//return null;
+	//}
 	public final float getImportance() {
 		return elementImportance;
 	}

@@ -15,10 +15,10 @@ public class LabelDataElement extends DataParameterDataElement {
 	public LabelDataElement(StringDataParameter data_p) {
 		super(data_p);
 	}
-	@Override
-	public UnitScales getUnits() {
+	//@Override
+	/*public UnitScales getUnits() {
 		return null;
-	}
+	}*/
 	@Override
 	public ElementBinding getSingleBinding() {
 		return new StringValueBinding(this, getDataParameter());
@@ -29,11 +29,4 @@ public class LabelDataElement extends DataParameterDataElement {
 	}
 	@Override
 	public void ensureCoherentInternalState() {}
-	@Override
-	/**
-	 * As a default behavior, it is editable.
-	 */
-	public boolean isEditable() {
-		return true;
-	}
 }

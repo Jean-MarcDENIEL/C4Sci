@@ -24,12 +24,6 @@ public class BooleanDataElement extends DataParameterDataElement {
 	@Override
 	public void ensureCoherentInternalState() {}
 
-	@Override
-	/**
-	 * As a default behavior, it is editable.
-	 */
-	public boolean isEditable() {
-		return true;
-	}
+
 
 }

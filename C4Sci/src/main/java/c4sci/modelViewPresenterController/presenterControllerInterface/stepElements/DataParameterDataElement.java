@@ -1,17 +1,29 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import c4sci.NoChildIterator;
 import c4sci.data.DataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
+import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 /**
- * This class makes a link between a {@link SingleDataStepElement} and a {@link DataParameter}
+ * This class makes a link between a {@link LogicalSingleDataStepElement} and a {@link DataParameter}.
+ * 
  * @author jeanmarc.deniel
  *
  */
 public abstract class DataParameterDataElement extends SingleDataStepElement {
+	@Override
+	/**
+	 * As a default behavior it has no unit.
+	 */
+	public UnitScales getUnits() {
+		return null;
+	}
 	private DataParameter	dataParameter;
 	
 	public final DataParameter getDataParameter() {
@@ -30,10 +42,6 @@ public abstract class DataParameterDataElement extends SingleDataStepElement {
 	}
 
 	@Override
-	public boolean containsProperValue() {
-		return true;
-	}
-	@Override
 	public String getProperValue() {
 		return getDataParameter().getValue();
 	}
@@ -45,6 +53,20 @@ public abstract class DataParameterDataElement extends SingleDataStepElement {
 			// does nothing
 		}		
 	}
-
-
+	
+	@Override
+	/**
+	 * As a default behavior, it is editable.
+	 */
+	public boolean isEditable() {
+		return true;
+	}
+	@Override
+	public List<ElementBinding> getBindings() {
+		List<ElementBinding> _res= new ArrayList<ElementBinding>();
+		_res.add(getSingleBinding());
+		return _res;
+	}
+	
+	
 }

@@ -8,9 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 /**
  * This class instantiates the <b>Composite</b> GoF pattern used by its {@link StepElement} superclass.<br>
- * all its methods are delegated to its sub elements.
+ * All its methods are delegated to its sub elements if they can be.<br>
+ * Otherwise a default behavior is decided when it cannot be deduced from a sub element (e.g. {@link #getUnits()} ...)
  * @author jeanmarc.deniel
  *
  */
@@ -86,4 +88,8 @@ public class CompoundStepElement extends StepElement {
 	}
 	@Override
 	public void setProperValue(String str_value) {}
+	@Override
+	public UnitScales getUnits() {
+		return null;
+	}
 }

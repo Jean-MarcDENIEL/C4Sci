@@ -9,7 +9,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBi
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 /**
- * This class encapsulates a {@link SingleDataStepElement} that is bounded by two other {@link SingleDataStepElement} of the same type.<br>
+ * This class encapsulates a {@link LogicalSingleDataStepElement} that is bounded by two other {@link LogicalSingleDataStepElement} of the same type.<br>
  * The {@link BoundedStepElement} creation needs the API user to furnish a comparator.<br>
  * Sub elements are composed of :
  * <ul>
@@ -21,7 +21,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  * @author jeanmarc.deniel
  *
  */
-public class BoundedStepElement<C extends SingleDataStepElement> extends SingleDataStepElement {
+public class BoundedStepElement<C extends LogicalSingleDataStepElement> extends LogicalSingleDataStepElement {
 
 	private C			lowerBound;
 	private C			upperBound;
@@ -46,6 +46,7 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 	 * <b>null</b> arguments are not accepted.
 	 */
 	public BoundedStepElement(C lower_bound, C upper_bound, C bounded_elt, BoundsComparator elt_comp) {
+		super(bounded_elt);
 		lowerBound			= lower_bound;
 		upperBound			= upper_bound;
 		boundedElement		= bounded_elt;
@@ -79,7 +80,6 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 		}
 	}
 
-
 	public Iterator<StepElement> getSubElementsIterator() {
 		List<StepElement> _list = new ArrayList<StepElement>();
 		_list.add(getBoundedElement());
@@ -87,38 +87,4 @@ public class BoundedStepElement<C extends SingleDataStepElement> extends SingleD
 		_list.add(getUpperBound());
 		return _list.iterator();
 	}
-
-	/**
-	 * @return the bounded value {@link #isEditable()} result.
-	 */
-	public boolean isEditable() {
-		return boundedElement.isEditable();
-	}
-
-	@Override
-	public List<ElementBinding> getBindings() {
-		List<ElementBinding> _res = new ArrayList<ElementBinding>();
-		//_res.addAll(lowerBound.getBindings());
-		//_res.addAll(upperBound.getBindings());
-		_res.add(boundedElement.getSingleBinding());
-		return _res;
-	}
-
-	@Override
-	public ElementBinding getSingleBinding() {
-		return boundedElement.getSingleBinding();
-	}
-
-	@Override
-	public boolean containsProperValue() {
-		return false;
-	}
-
-	@Override
-	public String getProperValue() {
-		return null;
-	}
-
-	@Override
-	public void setProperValue(String str_value) {}
 }

@@ -9,28 +9,27 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.StepEleme
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 
 /**
- * ScalableDataElements encapsulate {@link SingleDataStepElement} and add the possibility to 
- * affect a scale to this {@link SingleDataStepElement}.
+ * ScalableDataElements encapsulate {@link LogicalSingleDataStepElement} and add the possibility to 
+ * affect a scale to this {@link LogicalSingleDataStepElement}.
  * 
- * All other service requests are transmitted to the encapsulated {@link SingleDataStepElement}. <br>
+ * All other service requests are transmitted to the encapsulated {@link LogicalSingleDataStepElement}. <br>
  * 
  * Sub elements contain the scalable {@link StepElement}.
  * 
  * @author jeanmarc.deniel
  *
  */
-public class ScalableDataElement extends SingleDataStepElement {
+public class ScalableDataElement extends LogicalSingleDataStepElement {
 
 	private UnitScales				unitScales;
-	private SingleDataStepElement	scaledElement;
 	
-	public ScalableDataElement(SingleDataStepElement single_data, UnitScales units_) {
+	public ScalableDataElement(LogicalSingleDataStepElement single_data, UnitScales units_) {
+		super(single_data);
 		setUnitScales(units_);
-		scaledElement = single_data;
 	}
 	
 	public final SingleDataStepElement getScaledElement(){
-		return scaledElement;
+		return getSingleElement();
 	}
 
 	@Override
@@ -38,51 +37,10 @@ public class ScalableDataElement extends SingleDataStepElement {
 		return unitScales;
 	}
 	/**
-	 * Sets the units corresponding to the encapsulated {@link SingleDataStepElement}
+	 * Sets the units corresponding to the encapsulated {@link LogicalSingleDataStepElement}
 	 * @param unit_scales The unit scale to affect.
 	 */
 	public final void setUnitScales(UnitScales unit_scales) {
 		this.unitScales = unit_scales;
 	}
-
-	@Override
-	public ElementBinding getSingleBinding() {
-		return scaledElement.getSingleBinding();
-	}
-
-	@Override
-	public boolean isInternallyCoherent() {
-		return scaledElement.isInternallyCoherent();
-	}
-
-	@Override
-	public void ensureCoherentInternalState() {
-		scaledElement.ensureCoherentInternalState();
-	}
-
-	@Override
-	public boolean isEditable() {
-		return scaledElement.isEditable();
-	}
-
-	@Override
-	public boolean containsProperValue() {
-		return false;
-	}
-
-	@Override
-	public String getProperValue() {
-		return null;
-	}
-
-	@Override
-	public void setProperValue(String str_value) {}
-
-	@Override
-	public Iterator<StepElement> getSubElementsIterator() {
-		List<StepElement> _list = new ArrayList<StepElement>();
-		_list.add(getScaledElement());
-		return _list.iterator();
-	}
-
 }

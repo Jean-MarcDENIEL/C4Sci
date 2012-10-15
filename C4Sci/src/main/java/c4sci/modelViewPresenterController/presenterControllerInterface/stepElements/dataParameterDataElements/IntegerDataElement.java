@@ -37,11 +37,4 @@ public class IntegerDataElement extends DataParameterDataElement {
 		integerElement.setIntegerValue(0);
 	}
 
-	@Override
-	/**
-	 * As a default behavior it is editable.
-	 */
-	public boolean isEditable() {
-		return true;
-	}
 }
