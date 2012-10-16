@@ -3,7 +3,6 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepElem
 import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.StringValueBinding;
-import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;
 /**
  * This class corresponds to informations given by the application.  

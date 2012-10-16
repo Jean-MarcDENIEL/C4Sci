@@ -1,11 +1,5 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
-import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 
 /**

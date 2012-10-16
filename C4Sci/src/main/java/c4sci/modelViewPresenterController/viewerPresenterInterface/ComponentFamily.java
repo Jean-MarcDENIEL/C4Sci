@@ -1,11 +1,5 @@
 package c4sci.modelViewPresenterController.viewerPresenterInterface;
 
-import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.FloatChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange;
-
 /**
  * This class describes components that can be created by Viewers on Presenters demands,
  * and the properties that can be associated to a creation or modification {@link Command}.
@@ -54,8 +48,8 @@ public interface ComponentFamily {
 		public final String getComponentName() {
 			return componentName;
 		}
-		public final void setComponentName(String componentName) {
-			this.componentName = componentName;
+		public final void setComponentName(String component_name) {
+			this.componentName = component_name;
 		}
 		
 	};
@@ -77,14 +71,4 @@ public interface ComponentFamily {
 		}
 	}
 	
-	/**
-	 * This class describes properties bound to string values.
-	 * The meaning of the string value is up to the property.
-	 * @author jeanmarc.deniel
-	 *
-	 */
-	public class PropertyElement {
-		public ComponentFamily.StandardComponentProperty 	propertyIdentity;
-		public String										propertyValue;
-	}
 }

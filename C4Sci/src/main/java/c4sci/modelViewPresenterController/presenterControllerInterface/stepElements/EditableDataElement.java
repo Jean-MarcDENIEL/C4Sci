@@ -1,6 +1,5 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
-import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 /**
  * This class describes a {@link StepElement} that can be user modified.<br>
  * 

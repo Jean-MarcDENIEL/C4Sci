@@ -1,11 +1,8 @@
 package c4sci.modelViewPresenterController.viewer.swingImplementation;
 
-import java.util.Map;
-
 import javax.swing.JLabel;
 
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
 
 /**
  * This class support {@link JLabel} and its subclasses.
@@ -18,8 +15,8 @@ public class JLabelSupport extends JComponentSupport implements IntegerBoundComp
 
 	private JLabel jlabelComponent;
 	
-	public JLabelSupport(JLabel jlabel_comp, Component supported_comp, Map<ComponentFamily.StandardComponentProperty, String> prop_map) {
-		super(jlabel_comp, supported_comp, prop_map);
+	public JLabelSupport(JLabel jlabel_comp, Component supported_comp) {
+		super(jlabel_comp, supported_comp);
 		jlabelComponent = jlabel_comp;
 	}
 

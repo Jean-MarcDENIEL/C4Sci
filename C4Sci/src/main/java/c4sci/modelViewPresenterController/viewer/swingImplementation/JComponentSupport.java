@@ -4,13 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
-import java.util.Map;
-
 import javax.swing.JComponent;
 
 import c4sci.modelViewPresenterController.viewer.ComponentSupport;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
 /**
  * This class is a Swing implementation of the {@link ComponentSupport} facade.
  * 
@@ -19,10 +16,10 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFami
  */
 public class JComponentSupport extends ComponentSupport {
 
-	private final int R_INDEX = 0;
-	private final int G_INDEX = 1;
-	private final int B_INDEX = 2;
-	private final int A_INDEX = 3;
+	private static final int R_INDEX = 0;
+	private static final int G_INDEX = 1;
+	private static final int B_INDEX = 2;
+	private static final int A_INDEX = 3;
 	
 	private JComponent swingComponent;
 	
@@ -30,7 +27,7 @@ public class JComponentSupport extends ComponentSupport {
 	private String		nameText;
 	private String		descriptionText;
 	
-	public JComponentSupport( JComponent swing_component, Component supported_component, Map<ComponentFamily.StandardComponentProperty, String> prop_values_map) {
+	public JComponentSupport( JComponent swing_component, Component supported_component) {
 		super(supported_component);
 		swingComponent = swing_component;
 		toolTipText		= "(no tip)";
@@ -118,11 +115,12 @@ public class JComponentSupport extends ComponentSupport {
 	}
 	/**
 	 * 
-	 * @return transparency value ranging form 0 (transprent) or 1.0 (opaque)
+	 * @return transparency value ranging form 0 (transparent) or 1.0 (opaque)
 	 */
 	public float getTransparency(){
 		Color _back = swingComponent.getBackground();
-		return ((float)_back.getAlpha())/255.0f;
+		final float maxintvalue = 255.0f;
+		return ((float)_back.getAlpha())/maxintvalue;
 	}
 	/**
 	 * Sets the component location relatively to its parent coordinate space.

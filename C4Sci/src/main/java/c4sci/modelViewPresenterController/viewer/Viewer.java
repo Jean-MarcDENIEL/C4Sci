@@ -6,13 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.DataIdentity;
 import c4sci.modelViewPresenterController.MvpcLayer;
-import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.CannotCreateSuchComponentException;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.SpecialFeatureChange;
@@ -68,13 +65,16 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 		return new JobProcessorFactory<ComponentChange, ComponentChange>();
 	}
 
+
 	public JobProcessorFactory<ComponentChange, ComponentChange> getFeedbackJobProcessorFactory() {
 		JobProcessorFactory<ComponentChange, ComponentChange> _res = new JobProcessorFactory<ComponentChange, ComponentChange>();
 
 		_res.addChangePerformingAbility(CreateSpecialComponentChange.class, new JobProcessor<ComponentChange, ComponentChange>() {	
 			@Override
 			public List<ComponentChange> processJob(ComponentChange processing_cmd) {
-				feedbackToCreateSpecialComponentChange((CreateSpecialComponentChange)processing_cmd);
+				if(processing_cmd instanceof CreateSpecialComponentChange){
+					feedbackToCreateSpecialComponentChange((CreateSpecialComponentChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -83,7 +83,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToCreateStandardComponentChange((CreateStandardComponentChange)processing_cmd);
+				if (processing_cmd instanceof CreateStandardComponentChange){
+					feedbackToCreateStandardComponentChange((CreateStandardComponentChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -92,7 +94,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToActivityChange((ActivityChange)processing_cmd);
+				if (processing_cmd instanceof ActivityChange){
+					feedbackToActivityChange((ActivityChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -101,7 +105,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToVisibilityChange((VisibilityChange)processing_cmd);
+				if (processing_cmd instanceof VisibilityChange){
+					feedbackToVisibilityChange((VisibilityChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -110,7 +116,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToBooleanValueChange((BooleanValueChange)processing_cmd);
+				if (processing_cmd instanceof BooleanValueChange){
+					feedbackToBooleanValueChange((BooleanValueChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -119,7 +127,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFloatValueChange((FloatValueChange)processing_cmd);
+				if (processing_cmd instanceof FloatValueChange){
+					feedbackToFloatValueChange((FloatValueChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -128,7 +138,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToIntegerValueChange((IntegerValueChange)processing_cmd);
+				if (processing_cmd instanceof IntegerValueChange){
+					feedbackToIntegerValueChange((IntegerValueChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -137,7 +149,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFocusOrderChange((FocusOrderChange)processing_cmd);
+				if (processing_cmd instanceof FocusOrderChange){
+					feedbackToFocusOrderChange((FocusOrderChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -146,7 +160,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToSpecialFeatureChange((SpecialFeatureChange)processing_cmd);
+				if (processing_cmd instanceof SpecialFeatureChange){
+					feedbackToSpecialFeatureChange((SpecialFeatureChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -155,7 +171,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToTransparenceyChange((TransparencyChange)processing_cmd);
+				if (processing_cmd instanceof TransparencyChange){
+					feedbackToTransparenceyChange((TransparencyChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -164,7 +182,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFontSizeChange((FontSizeChange)processing_cmd);
+				if (processing_cmd instanceof FontSizeChange){
+					feedbackToFontSizeChange((FontSizeChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -173,7 +193,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToPositionChange((PositionChange)processing_cmd);
+				if (processing_cmd instanceof PositionChange){
+					feedbackToPositionChange((PositionChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -182,7 +204,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToSizeChange((SizeChange)processing_cmd);
+				if (processing_cmd instanceof SizeChange){
+					feedbackToSizeChange((SizeChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -191,7 +215,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToBackgroundColorChange((BackgroundColorChange)processing_cmd);
+				if (processing_cmd instanceof BackgroundColorChange){
+					feedbackToBackgroundColorChange((BackgroundColorChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -200,7 +226,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToForegroundColorChange((ForegroundColorChange)processing_cmd);
+				if (processing_cmd instanceof ForegroundColorChange){
+					feedbackToForegroundColorChange((ForegroundColorChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -209,7 +237,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFontColorChange((FontColorChange)processing_cmd);
+				if (processing_cmd instanceof FontColorChange){
+					feedbackToFontColorChange((FontColorChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -218,7 +248,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToNameChange((NameChange)processing_cmd);
+				if (processing_cmd instanceof NameChange){
+					feedbackToNameChange((NameChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -227,7 +259,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToDescriptionChange((DescriptionChange)processing_cmd);
+				if (processing_cmd instanceof DescriptionChange){
+					feedbackToDescriptionChange((DescriptionChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -236,7 +270,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToLabelChange((LabelChange)processing_cmd);
+				if (processing_cmd instanceof LabelChange){
+					feedbackToLabelChange((LabelChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -245,7 +281,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFontTypeChange((FontTypeChange)processing_cmd);
+				if (processing_cmd instanceof FontTypeChange){
+					feedbackToFontTypeChange((FontTypeChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -254,7 +292,9 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				feedbackToFontStyleChange((FontStyleChange)processing_cmd);
+				if (processing_cmd instanceof FontStyleChange){
+					feedbackToFontStyleChange((FontStyleChange)processing_cmd);
+				}
 				return null;
 			}
 		});
@@ -420,10 +460,5 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 	 * @param comp_chg unused at the moment
 	 */
 	protected abstract void feedbackToEndSessionChange(EndSessionChange comp_chg);
-	
-
-	static public void main(){
-		System.out.println("Debut");
-	}
 	
 }

@@ -1,47 +1,32 @@
 package c4sci.modelViewPresenterController.presenter;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
-import c4sci.data.DataIdentity;
-import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.MvpcLayer;
-import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementActivatedStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementAddedStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementInactivatedStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementReactiveModificationStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementSuppressedStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.StepBackwardStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.StepForwardStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.BooleanElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.FloatElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.IntegerElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.InternationalizableTermElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.ThreeDimensionalElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementValueChanges.TwoDimensionalElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.BooleanDataElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.FloatDataElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.LabelDataElement;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.BooleanElementModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.FloatElementModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.IntegerElementModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.InternationalizableTermElementModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.ThreeDimensionalElementModificationStepChange;
+import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.TwoDimensionalElementModificationStepChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.TwoDimensionalChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BooleanValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FloatValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.IntegerValueChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.StringValueChange;
 
 public abstract class Presenter implements MvpcLayer<ComponentChange, StepChange>{
@@ -55,21 +40,28 @@ public abstract class Presenter implements MvpcLayer<ComponentChange, StepChange
 		elementComponentMap	= new ConcurrentHashMap<StepElement, Component>();
 	}
 
-
-	public Component getCorrespondingComponent(StepElement step_elt) throws NoSuchElementException{
+	/**
+	 * 
+	 * @throws NoSuchElementException in the case there is no correspondence
+	 */
+	public Component getCorrespondingComponent(StepElement step_elt){
 		Component _res= elementComponentMap.get(step_elt);
 		if (_res == null){
 			throw new NoSuchElementException();
 		}
 		return _res;
 	}
-	
+
 	public void setCorrespondence(Component comp_, StepElement step_elt){
 		componentElementMap.put(comp_, step_elt);
 		elementComponentMap.put(step_elt, comp_);
 	}
 
-	public StepElement getCorrespondingElement(Component comp_) throws NoSuchElementException{
+	/**
+	 * 
+	 * @throws NoSuchElementException in the case there is no correspondence
+	 */
+	public StepElement getCorrespondingElement(Component comp_){
 		StepElement _res = componentElementMap.get(comp_);
 		if (_res == null){
 			throw new NoSuchElementException();
@@ -77,25 +69,54 @@ public abstract class Presenter implements MvpcLayer<ComponentChange, StepChange
 		return _res;
 	}
 
+
 	public JobProcessorFactory<ComponentChange, StepChange> getReactiveJobProcessorFactory() {
 		JobProcessorFactory<ComponentChange, StepChange> 	_reactive_job_processor_factory = new JobProcessorFactory<ComponentChange, StepChange>();
 
 		_reactive_job_processor_factory.addChangePerformingAbility(BooleanValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
-				return reactionToBooleanValueChange(processing_cmd);
+				if (BooleanValueChange.class.isInstance(processing_cmd)){
+					return reactionToBooleanValueChange((BooleanValueChange)processing_cmd);
+				}
+				else{
+					return null;
+				}
 			}
 		});
 		_reactive_job_processor_factory.addChangePerformingAbility(FloatValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
-				return reactionToFloatValueChange(processing_cmd);
+				if (FloatValueChange.class.isInstance(processing_cmd)){
+					return reactionToFloatValueChange((FloatValueChange)processing_cmd);
+				}
+				else{
+					return null;
+				}
 			}
 		});
 		_reactive_job_processor_factory.addChangePerformingAbility(IntegerValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
 			@Override
 			public List<StepChange> processJob(ComponentChange processing_cmd) {
-				return reactionToIntegerValueChange(processing_cmd);
+				if(IntegerValueChange.class.isInstance(processing_cmd)){
+					return reactionToIntegerValueChange((IntegerValueChange)processing_cmd);
+				}
+				else{
+					return null;
+				}
+			}
+		});
+		_reactive_job_processor_factory.addChangePerformingAbility(StringValueChange.class, new JobProcessor<ComponentChange, StepChange>() {
+
+			@Override
+			public List<StepChange> processJob(ComponentChange processing_cmd) {
+				if (StringValueChange.class.isInstance(processing_cmd)){
+					return reactionToStringValueChange((StringValueChange)processing_cmd);
+				}
+				else{
+					return null;
+				}
+
 			}
 		});
 

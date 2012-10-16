@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import c4sci.data.exceptions.DataValueParsingException;
-import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.boundedStepElements.BoundsComparator;
 /**
@@ -21,7 +20,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  * @author jeanmarc.deniel
  *
  */
-public class BoundedStepElement<C extends LogicalSingleDataStepElement> extends LogicalSingleDataStepElement {
+public class BoundedStepElement<C extends SingleDataStepElement> extends LogicalSingleDataStepElement {
 
 	private C			lowerBound;
 	private C			upperBound;

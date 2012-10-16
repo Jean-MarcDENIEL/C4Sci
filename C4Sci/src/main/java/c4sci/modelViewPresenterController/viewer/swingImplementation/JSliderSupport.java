@@ -24,10 +24,10 @@ public class JSliderSupport extends JComponentSupport implements IntegerBoundCom
 	private float 	minValue;
 	private float	maxValue;
 	
-	private final int RANGE_TICKS = 100;
+	private static final int RANGE_TICKS = 100;
 	
 	public JSliderSupport(JSlider slider_comp, Component supported_comp, Map<ComponentFamily.StandardComponentProperty, String> prop_map) {
-		super(slider_comp, supported_comp, prop_map);
+		super(slider_comp, supported_comp);
 		sliderComponent = slider_comp;
 		processProperties(prop_map);
 	}
@@ -47,14 +47,14 @@ public class JSliderSupport extends JComponentSupport implements IntegerBoundCom
 		// PARSES StandardComponentProperties to detect whereas they are floating or integer values.
 		// The slider is then initialized according to the type and value of these properties.
 		
-		String  min_str = prop_values_map.get(StandardComponentProperty.MIN_VALUE);	
-		if (min_str != null){
+		String  _min_str = prop_values_map.get(StandardComponentProperty.MIN_VALUE);	
+		if (_min_str != null){
 			try{
-				sliderComponent.setMinimum(Integer.parseInt(min_str));
+				sliderComponent.setMinimum(Integer.parseInt(_min_str));
 			}
 			catch(NumberFormatException _e){
 				try{
-					minValue = Float.parseFloat(min_str);
+					minValue = Float.parseFloat(_min_str);
 					sliderComponent.setMinimum(0);
 					sliderComponent.setMaximum(RANGE_TICKS);
 				}
@@ -68,14 +68,14 @@ public class JSliderSupport extends JComponentSupport implements IntegerBoundCom
 			sliderComponent.setMinimum(0);
 		}
 		
-		String max_str = prop_values_map.get(StandardComponentProperty.MAX_VALUE);
-		if (max_str != null){
+		String _max_str = prop_values_map.get(StandardComponentProperty.MAX_VALUE);
+		if (_max_str != null){
 			try{
-				sliderComponent.setMaximum(Integer.parseInt(max_str));
+				sliderComponent.setMaximum(Integer.parseInt(_max_str));
 			}
 			catch(NumberFormatException _e){
 				try{
-					maxValue = Float.parseFloat(max_str);
+					maxValue = Float.parseFloat(_max_str);
 					sliderComponent.setMinimum(0);
 					sliderComponent.setMaximum(RANGE_TICKS);
 				}

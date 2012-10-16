@@ -1,11 +1,8 @@
 package c4sci.modelViewPresenterController.viewer.swingImplementation;
 
-import java.util.Map;
-
 import javax.swing.JButton;
 
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
 
 /**
  * Support for the {@link JButton} class 
@@ -18,8 +15,8 @@ public class JButtonSupport extends JComponentSupport implements TextShowerCompo
 
 	private JButton	textSupportComponent;
 	
-	public JButtonSupport(JButton abs_button, Component supported_comp, Map<ComponentFamily.StandardComponentProperty, String> prop_map) {
-		super(abs_button, supported_comp, prop_map);
+	public JButtonSupport(JButton abs_button, Component supported_comp) {
+		super(abs_button, supported_comp);
 		textSupportComponent = abs_button;
 	}
 

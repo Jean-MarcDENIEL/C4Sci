@@ -1,8 +1,6 @@
 package c4sci.modelViewPresenterController;
 
 import c4sci.modelViewPresenterController.jobs.Command;
-import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
-import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 
 /**

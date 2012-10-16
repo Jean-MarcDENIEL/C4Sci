@@ -17,11 +17,11 @@ public abstract class StepChange extends Command {
 		setStepElement(step_element);
 	}
 
-	public StepElement getStepElement() {
+	public final StepElement getStepElement() {
 		return stepElement;
 	}
 
-	public void setStepElement(StepElement stepElement) {
-		this.stepElement = stepElement;
+	public final void setStepElement(StepElement step_element) {
+		this.stepElement = step_element;
 	}
 }

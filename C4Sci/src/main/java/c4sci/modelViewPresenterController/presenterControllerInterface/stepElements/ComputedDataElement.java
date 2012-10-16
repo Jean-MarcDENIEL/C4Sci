@@ -1,8 +1,5 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements;
 
-import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
-
-
 /**
  * This class corresponds to the case of data that have been computed and are not editable.<br>
  * Sub elements contain the computed {@link StepElement}.

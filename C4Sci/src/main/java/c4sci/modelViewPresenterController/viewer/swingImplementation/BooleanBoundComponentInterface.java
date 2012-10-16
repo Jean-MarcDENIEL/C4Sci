@@ -1,6 +1,5 @@
 package c4sci.modelViewPresenterController.viewer.swingImplementation;
 
-import javax.swing.JComponent;
 
 /**
  * This interface relates to {@link JComponent} sub classes having a boolean state.
