@@ -53,6 +53,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.NameChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.PositionChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.SizeChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.StringValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.TransparencyChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.VisibilityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange;
@@ -170,6 +171,8 @@ public class SwingViewer extends Viewer {
 	 */
 	private void invokeSwing(Runnable feedback_runnable, String feedback_name){
 
+		// DEBUG
+		System.out.println("        invoke swing : "+ feedback_name);
 		try{
 			SwingUtilities.invokeAndWait(feedback_runnable);
 			if (!sessionChangeOpened){
@@ -240,6 +243,18 @@ public class SwingViewer extends Viewer {
 		}
 	}
 
+	@Override
+	protected void feedbackToStringValueChange(final StringValueChange comp_chg) {
+		final TextShowerComponentInterface jtextcomp = identityTextShowerComponentMap.get(comp_chg.getComponentIdentity());
+		if (jtextcomp != null){
+			invokeSwing(new Runnable() {public void run() {jtextcomp.setText(comp_chg.getChange());}}, "StringValueChange");
+		}
+		else{
+			treatUnableToProcessCommand(comp_chg);
+		}
+	}
+	
+	
 	@Override
 	public void feedbackToFocusOrderChange(final FocusOrderChange comp_chg) {
 		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
@@ -576,4 +591,5 @@ public class SwingViewer extends Viewer {
 					"SuppressComponentChange");
 		}
 	}
+
 }

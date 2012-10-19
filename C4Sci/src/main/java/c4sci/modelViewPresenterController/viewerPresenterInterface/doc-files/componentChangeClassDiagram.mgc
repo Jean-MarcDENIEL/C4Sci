@@ -26,7 +26,7 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateComponentChange"
-        x="241" y="32">
+        x="325" y="60">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -73,18 +73,6 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FontTypeChange"
-        x="691" y="828">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.StringChange"/>
-    </Class>
-    <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.VisibilityChange"
         x="675" y="149">
         <AttributesDisplayFilter public-accepted="true"
@@ -95,6 +83,18 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FontTypeChange"
+        x="691" y="828">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.StringChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseRightButtonReleasedChange"
@@ -121,8 +121,8 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.BooleanChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange"
-        x="689" y="608">
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange"
+        x="672" y="8">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -130,7 +130,7 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateComponentChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange"
@@ -144,8 +144,8 @@
             accessors-accepted="true" constructors-accepted="true"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange"
-        x="672" y="8">
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange"
+        x="689" y="608">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -153,7 +153,7 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateComponentChange"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange"
@@ -276,6 +276,18 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.TwoDimensionalChange"/>
     </Class>
     <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange"
+        x="673" y="-67">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.SessionChange"/>
+    </Class>
+    <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FontColorChange"
         x="689" y="681">
         <AttributesDisplayFilter public-accepted="true"
@@ -300,18 +312,6 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseLeftButtonReleasedChange"
-        x="909" y="430">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseChange"/>
-    </Class>
-    <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange"
         x="673" y="60">
         <AttributesDisplayFilter public-accepted="true"
@@ -322,6 +322,18 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateComponentChange"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseLeftButtonReleasedChange"
+        x="909" y="430">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.MouseChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FloatValueChange"
@@ -336,18 +348,6 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.FloatChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.IntegerValueChange"
-        x="689" y="300">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange"/>
-    </Class>
-    <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange"
         x="330" y="611">
         <AttributesDisplayFilter public-accepted="true"
@@ -360,8 +360,32 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange"/>
     </Class>
     <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.IntegerValueChange"
+        x="689" y="300">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange"/>
+    </Class>
+    <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.receivedEventChange.ModifiedContentChange"
         x="342" y="952">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.SessionChange"
+        x="372" y="-67">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -384,8 +408,8 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange"
-        x="690" y="791">
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.EndSessionChange"
+        x="674" y="-30">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -393,7 +417,7 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.SessionChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.TransparencyChange"
@@ -408,8 +432,8 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.OneDimensionalChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FontStyleChange"
-        x="688" y="270">
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange"
+        x="690" y="791">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -417,11 +441,11 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FocusOrderChange"
-        x="689" y="337">
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FontStyleChange"
+        x="688" y="270">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -442,6 +466,18 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FocusOrderChange"
+        x="689" y="337">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.IntegerChange"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BooleanValueChange"

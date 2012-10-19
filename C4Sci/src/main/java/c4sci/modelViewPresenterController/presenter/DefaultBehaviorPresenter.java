@@ -11,7 +11,6 @@ import c4sci.math.geometry.space.SpaceVector;
 import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.presenter.components.CompoundComponent;
 import c4sci.modelViewPresenterController.presenter.components.NoChildComponent;
-import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.NoSuchScaleExistsException;
@@ -33,7 +32,8 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange;
@@ -41,6 +41,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.FloatValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ForegroundColorChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.IntegerValueChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.PositionChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.SizeChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.StringValueChange;
@@ -117,44 +118,68 @@ public class DefaultBehaviorPresenter extends Presenter {
 	}
 
 	@Override
-	public List<ComponentChange> feedbackToElementInactivatedStepChange(
-			ElementInactivatedStepChange step_chg) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ComponentChange> feedbackToElementInactivatedStepChange(ElementInactivatedStepChange step_chg) {
+		try{
+			Component _corresp_comp = getCorrespondingComponent(step_chg.getStepElement());
+			return oneComponentFeedbackNotificationChange(new ActivityChange(_corresp_comp, false, null));
+		}
+		catch(NoSuchElementException _e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ComponentChange> feedbackToBooleanElementModificationStepChange(
 			BooleanElementModificationStepChange step_chg) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Component _corresp_comp = getCorrespondingComponent(step_chg.getStepElement());
+			return oneComponentFeedbackNotificationChange(new BooleanValueChange(_corresp_comp, step_chg.getChange(), null));
+		}
+		catch(NoSuchElementException _e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ComponentChange> feedbackToFloatElementModificationStepChange(
 			FloatElementModificationStepChange step_chg) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Component _corresp_comp = getCorrespondingComponent(step_chg.getStepElement());
+			return oneComponentFeedbackNotificationChange(new FloatValueChange(_corresp_comp, step_chg.getChange(), null));
+		}
+		catch(NoSuchElementException _e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ComponentChange> feedbackToIntegerElementModificationStepChange(
 			IntegerElementModificationStepChange step_chg) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Component _corresp_comp = getCorrespondingComponent(step_chg.getStepElement());
+			return oneComponentFeedbackNotificationChange(new IntegerValueChange(_corresp_comp, step_chg.getChange(), null));
+		}
+		catch(NoSuchElementException _e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ComponentChange> feedbackToInternationalizableTermElementModificationStepChange(
 			InternationalizableTermElementModificationStepChange step_chg) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Component _corresp_comp = getCorrespondingComponent(step_chg.getStepElement());
+			return oneComponentFeedbackNotificationChange(new LabelChange(_corresp_comp, step_chg.getChange(), null));
+		}
+		catch(NoSuchElementException _e){
+			return null;
+		}
 	}
 
 	@Override
 	public List<ComponentChange> feedbackToThreeDimensionalElementModificationStepChange(
 			ThreeDimensionalElementModificationStepChange step_chg) {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
@@ -231,16 +256,21 @@ public class DefaultBehaviorPresenter extends Presenter {
 					// single data
 					//
 					if (step_elt.getUnits() != null){
+						//DEBUG
+						System.out.println("------- units");
+						
 						//
 						// there are units : creates an invisible container cut in two : value (left), units (right)
 						//
-
+												
 						//
 						// first create the invisible container and the ComponentChange
 						//
 						_corresp_component = new CompoundComponent();
 						_corresp_component.setSize(new PlaneVector(_size_x, _size_y));
 						_corresp_component.setUpperLeftOrigin(new PlaneVector(_pos_x, _pos_y));
+						
+						
 
 
 						try {
@@ -252,15 +282,15 @@ public class DefaultBehaviorPresenter extends Presenter {
 							_previous_change = appendComponentChange(new PositionChange(_corresp_component, null, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new SizeChange(_corresp_component, null, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new TransparencyChange(_corresp_component, 1f, null), res_list, _previous_change);
-							
+
 							// DEBUG : INVISIBLE background in green
 							_previous_change = appendComponentChange(new BackgroundColorChange(_corresp_component, new SpaceVector(0f, 1f,0f), null), res_list, _previous_change);
-							
+
 						} catch (CannotPerformSuchChangeException _e1) {
 							// should not happen
 							_e1.printStackTrace();
 						}
-
+						
 						// 
 						// then creates the units component and the ComponentChanges
 						//
@@ -278,7 +308,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 							_previous_change = appendComponentChange(new SizeChange(_sub_comp_units, null, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new TransparencyChange(_sub_comp_units, 0.5f, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new ForegroundColorChange(_sub_comp_units, new SpaceVector(0f, 0f, 0f), null), res_list, _previous_change);
-							
+
 							// DEBUG : units background in violet
 							_previous_change = appendComponentChange(new BackgroundColorChange(_sub_comp_units, new SpaceVector(1f, 0f, 1f), null), res_list, _previous_change);
 							//
@@ -302,6 +332,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 						//
 						_parent_component = _corresp_component;
 						_corresp_component = null;
+						
 					}
 
 					//
@@ -328,7 +359,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 							// not editable : label
 							_comp_type = StandardComponentSet.LABEL;
 						}
-						
+
 						_previous_change = appendComponentChange(new CreateStandardComponentChange(_corresp_component, _comp_type, null), 
 								res_list, _previous_change);
 
@@ -365,10 +396,11 @@ public class DefaultBehaviorPresenter extends Presenter {
 		_corresp_component.setUpperLeftOrigin(new PlaneVector(_pos_x, _pos_x));
 		_previous_change = appendComponentChange(new PositionChange(_corresp_component, null, null), res_list, _previous_change);
 		_previous_change = appendComponentChange(new SizeChange(_corresp_component, null, null), res_list, _previous_change);
-		
+		_previous_change = appendComponentChange(new ForegroundColorChange(_corresp_component, new SpaceVector(0f, 0f, 0f), null), res_list, _previous_change);
+
 		// DEBUG : background in orange
 		_previous_change = appendComponentChange(new BackgroundColorChange(_corresp_component, new SpaceVector(1f, 0.5f, 0f), null), res_list, _previous_change);
-		
+
 		//
 		// adds to the parent Component
 		//

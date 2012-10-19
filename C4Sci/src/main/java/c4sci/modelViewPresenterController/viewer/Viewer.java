@@ -30,6 +30,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.NameChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.PositionChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.SizeChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.StringValueChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.TransparencyChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.VisibilityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange;
@@ -141,6 +142,18 @@ public abstract class Viewer extends MvpcLayer<ComponentChange, ComponentChange>
 					ComponentChange processing_cmd) {
 				if (IntegerValueChange.class.isInstance(processing_cmd )){
 					feedbackToIntegerValueChange((IntegerValueChange)processing_cmd);
+				}
+				return null;
+			}
+		});
+		
+		_res.addChangePerformingAbility(StringValueChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
+
+			@Override
+			public List<ComponentChange> processJob(
+					ComponentChange processing_cmd) {
+				if (StringValueChange.class.isInstance(processing_cmd)){
+					feedbackToStringValueChange((StringValueChange)processing_cmd);
 				}
 				return null;
 			}
@@ -393,6 +406,12 @@ public abstract class Viewer extends MvpcLayer<ComponentChange, ComponentChange>
 	 * @param comp_chg An {@link IntegerValueChange} to treat.
 	 */
 	protected abstract void feedbackToIntegerValueChange(IntegerValueChange comp_chg);
+	/**
+	 * Treats a {@link Command} coming from the feedback side.
+	 * @param comp_chg A {@link StringValueChange} to treat.
+	 */
+	protected abstract void feedbackToStringValueChange(StringValueChange comp_chg);
+	
 	/**
 	 * Treats a {@link Command} coming from the feedback side.
 	 * @param comp_chg A {@link FocusOrderChange} to treat.
