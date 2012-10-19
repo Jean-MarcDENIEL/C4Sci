@@ -4,4 +4,4 @@
  * @author jeanmarc.deniel
  *
  */
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges;

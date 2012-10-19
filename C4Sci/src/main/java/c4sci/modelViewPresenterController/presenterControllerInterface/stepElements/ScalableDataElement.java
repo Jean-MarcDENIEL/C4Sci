@@ -17,7 +17,7 @@ public class ScalableDataElement extends LogicalSingleDataStepElement {
 
 	private UnitScales				unitScales;
 	
-	public ScalableDataElement(LogicalSingleDataStepElement single_data, UnitScales units_) {
+	public ScalableDataElement(SingleDataStepElement single_data, UnitScales units_) {
 		super(single_data);
 		setUnitScales(units_);
 	}
@@ -31,7 +31,7 @@ public class ScalableDataElement extends LogicalSingleDataStepElement {
 		return unitScales;
 	}
 	/**
-	 * Sets the units corresponding to the encapsulated {@link LogicalSingleDataStepElement}
+	 * Sets the units corresponding to the encapsulated {@link SingleDataStepElement}
 	 * @param unit_scales The unit scale to affect.
 	 */
 	public final void setUnitScales(UnitScales unit_scales) {

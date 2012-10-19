@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
+    <Class name="c4sci.data.Modifiable" x="28" y="529">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
         x="538" y="25">
@@ -74,17 +83,19 @@
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding"
-        x="173" y="439">
+        x="214" y="409">
         <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
+            private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
         <Association
             destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"
             endpointName="boundElement" kind="Simple"/>
+        <Association destinationClassName="c4sci.data.Modifiable"
+            endpointName="boundParameter" kind="Simple"/>
     </Class>
     <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement"
@@ -154,6 +165,7 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.LogicalSingleDataStepElement"/>
+        <Communication destinationClassName="c4sci.data.Modifiable"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.LogicalSingleDataStepElement"/>
     </Class>
@@ -191,18 +203,6 @@
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.LogicalSingleDataStepElement"/>
     </Class>
     <Class
-        name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.TreatmentStepElement"
-        x="682" y="563">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
-    </Class>
-    <Class
         name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement"
         x="196" y="876">
         <AttributesDisplayFilter public-accepted="true"
@@ -215,5 +215,17 @@
         <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.LogicalSingleDataStepElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
         <Communication destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.LogicalSingleDataStepElement"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.TreatmentStepElement"
+        x="682" y="563">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.presenterControllerInterface.StepElement"/>
     </Class>
 </ClassDiagram>

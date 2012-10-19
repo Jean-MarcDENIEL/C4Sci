@@ -10,9 +10,10 @@ import c4sci.modelViewPresenterController.jobs.JobProcessor;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.CannotCreateSuchComponentException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.SpecialFeatureChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateSpecialComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateStandardComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.SuppressComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BooleanValueChange;
@@ -34,7 +35,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.BeginSessionChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.sessionChanges.EndSessionChange;
 
-public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChange>{
+public abstract class Viewer extends MvpcLayer<ComponentChange, ComponentChange>{
 
 
 	private Map<DataIdentity, ComponentSupport>	componentIdentificationMap;
@@ -72,7 +73,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 		_res.addChangePerformingAbility(CreateSpecialComponentChange.class, new JobProcessor<ComponentChange, ComponentChange>() {	
 			@Override
 			public List<ComponentChange> processJob(ComponentChange processing_cmd) {
-				if(processing_cmd instanceof CreateSpecialComponentChange){
+				if(CreateSpecialComponentChange.class.isInstance(processing_cmd)){
 					feedbackToCreateSpecialComponentChange((CreateSpecialComponentChange)processing_cmd);
 				}
 				return null;
@@ -83,7 +84,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof CreateStandardComponentChange){
+				if (CreateStandardComponentChange.class.isInstance(processing_cmd )){
 					feedbackToCreateStandardComponentChange((CreateStandardComponentChange)processing_cmd);
 				}
 				return null;
@@ -94,7 +95,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof ActivityChange){
+				if (ActivityChange.class.isInstance(processing_cmd )){
 					feedbackToActivityChange((ActivityChange)processing_cmd);
 				}
 				return null;
@@ -105,7 +106,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof VisibilityChange){
+				if (VisibilityChange.class.isInstance(processing_cmd )){
 					feedbackToVisibilityChange((VisibilityChange)processing_cmd);
 				}
 				return null;
@@ -116,7 +117,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof BooleanValueChange){
+				if (BooleanValueChange.class.isInstance(processing_cmd )){
 					feedbackToBooleanValueChange((BooleanValueChange)processing_cmd);
 				}
 				return null;
@@ -127,7 +128,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FloatValueChange){
+				if (FloatValueChange.class.isInstance(processing_cmd )){
 					feedbackToFloatValueChange((FloatValueChange)processing_cmd);
 				}
 				return null;
@@ -138,7 +139,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof IntegerValueChange){
+				if (IntegerValueChange.class.isInstance(processing_cmd )){
 					feedbackToIntegerValueChange((IntegerValueChange)processing_cmd);
 				}
 				return null;
@@ -149,7 +150,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FocusOrderChange){
+				if (FocusOrderChange.class.isInstance(processing_cmd )){
 					feedbackToFocusOrderChange((FocusOrderChange)processing_cmd);
 				}
 				return null;
@@ -160,7 +161,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof SpecialFeatureChange){
+				if (SpecialFeatureChange.class.isInstance(processing_cmd )){
 					feedbackToSpecialFeatureChange((SpecialFeatureChange)processing_cmd);
 				}
 				return null;
@@ -171,7 +172,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof TransparencyChange){
+				if (TransparencyChange.class.isInstance(processing_cmd )){
 					feedbackToTransparenceyChange((TransparencyChange)processing_cmd);
 				}
 				return null;
@@ -182,7 +183,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FontSizeChange){
+				if (FontSizeChange.class.isInstance(processing_cmd )){
 					feedbackToFontSizeChange((FontSizeChange)processing_cmd);
 				}
 				return null;
@@ -193,7 +194,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof PositionChange){
+				if (PositionChange.class.isInstance(processing_cmd )){
 					feedbackToPositionChange((PositionChange)processing_cmd);
 				}
 				return null;
@@ -204,7 +205,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof SizeChange){
+				if (SizeChange.class.isInstance(processing_cmd )){
 					feedbackToSizeChange((SizeChange)processing_cmd);
 				}
 				return null;
@@ -215,7 +216,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof BackgroundColorChange){
+				if (BackgroundColorChange.class.isInstance(processing_cmd )){
 					feedbackToBackgroundColorChange((BackgroundColorChange)processing_cmd);
 				}
 				return null;
@@ -226,7 +227,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof ForegroundColorChange){
+				if (ForegroundColorChange.class.isInstance(processing_cmd )){
 					feedbackToForegroundColorChange((ForegroundColorChange)processing_cmd);
 				}
 				return null;
@@ -237,7 +238,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FontColorChange){
+				if (FontColorChange.class.isInstance(processing_cmd )){
 					feedbackToFontColorChange((FontColorChange)processing_cmd);
 				}
 				return null;
@@ -248,7 +249,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof NameChange){
+				if (NameChange.class.isInstance(processing_cmd )){
 					feedbackToNameChange((NameChange)processing_cmd);
 				}
 				return null;
@@ -259,7 +260,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof DescriptionChange){
+				if (DescriptionChange.class.isInstance(processing_cmd )){
 					feedbackToDescriptionChange((DescriptionChange)processing_cmd);
 				}
 				return null;
@@ -270,7 +271,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof LabelChange){
+				if (LabelChange.class.isInstance(processing_cmd )){
 					feedbackToLabelChange((LabelChange)processing_cmd);
 				}
 				return null;
@@ -281,7 +282,7 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FontTypeChange){
+				if (FontTypeChange.class.isInstance(processing_cmd )){
 					feedbackToFontTypeChange((FontTypeChange)processing_cmd);
 				}
 				return null;
@@ -292,13 +293,25 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 			@Override
 			public List<ComponentChange> processJob(
 					ComponentChange processing_cmd) {
-				if (processing_cmd instanceof FontStyleChange){
+				if (FontStyleChange.class.isInstance(processing_cmd )){
 					feedbackToFontStyleChange((FontStyleChange)processing_cmd);
 				}
 				return null;
 			}
 		});
 
+		_res.addChangePerformingAbility(SuppressComponentChange.class, new JobProcessor<ComponentChange, ComponentChange>() {
+
+			@Override
+			public List<ComponentChange> processJob(
+					ComponentChange processing_cmd) {
+				if (SuppressComponentChange.class.isInstance(processing_cmd )){
+					feedbackToSuppressComponentChange((SuppressComponentChange)processing_cmd);
+				}
+				return null;
+			}
+		});
+		
 		return _res;
 	}
 	/**
@@ -460,5 +473,11 @@ public abstract class Viewer implements MvpcLayer<ComponentChange, ComponentChan
 	 * @param comp_chg unused at the moment
 	 */
 	protected abstract void feedbackToEndSessionChange(EndSessionChange comp_chg);
+	/**
+	 * Treats the removal of a {@link Component} from the GUI.<br>
+	 * Does not concern its sub components.
+	 * @param comp_chg
+	 */
+	protected abstract void feedbackToSuppressComponentChange(SuppressComponentChange comp_chg);
 	
 }

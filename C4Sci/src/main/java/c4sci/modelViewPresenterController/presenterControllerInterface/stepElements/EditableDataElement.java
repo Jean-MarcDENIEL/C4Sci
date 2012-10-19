@@ -10,7 +10,7 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepElem
  */
 public class EditableDataElement extends LogicalSingleDataStepElement {
 
-	public EditableDataElement(LogicalSingleDataStepElement data_elt) {
+	public EditableDataElement(SingleDataStepElement data_elt) {
 		super(data_elt);
 	}
 	

@@ -10,7 +10,8 @@ import c4sci.math.geometry.space.SpaceVector;
 import c4sci.modelViewPresenterController.presenter.components.NoChildComponent;
 import c4sci.modelViewPresenterController.viewer.swingImplementation.SwingViewer;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateStandardComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.SuppressComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.LabelChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.PositionChange;
@@ -43,6 +44,8 @@ public class TestSwingViewer {
 
 		waitAndText(onesecond, "Button");
 		NoChildComponent	_comp_1_val1	= new NoChildComponent(); 
+		_comp_1_val1.setSize(new PlaneVector(0.15f, 0.25f));
+		_comp_1_val1.setUpperLeftOrigin(new PlaneVector(0.05f, 0.25f));
 		_comp_1_val1.setParentComponent(_comp_1_panel);
 		_viewer.feedbackToBeginSessionChange(new BeginSessionChange(null, null));
 		_viewer.feedbackToCreateStandardComponentChange(new CreateStandardComponentChange(_comp_1_val1, StandardComponentSet.BUTTON, null));
@@ -52,7 +55,10 @@ public class TestSwingViewer {
 		_viewer.feedbackToLabelChange(new LabelChange(_comp_1_val1, new InternationalizableTerm("label"), null));
 		_viewer.feedbackToBackgroundColorChange(new BackgroundColorChange(_comp_1_val1, new SpaceVector(1.0f,0.5f,0.8f), null));
 		_viewer.feedbackToEndSessionChange(new EndSessionChange(null, null));
-
+		
+		waitAndText(onesecond, "suppress button");
+		_viewer.feedbackToSuppressComponentChange(new SuppressComponentChange(_comp_1_val1, null));
+		
 		waitAndText(onesecond, "fin");
 	}
 	public static void waitAndText(int milli_, String txt_){

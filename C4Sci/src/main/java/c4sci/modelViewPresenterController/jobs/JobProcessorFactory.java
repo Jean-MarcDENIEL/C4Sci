@@ -25,22 +25,17 @@ public class JobProcessorFactory <C_request extends Command, C_result extends Co
 	 * Furnish a {@link JobProcessor} that is able to process the {@link Command} according to the request argument.<br>
 	 * <br>
 	 * <b>Pattern :</b> This method instantiates the <b>factory method</b> GoF pattern.<br>
-	 * <b>Pattern :</b> This method uses to <b>prototype</b> ability of {@link ComponentChangeRunnable ComponentChangeRunnables}.<br>
 	 * @param change_command The update request.
 	 * @return The Runnable to {@link java.lang.Runnable#run()} in order to obtain the asked change.
 	 * @throws CannotPerformSuchChangeException is "this" component can't perform such an update.
 	 */
 	@SuppressWarnings("rawtypes")
-	public JobProcessor<C_request,C_result> createJobProcessor(Class change_command) throws CannotPerformSuchChangeException{
+	public JobProcessor<C_request,C_result> getJobProcessor(Class change_command) throws CannotPerformSuchChangeException{
 		JobProcessor<C_request,C_result> _prototype = jobPerformersMap.get(change_command);
 		if (_prototype == null){
 			throw new CannotPerformSuchChangeException("No runnable for this kind of change.");
 		}
-		JobProcessor<C_request,C_result> _res = _prototype.getClone();
-		if (_res == null){
-			throw new CannotPerformSuchChangeException("Prototype ComponentChangeRunnable cannot clone");
-		}
-		return _res;
+		return _prototype;
 	}
 	/**
 	 * This method adds the Component the ability to perform some {@link ComponentChange}.<br>

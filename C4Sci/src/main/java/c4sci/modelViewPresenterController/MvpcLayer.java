@@ -2,6 +2,7 @@ package c4sci.modelViewPresenterController;
 
 import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
+import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
 
 /**
  * MVPC Layers offer services that are necessary to initialize the application.<br>
@@ -17,19 +18,37 @@ import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
  * @author jeanmarc.deniel
  *
  */
-public interface MvpcLayer <C_Reactive extends Command, C_Feedback extends Command>{
+public abstract class MvpcLayer <C_Reactive extends Command, C_Feedback extends Command>{
+	
+	private RequestResultInterface<C_Reactive>	reactiveInterface;
+	private RequestResultInterface<C_Feedback>	feedbackInterface;
+	
+	public MvpcLayer(){
+		reactiveInterface 	= new RequestResultInterface<C_Reactive>();
+		feedbackInterface	= new RequestResultInterface<C_Feedback>();
+	}
+	
+	public RequestResultInterface<C_Reactive>	getReactiveInterface(){
+		return reactiveInterface;
+	}
+	
+	public RequestResultInterface<C_Feedback>	getFeedbackInterface(){
+		return feedbackInterface;
+	}
+	
 	/**
 	 * 
 	 * This method gives the {@link JobProcessorFactory} containing the layer strategies in order to treat messages in the <b>reactive-to-feedback</b> direction. 
 	 * 
 	 * @return The {@link JobProcessorFactory} that is able to create the {@link JobProcessor} instances to treat {@link Command Commands} coming from the reactive interface and send {@link Command commands} to the feedback interface.
 	 */
-	JobProcessorFactory<C_Reactive, C_Feedback> getReactiveJobProcessorFactory();
+	public abstract JobProcessorFactory<C_Reactive, C_Feedback> getReactiveJobProcessorFactory();
 
 	/**
 	 * This method gives the {@link JobProcessorFactory} containing the layer strategies in order to treat messages in the <b>feedback-to-reactive</b> direction. 
 	 * 
 	 * @return The {@link JobProcessorFactory} that is able to create the {@link JobProcessor} instances to treat {@link Command Commands} coming from the feedback interface and send {@link Command commands} to the reactive interface.
 	 */
-	JobProcessorFactory<C_Feedback, C_Reactive> getFeedbackJobProcessorFactory();
+	public abstract JobProcessorFactory<C_Feedback, C_Reactive> getFeedbackJobProcessorFactory();
+	
 }

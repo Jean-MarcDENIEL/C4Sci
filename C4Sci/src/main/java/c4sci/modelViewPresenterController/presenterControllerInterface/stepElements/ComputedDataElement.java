@@ -10,7 +10,7 @@ package c4sci.modelViewPresenterController.presenterControllerInterface.stepElem
 public class ComputedDataElement extends LogicalSingleDataStepElement {
 	
 
-	public ComputedDataElement(LogicalSingleDataStepElement data_elt) {
+	public ComputedDataElement(SingleDataStepElement data_elt) {
 		super(data_elt);
 	}
 	@Override

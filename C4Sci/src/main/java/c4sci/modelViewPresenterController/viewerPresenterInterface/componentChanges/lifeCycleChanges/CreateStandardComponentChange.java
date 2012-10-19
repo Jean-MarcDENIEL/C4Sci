@@ -1,4 +1,4 @@
-package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges;
+package c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges;
 
 import c4sci.modelViewPresenterController.jobs.Command;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;

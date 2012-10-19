@@ -38,7 +38,9 @@ public interface ComponentFamily {
 		SLIDER ("Slider"),
 		SPINNER ("Spinner"),
 		TOOLBAR ("Toolbar"),
-		TREE ("Tree");
+		TREE ("Tree"),
+		INVISIBLE_CONTAINER ("Invisible container"),
+		TEXT_FIELD ("Text field");
 		
 		private String componentName;
 

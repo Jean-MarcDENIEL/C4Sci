@@ -44,11 +44,6 @@ public class TestJobConsumerThread {
 			_res.add(_res_cmd);
 			return _res;
 		}
-
-		@Override
-		public JobProcessor<TestCommandA, TestCommandB> getClone() {
-			return new AdderJobProcessor();
-		}
 	}
 
 	/*
@@ -65,11 +60,6 @@ public class TestJobConsumerThread {
 			_res.add(_res_cmd_2);
 			_res_cmd_2.multValue = processing_cmd.multValue;
 			return _res;
-		}
-
-		@Override
-		public JobProcessor<TestCommandB, TestCommandB> getClone() {
-			return new MulJobProcessor();
 		}
 	}
 
@@ -89,10 +79,6 @@ public class TestJobConsumerThread {
 			return _res;
 		}
 
-		@Override
-		public JobProcessor<TestCommandB, TestCommandA> getClone() {
-			return new TransJobProcessor();
-		}
 	}
 
 	class FinishJobProcessor extends JobProcessor<TestCommandA, TestCommandA>{
@@ -103,12 +89,6 @@ public class TestJobConsumerThread {
 			if (printTraces) System.out.println("              FinishJobConsumer - process : "+processing_cmd.addValue);
 			return null;
 		}
-
-		@Override
-		public JobProcessor<TestCommandA, TestCommandA> getClone() {
-			return new FinishJobProcessor();
-		}
-
 	}
 
 	class AddingJobConsumer extends JobConsumerThread<TestCommandA, TestCommandB>{
@@ -341,12 +321,6 @@ public class TestJobConsumerThread {
 			_res.add(_finishing_next);
 			return _res;
 		}
-
-		@Override
-		public JobProcessor<TestCommandA, TestCommandA> getClone() {
-			return new TestAncestryJobProcessor3();
-		}
-
 	}
 
 	class TestAncestryJobProcessor4 extends JobProcessor<TestCommandA, TestCommandA>{
@@ -356,11 +330,6 @@ public class TestJobConsumerThread {
 			if (printTracesAncestry) System.out.println("JobProc4 : updated value = " + _atom_res.get());
 			
 			return null;
-		}
-
-		@Override
-		public JobProcessor<TestCommandA, TestCommandA> getClone() {
-			return new TestAncestryJobProcessor4();
 		}
 	}
 	static AtomicInteger _atom_res = new AtomicInteger(0);		
@@ -373,11 +342,6 @@ public class TestJobConsumerThread {
 			_atom_res.addAndGet(_atom_res.get()+processing_cmd.addValue);
 			if (printTracesAncestry) System.out.println("			after : _atom = "+_atom_res.get());
 			return null;
-		}
-
-		@Override
-		public JobProcessor<TestCommandA, TestCommandA> getClone() {
-			return new TestAncestryJobProcessor5();
 		}
 	}
 

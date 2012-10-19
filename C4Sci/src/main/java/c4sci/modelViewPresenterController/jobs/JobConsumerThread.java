@@ -149,7 +149,7 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 		for (Iterator<Class> _it = _set.iterator(); _it.hasNext();){
 			Class _class = _it.next();
 			try {
-				associateProcessor(_class, job_proc_factory.createJobProcessor(_class));
+				associateProcessor(_class, job_proc_factory.getJobProcessor(_class));
 			} catch (CannotPerformSuchChangeException _e) {}
 		}
 	}

@@ -18,12 +18,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
 import c4sci.data.DataIdentity;
+import c4sci.math.geometry.plane.PlaneVector;
 import c4sci.math.geometry.space.SpaceVector;
 import c4sci.modelViewPresenterController.viewer.ComponentSupport;
 import c4sci.modelViewPresenterController.viewer.Viewer;
@@ -31,9 +33,10 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.CannotCreateS
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateSpecialComponentChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.creationChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.SpecialFeatureChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateSpecialComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateStandardComponentChange;
+import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.SuppressComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BooleanValueChange;
@@ -281,23 +284,25 @@ public class SwingViewer extends Viewer {
 		Component _comp = comp_chg.getBoundComponent();
 		Component _parent = _comp.getParentComponent();
 		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+
 		if (jcompsupport != null){
+			PlaneVector _pos = _comp.getUpperLeftOrigin();
 			final int x, y;
 			if (_parent != null){
 				JComponentSupport _jparent = identitySwingComponentMap.get(_parent.getIdentity());
 				if (_jparent != null){
 					Dimension _parent_dim = _jparent.getSize();
-					x = (int) (((float)(_parent_dim.width)) * comp_chg.getChange().getX());
-					y = (int) (((float)(_parent_dim.height)) * comp_chg.getChange().getY());
+					x = (int) (((float)(_parent_dim.width)) * _pos.getX());
+					y = (int) (((float)(_parent_dim.height)) * _pos.getY());
 				}
 				else{
-					x = (int) (((float)(windowFrame.getWidth())) *comp_chg.getChange().getX());
-					y = (int) (((float)(windowFrame.getHeight())) *comp_chg.getChange().getY());
+					x = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
+					y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
 				}
 			}
 			else{
-				x = (int) (((float)(windowFrame.getWidth())) *comp_chg.getChange().getX());
-				y = (int) (((float)(windowFrame.getHeight())) *comp_chg.getChange().getY());
+				x = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
+				y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
 			}
 			invokeSwing(new Runnable() {public void run() {jcompsupport.setLocation(new Point(x,y));}}, "PositionChange");
 		}
@@ -310,6 +315,8 @@ public class SwingViewer extends Viewer {
 	public void feedbackToSizeChange(SizeChange comp_chg) {
 		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 		if (jcompsupport != null){
+			PlaneVector _size = comp_chg.getBoundComponent().getSize();
+
 			final Dimension parentdim; 
 			Component	_parent = jcompsupport.getSupportedComponent().getParentComponent();
 			JComponentSupport	_jparent;
@@ -320,8 +327,6 @@ public class SwingViewer extends Viewer {
 				_jparent = null;
 			}
 
-
-
 			if ((_parent != null)&& (_jparent != null)) {
 				parentdim = _jparent.getSize();
 			}
@@ -329,8 +334,8 @@ public class SwingViewer extends Viewer {
 				parentdim = windowFrame.getSize();
 			}
 			final Dimension compdim = new Dimension(
-					(int)(parentdim.getWidth()*comp_chg.getChange().getX()), 
-					(int)(parentdim.getHeight()*comp_chg.getChange().getY()));
+					(int)(parentdim.getWidth()* _size.getX()), 
+					(int)(parentdim.getHeight()* _size.getY()));
 			invokeSwing(new Runnable() {public void run() {jcompsupport.setSize(compdim);}}, "SizeChange");
 		}
 		else{
@@ -461,24 +466,12 @@ public class SwingViewer extends Viewer {
 			jparentsupport = identitySwingComponentMap.get(_parent.getIdentity());
 		}
 		else{
-			jparentsupport = null;
+			jparentsupport = getCurrentPanel();
 		}
-		if ((_parent!= null) && (jparentsupport != null) && (jparentsupport != getCurrentPanel())){
+		if ((jparentsupport != null) && (_res != getCurrentPanel())){
 			invokeSwing(new Runnable() {public void run() {jparentsupport.getSwingComponent().add(addedcomp);}}, "treatCreateStandardComponent");
 		}
-		else{
-			//
-			// _res is added to the current panel (if it's not itself the current panel)
-			//
-			if (getCurrentPanel() != _res){
-				if (getCurrentPanel() != null){
-					getCurrentPanel().getSwingComponent().add(_res.getSwingComponent());
-				}
-				else{
-					treatUnableToProcessCommand(comp_chg);
-				}
-			}
-		}
+
 		return _res;
 	}
 
@@ -534,6 +527,15 @@ public class SwingViewer extends Viewer {
 		case TREE :
 			_res = new JComponentSupport(new JTree(), comp_chg.getBoundComponent());
 			break;
+		case INVISIBLE_CONTAINER :
+			_res = new JPanelSupport(new JPanel(), getCurrentPanel(), comp_chg.getBoundComponent());
+			//float [] _inv_color = {0f,0f,0f,0f};
+			//_res.setForeground(_inv_color);
+			//_res.setBackground(_inv_color);
+			break;
+		case TEXT_FIELD :
+			_res = new JTextFieldSupport(new JTextField(), comp_chg.getBoundComponent());
+			break;
 		default:
 			throw new CannotCreateSuchComponentException("Standard Component");
 		}
@@ -564,5 +566,14 @@ public class SwingViewer extends Viewer {
 		sessionChangeOpened = false;
 		invokeSwing(new Runnable() {public void run() {/*do nothing*/}}, "EndSessionChange");
 	}
-
+	@Override
+	public void feedbackToSuppressComponentChange(
+			SuppressComponentChange comp_chg) {
+		final JComponentSupport jsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (jsupport != null){
+			invokeSwing(new Runnable() {public void run() {if (getCurrentPanel() != null){
+				getCurrentPanel().getSwingComponent().remove(jsupport.getSwingComponent());}}}, 
+					"SuppressComponentChange");
+		}
+	}
 }
