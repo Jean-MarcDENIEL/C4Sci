@@ -1,5 +1,7 @@
 package c4sci.data;
 
+import java.util.regex.Pattern;
+
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -9,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public abstract class DataParameter {
+public abstract class DataParameter implements Modifiable {
 	private String					paramToken;
 	private InternationalizableTerm	paramName;
 	private InternationalizableTerm	paramDescription;
@@ -26,8 +28,8 @@ public abstract class DataParameter {
 		return paramToken;
 	}
 	/**
-	 * The name to associate with the parameter in containers
-	 * @return
+	 * 
+	 * @return The name to associate with the parameter in containers
 	 */
 	public final InternationalizableTerm getParameterName() {
 		return paramName;
@@ -43,14 +45,30 @@ public abstract class DataParameter {
 	 * 
 	 * @return A String that could be parsed to retrieve the real parameter value.
 	 */
-	public abstract String getParameterValue();
+	public abstract String getValue();
 
 	/** 
 	 * Parses a String to set the value.
 	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
 	 */
-	public abstract void setParameterValue(String str_to_parse) throws DataValueParsingException;
-
+	public abstract void setValue(String str_to_parse) throws DataValueParsingException;
+	/**
+	 * Test whereas a string could be successfully parsed to set the DataParameter value.
+	 * @param str_to_parse The string to parse.
+	 * @return <i>true</i> if the string can be successfully parsed to set the DataParameter value. <br>
+	 * <i>false</i> if the argument is null or {@link #setValue(String)} would throw a {@link DataValueParsingException}. 
+	 */
+	public boolean validatesRegularExpression(String str_to_parse){
+		if (str_to_parse == null){
+			return false;
+		}
+		return Pattern.matches(getRegExp(), str_to_parse);
+	}
+	/**
+	 * 
+	 * @return The regular expression corresponding to the valid parameter entries.
+	 */
+	public abstract String getRegExp();
 	/**
 	 * <b>Pattern</b> This method is part of the Template Method GoF pattern.<br>
 	 * Only DataParameter values must be copied from "this".
@@ -61,12 +79,12 @@ public abstract class DataParameter {
 	 * <b>Pattern</b> This method instantiates the Prototype GoF pattern.<br>
 	 * <b>Pattern</b> This method uses the Template Method pattern<br>
 	 * @see DataParameter#getSameDataParameterInstance()
-	 * @return
+	 * @return a clone of this, with same Parameter value
 	 */
 	public final DataParameter getClone(){
 		DataParameter _res = getSameDataParameterInstance();
 		try {
-			_res.setParameterValue(getParameterValue());
+			_res.setValue(getValue());
 		} catch (DataValueParsingException _e) {
 			// should never happen as getParameterValue() return value must be parsed by setParameterValue() 
 			_e.printStackTrace();

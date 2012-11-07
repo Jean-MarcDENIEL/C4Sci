@@ -66,7 +66,7 @@ public final class TransformMatrix {
 	 * </ul>
 	 * @param rot_angle_rad the clockwise rotation angle, in radian.
 	 * @param rot_axe the rotary axe.
-	 * @return
+	 * @return a transform matrix that rotates around a given vector.
 	 */
 	public static TransformMatrix createRotationMatrix(float rot_angle_rad, final SpaceVector rot_axe){
 		TransformMatrix _res = new TransformMatrix();
@@ -111,7 +111,7 @@ public final class TransformMatrix {
 	 * <b>warning </b>the vector scaling value is applied twice : once for translation values and once as an overall scaling value.
 	 * @see c4sci.math.geometry.space.SpaceVector#getW() getW() vectors' scaling factor
 	 * @param trans_vec the translation and scaling value.
-	 * @return
+	 * @return a translation matrix.
 	 */
 	public static TransformMatrix createTranslationAndScalingMatrix(final SpaceVector trans_vec){
 		TransformMatrix _res = createIdentityMatrix();
@@ -127,7 +127,7 @@ public final class TransformMatrix {
 	 * The 4th matrix column usually represents the translation vector. <br>
 	 * <b>Warning: </b>if the vector W value is not set to 1.0 all translation will be applied this scaling factor.
 	 * @param other_vec
-	 * @return
+	 * @return the matrix that is the vector multiplied by "this" matrix
 	 */
 	public SpaceVector opMul(SpaceVector other_vec){
 		SpaceVector _res = new SpaceVector();

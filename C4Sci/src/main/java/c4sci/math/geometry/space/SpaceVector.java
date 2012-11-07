@@ -56,15 +56,39 @@ public class SpaceVector {
 	/**************** FLOW METHODS ********************************/
 	public final String toString(){
 		StringBuffer _res = new StringBuffer();
-		for (int _i =0; _i<Commons.NB_COOR; _i++){
+		for (int _i =0; _i<Commons.NB_COOR-1; _i++){
 			_res.append(getCoor(_i));
 			if (_i<Commons.NB_COOR-1){
 				_res.append(" ");
 			}
 		}
+		_res.append("1.0");
 		return _res.toString();
 	}
-	
+	/**
+	 * 
+	 * @param str_to_parse the string to parse.
+	 * @return The SpaceVecotr whose coordinates have been given in the argument.
+	 * @throws NumberFormatException in the case str_to_parse does not correspond to the SpaceVector format.
+	 */
+	public static final SpaceVector parseVector(String str_to_parse){
+		if (str_to_parse == null){
+			throw new NumberFormatException(null);
+		}
+		String[] _substrings = str_to_parse.split(" ");
+		if (_substrings.length != Commons.NB_COOR){
+			throw new NumberFormatException(str_to_parse);
+		}
+		SpaceVector _res = new SpaceVector();
+		_res.setW(1.0f);
+		for (int _i=0; _i<_substrings.length; _i++){
+			_res.setCoor(_i, Float.parseFloat(_substrings[_i]));
+		}
+		if (Floatings.isEqual(_res.getW(), 0.0f)){
+			throw new NumberFormatException(str_to_parse);
+		}
+		return _res;
+	}
 	
 	/**************** GET/SET METHODS *****************************/
 	/**
@@ -290,7 +314,7 @@ public class SpaceVector {
 	/**
 	 * Tests for "absolute less than" on X and Y and Y
 	 * @param other_vec
-	 * @return
+	 * @return true if X, Y and Z of this are less than the argument's.
 	 */
 	public final boolean isLessThan(final SpaceVector other_vec){
 		return 

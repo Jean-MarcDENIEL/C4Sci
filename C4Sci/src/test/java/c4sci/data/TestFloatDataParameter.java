@@ -16,28 +16,28 @@ public class TestFloatDataParameter {
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		try {
-			_param.setParameterValue("0.5");
-			_param.setParameterValue("10");
+			_param.setValue("0.5");
+			_param.setValue("10");
 			assertTrue(true);
 		} catch (DataValueParsingException e) {
 			fail();
 		}
 		
 		try {
-			_param.setParameterValue("ae");
+			_param.setValue("ae");
 			fail();
 		} catch (DataValueParsingException e) {
 			assertTrue(true);
 		}
 		
 		try {
-			_param.setParameterValue(null);
+			_param.setValue(null);
 			fail();
 		} catch (DataValueParsingException e) {
 			assertTrue(true);
 		}
 		
-		assertTrue("10.0".compareTo(_param.getParameterValue())==0);
+		assertTrue("10.0".compareTo(_param.getValue())==0);
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class TestFloatDataParameter {
 				new InternationalizableTerm("test param 1 descr"));
 		
 		try {
-			_param.setParameterValue("10.5");
+			_param.setValue("10.5");
 			assertTrue(true);
 		} catch (DataValueParsingException e) {
 			fail();
@@ -57,6 +57,33 @@ public class TestFloatDataParameter {
 		
 		_param.setFloatValue(2.5f);
 		assertEquals(_param.getFloatValue(), 2.5, .01);
+	}
+	@Test
+	public void testClone(){
+		FloatDataParameter _param = new FloatDataParameter("test1", 
+				new InternationalizableTerm("test param 1"), 
+				new InternationalizableTerm("test param 1 descr"));
+		DataParameter _clone = _param.getClone();
+		assertTrue(_clone.getClass() == _param.getClass());
+		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+
+	}
+	
+	@Test
+	public void testRegexp(){
+		FloatDataParameter _param = new FloatDataParameter("test1", 
+				new InternationalizableTerm("test param 1"), 
+				new InternationalizableTerm("test param 1 descr"));
+		String[] _tab_good_strings = {"0", "0.0", "1000", "100.00","0.0001",".0025","+2.3","-2.3"};
+		for (String _regexp : _tab_good_strings){
+			assertTrue(_param.validatesRegularExpression(_regexp));
+		}
+		String[] _tab_bad_strings = {"","e","1.a","1..2","1.2.3","--25","+-25"};
+		for (String _regexp : _tab_bad_strings){
+			assertFalse(_param.validatesRegularExpression(_regexp));
+		}
 	}
 
 }

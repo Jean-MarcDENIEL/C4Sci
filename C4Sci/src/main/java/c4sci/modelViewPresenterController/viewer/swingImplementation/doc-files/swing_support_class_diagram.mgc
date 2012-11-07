@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"
+        x="789" y="996">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.BooleanBoundComponentInterface"
+        x="570" y="988">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JLabelSupport"
+        x="442" y="621">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="true"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.BooleanBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.IntegerBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.FloatBoundComponentInterface"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"
+        x="461" y="178">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.ComponentSupport"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.IntegerBoundComponentInterface"
+        x="359" y="979">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JTextFieldSupport"
+        x="1217" y="624">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.IntegerBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.FloatBoundComponentInterface"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.ComponentSupport"
+        x="446" y="52">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="true"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JButtonSupport"
+        x="640" y="623">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.BooleanBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.IntegerBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.FloatBoundComponentInterface"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JPanelSupport"
+        x="245" y="620">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+        <Association
+            destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JPanelSupport"
+            endpointName="parentPanel" kind="Simple">
+            <Point x="331" y="555"/>
+        </Association>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JSpinnerSupport"
+        x="1434" y="625">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JToggleButtonSupport"
+        x="1027" y="624">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.BooleanBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.FloatBoundComponentInterface"
+        x="183" y="978">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JMenuItemSupport"
+        x="833" y="624">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.BooleanBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.TextShowerComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+    </Class>
+    <Class
+        name="c4sci.modelViewPresenterController.viewer.swingImplementation.JSliderSupport"
+        x="-123" y="625">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.JComponentSupport"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.IntegerBoundComponentInterface"/>
+        <Extension destinationClassName="c4sci.modelViewPresenterController.viewer.swingImplementation.FloatBoundComponentInterface"/>
+    </Class>
+</ClassDiagram>

@@ -1,9 +1,10 @@
 package c4sci.data;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.NoSuchParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -14,25 +15,66 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * <li>Internal data are DataParameters.
  * <li>Child Data are HierarchicalData.
  * </ul>
+ * <br>
+ * Several children data can share the same token : there is no mapping.
  * @author jeanmarc.deniel
  *
  */
 public class HierarchicalData implements VisitableData{
 
+	private DataIdentity					dataIdentity;
 	private String							dataToken;
 	private InternationalizableTerm			dataName;
 	private InternationalizableTerm			dataDescription;
 	private Map<String,DataParameter>		parameterMap;
-	private Map<String,HierarchicalData>	subDataMap;
+	private Set<HierarchicalData>			subDataSet;
+
+
+	private static Map<DataIdentity, HierarchicalData>	identityDataMap = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
+	
+	/**
+	 * 
+	 * @param data_identity
+	 * @return the HierarchicalData whose identity has been passed as argument, or null if no HierarchialData can be found
+	 */
+	public static HierarchicalData getIdentifiedData(DataIdentity data_identity){
+		return identityDataMap.get(data_identity);
+	}
+	
+	private DataIdentity createDataIdentity(){
+		DataIdentity _ret = new DataIdentity();
+		identityDataMap.put(_ret, this);
+		return _ret;
+	}
+	
+	public final void setDataIdentity(DataIdentity data_identity){
+		identityDataMap.remove(dataIdentity);
+		dataIdentity = data_identity;
+		identityDataMap.put(dataIdentity, this);
+	}
+	
+	public final DataIdentity getDataIdentity(){
+		return dataIdentity;
+	}
+	
+	/**
+	 * Removes from the HierarchicalData retrieving mechanism.<br>
+	 * This method can be called for every data that is not intended to be persistent. 
+	 * Calling this method is necessary to achieve HierarchicalData garbage collecting.
+	 */
+	public final void forgetIdentity(){
+		identityDataMap.remove(getDataIdentity());
+	}
 	
 	@SuppressWarnings("unused")
 	private HierarchicalData(){}
 	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){
+		dataIdentity 	= createDataIdentity();
 		dataToken		= data_token;
 		dataName		= data_name;
 		dataDescription	= data_description;
 		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
-		subDataMap		= new ConcurrentHashMap<String, HierarchicalData>();
+		subDataSet		= new HashSet<HierarchicalData>();
 	}
 	
 	/**
@@ -74,7 +116,7 @@ public class HierarchicalData implements VisitableData{
 		if (_data_param == null){
 			throw new NoSuchParameterException(data_token, "in "+getDataName());
 		}
-		_data_param.setParameterValue(value_to_parse);
+		_data_param.setValue(value_to_parse);
 	}
 	/**
 	 * Access a DataParameter given its token<br><br>
@@ -85,12 +127,24 @@ public class HierarchicalData implements VisitableData{
 		if (_data_param == null){
 			throw new NoSuchParameterException(data_token, "in "+getDataName());
 		}
-		return _data_param.getParameterValue();
+		return _data_param.getValue();
 	}
 	
-	public final void addSubData(HierarchicalData child_data){
-		subDataMap.put(child_data.getDataToken(), child_data);
+	public void addSubData(HierarchicalData child_data){
+		synchronized (subDataSet) {
+			subDataSet.add(child_data);		
+		}
+
 	}
+	/**
+	 * Removes <b>all</b> data children corresponding to the argument.
+	 */
+	public void removeSubData(HierarchicalData child_data){
+		synchronized (subDataSet) {
+			subDataSet.remove(child_data);
+		}
+	}
+	
 	/**
 	 * <b>Pattern : </b> GoF Visitor pattern<br><br>
 	 * 
@@ -102,14 +156,16 @@ public class HierarchicalData implements VisitableData{
 	 * </ol>
 	 * @param data_visitor
 	 */
-	public final void acceptVisitor(DataVisitor data_visitor){
+	public void acceptVisitor(DataVisitor data_visitor){
 		data_visitor.performTreatmentOn(this);
 		for (Iterator<DataParameter> _it = parameterMap.values().iterator(); _it.hasNext();){
 			data_visitor.performTreatmentOn(_it.next());
 		}
-		for (Iterator<HierarchicalData> _it = subDataMap.values().iterator(); _it.hasNext();){
+		for (Iterator<HierarchicalData> _it = subDataSet.iterator(); _it.hasNext();){
 			_it.next().acceptVisitor(data_visitor);
 		}
 	}
+	
+	
 	
 }

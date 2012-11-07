@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="c4sci.modelViewPresenterController.jobs" x="313" y="145">
+        <DependencyLink destination="c4sci.modelViewPresenterController.jobs.exceptions"/>
+    </Package>
+    <Package name="c4sci.modelViewPresenterController.jobs.schedulers"
+        x="86" y="316">
+        <DependencyLink destination="c4sci.modelViewPresenterController.jobs"/>
+        <DependencyLink destination="c4sci.modelViewPresenterController.jobs.exceptions"/>
+    </Package>
+    <Package name="c4sci.modelViewPresenterController.jobs.consumption"
+        x="480" y="311">
+        <DependencyLink destination="c4sci.modelViewPresenterController.jobs"/>
+    </Package>
+    <Package name="c4sci.modelViewPresenterController.jobs.exceptions"
+        x="285" y="467"/>
+</PackageAnalysis>
