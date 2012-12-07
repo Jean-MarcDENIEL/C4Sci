@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestHierarchicalDataMap {
 
-	class CountingVisitor implements DataVisitor{
+	class CountingVisitor implements HierarchicalDataVisitor{
 
 		public int	counterValue;
 		public CountingVisitor() {
@@ -23,6 +23,9 @@ public class TestHierarchicalDataMap {
 
 		public void performTreatmentOn(DataParameter data_param) {
 		}
+		public void openTreatmentOnDataParameters() {}
+		public void closeTretmentOnDataParameters() {}
+		public void closeTreatmentOn(HierarchicalData data_node) {}
 		
 	}
 

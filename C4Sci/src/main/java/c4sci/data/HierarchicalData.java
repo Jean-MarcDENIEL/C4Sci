@@ -16,6 +16,11 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * <li>Child Data are HierarchicalData.
  * </ul>
  * <br>
+ * It is interesting to subclass {@link HierarchicalData} in order to ensure certain behaviors :
+ * <ul>
+ * <li>appending new data types associated to sub data tokens</li>
+ * <li>ensuring low coupling with algorithms manipulating {@link HierarchicalData} like reading and writing data : simply append new factoring abilities representing accepted sub data</li>
+ * </ul> 
  * Several children data can share the same token : there is no mapping.
  * @author jeanmarc.deniel
  *
@@ -28,44 +33,45 @@ public class HierarchicalData implements VisitableData{
 	private InternationalizableTerm			dataDescription;
 	private Map<String,DataParameter>		parameterMap;
 	private Set<HierarchicalData>			subDataSet;
+	private HierarchicalData				parentData;
 
 
-	private static Map<DataIdentity, HierarchicalData>	identityDataMap = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
-	
+	private static Map<DataIdentity, HierarchicalData>	IDENTITY_DATA_MAP = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
+
 	/**
 	 * 
 	 * @param data_identity
 	 * @return the HierarchicalData whose identity has been passed as argument, or null if no HierarchialData can be found
 	 */
 	public static HierarchicalData getIdentifiedData(DataIdentity data_identity){
-		return identityDataMap.get(data_identity);
+		return IDENTITY_DATA_MAP.get(data_identity);
 	}
-	
+
 	private DataIdentity createDataIdentity(){
 		DataIdentity _ret = new DataIdentity();
-		identityDataMap.put(_ret, this);
+		IDENTITY_DATA_MAP.put(_ret, this);
 		return _ret;
 	}
-	
+
 	public final void setDataIdentity(DataIdentity data_identity){
-		identityDataMap.remove(dataIdentity);
+		IDENTITY_DATA_MAP.remove(dataIdentity);
 		dataIdentity = data_identity;
-		identityDataMap.put(dataIdentity, this);
+		IDENTITY_DATA_MAP.put(dataIdentity, this);
 	}
-	
+
 	public final DataIdentity getDataIdentity(){
 		return dataIdentity;
 	}
-	
+
 	/**
 	 * Removes from the HierarchicalData retrieving mechanism.<br>
 	 * This method can be called for every data that is not intended to be persistent. 
 	 * Calling this method is necessary to achieve HierarchicalData garbage collecting.
 	 */
 	public final void forgetIdentity(){
-		identityDataMap.remove(getDataIdentity());
+		IDENTITY_DATA_MAP.remove(getDataIdentity());
 	}
-	
+
 	@SuppressWarnings("unused")
 	private HierarchicalData(){}
 	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){
@@ -73,10 +79,20 @@ public class HierarchicalData implements VisitableData{
 		dataToken		= data_token;
 		dataName		= data_name;
 		dataDescription	= data_description;
+		parentData		= null;
 		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
 		subDataSet		= new HashSet<HierarchicalData>();
 	}
-	
+	public HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description, HierarchicalData parent_data){
+		dataIdentity 	= createDataIdentity();
+		dataToken		= data_token;
+		dataName		= data_name;
+		dataDescription	= data_description;
+		parentData		= parent_data;
+		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
+		subDataSet		= new HashSet<HierarchicalData>();
+	}
+
 	/**
 	 * 
 	 * @return one word or continuous expression representing the data.<br>
@@ -98,7 +114,7 @@ public class HierarchicalData implements VisitableData{
 	public final InternationalizableTerm getDataDescription(){
 		return dataDescription;
 	}
-	
+
 	/**
 	 * Decorates the HierarchicalData with a new DataParameter<br><br>
 	 * <b>Pattern : </b> GoF Decorator pattern
@@ -129,10 +145,14 @@ public class HierarchicalData implements VisitableData{
 		}
 		return _data_param.getValue();
 	}
-	
+	/**
+	 * Adds the parameter as a sub data and declares this as being its parent data
+	 * @param child_data
+	 */
 	public void addSubData(HierarchicalData child_data){
 		synchronized (subDataSet) {
-			subDataSet.add(child_data);		
+			subDataSet.add(child_data);	
+			child_data.setParentData(this);
 		}
 
 	}
@@ -144,28 +164,35 @@ public class HierarchicalData implements VisitableData{
 			subDataSet.remove(child_data);
 		}
 	}
-	
-	/**
-	 * <b>Pattern : </b> GoF Visitor pattern<br><br>
-	 * 
-	 * In this order :
-	 * <ol>
-	 * <li> performs visitor treatment on the current data node
-	 * <li> performs visitor treatment on the current data node parameters
-	 * <li> accepts visitor on sub data in random order
-	 * </ol>
-	 * @param data_visitor
-	 */
-	public void acceptVisitor(DataVisitor data_visitor){
+
+
+	public void acceptVisitor(HierarchicalDataVisitor data_visitor){
 		data_visitor.performTreatmentOn(this);
 		for (Iterator<DataParameter> _it = parameterMap.values().iterator(); _it.hasNext();){
 			data_visitor.performTreatmentOn(_it.next());
 		}
+		data_visitor.closeTretmentOnDataParameters();
 		for (Iterator<HierarchicalData> _it = subDataSet.iterator(); _it.hasNext();){
 			_it.next().acceptVisitor(data_visitor);
 		}
+		data_visitor.closeTreatmentOn(this);
 	}
-	
-	
-	
+	/**
+	 * 
+	 * @return The parent data or null if there's no one.
+	 */
+	public final HierarchicalData getParentData() {
+		return parentData;
+	}
+	/**
+	 * Sets the parent data without modifying it.
+	 * @param parent_data
+	 */
+	public final void setParentData(HierarchicalData parent_data) {
+		this.parentData = parent_data;
+	}
+
+
+
+
 }

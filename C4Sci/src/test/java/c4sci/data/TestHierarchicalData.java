@@ -180,7 +180,7 @@ public class TestHierarchicalData {
 		final TwoInt two_int = new TwoInt();
 		
 		
-		DataVisitor _visitor = new DataVisitor() {
+		HierarchicalDataVisitor _visitor = new HierarchicalDataVisitor() {
 			
 			public void performTreatmentOn(DataParameter data_param) {
 				two_int.nbVisitedParam ++;
@@ -188,6 +188,15 @@ public class TestHierarchicalData {
 			
 			public void performTreatmentOn(HierarchicalData data_node) {
 				two_int.nbVisitedNode ++;
+			}
+
+			public void openTreatmentOnDataParameters() {
+			}
+
+			public void closeTretmentOnDataParameters() {
+			}
+
+			public void closeTreatmentOn(HierarchicalData data_node) {
 			}
 		};
 		
