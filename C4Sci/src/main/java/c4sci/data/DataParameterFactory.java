@@ -3,55 +3,53 @@ package c4sci.data;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import c4sci.data.exceptions.NoSuchParameterException;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 
 /**
- * This class creates DataParameter instances according to HierarchicalData and DataParameter tokens.<br>
- * <b>Pattern</b> This class uses the GoF Prototype pattern.  
+ * This class creates DataParameter instances according to HierarchicalData and DataParameter tokens.<br> 
  * @author jeanmarc.deniel
  *
  */
+@SuppressWarnings("rawtypes")
 public class DataParameterFactory {
-	private Map<String, Map<String, DataParameter>> dataFactoryMap;
+	private Map<String, Class> parameterTypeMap;
 
 	public DataParameterFactory(){
-		dataFactoryMap = new ConcurrentHashMap<String, Map<String, DataParameter>>();
+		parameterTypeMap = new ConcurrentHashMap <String, Class>();
 	}
 
 	/**
-	 * Links a DataParameter prototype to data and parameter tokens.<br>
-	 *
-	 * @see DataParameter#getClone() DataParameter cloning ability
-	 * @param data_token The HierarchicalData token
-	 * @param prototype_parameter The prototype to clone. It contains the parameter token associated with the data
+	 * Links a DataParameter class to a parameter token.<br>
+	 * @param parameter_token The HierarchicalData token
+	 * @param prototype_class The prototype class able to create a {@link DataParameter} instance
 	 */
-	public void addDataParameterPrototype(String data_token, DataParameter prototype_parameter){
-		if ((data_token == null)||
-				(prototype_parameter == null)){
+	public void addFactoringAbility(String parameter_token, Class prototype_class){
+		if ((parameter_token == null)|| (prototype_class == null)){
 			return;
 		}
-		Map<String, DataParameter> _param_map;
-
-		_param_map = dataFactoryMap.get(data_token);
-		if (_param_map == null){
-			_param_map = new ConcurrentHashMap<String, DataParameter>();
-			dataFactoryMap.put(data_token, _param_map);
-		}
-		_param_map.put(prototype_parameter.getParameterToken(), prototype_parameter);
+		parameterTypeMap.put(parameter_token, prototype_class);
 
 	}
-	public DataParameter createDataParameter(String data_token, String parameter_token) throws NoSuchParameterException{
-		Map<String, DataParameter> _param_map;
-
-		_param_map = dataFactoryMap.get(data_token);
-
-		if (_param_map == null){
-			throw new NoSuchParameterException(data_token, data_token +" in : "+ parameter_token);
-		}
-		DataParameter _prototype = _param_map.get(parameter_token);
+	
+	public DataParameter createDataParameter(String parameter_token) throws CannotInstantiateParameterException{
+		Class _prototype = parameterTypeMap.get(parameter_token);
 		if (_prototype == null){
-			throw new NoSuchParameterException(data_token, data_token + " in : " + parameter_token);
+			throw new CannotInstantiateParameterException(parameter_token, "unknown parameter token");
 		}
-		return _prototype.getClone();
+		try{
+			DataParameter _instance = (DataParameter) _prototype.newInstance();
+			_instance.setParameterToken(parameter_token);
+			return _instance;
+		}
+		catch (InstantiationException _e){
+			throw new CannotInstantiateParameterException(parameter_token, "instantiation exception", _e);
+		}
+		catch(IllegalAccessException _e){
+			throw new CannotInstantiateParameterException(parameter_token, "illegal acces", _e); 
+		}
+		catch(ClassCastException _e){
+			throw new CannotInstantiateParameterException(parameter_token, _prototype.getName() + "does not inherit from DataParameter type", _e);
+		}
+
 	}
 }

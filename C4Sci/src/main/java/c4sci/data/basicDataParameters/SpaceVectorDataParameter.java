@@ -8,7 +8,9 @@ import c4sci.math.geometry.space.SpaceVector;
 public class SpaceVectorDataParameter extends DataParameter {
 
 	private SpaceVector	spaceVector;
-	
+	public SpaceVectorDataParameter(){
+		spaceVector = new SpaceVector();
+	}
 	public SpaceVectorDataParameter(String token_str,
 			InternationalizableTerm name_term,
 			InternationalizableTerm descr_term) {

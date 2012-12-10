@@ -49,7 +49,7 @@ public class HierarchialDataFactory {
 		}
 	}
 	/**
-	 * Adds the ability t create new kinds of data corresponding to certain token.
+	 * Adds the ability to create new kinds of data corresponding to certain token.
 	 * @param subdata_class The data type to create.
 	 * @param corresponding_token The token associated with the class type.
 	 */

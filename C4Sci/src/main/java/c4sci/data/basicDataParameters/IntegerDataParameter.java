@@ -12,7 +12,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class IntegerDataParameter extends DataParameter {
 
 	private int paramValue;
-	
+	public IntegerDataParameter(){}
 	public IntegerDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term){
 		super(token_str, name_term, descr_term);
 		paramValue			= 0;

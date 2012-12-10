@@ -99,14 +99,14 @@ public class SwingViewer extends Viewer {
 	}
 	private void setCurrentPanel(JPanelSupport current_panel) {
 
-		final JPanel jpanel = (JPanel) current_panel.getSwingComponent();
+		final JPanel _J_PANEL = (JPanel) current_panel.getSwingComponent();
 
 		invokeSwing(new Runnable() {public void run() {
-			jpanel.setLayout(null);
-			jpanel.setBackground(Color.red);
-			jpanel.setSize(windowFrame.getSize());
-			jpanel.setVisible(true);
-			windowFrame.add(jpanel);
+			_J_PANEL.setLayout(null);
+			_J_PANEL.setBackground(Color.red);
+			_J_PANEL.setSize(windowFrame.getSize());
+			_J_PANEL.setVisible(true);
+			windowFrame.add(_J_PANEL);
 		}}, "setCurrentPanel");
 
 		currentPanel = current_panel;
@@ -189,9 +189,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToActivityChange(final ActivityChange comp_chg) {
-		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcomp != null){
-			invokeSwing(new Runnable() {public void run() {jcomp.setEnabled(comp_chg.getChange());}}, "ActivityChange");
+		final JComponentSupport _J_COMP = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP.setEnabled(comp_chg.getChange());}}, "ActivityChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -200,9 +200,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToVisibilityChange(final VisibilityChange comp_chg) {
-		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcomp != null){
-			invokeSwing(new Runnable() {public void run() {jcomp.setVisible(comp_chg.getChange());}}, "VisibilityChange");
+		final JComponentSupport _J_COMP = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP.setVisible(comp_chg.getChange());}}, "VisibilityChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -212,9 +212,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToBooleanValueChange(final BooleanValueChange comp_chg) {
-		final BooleanBoundComponentInterface jtoggle = identityBooleanBoundComponentMap.get(comp_chg.getComponentIdentity());
-		if (jtoggle != null){
-			invokeSwing(new Runnable() {public void run() {jtoggle.setBooleanValue(comp_chg.getChange());}}, "BooleanValueChange");
+		final BooleanBoundComponentInterface _J_TOGGLE = identityBooleanBoundComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_TOGGLE != null){
+			invokeSwing(new Runnable() {public void run() {_J_TOGGLE.setBooleanValue(comp_chg.getChange());}}, "BooleanValueChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -223,9 +223,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToFloatValueChange(final FloatValueChange comp_chg) {
-		final FloatBoundComponentInterface jfloatcomp = identityFloatBoundComponentMap.get(comp_chg.getComponentIdentity());
-		if (jfloatcomp != null){
-			invokeSwing(new Runnable() {public void run() {jfloatcomp.setFloatValue(comp_chg.getChange());}}, "FloatValueChange");
+		final FloatBoundComponentInterface _J_FLOAT_COMP = identityFloatBoundComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_FLOAT_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_FLOAT_COMP.setFloatValue(comp_chg.getChange());}}, "FloatValueChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -234,9 +234,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToIntegerValueChange(final IntegerValueChange comp_chg) {
-		final IntegerBoundComponentInterface jintegercomp = identityIntegerBoundComponentMap.get(comp_chg.getComponentIdentity());
-		if (jintegercomp != null){
-			invokeSwing(new Runnable() {public void run() {jintegercomp.setIntegerValue(comp_chg.getChange());}}, "IntgerValueChange");
+		final IntegerBoundComponentInterface _J_INTEGER_COMP = identityIntegerBoundComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_INTEGER_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_INTEGER_COMP.setIntegerValue(comp_chg.getChange());}}, "IntgerValueChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -245,9 +245,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	protected void feedbackToStringValueChange(final StringValueChange comp_chg) {
-		final TextShowerComponentInterface jtextcomp = identityTextShowerComponentMap.get(comp_chg.getComponentIdentity());
-		if (jtextcomp != null){
-			invokeSwing(new Runnable() {public void run() {jtextcomp.setText(comp_chg.getChange());}}, "StringValueChange");
+		final TextShowerComponentInterface _J_TEXT_COMP = identityTextShowerComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_TEXT_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_TEXT_COMP.setText(comp_chg.getChange());}}, "StringValueChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -298,28 +298,28 @@ public class SwingViewer extends Viewer {
 	public void feedbackToPositionChange(PositionChange comp_chg) {
 		Component _comp = comp_chg.getBoundComponent();
 		Component _parent = _comp.getParentComponent();
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 
-		if (jcompsupport != null){
+		if (_J_COMP_SUPPORT != null){
 			PlaneVector _pos = _comp.getUpperLeftOrigin();
-			final int x, y;
+			final int _POS_X, _POS_Y;
 			if (_parent != null){
 				JComponentSupport _jparent = identitySwingComponentMap.get(_parent.getIdentity());
 				if (_jparent != null){
 					Dimension _parent_dim = _jparent.getSize();
-					x = (int) (((float)(_parent_dim.width)) * _pos.getX());
-					y = (int) (((float)(_parent_dim.height)) * _pos.getY());
+					_POS_X = (int) (((float)(_parent_dim.width)) * _pos.getX());
+					_POS_Y = (int) (((float)(_parent_dim.height)) * _pos.getY());
 				}
 				else{
-					x = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
-					y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
+					_POS_X = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
+					_POS_Y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
 				}
 			}
 			else{
-				x = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
-				y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
+				_POS_X = (int) (((float)(windowFrame.getWidth())) * _pos.getX());
+				_POS_Y = (int) (((float)(windowFrame.getHeight())) * _pos.getY());
 			}
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setLocation(new Point(x,y));}}, "PositionChange");
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setLocation(new Point(_POS_X,_POS_Y));}}, "PositionChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -328,12 +328,12 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToSizeChange(SizeChange comp_chg) {
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcompsupport != null){
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP_SUPPORT != null){
 			PlaneVector _size = comp_chg.getBoundComponent().getSize();
 
-			final Dimension parentdim; 
-			Component	_parent = jcompsupport.getSupportedComponent().getParentComponent();
+			final Dimension _PARENT_DIM; 
+			Component	_parent = _J_COMP_SUPPORT.getSupportedComponent().getParentComponent();
 			JComponentSupport	_jparent;
 			if (_parent != null){
 				_jparent = identitySwingComponentMap.get(_parent.getIdentity());
@@ -343,15 +343,15 @@ public class SwingViewer extends Viewer {
 			}
 
 			if ((_parent != null)&& (_jparent != null)) {
-				parentdim = _jparent.getSize();
+				_PARENT_DIM = _jparent.getSize();
 			}
 			else{
-				parentdim = windowFrame.getSize();
+				_PARENT_DIM = windowFrame.getSize();
 			}
-			final Dimension compdim = new Dimension(
-					(int)(parentdim.getWidth()* _size.getX()), 
-					(int)(parentdim.getHeight()* _size.getY()));
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setSize(compdim);}}, "SizeChange");
+			final Dimension _COMP_DIR = new Dimension(
+					(int)(_PARENT_DIM.getWidth()* _size.getX()), 
+					(int)(_PARENT_DIM.getHeight()* _size.getY()));
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setSize(_COMP_DIR);}}, "SizeChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -363,8 +363,8 @@ public class SwingViewer extends Viewer {
 		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 		if (jcompsupport != null){
 			SpaceVector _color = comp_chg.getChange();
-			final float colortab[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setBackground(colortab);}}, "BackgroundColorChange");
+			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
+			invokeSwing(new Runnable() {public void run() {jcompsupport.setBackground(_COLOR_TAB);}}, "BackgroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -376,8 +376,8 @@ public class SwingViewer extends Viewer {
 		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 		if (jcompsupport != null){
 			SpaceVector _color = comp_chg.getChange();
-			final float colortab[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(colortab);}}, "ForegroundColorChange");
+			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
+			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -391,9 +391,9 @@ public class SwingViewer extends Viewer {
 		//
 		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 		SpaceVector _color = comp_chg.getChange();
-		final float colortab[] = {_color.getX(), _color.getY(), _color.getZ(), 0.0f};
+		final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), 0.0f};
 		if (jcompsupport != null){
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(colortab);}}, "ForegroundColorChange");
+			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -442,9 +442,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToFontStyleChange(final FontStyleChange comp_chg) {
-		final JComponentSupport jsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jsupport != null){
-			invokeSwing(new Runnable() {public void run() {jsupport.setFontStyle(comp_chg.getChange());}}, "FontStyleChange");
+		final JComponentSupport _J_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_SUPPORT != null){
+			invokeSwing(new Runnable() {public void run() {_J_SUPPORT.setFontStyle(comp_chg.getChange());}}, "FontStyleChange");
 		}
 	}
 
@@ -474,17 +474,17 @@ public class SwingViewer extends Viewer {
 		//
 		// _res swing component is added to its parent if there is one
 		//
-		final JComponentSupport 	jparentsupport;
-		final JComponent			addedcomp = _res.getSwingComponent();
+		final JComponentSupport 	_JPARENT_SUPPORT;
+		final JComponent			_ADDED_COMP = _res.getSwingComponent();
 		Component			_parent = comp_chg.getBoundComponent().getParentComponent();
 		if (_parent != null){
-			jparentsupport = identitySwingComponentMap.get(_parent.getIdentity());
+			_JPARENT_SUPPORT = identitySwingComponentMap.get(_parent.getIdentity());
 		}
 		else{
-			jparentsupport = getCurrentPanel();
+			_JPARENT_SUPPORT = getCurrentPanel();
 		}
-		if ((jparentsupport != null) && (_res != getCurrentPanel())){
-			invokeSwing(new Runnable() {public void run() {jparentsupport.getSwingComponent().add(addedcomp);}}, "treatCreateStandardComponent");
+		if ((_JPARENT_SUPPORT != null) && (_res != getCurrentPanel())){
+			invokeSwing(new Runnable() {public void run() {_JPARENT_SUPPORT.getSwingComponent().add(_ADDED_COMP);}}, "treatCreateStandardComponent");
 		}
 
 		return _res;

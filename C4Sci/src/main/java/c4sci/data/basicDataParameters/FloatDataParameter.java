@@ -4,6 +4,7 @@ import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 public class FloatDataParameter extends DataParameter {
 	private float paramValue;
+	public FloatDataParameter(){}
 	public FloatDataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term) {
 		super(token_str, name_term, descr_term);
 	}

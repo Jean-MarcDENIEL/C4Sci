@@ -7,7 +7,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class StringDataParameter extends DataParameter {
 
 	private String	stringData;
-	
+	public StringDataParameter(){}
 	public StringDataParameter(String token_str,
 			InternationalizableTerm name_term,
 			InternationalizableTerm descr_term) {

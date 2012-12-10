@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.exceptions.DataValueParsingException;
-import c4sci.data.exceptions.NoSuchParameterException;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestHierarchicalData {
@@ -104,7 +104,7 @@ public class TestHierarchicalData {
 			assertTrue("10".compareTo(_data.getParameterValue("testParam"))==0);
 		} catch (DataValueParsingException e) {
 			fail();
-		} catch (NoSuchParameterException e) {
+		} catch (CannotInstantiateParameterException e) {
 			fail();
 		}
 		
@@ -113,7 +113,7 @@ public class TestHierarchicalData {
 			fail();
 		} catch (DataValueParsingException e) {
 			fail();
-		} catch (NoSuchParameterException e) {
+		} catch (CannotInstantiateParameterException e) {
 			assertTrue(true);
 		}
 		
@@ -122,14 +122,14 @@ public class TestHierarchicalData {
 			fail();
 		} catch (DataValueParsingException e) {
 			assertTrue(true);
-		} catch (NoSuchParameterException e) {
+		} catch (CannotInstantiateParameterException e) {
 			fail();
 		}
 		
 		try {
 			String _str = _data.getParameterValue("err_str");
 			fail(_str + " should not have been read");
-		} catch (NoSuchParameterException e) {
+		} catch (CannotInstantiateParameterException e) {
 			assertTrue(true);
 		}
 	}
@@ -182,7 +182,7 @@ public class TestHierarchicalData {
 		
 		HierarchicalDataVisitor _visitor = new HierarchicalDataVisitor() {
 			
-			public void performTreatmentOn(DataParameter data_param) {
+			public void performTreatmentOn(HierarchicalData current_node, DataParameter data_param) {
 				two_int.nbVisitedParam ++;
 			}
 			
@@ -190,13 +190,19 @@ public class TestHierarchicalData {
 				two_int.nbVisitedNode ++;
 			}
 
-			public void openTreatmentOnDataParameters() {
+			public void beginDataParametersSession(HierarchicalData current_node) {
 			}
 
-			public void closeTretmentOnDataParameters() {
+			public void endDataParametersSession(HierarchicalData current_node) {
 			}
 
-			public void closeTreatmentOn(HierarchicalData data_node) {
+			public void endTreatmentOn(HierarchicalData data_node) {
+			}
+
+			public void beginSubDataSession(HierarchicalData current_node) {
+			}
+
+			public void endSubDataSession(HierarchicalData current_node) {
 			}
 		};
 		

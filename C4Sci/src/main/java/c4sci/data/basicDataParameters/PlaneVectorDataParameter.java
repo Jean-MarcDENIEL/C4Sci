@@ -12,7 +12,9 @@ import c4sci.math.geometry.plane.PlaneVector;
 public class PlaneVectorDataParameter extends DataParameter {
 
 	private PlaneVector 	planeVector;
-	
+	public PlaneVectorDataParameter(){
+		planeVector = new PlaneVector();
+	}
 	public PlaneVectorDataParameter(String token_str,
 			InternationalizableTerm name_term,
 			InternationalizableTerm descr_term) {

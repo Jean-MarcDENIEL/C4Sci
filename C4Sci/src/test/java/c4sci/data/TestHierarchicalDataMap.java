@@ -21,11 +21,15 @@ public class TestHierarchicalDataMap {
 			counterValue ++;
 		}
 
-		public void performTreatmentOn(DataParameter data_param) {
+		public void performTreatmentOn(HierarchicalData current_node, DataParameter data_param) {
 		}
-		public void openTreatmentOnDataParameters() {}
-		public void closeTretmentOnDataParameters() {}
-		public void closeTreatmentOn(HierarchicalData data_node) {}
+		public void beginDataParametersSession(HierarchicalData current_node) {}
+		public void endDataParametersSession(HierarchicalData current_node) {}
+		public void endTreatmentOn(HierarchicalData data_node) {}
+		public void beginSubDataSession(HierarchicalData current_node) {
+		}
+		public void endSubDataSession(HierarchicalData current_node) {
+		}
 		
 	}
 

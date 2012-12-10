@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import c4sci.data.exceptions.DataValueParsingException;
-import c4sci.data.exceptions.NoSuchParameterException;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
@@ -127,10 +127,10 @@ public class HierarchicalData implements VisitableData{
 	 * <b>Pattern : </b> GoF Decorator pattern
 	 */
 
-	public final void setParameterValue(String data_token, String value_to_parse) throws DataValueParsingException,  NoSuchParameterException{
+	public final void setParameterValue(String data_token, String value_to_parse) throws DataValueParsingException,  CannotInstantiateParameterException{
 		DataParameter _data_param = parameterMap.get(data_token);
 		if (_data_param == null){
-			throw new NoSuchParameterException(data_token, "in "+getDataName());
+			throw new CannotInstantiateParameterException(data_token, "in "+getDataName());
 		}
 		_data_param.setValue(value_to_parse);
 	}
@@ -138,10 +138,10 @@ public class HierarchicalData implements VisitableData{
 	 * Access a DataParameter given its token<br><br>
 	 * <b>Pattern : </b> GoF Decorator pattern
 	 */
-	public final String getParameterValue(String data_token) throws NoSuchParameterException{
+	public final String getParameterValue(String data_token) throws CannotInstantiateParameterException{
 		DataParameter _data_param = parameterMap.get(data_token);
 		if (_data_param == null){
-			throw new NoSuchParameterException(data_token, "in "+getDataName());
+			throw new CannotInstantiateParameterException(data_token, "in "+getDataName());
 		}
 		return _data_param.getValue();
 	}
@@ -168,14 +168,17 @@ public class HierarchicalData implements VisitableData{
 
 	public void acceptVisitor(HierarchicalDataVisitor data_visitor){
 		data_visitor.performTreatmentOn(this);
+		data_visitor.beginDataParametersSession(this);
 		for (Iterator<DataParameter> _it = parameterMap.values().iterator(); _it.hasNext();){
-			data_visitor.performTreatmentOn(_it.next());
+			data_visitor.performTreatmentOn(null, _it.next());
 		}
-		data_visitor.closeTretmentOnDataParameters();
+		data_visitor.endDataParametersSession(null);
+		data_visitor.beginSubDataSession(this);
 		for (Iterator<HierarchicalData> _it = subDataSet.iterator(); _it.hasNext();){
 			_it.next().acceptVisitor(data_visitor);
 		}
-		data_visitor.closeTreatmentOn(this);
+		data_visitor.endSubDataSession(this);
+		data_visitor.endTreatmentOn(this);
 	}
 	/**
 	 * 
@@ -192,7 +195,12 @@ public class HierarchicalData implements VisitableData{
 		this.parentData = parent_data;
 	}
 
-
+	/**
+	 * @return A {@link HierarchialDataFactory} that is able to instantiate "this" sub data given some tokens. 
+	 */
+	public HierarchialDataFactory getSubdataFactory(){
+		return new HierarchialDataFactory();
+	}
 
 
 }

@@ -13,6 +13,8 @@ public class BooleanDataParameter extends DataParameter {
 
 	private boolean paramValue;
 	
+	public BooleanDataParameter(){}
+	
 	/**
 	 * Constructs a BooleanDataParaeter whose value is false 
 	 */

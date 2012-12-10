@@ -15,11 +15,20 @@ public interface VisitableData {
 	 * 
 	 * In this order :
 	 * <ol>
-	 * <li> performs visitor treatment on "this" data node : call {@link HierarchicalDataVisitor#performTreatmentOn(HierarchicalData)} on "this".</li>
-	 * <li> performs visitor treatment on "this" data node parameters : call {@link HierarchicalDataVisitor#performTreatmentOn(DataParameter)}.</li>
-	 * <li> closes parameters treatment : call {@link HierarchicalDataVisitor#closeTretmentOnDataParameters()}.</li>
-	 * <li> accepts visitor on sub data in random order : call {@link HierarchicalDataVisitor#performTreatmentOn(HierarchicalData)}.</li>
-	 * <li> closes "this" treatment : call {@link HierarchicalDataVisitor#closeTreatmentOn(HierarchicalData)} on "this".
+	 * <li> performs visitor treatment on "this" data node : calls {@link HierarchicalDataVisitor#performTreatmentOn(HierarchicalData)} on "this".</li>
+	 * <li> begins parameters treatment : 
+	 * 	<ol type="a"> 
+	 * 	<li> opens parameter session : calls {@link HierarchicalDataVisitor#beginDataParametersSession(HierarchicalData)}</li>
+	 * 	<li> performs visitor treatment on "this" data node parameters : calls {@link HierarchicalDataVisitor#performTreatmentOn(HierarchicalData, DataParameter)}.</li>
+	 * 	<li> ends parameter session : calls {@link HierarchicalDataVisitor#endDataParametersSession(HierarchicalData)}</li>
+	 * 	</ol>
+	 * <li> accepts visitor on sub data in random order : 
+	 * 	<ol type="a">
+	 * 	<li> opens sub data session : calls {@link HierarchicalDataVisitor#beginSubDataSession(HierarchicalData)}</li>
+	 * 	<li> performs visitor treatment on sub data : calls {@link HierarchicalDataVisitor#performTreatmentOn(HierarchicalData)}.</li>
+	 * 	<li> ends sub data session : calls {@link HierarchicalDataVisitor#endSubDataSession(HierarchicalData)}</li>
+	 * </ol>
+	 * <li> ends "this" treatment : call {@link HierarchicalDataVisitor#endTreatmentOn(HierarchicalData)} on "this".
 	 * </ol>
 	 * @param data_visitor The visitor of this node
 	 */

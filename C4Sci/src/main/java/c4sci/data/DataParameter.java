@@ -16,6 +16,11 @@ public abstract class DataParameter implements Modifiable {
 	private InternationalizableTerm	paramName;
 	private InternationalizableTerm	paramDescription;
 
+	public DataParameter(){
+		paramToken 			= "no token";
+		paramName 			= new InternationalizableTerm("no name");
+		paramDescription 	= new InternationalizableTerm("no description");
+	}
 	public DataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term){
 		paramToken			= token_str;
 		paramName			= name_term;
@@ -28,6 +33,13 @@ public abstract class DataParameter implements Modifiable {
 		return paramToken;
 	}
 	/**
+	 * Set the parameter token
+	 * @param param_token The token associated with the parameter
+	 */
+	public final void setParameterToken(String param_token){
+		paramToken = param_token;
+	}
+	/**
 	 * 
 	 * @return The name to associate with the parameter in containers
 	 */
@@ -35,11 +47,21 @@ public abstract class DataParameter implements Modifiable {
 		return paramName;
 	}
 	/**
+	 * Sets the parameter name.
+	 * @param param_name The new parameter name.
+	 */
+	public final void setParameterName(InternationalizableTerm param_name){
+		paramName = param_name;
+	}
+	/**
 	 * 
 	 * @return A string describing the parameter
 	 */
 	public final InternationalizableTerm getParameterDescription() {
 		return paramDescription;
+	}
+	public final void setParameterDescription(InternationalizableTerm param_descr){
+		paramDescription = param_descr;
 	}
 	/**
 	 * 
