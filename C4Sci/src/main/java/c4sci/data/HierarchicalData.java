@@ -19,6 +19,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * It is interesting to subclass {@link HierarchicalData} in order to ensure certain behaviors :
  * <ul>
  * <li>appending new data types associated to sub data tokens</li>
+ * <li>appending new parameter types associated to data parameter token</li>
  * <li>ensuring low coupling with algorithms manipulating {@link HierarchicalData} like reading and writing data : simply append new factoring abilities representing accepted sub data</li>
  * </ul> 
  * Several children data can share the same token : there is no mapping.
