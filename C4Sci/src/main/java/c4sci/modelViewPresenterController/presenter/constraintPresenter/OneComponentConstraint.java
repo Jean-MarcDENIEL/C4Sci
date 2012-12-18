@@ -1,7 +1,9 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
 import c4sci.data.HierarchicalData;
+import c4sci.data.PrototypeData;
 import c4sci.data.basicDataParameters.IntegerDataParameter;
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
@@ -37,6 +39,11 @@ public class OneComponentConstraint extends HierarchicalData {
 	}
 	public void setConstrainedComponentID(int int_val){
 		constrainedComponentID.setIntegerValue(int_val);
+	}
+
+	@Override
+	public PrototypeData newInstance() throws CannotInstantiateDataException {
+		return new OneComponentConstraint(NO_TOKEN, NO_NAME, NO_DESCRIPTION, 0);
 	}
 	
 

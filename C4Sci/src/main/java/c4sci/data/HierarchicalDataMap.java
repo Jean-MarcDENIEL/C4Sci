@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 /**
  * This map stores mapping relationship between HierarchicalData, based on the use of HierarchicalData's methods related to DataIdentity.<br>
@@ -262,6 +263,11 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 		}
 		
 		return _res;
+	}
+
+	@Override
+	public PrototypeData newInstance() throws CannotInstantiateDataException {
+		return new HierarchicalDataMap<>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
 	}
 
 }

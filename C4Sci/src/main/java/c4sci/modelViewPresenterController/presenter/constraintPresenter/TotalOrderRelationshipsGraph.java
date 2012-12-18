@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import c4sci.data.HierarchicalData;
+import c4sci.data.PrototypeData;
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
@@ -139,6 +141,11 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 			graph_visitor.removeLastEdge();
 		}
 		return true;
+	}
+
+	@Override
+	public PrototypeData newInstance() throws CannotInstantiateDataException {
+		return new TotalOrderRelationshipsGraph<>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
 	}
 
 }

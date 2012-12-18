@@ -11,38 +11,38 @@ package c4sci.data;
 public interface HierarchicalDataVisitor {
 	/**
 	 * Begins visit session of a data node
-	 * @param data_node
+	 * @param current_data
 	 */
-	void performTreatmentOn(HierarchicalData data_node);
+	void performTreatmentOn(HierarchicalData current_data);
 	/**
 	 * Begins the treatment of the current node parameters
-	 * @param current_node TODO
+	 * @param current_data TODO
 	 */
-	void beginDataParametersSession(HierarchicalData current_node);
+	void beginDataParametersSession(HierarchicalData current_data);
 	/**
 	 * Visits the current node parameters
-	 * @param current_node TODO
+	 * @param current_data TODO
 	 * @param data_param
 	 */
-	void performTreatmentOn(HierarchicalData current_node, DataParameter data_param);
+	void performTreatmentOn(HierarchicalData current_data, DataParameter data_param);
 	/**
 	 * Ends the treatment of the current node parameters
-	 * @param current_node TODO
+	 * @param current_data TODO
 	 */
-	void endDataParametersSession(HierarchicalData current_node);
+	void endDataParametersSession(HierarchicalData current_data);
 	/**
 	 * Begins the treatment of the sub data of the current node
-	 * @param current_node
+	 * @param current_data
 	 */
-	void beginSubDataSession(HierarchicalData current_node);
+	void beginSubDataSession(HierarchicalData current_data);
 	/**
 	 * Ends the treatment of the current node sub data
-	 * @param current_node
+	 * @param current_data
 	 */
-	void endSubDataSession(HierarchicalData current_node);
+	void endSubDataSession(HierarchicalData current_data);
 	/**
 	 * Ends the treatment of the current node
 	 * @param data_node
 	 */
-	void endTreatmentOn(HierarchicalData current_node);
+	void endTreatmentOn(HierarchicalData current_data);
 }

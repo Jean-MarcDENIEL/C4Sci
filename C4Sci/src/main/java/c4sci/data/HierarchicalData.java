@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -21,13 +23,29 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * <li>appending new data types associated to sub data tokens</li>
  * <li>appending new parameter types associated to data parameter token</li>
  * <li>ensuring low coupling with algorithms manipulating {@link HierarchicalData} like reading and writing data : simply append new factoring abilities representing accepted sub data</li>
- * </ul> 
+ * </ul> <br>
+ * <b>Warnings: </b><br>
+ * When sub classing it is necessary that :
+ * <ul>
+ * <li>the new type parameters be created in its constructors</li>
+ * <li>the new parameters be added through the {@link #addDataParameter(DataParameter)} method call</li> in all constructors
+ * <li>the {@link #getSubdataFactory()} method be overridden : it enriches the super.{@link #getSubdataFactory()} return value</li>
+ * <li>the {@link #newInstance()} method be implemented or overridden to return an instance of the subclass.
+ * </ul>
+ * It is unnecessary that :
+ * <ul>
+ * <li>the {@link #getParameterFactory()} method be overridden.</li>
+ * </ul>
  * Several children data can share the same token : there is no mapping.
  * @author jeanmarc.deniel
  *
  */
-public class HierarchicalData implements VisitableData{
+public class HierarchicalData implements VisitableData, PrototypeData{
 
+	public static final String 					NO_TOKEN 		= "(no-token)";
+	public static final InternationalizableTerm	NO_NAME 		= new InternationalizableTerm("no name");
+	public static final InternationalizableTerm	NO_DESCRIPTION 	= new InternationalizableTerm("no description");
+	
 	private DataIdentity					dataIdentity;
 	private String							dataToken;
 	private InternationalizableTerm			dataName;
@@ -37,7 +55,7 @@ public class HierarchicalData implements VisitableData{
 	private HierarchicalData				parentData;
 
 
-	private static Map<DataIdentity, HierarchicalData>	IDENTITY_DATA_MAP = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
+	private static final Map<DataIdentity, HierarchicalData>	IDENTITY_DATA_MAP = new ConcurrentHashMap<DataIdentity, HierarchicalData>();
 
 	/**
 	 * 
@@ -55,7 +73,10 @@ public class HierarchicalData implements VisitableData{
 	}
 
 	public final void setDataIdentity(DataIdentity data_identity){
-		IDENTITY_DATA_MAP.remove(dataIdentity);
+		try{
+			IDENTITY_DATA_MAP.remove(dataIdentity);
+		}
+		catch(Exception _e){}
 		dataIdentity = data_identity;
 		IDENTITY_DATA_MAP.put(dataIdentity, this);
 	}
@@ -73,8 +94,15 @@ public class HierarchicalData implements VisitableData{
 		IDENTITY_DATA_MAP.remove(getDataIdentity());
 	}
 
-	@SuppressWarnings("unused")
-	private HierarchicalData(){}
+	public HierarchicalData(){
+		dataIdentity 	= createDataIdentity();
+		dataToken		= NO_TOKEN;
+		dataName		= NO_NAME;
+		dataDescription	= NO_DESCRIPTION;
+		parentData		= null;
+		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
+		subDataSet		= new HashSet<HierarchicalData>();		
+	}
 	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){
 		dataIdentity 	= createDataIdentity();
 		dataToken		= data_token;
@@ -196,6 +224,10 @@ public class HierarchicalData implements VisitableData{
 		this.parentData = parent_data;
 	}
 
+	public void setDataToken(String data_token) {
+		this.dataToken = data_token;
+	}
+
 	/**
 	 * @return A {@link HierarchialDataFactory} that is able to instantiate "this" sub data given some tokens. 
 	 */
@@ -203,5 +235,35 @@ public class HierarchicalData implements VisitableData{
 		return new HierarchialDataFactory();
 	}
 
+	/**
+	 * Collects all data parameters and adds the corresponding factoring ability to the result.
+	 * @return
+	 */
+	public DataParameterFactory getParameterFactory(){
+		DataParameterFactory _res = new DataParameterFactory();
+		
+		String[] _param_tokens_tab = parameterMap.values().toArray(null);
+		for (String _param_token : _param_tokens_tab){
+			DataParameter _param = parameterMap.get(_param_token);
+			_res.addFactoringAbility(_param.getParameterToken(), _param.getClass());
+		}
+		return _res;
+	}
+	
+	/*public PrototypeData newInstance(){
+		return new HierarchicalData();
+	}*/
+	
+	public void setDataName(InternationalizableTerm data_name) {
+		this.dataName = data_name;
+	}
 
+	public void setDataDescription(InternationalizableTerm data_description) {
+		this.dataDescription = data_description;
+	}
+
+	@Override
+	public PrototypeData newInstance() throws CannotInstantiateDataException {
+		throw new CannotInstantiateDataException(null, getDataToken(), "cannot instantiate HierarchicalData root class");
+	}
 }

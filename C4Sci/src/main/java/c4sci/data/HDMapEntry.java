@@ -1,5 +1,6 @@
 package c4sci.data;
 
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
@@ -28,6 +29,10 @@ public class HDMapEntry extends HierarchicalData{
 	}
 	public DataIdentity getValueIdentity(){
 		return valueIdentity;
+	}
+	@Override
+	public PrototypeData newInstance() throws CannotInstantiateDataException {
+		return new HDMapEntry(new DataIdentity(), new DataIdentity());
 	}
 	
 }

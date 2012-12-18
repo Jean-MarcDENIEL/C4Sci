@@ -8,17 +8,20 @@ import c4sci.data.exceptions.CannotInstantiateDataException;
 /**
  * This class is intended at creating {@link HierarchicalData} instances given certain tokens.<br>
  * This class is useful for {@link HierarchicalData} to create their sub data instances.<br>
- * This class accepts factory ability adding to support {@link HierarchicalData} inheritance. 
+ * This class accepts factory ability adding to support {@link HierarchicalData} inheritance. <br>
+ * <br>
+ * <b>Pattern</b> : To avoid access issues to constructors, this class uses the <b>Prototype</b> GOF pattern.
+ * 
  * @author jeanmarc.deniel
  *
  */
 @SuppressWarnings("rawtypes")
 public class HierarchialDataFactory {
-	
-	private Map<String, Class> tokenSubdataMap;
-	
+
+	private Map<String, PrototypeData> tokenSubdataMap;
+
 	public HierarchialDataFactory(){
-		tokenSubdataMap = new ConcurrentHashMap<String, Class>();
+		tokenSubdataMap = new ConcurrentHashMap<String, PrototypeData>();
 	}
 	/**
 	 * Creates a sub data and appends it to its parent data.
@@ -28,33 +31,35 @@ public class HierarchialDataFactory {
 	 * @throws CannotInstantiateDataException in the case the sub data type cannot be instantiated as convertible to {@link HierarchicalData}.
 	 */
 	public HierarchicalData produceData(HierarchicalData parent_data, String subdata_token) throws CannotInstantiateDataException{
-		Class _producer = tokenSubdataMap.get(subdata_token);
-		if (_producer == null){
+		PrototypeData _prototype = tokenSubdataMap.get(subdata_token);
+		if (_prototype == null){
 			throw new CannotInstantiateDataException(parent_data, subdata_token, "No such token");
 		}
-		try {
-			HierarchicalData _instance = (HierarchicalData)(_producer.newInstance());
-			if (HierarchicalData.class.isInstance(_instance)){
-				HierarchicalData _res = (HierarchicalData)_instance;
+		try{
+		PrototypeData _instance = _prototype.newInstance();
+		if (HierarchicalData.class.isInstance(_instance)){
+			HierarchicalData _res = (HierarchicalData)_instance;
+			_res.setDataToken(subdata_token);
+			if (parent_data != null){
 				parent_data.addSubData(_res);
-				return _res;
 			}
-			else{
-				throw new CannotInstantiateDataException(parent_data, subdata_token, "Subdata cannot be converted to HierarchicalData");
-			}
-		} catch (InstantiationException _e) {
-			throw new CannotInstantiateDataException(parent_data, subdata_token, "Cannot instantiate", _e);
-		} catch (IllegalAccessException _e) {
-			throw new CannotInstantiateDataException(parent_data, subdata_token, "Illegal access", _e);
+			return _res;
+		}
+		else{
+			throw new CannotInstantiateDataException(parent_data, subdata_token, "Subdata cannot be converted to HierarchicalData");
+		}
+		}
+		catch(CannotInstantiateDataException _e){
+			throw new CannotInstantiateDataException(parent_data, subdata_token, "newInstance exception");
 		}
 	}
 	/**
 	 * Adds the ability to create new kinds of data corresponding to certain token.
-	 * @param subdata_class The data type to create.
+	 * @param subdata_prototype The data type to create.
 	 * @param corresponding_token The token associated with the class type.
 	 */
-	public void addFactoringAbility(Class subdata_class, String corresponding_token){
-		tokenSubdataMap.put(corresponding_token, subdata_class);
+	public void addFactoringAbility(PrototypeData subdata_prototype, String corresponding_token){
+		tokenSubdataMap.put(corresponding_token, subdata_prototype);
 	}
 	/**
 	 * Appends all the factoring abilities of the parameter to this' abilities.
