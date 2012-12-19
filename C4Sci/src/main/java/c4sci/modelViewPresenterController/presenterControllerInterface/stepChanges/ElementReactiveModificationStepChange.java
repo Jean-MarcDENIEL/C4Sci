@@ -15,14 +15,15 @@ public class ElementReactiveModificationStepChange extends StepChange {
 	
 	public ElementReactiveModificationStepChange(Command parent_command, StepElement step_elt, String modification_value) {
 		super(parent_command, step_elt);
+		setModificationValue(modification_value);
 	}
 
-	public String getModificationValue() {
+	public final String getModificationValue() {
 		return modificationValue;
 	}
 
-	public void setModificationValue(String modificationValue) {
-		this.modificationValue = modificationValue;
+	public final void setModificationValue(String modification_value) {
+		this.modificationValue = modification_value;
 	}
 
 }

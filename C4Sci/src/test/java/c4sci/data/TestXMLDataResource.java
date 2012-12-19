@@ -1,3 +1,4 @@
+package c4sci.data;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -6,9 +7,6 @@ import java.io.PipedOutputStream;
 
 import org.junit.Test;
 
-import c4sci.data.HierarchialDataFactory;
-import c4sci.data.HierarchicalData;
-import c4sci.data.PrototypeData;
 import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.data.basicDataParameters.IntegerDataParameter;

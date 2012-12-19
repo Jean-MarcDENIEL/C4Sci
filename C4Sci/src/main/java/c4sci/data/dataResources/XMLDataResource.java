@@ -147,9 +147,7 @@ public class XMLDataResource implements HierarchicalDataResource {
 					}
 				}
 			}
-			return (HierarchicalData[]) _res_list.toArray(new HierarchicalData[0]);
-
-
+			return (HierarchicalData[]) _res_list.toArray(new HierarchicalData[1]); // 1 to avoid "empty array warning"
 	}
 
 	private HierarchicalData createNewData(HierarchicalData parent_data, Element element_node, HierarchialDataFactory parent_subdata_factory) 
@@ -159,25 +157,24 @@ public class XMLDataResource implements HierarchicalDataResource {
 		NodeList _elt_node_children = element_node.getChildNodes();
 		for (int _child_index = 0; _child_index < _elt_node_children.getLength(); _child_index ++){
 			if (Element.class.isInstance(_elt_node_children.item(_child_index))){
-				switch (_elt_node_children.item(_child_index).getNodeName()){
-				case PARAMETER_SESSION_TOKEN :
+				String _node_name = _elt_node_children.item(_child_index).getNodeName();
+				if (PARAMETER_SESSION_TOKEN.compareTo(_node_name) == 0){
 					setDataParameters(_res, _elt_node_children.item(_child_index).getChildNodes());
-					break;
-				case SUB_DATA_SESSION_TOKEN:
+				}
+				if (SUB_DATA_SESSION_TOKEN.compareTo(_node_name) == 0){
 					insertSubdata(_res, _elt_node_children.item(_child_index).getChildNodes());
-					break;
 				}
 			}
 		}
 		return _res;	
 	}
 
-	private void insertSubdata(HierarchicalData current_data, NodeList _subdata_node_list)
+	private void insertSubdata(HierarchicalData current_data, NodeList subdata_node_list)
 			throws CannotInstantiateDataException{
 		HierarchialDataFactory _factory = current_data.getSubdataFactory();
-		for (int _subdata_index = 0; _subdata_index < _subdata_node_list.getLength(); _subdata_index++){
-			if (Element.class.isInstance(_subdata_node_list.item(_subdata_index))){
-				Element _subdata_elt = (Element) _subdata_node_list.item(_subdata_index);
+		for (int _subdata_index = 0; _subdata_index < subdata_node_list.getLength(); _subdata_index++){
+			if (Element.class.isInstance(subdata_node_list.item(_subdata_index))){
+				Element _subdata_elt = (Element) subdata_node_list.item(_subdata_index);
 				try{
 					current_data.addSubData(createNewData(current_data, _subdata_elt, _factory));
 				}
@@ -197,13 +194,13 @@ public class XMLDataResource implements HierarchicalDataResource {
 		return _res;
 	}
 
-	private void setDataParameters(HierarchicalData _res, NodeList _param_nodes_list)
+	private void setDataParameters(HierarchicalData current_data, NodeList param_nodes_list)
 			throws CannotInstantiateParameterException, DataValueParsingException{
-		for (int _param_index = 0; _param_index<_param_nodes_list.getLength(); _param_index ++){
-			if (Element.class.isInstance(_param_nodes_list.item(_param_index))){
-				Element _param_elt = (Element) _param_nodes_list.item(_param_index);
+		for (int _param_index = 0; _param_index<param_nodes_list.getLength(); _param_index ++){
+			if (Element.class.isInstance(param_nodes_list.item(_param_index))){
+				Element _param_elt = (Element) param_nodes_list.item(_param_index);
 				try{
-					_res.setParameterValue(_param_elt.getNodeName(), _param_elt.getAttribute(PARAMETER_VALUE_TOKEN));
+					current_data.setParameterValue(_param_elt.getNodeName(), _param_elt.getAttribute(PARAMETER_VALUE_TOKEN));
 				}
 				catch(CannotInstantiateParameterException _e){
 					throw new CannotInstantiateParameterException(_param_elt.getNodeName(), "reading xml source", _e);
@@ -215,7 +212,7 @@ public class XMLDataResource implements HierarchicalDataResource {
 		}
 	}
 
-	private class StoreVisitor implements HierarchicalDataVisitor{
+	private static class StoreVisitor implements HierarchicalDataVisitor{
 
 		private Document				currentDocument;				// the DOM Document on which we're working on
 		private Element 				currentNode;					// the node under which one we are working		

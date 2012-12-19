@@ -119,8 +119,8 @@ public class JComponentSupport extends ComponentSupport {
 	 */
 	public float getTransparency(){
 		Color _back = swingComponent.getBackground();
-		final float maxintvalue = 255.0f;
-		return ((float)_back.getAlpha())/maxintvalue;
+		final float _MAX_INT_VALUE = 255.0f;
+		return ((float)_back.getAlpha())/_MAX_INT_VALUE;
 	}
 	/**
 	 * Sets the component location relatively to its parent coordinate space.

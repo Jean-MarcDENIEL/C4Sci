@@ -32,8 +32,6 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentFamily.StandardComponentSet;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.InternationalizableTermChange;
-import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.generics.ThreeDimensionalChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.lifeCycleChanges.CreateStandardComponentChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.ActivityChange;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChanges.modificationChanges.BackgroundColorChange;
@@ -53,6 +51,8 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.componentChan
  */
 public class DefaultBehaviorPresenter extends Presenter {
 
+	private static final float HALF_VALUE = 0.5f; 
+	
 	public DefaultBehaviorPresenter() {
 		// TODO Auto-generated constructor stub
 	}
@@ -72,7 +72,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 		List<ComponentChange> _res= new ArrayList<ComponentChange>();
 
 		// DEBUG
-		System.out.println("Element added");
+		//System.out.println("Element added");
 
 		appendComponentHierarchyAdded(step_chg.getStepElement(), _res, null, null);
 
@@ -104,15 +104,17 @@ public class DefaultBehaviorPresenter extends Presenter {
 
 		Component _panel_comp = new NoChildComponent();
 		setCorrespondence(_panel_comp, step_chg.getStepElement());
-
+		
 		// DEBUG
-		SpaceVector _back_color = new SpaceVector(1f, 1f, 0.5f);
+		final float _ONE = 1.0f;
+		final float _O_5 = 0.5f;
+		SpaceVector _back_color = new SpaceVector(_ONE, _ONE, _O_5);
 
 		_res.add(new CreateStandardComponentChange(_panel_comp, StandardComponentSet.PANEL, null));
 		_res.add(new BackgroundColorChange(_panel_comp, _back_color, null));
 
 		// DEBUG
-		System.out.println("step forward");
+		//System.out.println("step forward");
 
 		return _res;
 	}
@@ -228,10 +230,15 @@ public class DefaultBehaviorPresenter extends Presenter {
 
 		ComponentChange _previous_change = previous_change;
 
-		float _size_x	= 0.5f;
-		float _size_y 	= 0.5f;
-		float _pos_x 	= 0.25f;
-		float _pos_y 	= 0.25f;
+		final float _SIZE_X	= 0.5f;
+		final float _SIZE_Y 	= 0.5f;
+		final float _POS_X 	= 0.25f;
+		final float _POS_Y 	= 0.25f;
+		
+		float _size_x	= _SIZE_X;
+		float _size_y 	= _SIZE_Y;
+		float _pos_x 	= _POS_X;
+		float _pos_y 	= _POS_Y;
 
 		//
 		// first create the component corresponding to the current step element if it doesn't exist yet.
@@ -251,13 +258,14 @@ public class DefaultBehaviorPresenter extends Presenter {
 						res_list, _previous_change);
 			}
 			else{
+				_corresp_component = new NoChildComponent();
 				if (SingleDataStepElement.class.isInstance(step_elt)){
 					//
 					// single data
 					//
 					if (step_elt.getUnits() != null){
 						//DEBUG
-						System.out.println("------- units");
+						//System.out.println("------- units");
 						
 						//
 						// there are units : creates an invisible container cut in two : value (left), units (right)
@@ -306,7 +314,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 									res_list, _previous_change);
 							_previous_change = appendComponentChange(new PositionChange(_sub_comp_units, null, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new SizeChange(_sub_comp_units, null, null), res_list, _previous_change);
-							_previous_change = appendComponentChange(new TransparencyChange(_sub_comp_units, 0.5f, null), res_list, _previous_change);
+							_previous_change = appendComponentChange(new TransparencyChange(_sub_comp_units, HALF_VALUE, null), res_list, _previous_change);
 							_previous_change = appendComponentChange(new ForegroundColorChange(_sub_comp_units, new SpaceVector(0f, 0f, 0f), null), res_list, _previous_change);
 
 							// DEBUG : units background in violet
@@ -399,7 +407,7 @@ public class DefaultBehaviorPresenter extends Presenter {
 		_previous_change = appendComponentChange(new ForegroundColorChange(_corresp_component, new SpaceVector(0f, 0f, 0f), null), res_list, _previous_change);
 
 		// DEBUG : background in orange
-		_previous_change = appendComponentChange(new BackgroundColorChange(_corresp_component, new SpaceVector(1f, 0.5f, 0f), null), res_list, _previous_change);
+		_previous_change = appendComponentChange(new BackgroundColorChange(_corresp_component, new SpaceVector(1f, HALF_VALUE, 0f), null), res_list, _previous_change);
 
 		//
 		// adds to the parent Component
@@ -475,13 +483,13 @@ public class DefaultBehaviorPresenter extends Presenter {
 
 	}
 
-	private List<ComponentChange> computeCreationSequence(Component corresp_component, StepElement step_elt, ComponentChange previous_change) {
+	/*private List<ComponentChange> computeCreationSequence(Component corresp_component, StepElement step_elt, ComponentChange previous_change) {
 		List<ComponentChange> _res = new ArrayList<ComponentChange>();
 
 
 
 		return _res;
-	}
+	}*/
 
 	private List<ComponentChange> computeSuppressionSequence(Component corresp_component, StepElement step_elt, ComponentChange previous_change) {
 		// TODO Auto-generated method stub

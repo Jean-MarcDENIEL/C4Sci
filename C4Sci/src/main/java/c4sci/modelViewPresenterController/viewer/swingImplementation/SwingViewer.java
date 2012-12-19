@@ -172,7 +172,7 @@ public class SwingViewer extends Viewer {
 	private void invokeSwing(Runnable feedback_runnable, String feedback_name){
 
 		// DEBUG
-		System.out.println("        invoke swing : "+ feedback_name);
+		//System.out.println("        invoke swing : "+ feedback_name);
 		try{
 			SwingUtilities.invokeAndWait(feedback_runnable);
 			if (!sessionChangeOpened){
@@ -257,8 +257,8 @@ public class SwingViewer extends Viewer {
 	
 	@Override
 	public void feedbackToFocusOrderChange(final FocusOrderChange comp_chg) {
-		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcomp != null){
+		final JComponentSupport _J_COMP = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP != null){
 			invokeSwing(new Runnable() {public void run() {/* DO NOTHING*/}}, "FocusOrderChange");
 		}
 		else{
@@ -274,9 +274,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToTransparenceyChange(final TransparencyChange comp_chg) {
-		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcomp != null){
-			invokeSwing(new Runnable() {public void run() {jcomp.setTransparency(comp_chg.getChange());}}, "TransparencyChange");
+		final JComponentSupport _J_COMP = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP.setTransparency(comp_chg.getChange());}}, "TransparencyChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -285,9 +285,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToFontSizeChange(final FontSizeChange comp_chg) {
-		final JComponentSupport jcomp = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcomp != null){
-			invokeSwing(new Runnable() {public void run() {jcomp.setFontSize((int)comp_chg.getChange());}}, "FontSizeChange");
+		final JComponentSupport _J_COMP = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP.setFontSize((int)comp_chg.getChange());}}, "FontSizeChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -360,11 +360,11 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToBackgroundColorChange(final BackgroundColorChange comp_chg) {
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcompsupport != null){
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP_SUPPORT != null){
 			SpaceVector _color = comp_chg.getChange();
-			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setBackground(_COLOR_TAB);}}, "BackgroundColorChange");
+			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), _J_COMP_SUPPORT.getTransparency()};
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setBackground(_COLOR_TAB);}}, "BackgroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -373,11 +373,11 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToForegroundColorChange(ForegroundColorChange comp_chg) {
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcompsupport != null){
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP_SUPPORT != null){
 			SpaceVector _color = comp_chg.getChange();
-			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), jcompsupport.getTransparency()};
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
+			final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), _J_COMP_SUPPORT.getTransparency()};
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -389,11 +389,11 @@ public class SwingViewer extends Viewer {
 		//
 		// in fact font color is the foreground color
 		//
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
 		SpaceVector _color = comp_chg.getChange();
 		final float _COLOR_TAB[] = {_color.getX(), _color.getY(), _color.getZ(), 0.0f};
-		if (jcompsupport != null){
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
+		if (_J_COMP_SUPPORT != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setForeground(_COLOR_TAB);}}, "ForegroundColorChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -402,10 +402,10 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToNameChange(final NameChange comp_chg) {
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcompsupport != null){
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP_SUPPORT != null){
 			invokeSwing(new Runnable() {public void run() {
-				jcompsupport.setName(comp_chg.getChange().getDefaultValue());
+				_J_COMP_SUPPORT.setName(comp_chg.getChange().getDefaultValue());
 			}}, "NameChange");
 		}
 		else{
@@ -415,9 +415,9 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToDescriptionChange(final DescriptionChange comp_chg) {
-		final JComponentSupport jcompsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jcompsupport != null){
-			invokeSwing(new Runnable() {public void run() {jcompsupport.setDescription(comp_chg.getChange().getDefaultValue());}}, "DescriptionChange");
+		final JComponentSupport _J_COMP_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_COMP_SUPPORT != null){
+			invokeSwing(new Runnable() {public void run() {_J_COMP_SUPPORT.setDescription(comp_chg.getChange().getDefaultValue());}}, "DescriptionChange");
 		}
 		else{
 			treatUnableToProcessCommand(comp_chg);
@@ -426,17 +426,17 @@ public class SwingViewer extends Viewer {
 
 	@Override
 	public void feedbackToLabelChange(final LabelChange comp_chg) {
-		final TextShowerComponentInterface jtextsupport = identityTextShowerComponentMap.get(comp_chg.getComponentIdentity());
-		if (jtextsupport != null){
-			invokeSwing(new Runnable() {public void run() {jtextsupport.setText(comp_chg.getChange().getDefaultValue());}}, "LabelChange");
+		final TextShowerComponentInterface _J_TEXT_SUPPORT = identityTextShowerComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_TEXT_SUPPORT != null){
+			invokeSwing(new Runnable() {public void run() {_J_TEXT_SUPPORT.setText(comp_chg.getChange().getDefaultValue());}}, "LabelChange");
 		}
 	}
 
 	@Override
 	public void feedbackToFontTypeChange(final FontTypeChange comp_chg) {
-		final JComponentSupport jsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jsupport != null){
-			invokeSwing(new Runnable() {public void run() {jsupport.setFont(comp_chg.getChange());}}, "FontTypeChange");
+		final JComponentSupport _J_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_SUPPORT != null){
+			invokeSwing(new Runnable() {public void run() {_J_SUPPORT.setFont(comp_chg.getChange());}}, "FontTypeChange");
 		}
 	}
 
@@ -584,10 +584,10 @@ public class SwingViewer extends Viewer {
 	@Override
 	public void feedbackToSuppressComponentChange(
 			SuppressComponentChange comp_chg) {
-		final JComponentSupport jsupport = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
-		if (jsupport != null){
+		final JComponentSupport _J_SUPPORT = identitySwingComponentMap.get(comp_chg.getComponentIdentity());
+		if (_J_SUPPORT != null){
 			invokeSwing(new Runnable() {public void run() {if (getCurrentPanel() != null){
-				getCurrentPanel().getSwingComponent().remove(jsupport.getSwingComponent());}}}, 
+				getCurrentPanel().getSwingComponent().remove(_J_SUPPORT.getSwingComponent());}}}, 
 					"SuppressComponentChange");
 		}
 	}

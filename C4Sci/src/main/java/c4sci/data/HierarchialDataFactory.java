@@ -50,7 +50,7 @@ public class HierarchialDataFactory {
 		}
 		}
 		catch(CannotInstantiateDataException _e){
-			throw new CannotInstantiateDataException(parent_data, subdata_token, "newInstance exception");
+			throw new CannotInstantiateDataException(parent_data, subdata_token, "newInstance exception", _e);
 		}
 	}
 	/**

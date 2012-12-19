@@ -15,4 +15,7 @@
 
 	</dependencies>
   
+	<properties>
+		<sonar.core.codeCoveragePlugin>emma</sonar.core.codeCoveragePlugin>
+	</properties>
 </project>

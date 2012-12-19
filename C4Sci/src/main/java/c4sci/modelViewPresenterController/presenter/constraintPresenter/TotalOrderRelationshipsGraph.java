@@ -145,7 +145,7 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 
 	@Override
 	public PrototypeData newInstance() throws CannotInstantiateDataException {
-		return new TotalOrderRelationshipsGraph<>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
+		return new TotalOrderRelationshipsGraph<C>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
 	}
 
 }

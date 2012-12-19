@@ -267,7 +267,7 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 
 	@Override
 	public PrototypeData newInstance() throws CannotInstantiateDataException {
-		return new HierarchicalDataMap<>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
+		return new HierarchicalDataMap<K,V>(NO_TOKEN, NO_NAME, NO_DESCRIPTION);
 	}
 
 }
