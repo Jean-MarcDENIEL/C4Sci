@@ -91,4 +91,8 @@ public class PlaneVector {
 		setY(other_v.getY());
 		return this;
 	}
+	
+	public final float getNorm(){
+		return (float) Math.sqrt(getX()*getX() + getY()*getY());
+	}
 }
