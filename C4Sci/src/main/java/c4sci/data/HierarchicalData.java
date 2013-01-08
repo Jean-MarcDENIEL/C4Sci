@@ -262,7 +262,6 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 		this.dataDescription = data_description;
 	}
 
-	@Override
 	public PrototypeData newInstance() throws CannotInstantiateDataException {
 		throw new CannotInstantiateDataException(null, getDataToken(), "cannot instantiate HierarchicalData root class");
 	}

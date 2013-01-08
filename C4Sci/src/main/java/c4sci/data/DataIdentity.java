@@ -20,17 +20,17 @@ public class DataIdentity {
 	private long	timeStamp;
 	private long	countStamp;
 
-	private static long	CURRENT_TIME_STAMP	= new Date().getTime();
-	private static long	CURRENT_COUNT_STAMP = 0;
+	private static long	current_Time_Stamp	= new Date().getTime();
+	private static long	current_Count_Stamp = 0;
 	private static synchronized 	long createCountStamp(){
-		return CURRENT_COUNT_STAMP ++;
+		return current_Count_Stamp ++;
 	}
 
 	/**
 	 * Creates a new Identity with unique time stamp and count stamp. 
 	 */
 	public DataIdentity() {
-		timeStamp = CURRENT_TIME_STAMP;
+		timeStamp = current_Time_Stamp;
 		countStamp = createCountStamp();
 	}
 
