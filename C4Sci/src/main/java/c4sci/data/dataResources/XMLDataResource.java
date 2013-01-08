@@ -186,7 +186,7 @@ public class XMLDataResource implements HierarchicalDataResource {
 	}
 
 	private HierarchicalData createDataInstance(Element element_node, HierarchicalData parent_data, HierarchialDataFactory parent_subdata_factory)
-			throws DataValueParsingException, CannotInstantiateDataException, CannotInstantiateParameterException{
+			throws DataValueParsingException, CannotInstantiateDataException{
 		HierarchicalData _res = parent_subdata_factory.produceData(parent_data, element_node.getNodeName());
 		DataIdentity _res_id = new DataIdentity();
 		_res_id.parseFromString(element_node.getAttribute(ID_VALUE_TOKEN));
