@@ -5,7 +5,7 @@ package c4sci.io.serial;
  * @author jeanmarc.deniel
  *
  */
-public abstract class SerialVocabulary <S extends SerialDevice>{
+public abstract class SerialVocabulary{
 	private String 				commandLabel;
 	private SerialStateDecoder	resultDecoder;
 
@@ -31,21 +31,21 @@ public abstract class SerialVocabulary <S extends SerialDevice>{
 	/**
 	 * @return The string making the parameters of the order.
 	 */
-	public abstract String getCommandParameters(S serial_device);
+	public abstract String getCommandParameters(SerialDevice serial_device);
 	
 	/**
 	 * 
 	 * @param motion_engine The {@link MotionEngine} to take into account.
 	 * @return The string corresponding to a state inquiry.
 	 */
-	public abstract String getCommandState(S serial_device);
+	public abstract String getCommandState(SerialDevice serial_device);
 	
 	/**
 	 * 
 	 * @param serial_device the {@link SerialDevice} to take into account.
 	 * @return The complete "set" sequence.
 	 */
-	public String getCommandSequence(S serial_device){
+	public String getCommandSequence(SerialDevice serial_device){
 		return getCommandState(serial_device)+getCommandParameters(serial_device);
 	}
 }
