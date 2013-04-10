@@ -33,7 +33,7 @@ public class SecuredFile {
 	private static final String COHERENCE_KEY_SUFFIX = ".coh";
 	
 	/**
-	 * Creates the structure to acces t a secured file.
+	 * Creates the structure to access t a secured file.
 	 * @param absolute_file_name The absolute file name, including the full path.
 	 */
 	public SecuredFile(String absolute_file_name){
@@ -44,47 +44,47 @@ public class SecuredFile {
 	/**
 	 * Creates an output stream corresponding to a newly created file.
 	 * @return
-	 * @throws UncoherentStateFileException in the cases where :
+	 * @throws UncoherentIOStateException in the cases where :
 	 * 	<ul>
 	 * 		<li>the file cannot be created, or the name points to a directory, or</li>
 	 * 		<li>an opening (read or write) method has already been called without {@link #closeFile()} call, or</li>
 	 * 		<li>there is a system error.</li>
 	 * 	</ul>
 	 */
-	public OutputStream createNewFile() throws UncoherentStateFileException{
+	public OutputStream createNewFile() throws UncoherentIOStateException{
 		ensureNotInUse();
 		deleteCoherenceKey(completeFileName);
 		try {
 			outputStream = new FileOutputStream(completeFileName);
 			return outputStream;
 		} catch (FileNotFoundException _e) {
-			throw new UncoherentStateFileException(completeFileName, "error creating a FileOutputStream", _e);
+			throw new UncoherentIOStateException(completeFileName, "error creating a FileOutputStream", _e);
 		}
 	}
 	/**
 	 * Creates an output stream corresponding to appending at the end of a file.
 	 * @return
-	 * @throws UncoherentStateFileException in the cases where :
+	 * @throws UncoherentIOStateException in the cases where :
 	 * 	<ul>
 	 * 		<li>the file cannot be created, or the name points to a directory, or</li>
 	 * 		<li>an opening (read or write) method has already been called without {@link #closeFile()} call, or</li>
 	 * 		<li>there is a system error.</li>
 	 * 	</ul>
 	 */
-	public OutputStream appendToExistingFile() throws UncoherentStateFileException{
+	public OutputStream appendToExistingFile() throws UncoherentIOStateException{
 		ensureNotInUse();
 		deleteCoherenceKey(completeFileName);
 		try {
 			outputStream = new FileOutputStream(completeFileName, true);
 			return outputStream;
 		} catch (FileNotFoundException _e) {
-			throw new UncoherentStateFileException(completeFileName, "error appending to an existing file", _e);
+			throw new UncoherentIOStateException(completeFileName, "error appending to an existing file", _e);
 		}
 	}
 	/**
 	 * Creates an input stream in the case the file is in a coherent state.
 	 * @return
-	 * @throws UncoherentStateFileException in the cases where
+	 * @throws UncoherentIOStateException in the cases where
 	 * 	<ul>
 	 * 		<li>the file is already in use, or</li>
 	 * 		<li>the file exists ut is not in a coherent state</li>
@@ -92,16 +92,16 @@ public class SecuredFile {
 	 * 		<li>there is a system error.</li>
 	 * 	</ul> 
 	 */
-	public InputStream readFile() throws UncoherentStateFileException{
+	public InputStream readFile() throws UncoherentIOStateException{
 		ensureNotInUse();
 		if (!existsInCoherentState()){
-			throw new UncoherentStateFileException(completeFileName, "File is not in coherent state.");
+			throw new UncoherentIOStateException(completeFileName, "File is not in coherent state.");
 		}
 		try {
 			inputStream = new FileInputStream(completeFileName);
 			return inputStream;
 		} catch (FileNotFoundException _e) {
-			throw new UncoherentStateFileException(completeFileName, "File does not exists", _e);
+			throw new UncoherentIOStateException(completeFileName, "File does not exists", _e);
 		}
 	}
 	/**
@@ -110,12 +110,12 @@ public class SecuredFile {
 	 * 		<li> releasing the opened stream if there is one,</li>
 	 * 		<li> storing the fact that the file is coherent if {@link #appendToExistingFile()} or {@link #createNewFile()} has been called before
 	 * 	</ol>
-	 * @throws UncoherentStateFileException in the cases where :
+	 * @throws UncoherentIOStateException in the cases where :
 	 * 		<li>this closing method is called several times without any opening between two closing calls, or</li>
 	 * 		<li>there is a system error.</li>
 	 * 
 	 */
-	public void closeFile() throws UncoherentStateFileException{
+	public void closeFile() throws UncoherentIOStateException{
 		try{
 		if (inputStream != null){
 			inputStream.close();
@@ -128,12 +128,12 @@ public class SecuredFile {
 				outputStream = null;
 			}
 			else{
-				throw new UncoherentStateFileException(completeFileName, "Cannot close a file that has not been opened");
+				throw new UncoherentIOStateException(completeFileName, "Cannot close a file that has not been opened");
 			}
 		}
 		}
 		catch(IOException _e){
-			throw new UncoherentStateFileException(completeFileName, "Cannot close a file that has not been opened previously.", _e);
+			throw new UncoherentIOStateException(completeFileName, "Cannot close a file that has not been opened previously.", _e);
 		}
 	}
 	/**
@@ -144,19 +144,19 @@ public class SecuredFile {
 	 * 	<li> the file is not a directory, and</li>
 	 *  <li> the file is in a coherent state.</li>
 	 * </ol> 
-	 * @throws UncoherentStateFileException in the cases where :
+	 * @throws UncoherentIOStateException in the cases where :
 	 * <ul>
 	 * 		<li>the file is already in use</li>
 	 * </ul>
 	 */
-	public boolean existsInCoherentState() throws UncoherentStateFileException{
+	public boolean existsInCoherentState() throws UncoherentIOStateException{
 		ensureNotInUse();
 		return existsCoherenceKey(completeFileName);
 	}
 	
 	/**
 	 * Deletes the files
-	 * @throws UncoherentStateFileException in the cases where :
+	 * @throws UncoherentIOStateException in the cases where :
 	 * <ul>
 	 * 		<li>the file is already in use, or</li>
 	 * 		<li>the file does not exists, or</li>
@@ -164,32 +164,32 @@ public class SecuredFile {
 	 * 		<li>there is a system error.</li>
 	 * </ul>
 	 */
-	public void deleteFile() throws UncoherentStateFileException {
+	public void deleteFile() throws UncoherentIOStateException {
 		ensureNotInUse();
 		deleteCoherenceKey(completeFileName);
 		try{
 			File _file = new File(completeFileName);
 			if (_file.isDirectory()){
-				throw new UncoherentStateFileException(completeFileName, "cannot delete a directory");
+				throw new UncoherentIOStateException(completeFileName, "cannot delete a directory");
 			}
 			if (!_file.exists()){
-				throw new UncoherentStateFileException(completeFileName, "cannot delete a non existing file");
+				throw new UncoherentIOStateException(completeFileName, "cannot delete a non existing file");
 			}
 			if (!_file.delete()){
-				throw new UncoherentStateFileException(completeFileName, "deleteing error");
+				throw new UncoherentIOStateException(completeFileName, "deleteing error");
 			}
 		}
 		catch(SecurityException _e){
-			throw new UncoherentStateFileException(completeFileName, "Deleting error", _e);
+			throw new UncoherentIOStateException(completeFileName, "Deleting error", _e);
 		}
 	}
 	
-	private void ensureNotInUse() throws UncoherentStateFileException{
+	private void ensureNotInUse() throws UncoherentIOStateException{
 		if (inputStream != null){
-			throw new UncoherentStateFileException(completeFileName, "File already in input use");
+			throw new UncoherentIOStateException(completeFileName, "File already in input use");
 		}
 		if (outputStream != null){
-			throw new UncoherentStateFileException(completeFileName, "File already in output use");
+			throw new UncoherentIOStateException(completeFileName, "File already in output use");
 		}
 	}
 	
@@ -197,41 +197,41 @@ public class SecuredFile {
 		return absolute_file_name + COHERENCE_KEY_SUFFIX;
 	}
 	
-	private static boolean existsCoherenceKey(String absolute_file_name) throws UncoherentStateFileException{
+	private static boolean existsCoherenceKey(String absolute_file_name) throws UncoherentIOStateException{
 		try{
 			File _key_file = new File(getKeyFileName(absolute_file_name));
 			return _key_file.exists() && _key_file.isFile();
 		}
 		catch(SecurityException _e){
-			throw new UncoherentStateFileException(absolute_file_name, "file system error", _e);
+			throw new UncoherentIOStateException(absolute_file_name, "file system error", _e);
 		}
 	}
 	
-	private static void deleteCoherenceKey(String absolute_file_name) throws UncoherentStateFileException{
+	private static void deleteCoherenceKey(String absolute_file_name) throws UncoherentIOStateException{
 		try{
 			if (existsCoherenceKey(absolute_file_name)){
 				File _key_file = new File(getKeyFileName(absolute_file_name));
 				if (!_key_file.delete()){
-					throw new UncoherentStateFileException(absolute_file_name, "Cannot delete coherence key");
+					throw new UncoherentIOStateException(absolute_file_name, "Cannot delete coherence key");
 				}
 			}
 		}
 		catch(SecurityException _e){
-			throw new UncoherentStateFileException(absolute_file_name, "cannot delete file coherence key", _e);
+			throw new UncoherentIOStateException(absolute_file_name, "cannot delete file coherence key", _e);
 		}
 	}
 	
-	private static void createCoherenceKey(String absolute_file_name) throws UncoherentStateFileException{
+	private static void createCoherenceKey(String absolute_file_name) throws UncoherentIOStateException{
 		if (existsCoherenceKey(absolute_file_name)){
 			return;
 		}
 		File _coherence_key = new File(getKeyFileName(absolute_file_name));
 		try {
 			if (!_coherence_key.createNewFile()){
-				throw new UncoherentStateFileException(absolute_file_name, "Cannot create coherence key");
+				throw new UncoherentIOStateException(absolute_file_name, "Cannot create coherence key");
 			}
 		} catch (IOException _e) {
-			throw new UncoherentStateFileException(absolute_file_name, "Cannot create coherence key file", _e);
+			throw new UncoherentIOStateException(absolute_file_name, "Cannot create coherence key file", _e);
 		}
 	}
 }

@@ -24,18 +24,18 @@ public class TestSecuredFile {
 			OutputStream _out_2 = _secured.createNewFile();
 			fail("double createNewFile should have thrown");
 		}
-		catch (UncoherentStateFileException _e){
+		catch (UncoherentIOStateException _e){
 			assertTrue(true);
 		}
 		try {
 			_secured.closeFile();
-		} catch (UncoherentStateFileException e) {
+		} catch (UncoherentIOStateException e) {
 			fail("closeFile should not throw");
 		}
 		try {
 			_secured.closeFile();
 			fail("closeFile twice should have thrown");
-		} catch (UncoherentStateFileException e) {
+		} catch (UncoherentIOStateException e) {
 			assertTrue(true);
 		}
 		
@@ -44,7 +44,7 @@ public class TestSecuredFile {
 			_out_new.write(_testing_str.getBytes());
 			_secured.closeFile();
 		} 
-		catch (UncoherentStateFileException e) {
+		catch (UncoherentIOStateException e) {
 			fail("createNewFile should not throw");
 		}
 		catch(IOException _e){
@@ -56,7 +56,7 @@ public class TestSecuredFile {
 			_out_append.write(_continue_str.getBytes());
 			_secured.closeFile();
 			
-		} catch (UncoherentStateFileException _e) {
+		} catch (UncoherentIOStateException _e) {
 			fail("append should not throw");
 		} catch (IOException e) {
 			fail("apend should not IOException");
@@ -71,7 +71,7 @@ public class TestSecuredFile {
 			assertTrue("strange convertion : " + _read.length() + " for " + _length + " bytes", _length == _read.length());
 			assertTrue("reading " + _read + " instead of " + (_testing_str+_continue_str), _read.compareTo(_testing_str+_continue_str) == 0);
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			fail("readFile should not throw");
 		} catch (IOException e) {
 			fail("should not IOException");
@@ -81,7 +81,7 @@ public class TestSecuredFile {
 			OutputStream _out_3 = _secured.createNewFile();
 			fail("should not permit opening an already in use file");
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			assertTrue(true);
 		}
 		
@@ -89,21 +89,21 @@ public class TestSecuredFile {
 			_secured.deleteFile();
 			fail("should have thrown");
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			assertTrue(true);
 		}
 		
 		try{
 			_secured.closeFile();
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			fail("should not have thrown here");
 		}
 		
 		try{
 			_secured.deleteFile();
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			fail("delete should not have thrown");
 		}
 		
@@ -111,7 +111,7 @@ public class TestSecuredFile {
 			InputStream _in_2 = _secured.readFile();
 			fail("should have thrown");
 		}
-		catch(UncoherentStateFileException _e){
+		catch(UncoherentIOStateException _e){
 			assertTrue(true);
 		}
 		
