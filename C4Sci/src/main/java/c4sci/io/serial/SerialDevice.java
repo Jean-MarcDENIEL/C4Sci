@@ -127,8 +127,6 @@ public abstract class SerialDevice {
 		for (int _j=0; _j<getCommandStringEnd().length(); _j++){
 			_res[_i++] = getCommandStringEnd().charAt(_j);
 		}
-		//_res[_i++] = '\r';
-		//_res[_i++] = '\n';
 		return _res;
 	}
 	

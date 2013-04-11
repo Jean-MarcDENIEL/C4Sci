@@ -1,7 +1,7 @@
 package c4sci.io.serial;
 
 /**
- * this class implements the commands that can be accepted by and which return can be decoded from a serial device
+ * This class implements the commands that can be accepted by and which return can be decoded from a serial device
  * @author jeanmarc.deniel
  *
  */
@@ -29,13 +29,4 @@ public interface SerialVocabulary{
 	 * @return The string corresponding to a state inquiry.
 	 */
 	 String getCommandState(SerialDevice serial_device);
-	
-	/**
-	 * 
-	 * @param serial_device the {@link SerialDevice} to take into account.
-	 * @return The complete "set" sequence.
-	 */
-	/*String getCommandSequence(SerialDevice serial_device){
-		return getCommandState(serial_device)+getCommandParameters(serial_device);
-	}*/
 }
