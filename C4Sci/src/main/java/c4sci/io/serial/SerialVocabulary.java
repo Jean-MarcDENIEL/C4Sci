@@ -5,47 +5,37 @@ package c4sci.io.serial;
  * @author jeanmarc.deniel
  *
  */
-public abstract class SerialVocabulary{
-	private String 				commandLabel;
-	private SerialStateDecoder	resultDecoder;
+public interface SerialVocabulary{
 
-	public SerialVocabulary(String cmd_label){
-		commandLabel 	= 	cmd_label;
-		resultDecoder	=	null;
-	}
 	/**
 	 * 
 	 * @return The sequence label of the command
 	 */
-	public String getLabel(){
-		return commandLabel;
-	}
+	 String getLabel();
 	/**
 	 * 
 	 * @return The decoder that can be used to decode this order's result and update a {@link MotionEngine}.<br>
 	 * <i>null</i> if there is nothing to decode. 
 	 */
-	public SerialStateDecoder getResultDecoder() {
-		return resultDecoder;
-	}
+	SerialStateDecoder getResultDecoder();
 	/**
 	 * @return The string making the parameters of the order.
 	 */
-	public abstract String getCommandParameters(SerialDevice serial_device);
+	String getCommandParameters(SerialDevice serial_device);
 	
 	/**
 	 * 
 	 * @param motion_engine The {@link MotionEngine} to take into account.
 	 * @return The string corresponding to a state inquiry.
 	 */
-	public abstract String getCommandState(SerialDevice serial_device);
+	 String getCommandState(SerialDevice serial_device);
 	
 	/**
 	 * 
 	 * @param serial_device the {@link SerialDevice} to take into account.
 	 * @return The complete "set" sequence.
 	 */
-	public String getCommandSequence(SerialDevice serial_device){
+	/*String getCommandSequence(SerialDevice serial_device){
 		return getCommandState(serial_device)+getCommandParameters(serial_device);
-	}
+	}*/
 }

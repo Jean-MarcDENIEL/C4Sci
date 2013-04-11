@@ -9,5 +9,8 @@ public class SerialStateParsingException extends Exception {
 	public SerialStateParsingException(String excp_msg){
 		super(excp_msg);
 	}
+	public SerialStateParsingException(String excp_msg, Throwable _cause){
+		super(excp_msg, _cause);
+	}
 
 }

@@ -19,10 +19,6 @@ import gnu.io.SerialPortEventListener;
 @SuppressWarnings("restriction")
 public abstract class SerialDevice {
 
-	private static final int	DEFAULT_DELAY_BETWEEN_SENDS_MILLISEC			= 350;
-	private static final int	DEFAULT_TIMEOUT_MILLISEC						= 100;
-
-
 	private String				serialPortName;
 	private SerialPort			serialPort;
 	private int					delayBetweenSendsMilliSec;
@@ -78,17 +74,17 @@ public abstract class SerialDevice {
 	}
 
 
-	public SerialDevice(String serial_port_name, String command_string_end, char command_result_end){
+	public SerialDevice(String serial_port_name, String command_string_end, char command_result_end, int delay_between_sends_millisec, int timeout_millisec){
 		setSerialPortName(serial_port_name);
 		setSerialPort(null);
 		setControllerReturnToDecode(new StringBuffer());
-		setDelayBetweenSendsMilliSec(DEFAULT_DELAY_BETWEEN_SENDS_MILLISEC);
+		setDelayBetweenSendsMilliSec(delay_between_sends_millisec);
 		setCommandStringEnd(command_string_end);
 		setCommandResultEnd(command_result_end);
 		
 		try {
 			CommPortIdentifier _com_id = CommPortIdentifier.getPortIdentifier(getSerialPortName());
-			CommPort _com_port = _com_id.open("SerialDevice", DEFAULT_TIMEOUT_MILLISEC);
+			CommPort _com_port = _com_id.open("SerialDevice", timeout_millisec);
 
 			if (_com_port instanceof SerialPort){
 				serialPort = (SerialPort)_com_port;
@@ -145,7 +141,8 @@ public abstract class SerialDevice {
 	public void sendOrderAndSetDecoder(SerialVocabulary order_to_send){
 		setStateDecoderToUse(order_to_send.getResultDecoder());
 
-		String _order_str = order_to_send.getCommandSequence(this);
+		// replaces getcommandSequence
+		String _order_str = order_to_send.getCommandState(this) + order_to_send.getCommandParameters(this);
 		int[] _order_int_array = translateToPort(_order_str);
 		for (int _msg_data : _order_int_array){
 			try {
@@ -172,7 +169,7 @@ public abstract class SerialDevice {
 		return controllerReturnToDecode;
 	}
 
-	public final synchronized void setControllerReturnToDecode(StringBuffer controller_return_to_decode) {
+	private synchronized void setControllerReturnToDecode(StringBuffer controller_return_to_decode) {
 		this.controllerReturnToDecode = controller_return_to_decode;
 	};	
 	
@@ -188,7 +185,7 @@ public abstract class SerialDevice {
 		return serialPortName;
 	}
 
-	public synchronized void setSerialPortName(String serial_port_name) {
+	private synchronized void setSerialPortName(String serial_port_name) {
 		this.serialPortName = serial_port_name;
 	}
 
@@ -196,15 +193,15 @@ public abstract class SerialDevice {
 		return serialPort;
 	}
 
-	public void setSerialPort(SerialPort serial_port) {
+	private void setSerialPort(SerialPort serial_port) {
 		this.serialPort = serial_port;
 	}
 
-	public int getDelayBetweenSendsMilliSec() {
+	private int getDelayBetweenSendsMilliSec() {
 		return delayBetweenSendsMilliSec;
 	}
 
-	public void setDelayBetweenSendsMilliSec(int delay_between_sends_milliSec) {
+	private void setDelayBetweenSendsMilliSec(int delay_between_sends_milliSec) {
 		this.delayBetweenSendsMilliSec = delay_between_sends_milliSec;
 	}
 
@@ -212,7 +209,7 @@ public abstract class SerialDevice {
 		return commandStringEnd;
 	}
 
-	public void setCommandStringEnd(String command_string_end) {
+	private void setCommandStringEnd(String command_string_end) {
 		this.commandStringEnd = command_string_end;
 	}
 
@@ -220,7 +217,7 @@ public abstract class SerialDevice {
 		return commandResultEnd;
 	}
 
-	public void setCommandResultEnd(char command_result_end) {
+	private void setCommandResultEnd(char command_result_end) {
 		this.commandResultEnd = command_result_end;
 	} 
 }
