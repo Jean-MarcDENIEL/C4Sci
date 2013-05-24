@@ -48,6 +48,7 @@ public abstract class SerialDevice {
 		public void serialEvent( SerialPortEvent serial_event) {
 			getControllerReturnToDecode().setLength(0);
 			try{
+				
 				int _read_data = decodedStream.read();
 				// first receives the message from the controller
 				//
