@@ -16,7 +16,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
  * @author jeanmarc.deniel
  *
  */
-public abstract class DataParameter implements Modifiable {
+public abstract class DataParameter extends Modifiable {
 	private String					paramToken;
 	private InternationalizableTerm	paramName;
 	private InternationalizableTerm	paramDescription;
@@ -68,34 +68,7 @@ public abstract class DataParameter implements Modifiable {
 	public final void setParameterDescription(InternationalizableTerm param_descr){
 		paramDescription = param_descr;
 	}
-	/**
-	 * Gives a string representation of the internal state of the {@link DataParameter}.
-	 * @return A String that could be parsed to retrieve the real parameter value.
-	 */
-	public abstract String getValue();
 
-	/** 
-	 * Parses a String to set the {@link DataParameter} value.
-	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
-	 */
-	public abstract void setValue(String str_to_parse) throws DataValueParsingException;
-	/**
-	 * Test whereas a string could be successfully parsed to set the DataParameter value.
-	 * @param str_to_parse The string to parse.
-	 * @return <i>true</i> if the string can be successfully parsed to set the DataParameter value. <br>
-	 * <i>false</i> if the argument is null or {@link #setValue(String)} would throw a {@link DataValueParsingException}. 
-	 */
-	public boolean validatesRegularExpression(String str_to_parse){
-		if (str_to_parse == null){
-			return false;
-		}
-		return Pattern.matches(getRegExp(), str_to_parse);
-	}
-	/**
-	 * Indicates the regular expression representing the acceptable string to parse to set the {@link DataParameter} inner state.
-	 * @return The regular expression corresponding to the valid parameter entries.
-	 */
-	public abstract String getRegExp();
 	/**
 	 * <b>Pattern</b> This method is part of the Template Method GoF pattern.<br>
 	 * Only DataParameter values must be copied from "this".
