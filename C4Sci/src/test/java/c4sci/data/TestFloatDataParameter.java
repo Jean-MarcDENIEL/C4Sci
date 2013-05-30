@@ -59,7 +59,7 @@ public class TestFloatDataParameter {
 		assertEquals(_param.getFloatValue(), 2.5, .01);
 	}
 	@Test
-	public void testClone(){
+	public void testClone() throws InstantiationException, IllegalAccessException{
 		FloatDataParameter _param = new FloatDataParameter("test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));

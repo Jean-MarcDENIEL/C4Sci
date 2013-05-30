@@ -56,7 +56,7 @@ public class TestSpaceVectorDataParameter {
 	}
 
 	@Test
-	public void testClone(){
+	public void testClone() throws InstantiationException, IllegalAccessException{
 		SpaceVectorDataParameter _param = new SpaceVectorDataParameter("test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));

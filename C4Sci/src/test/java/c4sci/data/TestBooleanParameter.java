@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestBooleanParameter {
 
 	@Test
-	public void test() {
+	public void test() throws InstantiationException, IllegalAccessException {
 		BooleanDataParameter _param = new BooleanDataParameter("param", 
 				new InternationalizableTerm("boolean param"), 
 				new InternationalizableTerm("param descr"));

@@ -6,7 +6,12 @@ import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
- * This class encapsulates simple data and access them through String values.
+ * This class encapsulates simple data and access them through String values.<br>
+ * <b>Important about string values :<b>
+ * <ul>
+ * 	<li> </li>
+ * </ul>
+ * 
  * Parameters are bound to be used in more complete classes.
  * @author jeanmarc.deniel
  *
@@ -64,13 +69,13 @@ public abstract class DataParameter implements Modifiable {
 		paramDescription = param_descr;
 	}
 	/**
-	 * 
+	 * Gives a string representation of the internal state of the {@link DataParameter}.
 	 * @return A String that could be parsed to retrieve the real parameter value.
 	 */
 	public abstract String getValue();
 
 	/** 
-	 * Parses a String to set the value.
+	 * Parses a String to set the {@link DataParameter} value.
 	 * @throws DataValueParsingException if str_to_parse is null or cannot be parsed successfully
 	 */
 	public abstract void setValue(String str_to_parse) throws DataValueParsingException;
@@ -87,7 +92,7 @@ public abstract class DataParameter implements Modifiable {
 		return Pattern.matches(getRegExp(), str_to_parse);
 	}
 	/**
-	 * 
+	 * Indicates the regular expression representing the acceptable string to parse to set the {@link DataParameter} inner state.
 	 * @return The regular expression corresponding to the valid parameter entries.
 	 */
 	public abstract String getRegExp();
@@ -96,14 +101,14 @@ public abstract class DataParameter implements Modifiable {
 	 * Only DataParameter values must be copied from "this".
 	 * @return a DataParameter of the same type then "this", with same DataParameter fields value.
 	 */
-	protected abstract DataParameter getSameDataParameterInstance();
+	protected abstract DataParameter getSameDataParameterInstance() throws InstantiationException, IllegalAccessException;
 	/**
 	 * <b>Pattern</b> This method instantiates the Prototype GoF pattern.<br>
 	 * <b>Pattern</b> This method uses the Template Method pattern<br>
 	 * @see DataParameter#getSameDataParameterInstance()
 	 * @return a clone of this, with same Parameter value
 	 */
-	public final DataParameter getClone(){
+	public final DataParameter getClone() throws InstantiationException, IllegalAccessException{
 		DataParameter _res = getSameDataParameterInstance();
 		try {
 			_res.setValue(getValue());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
     <Class name="c4sci.data.basicDataParameters.StringDataParameter"
-        x="-194" y="700">
+        x="241" y="701">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -12,7 +12,7 @@
         <Extension destinationClassName="c4sci.data.DataParameter"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
-    <Class name="c4sci.data.HierarchicalDataVisitor" x="935" y="348">
+    <Class name="c4sci.data.HierarchicalDataVisitor" x="1370" y="349">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -21,7 +21,7 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.HierarchicalData" x="514" y="156">
+    <Class name="c4sci.data.HierarchicalData" x="949" y="157">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -48,10 +48,10 @@
             <Point x="807" y="410"/>
         </Association>
         <Communication destinationClassName="c4sci.data.HierarchicalDataVisitor"/>
-        <Communication destinationClassName="c4sci.data.DataParameterFactory"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameterFactory"/>
     </Class>
-    <Class name="c4sci.data.HDMapEntry" x="467" y="512">
+    <Class name="c4sci.data.HDMapEntry" x="902" y="513">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -62,12 +62,12 @@
         <Extension destinationClassName="c4sci.data.HierarchicalData"/>
         <Association destinationClassName="c4sci.data.DataIdentity"
             endpointName="keyIdentity" kind="Simple">
-            <Point x="426" y="729"/>
+            <Point x="907" y="694"/>
         </Association>
         <Association destinationClassName="c4sci.data.DataIdentity"
             endpointName="valueIdentity" kind="Simple"/>
     </Class>
-    <Class name="c4sci.data.VisitableData" x="969" y="151">
+    <Class name="c4sci.data.VisitableData" x="1404" y="152">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -76,7 +76,7 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.HierarchicalDataResource" x="889" y="525">
+    <Class name="c4sci.data.HierarchicalDataResource" x="1324" y="526">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -86,7 +86,7 @@
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
     <Class name="c4sci.data.basicDataParameters.FloatDataParameter"
-        x="37" y="586">
+        x="472" y="587">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -97,7 +97,7 @@
         <Extension destinationClassName="c4sci.data.DataParameter"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
-    <Class name="c4sci.data.Modifiable" x="125" y="142">
+    <Class name="c4sci.data.Modifiable" x="560" y="143">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -106,7 +106,7 @@
             default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.DataIdentity" x="198" y="638">
+    <Class name="c4sci.data.DataIdentity" x="633" y="639">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -115,7 +115,7 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.HierarchialDataFactory" x="910" y="50">
+    <Class name="c4sci.data.HierarchialDataFactory" x="1345" y="51">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -130,7 +130,7 @@
     </Class>
     <Class
         name="c4sci.data.basicDataParameters.PlaneVectorDataParameter"
-        x="-31" y="701">
+        x="404" y="702">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -143,7 +143,7 @@
     </Class>
     <Class
         name="c4sci.data.basicDataParameters.SpaceVectorDataParameter"
-        x="-434" y="700">
+        x="1" y="701">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -155,7 +155,7 @@
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
     <Class name="c4sci.data.basicDataParameters.BooleanDataParameter"
-        x="-431" y="582">
+        x="4" y="583">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -166,7 +166,7 @@
         <Extension destinationClassName="c4sci.data.DataParameter"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
-    <Class name="c4sci.data.dataResources.XMLDataResource" x="892" y="680">
+    <Class name="c4sci.data.dataResources.XMLDataResource" x="1327" y="681">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -176,10 +176,10 @@
             accessors-accepted="true" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.data.HierarchicalDataResource"/>
         <Communication destinationClassName="c4sci.data.HierarchicalData"/>
-        <Communication destinationClassName="c4sci.data.DataIdentity"/>
         <Communication destinationClassName="c4sci.data.HierarchialDataFactory"/>
+        <Communication destinationClassName="c4sci.data.DataIdentity"/>
     </Class>
-    <Class name="c4sci.data.HierarchicalDataMap" x="625" y="625">
+    <Class name="c4sci.data.HierarchicalDataMap" x="1060" y="626">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -193,17 +193,7 @@
         <Communication destinationClassName="c4sci.data.HierarchicalData"/>
         <Communication destinationClassName="c4sci.data.DataIdentity"/>
     </Class>
-    <Class name="c4sci.data.DataParameter" x="-143" y="334">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
-            accessors-accepted="true" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.data.Modifiable"/>
-    </Class>
-    <Class name="c4sci.data.DataParameterFactory" x="16" y="52">
+    <Class name="c4sci.data.DataParameterFactory" x="451" y="53">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -213,7 +203,17 @@
             accessors-accepted="true" constructors-accepted="false"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
-    <Class name="c4sci.data.PrototypeData" x="555" y="7">
+    <Class name="c4sci.data.DataParameter" x="292" y="335">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
+    </Class>
+    <Class name="c4sci.data.PrototypeData" x="990" y="8">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -223,7 +223,7 @@
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
     <Class name="c4sci.data.basicDataParameters.IntegerDataParameter"
-        x="-155" y="588">
+        x="280" y="589">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>

@@ -12,7 +12,7 @@ import c4sci.math.geometry.plane.PlaneVector;
 public class TestPlaneVectorDataParameter {
 
 	@Test
-	public void test() {
+	public void test() throws InstantiationException, IllegalAccessException {
 		PlaneVectorDataParameter _param = new PlaneVectorDataParameter("planeVector", new InternationalizableTerm("plane vector"), new InternationalizableTerm("3D vector with 4 components"));
 		
 		assertTrue("got "+_param.getValue(), _param.getValue().compareTo("0.0 0.0") == 0);

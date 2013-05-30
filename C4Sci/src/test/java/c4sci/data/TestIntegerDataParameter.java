@@ -11,7 +11,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestIntegerDataParameter {
 
 	@Test
-	public void test() {
+	public void test() throws InstantiationException, IllegalAccessException {
 		IntegerDataParameter _param = new IntegerDataParameter("testParam", 
 				new InternationalizableTerm("testing parameter"), 
 				new InternationalizableTerm("integer testing parameter"));

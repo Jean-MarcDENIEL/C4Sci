@@ -36,7 +36,7 @@ public class TestStringDataParameter {
 	}
 	
 	@Test
-	public void testClone(){
+	public void testClone() throws InstantiationException, IllegalAccessException{
 		StringDataParameter _param = new StringDataParameter("test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
