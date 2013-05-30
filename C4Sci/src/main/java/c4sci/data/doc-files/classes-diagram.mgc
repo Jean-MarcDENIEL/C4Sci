@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="c4sci.data.basicDataParameters.StringDataParameter"
+        x="-194" y="700">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.HierarchicalDataVisitor" x="935" y="348">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.HierarchicalData" x="514" y="156">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.VisitableData"/>
+        <Extension destinationClassName="c4sci.data.PrototypeData"/>
+        <Association destinationClassName="c4sci.data.DataParameter"
+            endpointName="parameterMap" kind="Simple"/>
+        <Association destinationClassName="c4sci.data.HierarchicalData"
+            endpointName="IDENTITY_DATA_MAP" kind="Simple">
+            <Point x="821" y="331"/>
+        </Association>
+        <Association destinationClassName="c4sci.data.DataIdentity"
+            endpointName="dataIdentity" kind="Simple"/>
+        <Association destinationClassName="c4sci.data.HierarchicalData"
+            endpointName="parentData" kind="Simple">
+            <Point x="825" y="284"/>
+        </Association>
+        <Association destinationClassName="c4sci.data.HierarchicalData"
+            endpointName="subDataSet" kind="Simple">
+            <Point x="807" y="410"/>
+        </Association>
+        <Communication destinationClassName="c4sci.data.HierarchicalDataVisitor"/>
+        <Communication destinationClassName="c4sci.data.DataParameterFactory"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.HDMapEntry" x="467" y="512">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.HierarchicalData"/>
+        <Association destinationClassName="c4sci.data.DataIdentity"
+            endpointName="keyIdentity" kind="Simple">
+            <Point x="426" y="729"/>
+        </Association>
+        <Association destinationClassName="c4sci.data.DataIdentity"
+            endpointName="valueIdentity" kind="Simple"/>
+    </Class>
+    <Class name="c4sci.data.VisitableData" x="969" y="151">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.HierarchicalDataResource" x="889" y="525">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.basicDataParameters.FloatDataParameter"
+        x="37" y="586">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.Modifiable" x="125" y="142">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.DataIdentity" x="198" y="638">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.HierarchialDataFactory" x="910" y="50">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Association destinationClassName="c4sci.data.PrototypeData"
+            endpointName="tokenSubdataMap" kind="Simple"/>
+        <Communication destinationClassName="c4sci.data.HierarchicalData"/>
+        <Communication destinationClassName="c4sci.data.PrototypeData"/>
+    </Class>
+    <Class
+        name="c4sci.data.basicDataParameters.PlaneVectorDataParameter"
+        x="-31" y="701">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class
+        name="c4sci.data.basicDataParameters.SpaceVectorDataParameter"
+        x="-434" y="700">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.basicDataParameters.BooleanDataParameter"
+        x="-431" y="582">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.dataResources.XMLDataResource" x="892" y="680">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.HierarchicalDataResource"/>
+        <Communication destinationClassName="c4sci.data.HierarchicalData"/>
+        <Communication destinationClassName="c4sci.data.DataIdentity"/>
+        <Communication destinationClassName="c4sci.data.HierarchialDataFactory"/>
+    </Class>
+    <Class name="c4sci.data.HierarchicalDataMap" x="625" y="625">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.HierarchicalData"/>
+        <Association destinationClassName="c4sci.data.HDMapEntry"
+            endpointName="keyEntryMap" kind="Simple"/>
+        <Communication destinationClassName="c4sci.data.HierarchicalData"/>
+        <Communication destinationClassName="c4sci.data.DataIdentity"/>
+    </Class>
+    <Class name="c4sci.data.DataParameter" x="-143" y="334">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
+    </Class>
+    <Class name="c4sci.data.DataParameterFactory" x="16" y="52">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class name="c4sci.data.PrototypeData" x="555" y="7">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+    </Class>
+    <Class name="c4sci.data.basicDataParameters.IntegerDataParameter"
+        x="-155" y="588">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+</ClassDiagram>
