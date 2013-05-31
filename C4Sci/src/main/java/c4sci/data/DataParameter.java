@@ -1,5 +1,6 @@
 package c4sci.data;
 
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -72,14 +73,14 @@ public abstract class DataParameter extends Modifiable {
 	 * Only DataParameter values must be copied from "this".
 	 * @return a DataParameter of the same type then "this", with same DataParameter fields value.
 	 */
-	protected abstract DataParameter getSameDataParameterInstance() throws InstantiationException, IllegalAccessException;
+	protected abstract DataParameter getSameDataParameterInstance() throws CannotInstantiateParameterException;
 	/**
 	 * <b>Pattern</b> This method instantiates the Prototype GoF pattern.<br>
 	 * <b>Pattern</b> This method uses the Template Method pattern<br>
 	 * @see DataParameter#getSameDataParameterInstance()
 	 * @return a clone of this, with same Parameter value
 	 */
-	public final DataParameter getClone() throws InstantiationException, IllegalAccessException{
+	public final DataParameter getClone() throws CannotInstantiateParameterException{
 		DataParameter _res = getSameDataParameterInstance();
 		try {
 			_res.setValue(getValue());

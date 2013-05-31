@@ -2,6 +2,7 @@ package c4sci.data.dataParameters;
 
 import c4sci.data.DataParameter;
 import c4sci.data.Modifiable;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -38,8 +39,12 @@ public class GenericDataParameter<M extends Modifiable> extends DataParameter {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	protected DataParameter getSameDataParameterInstance() throws InstantiationException, IllegalAccessException{
-		return new GenericDataParameter(innerState.getClass().newInstance(), getParameterToken(), getParameterName(), getParameterDescription());
+	protected DataParameter getSameDataParameterInstance() throws CannotInstantiateParameterException{
+		try {
+			return new GenericDataParameter(innerState.getClass().newInstance(), getParameterToken(), getParameterName(), getParameterDescription());
+		} catch (Exception _e) {
+			throw new CannotInstantiateParameterException(getParameterToken(), "Instantiation error", _e);
+		}
 	}
 
 	public M accesValue(){
