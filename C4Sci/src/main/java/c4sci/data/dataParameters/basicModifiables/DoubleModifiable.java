@@ -18,7 +18,12 @@ public class DoubleModifiable extends Modifiable {
 
 	@Override
 	public void setValue(String str_to_parse) throws DataValueParsingException {
+		try{
 		innerState = Double.parseDouble(str_to_parse);
+		}
+		catch(NumberFormatException _e){
+			throw new DataValueParsingException("a double value", str_to_parse, "cannot parse", _e);
+		}
 
 	}
 

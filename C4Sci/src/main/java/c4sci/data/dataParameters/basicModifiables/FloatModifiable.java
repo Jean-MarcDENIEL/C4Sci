@@ -18,7 +18,12 @@ public class FloatModifiable extends Modifiable {
 
 	@Override
 	public void setValue(String str_to_parse) throws DataValueParsingException {
-		innerState = Float.parseFloat(str_to_parse);
+		try{
+			innerState = Float.parseFloat(str_to_parse);
+		}
+		catch(NumberFormatException _e){
+			throw new DataValueParsingException("a float value", str_to_parse, "cannot parse", _e);
+		}
 	}
 
 	@Override

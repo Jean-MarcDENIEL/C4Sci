@@ -48,14 +48,23 @@ public class NoWhiteSpaceStringModifiable extends Modifiable {
 	}
 
 	@Override
+	/**
+	 * Beware : the string parameter should not contain any whitespace otherwise disorders may happen.
+	 */
 	public void setValue(String str_to_parse) throws DataValueParsingException {
-		// TODO Auto-generated method stub
-
+		innerState = str_to_parse;
 	}
 
 	@Override
 	public String getRegExp() {
 		return "[^\\s]*";
+	}
+	
+	public synchronized String getStringValue(){
+		return convertsFromNoWhiteSpaceString(innerState);
+	}
+	public synchronized void setStringValue(String str_val){
+		innerState = convertToNowhiteSpaceString(str_val);
 	}
 
 }

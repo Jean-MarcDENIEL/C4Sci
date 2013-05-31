@@ -18,7 +18,12 @@ public class IntegerModifiable extends Modifiable {
 
 	@Override
 	public void setValue(String str_to_parse) throws DataValueParsingException {
-		innerState = Integer.parseInt(str_to_parse);
+		try{
+			innerState = Integer.parseInt(str_to_parse);
+		}
+		catch(NumberFormatException _e){
+			throw new DataValueParsingException("an integer value", str_to_parse, "cannot parse", _e);
+		}
 	}
 
 	@Override
