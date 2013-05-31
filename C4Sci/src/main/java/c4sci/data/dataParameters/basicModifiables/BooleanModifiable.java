@@ -11,16 +11,19 @@ public class BooleanModifiable extends Modifiable {
 
 	private boolean	innerState;
 	
+	public static final String	TRUE_STR	= "true";
+	public static final String	FALSE_STR	= "false";
+	
 	public String getValue() {
 		return Boolean.toString(innerState);
 	}
 
 	public void setValue(String str_to_parse) throws DataValueParsingException {
-		innerState = Boolean.parseBoolean(str_to_parse);
+		innerState = str_to_parse.startsWith(TRUE_STR);
 	}
 
 	public String getRegExp() {
-		return "true|false";
+		return TRUE_STR+"|"+FALSE_STR;
 	}
 	
 	public synchronized void setBooleanValue(final boolean b_val){
