@@ -5,14 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.basicDataParameters.FloatDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
-public class TestFloatDataParameter {
+public class TestFloatModifiableGenericParameter {
 
 	@Test
 	public void testGetParameterValue() {
-		DataParameter _param = new FloatDataParameter("test1", 
+		GenericDataParameter<FloatModifiable> _param = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		try {

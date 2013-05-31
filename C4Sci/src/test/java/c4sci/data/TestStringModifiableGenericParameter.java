@@ -5,14 +5,18 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.basicDataParameters.StringDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
-public class TestStringDataParameter {
+public class TestStringModifiableGenericParameter {
 
 	@Test
 	public void testGetSetParameterValue() {
-		StringDataParameter _param_1 = new StringDataParameter("param1",
+		GenericDataParameter<NoWhiteSpaceStringModifiable> _param_1 = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
+				new NoWhiteSpaceStringModifiable(),
+				"param1",
 				new InternationalizableTerm("param one"),
 				new InternationalizableTerm("param one to test"));
 		try {
@@ -26,18 +30,22 @@ public class TestStringDataParameter {
 
 	@Test
 	public void testGetSetStringValue() {
-		StringDataParameter _param_1 = new StringDataParameter("param1",
+		GenericDataParameter<NoWhiteSpaceStringModifiable> _param_1 = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
+				new NoWhiteSpaceStringModifiable(),
+				"param1",
 				new InternationalizableTerm("param one"),
 				new InternationalizableTerm("param one to test"));
-		_param_1.setStringValue("param1 value");
+		_param_1.accesValue().setStringValue("param1 value");
 
-		assertTrue("param1 value".compareTo(_param_1.getStringValue())==0);
+		assertTrue("param1 value".compareTo(_param_1.accesValue().getStringValue())==0);
 
 	}
 	
 	@Test
 	public void testClone() throws InstantiationException, IllegalAccessException{
-		StringDataParameter _param = new StringDataParameter("test1", 
+		GenericDataParameter<NoWhiteSpaceStringModifiable> _param = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
+				new NoWhiteSpaceStringModifiable(),
+				"test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		DataParameter _clone = _param.getClone();
@@ -47,9 +55,13 @@ public class TestStringDataParameter {
 		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
 
 		assertFalse(_param.validatesRegularExpression(null));
-		String[] _tab ={""," ","534",".",":lk","564klj"};
-		for (String _exp : _tab){
+		String[] _tab_good_str ={"534",".",":lk","564klj","a_b", ""};
+		for (String _exp : _tab_good_str){
 			assertTrue(_exp,_param.validatesRegularExpression(_exp));
+		}
+		String[] _tab_bad_str = {null," ", "a b"," add","lk "};
+		for (String _exp : _tab_bad_str){
+			assertFalse("error on :"+_exp, _param.validatesRegularExpression(_exp));
 		}
 	}
 

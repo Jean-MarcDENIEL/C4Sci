@@ -9,7 +9,7 @@ import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
-public class TestIntegerDataParameter {
+public class TestIntegerModifiableGenericParameter {
 
 	@Test
 	public void test() throws InstantiationException, IllegalAccessException {

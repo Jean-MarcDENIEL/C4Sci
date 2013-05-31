@@ -4,13 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.BooleanDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
-public class TestBooleanParameter {
+public class TestBooleanModifiableGenericParameter {
 
 	@Test
 	public void test() throws InstantiationException, IllegalAccessException {

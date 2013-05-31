@@ -41,6 +41,11 @@ public class NoWhiteSpaceStringModifiable extends Modifiable {
 	}
 	
 	private String innerState;
+	private static final String		DEFAULT_VALUE = "no value";
+	
+	public NoWhiteSpaceStringModifiable(){
+		innerState = DEFAULT_VALUE;
+	}
 	
 	@Override
 	public String getValue() {
