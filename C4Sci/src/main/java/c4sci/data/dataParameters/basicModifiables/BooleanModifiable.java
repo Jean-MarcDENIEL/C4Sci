@@ -4,6 +4,7 @@ import c4sci.data.Modifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 /**
  * This class represents a boolean value manipulated through strings values. 
+ * Only {@link #TRUE_STR}={@value #TRUE_STR} and {@link #FALSE_STR}={@value #FALSE_STR} are recognized.
  * @author jeanmarc.deniel
  *
  */

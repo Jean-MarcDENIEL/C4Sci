@@ -60,9 +60,17 @@ public class NoWhiteSpaceStringModifiable extends Modifiable {
 		return "[^\\s]*";
 	}
 	
+	/**
+	 * 
+	 * @return A string that may contain white spaces converted from underscores.
+	 */
 	public synchronized String getStringValue(){
 		return convertsFromNoWhiteSpaceString(innerState);
 	}
+	/**
+	 * 
+	 * @param str_val a non null string. It may contain white spaces that will be converted to underscores.
+	 */
 	public synchronized void setStringValue(String str_val){
 		innerState = convertToNowhiteSpaceString(str_val);
 	}

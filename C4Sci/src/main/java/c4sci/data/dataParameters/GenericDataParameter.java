@@ -25,6 +25,9 @@ public class GenericDataParameter<M extends Modifiable> extends DataParameter {
 
 	@Override
 	public void setValue(String str_to_parse) throws DataValueParsingException {
+		if (str_to_parse == null){
+			throw new DataValueParsingException("non null string", "null", "cannot parse null string", null);
+		}
 		innerState.setValue(str_to_parse);
 	}
 
