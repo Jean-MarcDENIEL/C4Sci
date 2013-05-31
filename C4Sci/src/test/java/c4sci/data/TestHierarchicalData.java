@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -57,7 +56,6 @@ public class TestHierarchicalData {
 			catch(NumberFormatException _e){
 				throw new DataValueParsingException("integer", str_to_parse, "integer parsing error", _e);
 			}
-			
 		}
 		
 		public String getValue() {

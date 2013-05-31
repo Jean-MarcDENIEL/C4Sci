@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.basicDataParameters.IntegerDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -12,7 +14,7 @@ public class TestIntegerDataParameter {
 
 	@Test
 	public void test() throws InstantiationException, IllegalAccessException {
-		IntegerDataParameter _param = new IntegerDataParameter("testParam", 
+		GenericDataParameter<IntegerModifiable> _param = new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), "testParam", 
 				new InternationalizableTerm("testing parameter"), 
 				new InternationalizableTerm("integer testing parameter"));
 		
@@ -45,10 +47,10 @@ public class TestIntegerDataParameter {
 		}
 		assertTrue("20".compareTo(_param.getValue())==0);
 		
-		assertEquals(_param.getIntegerValue(), 20);
+		assertEquals(_param.accesValue().getIntegerValue(), 20);
 		
-		_param.setIntegerValue(3);
-		assertEquals(_param.getIntegerValue(), 3);
+		_param.accesValue().setIntegerValue(3);
+		assertEquals(_param.accesValue().getIntegerValue(), 3);
 		
 		DataParameter _clone = _param.getClone();
 		assertTrue(_clone.getClass() == _param.getClass());
