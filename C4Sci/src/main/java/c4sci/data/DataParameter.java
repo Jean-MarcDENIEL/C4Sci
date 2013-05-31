@@ -1,7 +1,5 @@
 package c4sci.data;
 
-import java.util.regex.Pattern;
-
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
