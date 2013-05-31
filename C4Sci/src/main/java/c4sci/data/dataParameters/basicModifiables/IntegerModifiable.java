@@ -27,4 +27,11 @@ public class IntegerModifiable extends Modifiable {
 		return "(\\+|-)?\\d+";
 		// too : ^[-+]?\d*$ for empty strings
 	}
+	
+	public synchronized int getIntegerValue(){
+		return innerState;
+	}
+	public synchronized void setIntegerValue(final int int_val){
+		innerState = int_val;
+	}
 }

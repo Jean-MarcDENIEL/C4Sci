@@ -39,4 +39,7 @@ public class GenericDataParameter<M extends Modifiable> extends DataParameter {
 		return new GenericDataParameter(innerState.getClass().newInstance(), getParameterToken(), getParameterName(), getParameterDescription());
 	}
 
+	public M accesValue(){
+		return innerState;
+	}
 }

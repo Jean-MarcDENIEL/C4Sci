@@ -27,4 +27,10 @@ public class FloatModifiable extends Modifiable {
 		return "[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?";
 	}
 
+	public synchronized float getFloatValue(){
+		return innerState;
+	}
+	public synchronized void setFloatValue(final float fl_val){
+		innerState = fl_val;
+	}
 }

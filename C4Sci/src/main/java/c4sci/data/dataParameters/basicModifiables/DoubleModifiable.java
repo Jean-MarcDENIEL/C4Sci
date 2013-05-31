@@ -28,4 +28,11 @@ public class DoubleModifiable extends Modifiable {
 		return "[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?";
 	}
 
+	
+	public synchronized double getDoubleValue(){
+		return innerState;
+	}
+	public synchronized void setDoubleValue(final double fl_val){
+		innerState = fl_val;
+	}
 }

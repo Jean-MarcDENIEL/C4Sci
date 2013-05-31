@@ -22,4 +22,12 @@ public class BooleanModifiable extends Modifiable {
 	public String getRegExp() {
 		return "true|false";
 	}
+	
+	public synchronized void setBooleanValue(final boolean b_val){
+		innerState = b_val;
+	}
+	public synchronized boolean getBooleanValue(){
+		return innerState;
+	}
+
 }
