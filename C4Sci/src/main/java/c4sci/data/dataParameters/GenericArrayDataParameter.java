@@ -38,18 +38,16 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 		super(token_str, name_term, descr_term);
 		innerArray = inner_value;
 		
-		ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-        @SuppressWarnings("unchecked")
-		Class<M> type = (Class<M>) superClass.getActualTypeArguments()[0];
+		Class<M> _m_type = getSupportedClass();
 		
 		for (int _i=0; _i<innerArray.length; _i++){
 			if (innerArray[_i] == null){
 				try {
-					innerArray[_i] = type.newInstance();
+					innerArray[_i] = _m_type.newInstance();
 				} catch (InstantiationException  _e) {
-					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + type.getName(), _e);
+					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + _m_type.getName(), _e);
 				} catch (IllegalAccessException _e) {
-					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + type.getName(), _e);
+					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + _m_type.getName(), _e);
 				}
 			}
 		}
@@ -68,18 +66,44 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 	@Override
 	public String getValue() {
 
-		// TODO Auto-generated method stub
-		return null;
+		String _res = "" + innerArray.length;
+		for (M _element : innerArray){
+			_res = " " + _element.getValue();
+		}
+		return _res;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setValue(String str_to_parse) throws DataValueParsingException {
 		try{
-			int _array_length = Integer.parseInt(str_to_parse.substring(0, Pattern.compile(INTEGER_REGEXP).matcher(str_to_parse).end()));
-			ICI
+			int _read_index = Pattern.compile(INTEGER_REGEXP).matcher(str_to_parse).end();
+			int _array_length = Integer.parseInt(str_to_parse.substring(0, _read_index));
+			
+			String _element_regexp = getSupportedClass().newInstance().getRegExp();
+			
+			if (innerArray.length != _array_length){
+				innerArray = (M[]) Array.newInstance(getSupportedClass(), _array_length);
+				for (int _i=0; _i<innerArray.length; _i++){
+					innerArray[_i] = getSupportedClass().newInstance();
+				}
+			}
+			String _read_str = str_to_parse; 
+			for (int _i=0; _i<_array_length; _i++){
+				_read_str = _read_str.substring(_read_index);
+				innerArray[_i].setValue(_read_str);
+				_read_index = Pattern.compile(_element_regexp).matcher(_read_str).end();
+			}
+
 		}
 		catch(NumberFormatException _e){
 			throw new DataValueParsingException("an integer value : ", str_to_parse, "cannot parse the array length", _e);
+		}
+		catch(IllegalAccessException _e){
+			throw new DataValueParsingException("illegal access", str_to_parse, "Cannot create a new instance of supported data type", _e);
+		}
+		catch(InstantiationException _e){
+			throw new DataValueParsingException("instantiation", str_to_parse, "Cannot create a new instance of supported data type", _e);
 		}
 	}
 
@@ -92,5 +116,18 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 			return INTEGER_REGEXP + " (" + innerArray[0].getRegExp() + "){"+ innerArray.length +"}";
 		}
 	}
+	
+	/**
+	 * Grants read/write access to the internal {@link Modifiable} array.
+	 * @return the internal {@link Modifiable} array.
+	 */
+	public M[] accessArray(){
+		return innerArray;
+	}
 
+	@SuppressWarnings("unchecked")
+	private Class<M> getSupportedClass(){
+		ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
+		return (Class<M>) superClass.getActualTypeArguments()[0];
+	}
 }
