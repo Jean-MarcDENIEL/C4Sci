@@ -1,8 +1,6 @@
 package c4sci.data.dataParameters;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.regex.Pattern;
 
 import c4sci.data.DataParameter;
@@ -28,7 +26,7 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 	private Class<M>	supportedClass;
 	
 	/**
-	 * Creates the parameter array and ensures that the array has no null element.
+	 * Creates the parameter array and ensures that the array has no null element. Its internal state will be c copy of the passed parameter
 	 * @param inner_value The array of {@link Modifiable} elements. {@link #getClone()} and {@link #getSameDataParameterInstance()} results will be of that array length.
 	 * @param token_str
 	 * @param name_term
@@ -41,18 +39,20 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 			InternationalizableTerm name_term,
 			InternationalizableTerm descr_term) throws CannotInstantiateParameterException {
 		super(token_str, name_term, descr_term);
-		innerArray = inner_value;
+
 		supportedClass	= (Class<M>) inner_value.getClass().getComponentType();
 		
+		innerArray = (M[])Array.newInstance(getSupportedClass(), inner_value.length);
 		for (int _i=0; _i<innerArray.length; _i++){
-			if (innerArray[_i] == null){
-				try {
-					innerArray[_i] = getSupportedClass().newInstance();
-				} catch (InstantiationException  _e) {
-					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + getSupportedClass().getName(), _e);
-				} catch (IllegalAccessException _e) {
-					throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + getSupportedClass().getName(), _e);
-				}
+			try {
+				innerArray[_i] = getSupportedClass().newInstance();
+				innerArray[_i].setValue(inner_value[_i].getValue());
+			} catch (InstantiationException  _e) {
+				throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + getSupportedClass().getName(), _e);
+			} catch (IllegalAccessException _e) {
+				throw new CannotInstantiateParameterException(token_str, "Cannot access " + getSupportedClass().getName(), _e);
+			} catch (DataValueParsingException _e) {
+				throw new CannotInstantiateParameterException(token_str, "Cannot parse prototype " + getSupportedClass().getName(), _e);
 			}
 		}
 	}
@@ -128,8 +128,8 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 	 * Grants read/write access to the internal {@link Modifiable} array.
 	 * @return the internal {@link Modifiable} array.
 	 */
-	public M[] accessArray(){
-		return innerArray;
+	public M accessElement(int elt_index){
+		return innerArray[elt_index];
 	}
 
 	private Class<M> getSupportedClass(){
