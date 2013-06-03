@@ -17,8 +17,6 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.StepEleme
 import c4sci.modelViewPresenterController.presenterControllerInterface.scales.UnitScales;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.ElementAddedStepChange;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.StepForwardStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepChanges.elementValueChanges.InternationalizableTermElementModificationStepChange;
-import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ComputedDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.EditableDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.ScalableDataElement;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.FloatDataElement;
@@ -98,10 +96,10 @@ public class TestDefaultBehaviorPresenter {
 		
 		waitAndText(onesecond*4, "end : press a key");
 		try {
-			System.in.read();
-		} catch (IOException _e) {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			_e.printStackTrace();
+			e.printStackTrace();
 		}
 		_feedback_presenter_thread.setToDieUnused();
 		_feedback_viewer_thread.setToDieUnused();
