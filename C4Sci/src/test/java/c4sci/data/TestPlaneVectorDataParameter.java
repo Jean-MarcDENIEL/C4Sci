@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.basicDataParameters.PlaneVectorDataParameter;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.geometry.plane.PlaneVector;
@@ -44,14 +45,20 @@ public class TestPlaneVectorDataParameter {
 		_param.setPlaneVectorValue(new PlaneVector(1f, 3f));
 		assertTrue(new PlaneVector(1f, 3f).isEqualTo(_param.getPlaneVectorValue()));
 		
-		DataParameter _param_bis = _param.getClone();
-		assertTrue(_param_bis.getClass() == _param.getClass());
-		assertTrue(_param_bis.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
-		assertTrue(_param_bis.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
-		assertTrue(_param_bis.getParameterToken().compareTo(_param.getParameterToken())==0);
-		assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterName().getDefaultValue())==0);
-		assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterDescription().getDefaultValue())==0);
-		
+		DataParameter _param_bis;
+		try {
+			_param_bis = _param.getClone();
+			assertTrue(_param_bis.getClass() == _param.getClass());
+			assertTrue(_param_bis.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+			assertTrue(_param_bis.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+			assertTrue(_param_bis.getParameterToken().compareTo(_param.getParameterToken())==0);
+			assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterName().getDefaultValue())==0);
+			assertFalse(_param_bis.getParameterToken().compareTo(_param_bis.getParameterDescription().getDefaultValue())==0);
+		} catch (CannotInstantiateParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		String[] _good_str_tab = {"1 2","1.2 3.25",".002 .2","-.225 25.","0.25 -25"};
 		for(String _str : _good_str_tab){
 			assertTrue(_str, _param.validatesRegularExpression(_str));

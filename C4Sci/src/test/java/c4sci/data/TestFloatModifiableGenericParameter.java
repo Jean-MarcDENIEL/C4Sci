@@ -7,6 +7,7 @@ import org.junit.Test;
 import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -65,12 +66,17 @@ public class TestFloatModifiableGenericParameter {
 		FloatDataParameter _param = new FloatDataParameter("test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
-		DataParameter _clone = _param.getClone();
-		assertTrue(_clone.getClass() == _param.getClass());
-		assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
-		assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
-		assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
-
+		DataParameter _clone;
+		try {
+			_clone = _param.getClone();
+			assertTrue(_clone.getClass() == _param.getClass());
+			assertTrue(_clone.getParameterToken().compareTo(_param.getParameterToken())==0);
+			assertTrue(_clone.getParameterName().getDefaultValue().compareTo(_param.getParameterName().getDefaultValue())==0);
+			assertTrue(_clone.getParameterDescription().getDefaultValue().compareTo(_param.getParameterDescription().getDefaultValue())==0);
+		} catch (CannotInstantiateParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
