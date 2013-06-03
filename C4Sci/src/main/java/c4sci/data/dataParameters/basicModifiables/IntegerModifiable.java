@@ -12,12 +12,12 @@ public class IntegerModifiable extends Modifiable {
 	private int	innerState;
 	
 	@Override
-	public String getValue() {
+	public synchronized String getValue() {
 		return Integer.toString(innerState);
 	}
 
 	@Override
-	public void setValue(String str_to_parse) throws DataValueParsingException {
+	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
 		try{
 			innerState = Integer.parseInt(str_to_parse);
 		}

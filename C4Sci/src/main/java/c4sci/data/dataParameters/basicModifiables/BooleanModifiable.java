@@ -8,18 +8,18 @@ import c4sci.data.exceptions.DataValueParsingException;
  * @author jeanmarc.deniel
  *
  */
-public class BooleanModifiable extends Modifiable {
+public final class BooleanModifiable extends Modifiable {
 
 	private boolean	innerState;
 	
 	public static final String	TRUE_STR	= "true";
 	public static final String	FALSE_STR	= "false";
 	
-	public String getValue() {
+	public synchronized String getValue() {
 		return Boolean.toString(innerState);
 	}
 
-	public void setValue(String str_to_parse) throws DataValueParsingException {
+	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
 		innerState = str_to_parse.startsWith(TRUE_STR);
 	}
 

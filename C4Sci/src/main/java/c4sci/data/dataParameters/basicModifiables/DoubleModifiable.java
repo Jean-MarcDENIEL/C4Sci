@@ -7,17 +7,17 @@ import c4sci.data.exceptions.DataValueParsingException;
  * @author jeanmarc.deniel
  *
  */
-public class DoubleModifiable extends Modifiable {
+public final class DoubleModifiable extends Modifiable {
 
 	private double innerState;
 	
 	@Override
-	public String getValue() {
+	public synchronized String getValue() {
 		return Double.toString(innerState);
 	}
 
 	@Override
-	public void setValue(String str_to_parse) throws DataValueParsingException {
+	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
 		try{
 		innerState = Double.parseDouble(str_to_parse);
 		}

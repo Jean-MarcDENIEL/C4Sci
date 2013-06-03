@@ -7,17 +7,17 @@ import c4sci.data.exceptions.DataValueParsingException;
  * @author jeanmarc.deniel
  *
  */
-public class FloatModifiable extends Modifiable {
+public final class FloatModifiable extends Modifiable {
 
 	private float	innerState;
 	
 	@Override
-	public String getValue() {
+	public synchronized String getValue() {
 		return Float.toString(innerState);
 	}
 
 	@Override
-	public void setValue(String str_to_parse) throws DataValueParsingException {
+	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
 		try{
 			innerState = Float.parseFloat(str_to_parse);
 		}
