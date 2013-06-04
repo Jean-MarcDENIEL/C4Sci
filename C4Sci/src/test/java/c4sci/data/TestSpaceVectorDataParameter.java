@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.SpaceVectorDataParameter;
+import c4sci.data.dataParameters.composedModifiables.SpaceVectorDataParameter;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;

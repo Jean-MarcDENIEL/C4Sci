@@ -1,4 +1,4 @@
-package c4sci.data.basicDataParameters;
+package c4sci.data.dataParameters.composedModifiables;
 
 import c4sci.data.DataParameter;
 import c4sci.data.exceptions.DataValueParsingException;
