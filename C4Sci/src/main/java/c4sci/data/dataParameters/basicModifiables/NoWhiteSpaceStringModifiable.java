@@ -53,10 +53,10 @@ public final class NoWhiteSpaceStringModifiable extends Modifiable {
 
 	@Override
 	/**
-	 * Beware : the string parameter should not contain any whitespace otherwise disorders may happen.
+	 * Beware : the string parameter will be translated to "no white space" form in order to avoid disorders.
 	 */
 	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
-		innerState = str_to_parse;
+		innerState = convertToNowhiteSpaceString(str_to_parse);
 	}
 
 	@Override

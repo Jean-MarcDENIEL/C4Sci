@@ -1,4 +1,4 @@
-package c4sci.data;
+package c4sci.data.dataParameters;
 
 import static org.junit.Assert.*;
 

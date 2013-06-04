@@ -1,10 +1,10 @@
-package c4sci.data;
+package c4sci.data.dataParameters;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.StringDataParameter;
+import c4sci.data.DataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;

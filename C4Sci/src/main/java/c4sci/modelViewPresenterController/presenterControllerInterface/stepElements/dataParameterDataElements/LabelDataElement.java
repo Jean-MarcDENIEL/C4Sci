@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
-import c4sci.data.basicDataParameters.StringDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.StringValueBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;
@@ -11,13 +12,10 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  */
 public class LabelDataElement extends DataParameterDataElement {
 
-	public LabelDataElement(StringDataParameter data_p) {
+	public LabelDataElement(GenericDataParameter<NoWhiteSpaceStringModifiable> data_p) {
 		super(data_p);
 	}
-	//@Override
-	/*public UnitScales getUnits() {
-		return null;
-	}*/
+
 	@Override
 	public ElementBinding getSingleBinding() {
 		return new StringValueBinding(this, getDataParameter());

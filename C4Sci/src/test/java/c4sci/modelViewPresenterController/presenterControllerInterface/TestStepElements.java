@@ -7,11 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import c4sci.data.HierarchicalData;
-import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
 import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
+import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.algebra.Floatings;
@@ -43,7 +43,7 @@ public class TestStepElements {
 			public GenericDataParameter<IntegerModifiable>		lowerIntBound;
 			public GenericDataParameter<IntegerModifiable>		upperIntBound;
 			public GenericDataParameter<IntegerModifiable>		boundedInteger;
-			public StringDataParameter		stringParam;
+			public GenericDataParameter<NoWhiteSpaceStringModifiable>		stringParam;
 			
 			public TestData(String data_token,
 					InternationalizableTerm data_name,
@@ -70,7 +70,7 @@ public class TestStepElements {
 				addDataParameter(upperIntBound);
 				addDataParameter(boundedInteger);
 				
-				stringParam = new StringDataParameter("string", new InternationalizableTerm("string param"), new InternationalizableTerm("string param descr"));
+				stringParam = new GenericDataParameter<NoWhiteSpaceStringModifiable>(new NoWhiteSpaceStringModifiable(), "string", new InternationalizableTerm("string param"), new InternationalizableTerm("string param descr"));
 				
 				addDataParameter(stringParam);	
 			}

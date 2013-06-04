@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.StringDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
+import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
@@ -80,7 +80,12 @@ public class TestDefaultBehaviorPresenter {
 		RequestResultInterface<StepChange> _req_interface = _presenter.getFeedbackInterface();
 		
 		waitAndText(onesecond, "Panel");
-		StringDataParameter _panel_elt_1 = new StringDataParameter("panel", new InternationalizableTerm("Step 1 panel"), new InternationalizableTerm("Step 1 panel"));
+		GenericDataParameter<NoWhiteSpaceStringModifiable> _panel_elt_1 = 
+				new GenericDataParameter<NoWhiteSpaceStringModifiable>(
+						new NoWhiteSpaceStringModifiable(), 
+						"panel", 
+						new InternationalizableTerm("Step 1 panel"), 
+						new InternationalizableTerm("Step 1 panel"));
 		StepElement _panel_1_step_elt = new LabelDataElement(_panel_elt_1);
 		_req_interface.pushResult(new StepForwardStepChange(null, _panel_1_step_elt));
 		
