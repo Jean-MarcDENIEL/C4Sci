@@ -24,6 +24,7 @@ public class TestPlaneVectorDataParameter {
 		String[] _tab_good_str={"0 0", "0.0 0", "0 0.0","-1 2","-1.0000 2.00"};
 		for (String _good_dtr : _tab_good_str){
 			try {
+				assertTrue(_param.validatesRegularExpression(_good_dtr));
 				_param.setValue(_good_dtr);
 			} catch (DataValueParsingException _e) {
 				fail("should not throw here");
@@ -32,6 +33,7 @@ public class TestPlaneVectorDataParameter {
 		String[] _tab_bad_str={null, "", " ","0 0 0","a","a e","1 a","1.0 2a" };
 		for (String _bad_str : _tab_bad_str){
 			try {
+				assertFalse(_param.validatesRegularExpression(_bad_str));
 				_param.setValue(_bad_str);
 				fail("should have thrown");
 			} catch (DataValueParsingException _e) {
