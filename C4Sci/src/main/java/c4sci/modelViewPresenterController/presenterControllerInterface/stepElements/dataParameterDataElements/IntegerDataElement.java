@@ -1,6 +1,5 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
-import c4sci.data.basicDataParameters.IntegerDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
