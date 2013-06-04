@@ -1,5 +1,9 @@
 package c4sci.data.dataParameters;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+
 import c4sci.data.DataParameter;
 import c4sci.data.Modifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;

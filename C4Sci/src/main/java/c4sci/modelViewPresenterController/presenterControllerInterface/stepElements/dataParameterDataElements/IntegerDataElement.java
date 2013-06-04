@@ -1,6 +1,8 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
 import c4sci.data.basicDataParameters.IntegerDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.IntegerValueBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;
@@ -12,9 +14,9 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  */
 public class IntegerDataElement extends DataParameterDataElement {
 
-	private IntegerDataParameter integerElement;
+	private GenericDataParameter<IntegerModifiable> integerElement;
 	
-	public IntegerDataElement(IntegerDataParameter data_p) {
+	public IntegerDataElement(GenericDataParameter<IntegerModifiable> data_p) {
 		super(data_p);
 		integerElement = data_p;
 	}
@@ -34,7 +36,7 @@ public class IntegerDataElement extends DataParameterDataElement {
 	 * Sets to 0
 	 */
 	public void ensureCoherentInternalState() {
-		integerElement.setIntegerValue(0);
+		integerElement.accesValue().setIntegerValue(0);
 	}
 
 }

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.basicDataParameters.IntegerDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement;
 
@@ -41,10 +43,13 @@ public class TestApplicationStep {
 	public void testElements(){
 		ApplicationStep _step = new ApplicationStep(new InternationalizableTerm("step"), new InternationalizableTerm("step descr"));
 		for (int _i=0; _i<10; _i++){
-			IntegerDataParameter _param = new IntegerDataParameter("int", 
-					new InternationalizableTerm("int param"), 
-					new InternationalizableTerm("int param descr")); 
-			_param.setIntegerValue(_i);
+			GenericDataParameter<IntegerModifiable> _param = 
+					new GenericDataParameter<IntegerModifiable>(
+							new IntegerModifiable(), 
+							"int", 
+							new InternationalizableTerm("int param"), 
+							new InternationalizableTerm("int param descr")); 
+			_param.accesValue().setIntegerValue(_i);
 			_step.putElement(_i, new IntegerDataElement(_param));
 		}
 		for (int _i=0; _i<10; _i++){

@@ -1,7 +1,8 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
-import c4sci.data.basicDataParameters.BooleanDataParameter;
-import c4sci.data.basicDataParameters.FloatDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
+import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 /**
  * This class defines a total order between two component :<br>
@@ -13,8 +14,8 @@ import c4sci.data.internationalization.InternationalizableTerm;
  */
 public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComponentsConstraint {
 
-	private FloatDataParameter		fixedConstraintValue;
-	private BooleanDataParameter	hasFixedConstraint;
+	private GenericDataParameter<FloatModifiable>		fixedConstraintValue;
+	private GenericDataParameter<BooleanModifiable>		hasFixedConstraint;
 	
 	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) {
 		super("infCoorConstr", 
@@ -22,15 +23,17 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 				new InternationalizableTerm("A total relationship : reference sup < constrained inf"),
 				ref_comp_id, constr_comp_id);
 		
-		fixedConstraintValue = new FloatDataParameter("fixedConstrValue",	
+		fixedConstraintValue = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "fixedConstrValue",	
 				new InternationalizableTerm("Fixed Constraint Value"), 
 				new InternationalizableTerm("Fixed constaint value"));
-		hasFixedConstraint = new BooleanDataParameter("hasFixedConstraint", 
+		hasFixedConstraint = new GenericDataParameter<BooleanModifiable>(
+				new BooleanModifiable(),
+				"hasFixedConstraint", 
 				new InternationalizableTerm("Has a fixed constraint"), 
 				new InternationalizableTerm("Has a fixed constraint"));
 		
-		fixedConstraintValue.setFloatValue(0.0f);
-		hasFixedConstraint.setBooleanValue(false);
+		fixedConstraintValue.accesValue().setFloatValue(0.0f);
+		hasFixedConstraint.accesValue().setBooleanValue(false);
 	}
 	
 	/**
@@ -39,8 +42,8 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	 * @param constr_val new constraint value
 	 */
 	public void setAsFixedConstraint(float constr_val){
-		fixedConstraintValue.setFloatValue(constr_val);
-		hasFixedConstraint.setBooleanValue(true);
+		fixedConstraintValue.accesValue().setFloatValue(constr_val);
+		hasFixedConstraint.accesValue().setBooleanValue(true);
 	}
 	/**
 	 * 
@@ -48,20 +51,20 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	 * <b>Warning : </b> If the constraint has not been fixed before, the return value is undefined.
 	 */
 	public float getFixedConstraint(){
-		return fixedConstraintValue.getFloatValue();
+		return fixedConstraintValue.accesValue().getFloatValue();
 	}
 	/**
 	 * 
 	 * @return true if the constraint got a fixed value
 	 */
 	public boolean isFixed(){
-		return hasFixedConstraint.getBooleanValue();
+		return hasFixedConstraint.accesValue().getBooleanValue();
 	}
 	/**
 	 * Removes any fixed constraint value.
 	 */
 	public void setUnfixed(){
-		hasFixedConstraint.setBooleanValue(false);
+		hasFixedConstraint.accesValue().setBooleanValue(false);
 	}
 	
 

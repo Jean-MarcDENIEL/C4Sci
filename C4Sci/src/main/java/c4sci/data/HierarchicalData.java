@@ -245,14 +245,10 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 		String[] _param_tokens_tab = parameterMap.values().toArray(null);
 		for (String _param_token : _param_tokens_tab){
 			DataParameter _param = parameterMap.get(_param_token);
-			_res.addFactoringAbility(_param.getParameterToken(), _param.getClass());
+			_res.addFactoringAbility(_param.getParameterToken(), _param);
 		}
 		return _res;
 	}
-	
-	/*public PrototypeData newInstance(){
-		return new HierarchicalData();
-	}*/
 	
 	public void setDataName(InternationalizableTerm data_name) {
 		this.dataName = data_name;

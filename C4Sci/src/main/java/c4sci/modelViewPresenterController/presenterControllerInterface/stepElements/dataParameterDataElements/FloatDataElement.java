@@ -1,6 +1,7 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
-import c4sci.data.basicDataParameters.FloatDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.FloatValueBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;
@@ -11,8 +12,8 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
  *
  */
 public class FloatDataElement extends DataParameterDataElement {
-	private	FloatDataParameter floatElement;
-	public FloatDataElement(FloatDataParameter data_p) {
+	private	GenericDataParameter<FloatModifiable> floatElement;
+	public FloatDataElement(GenericDataParameter<FloatModifiable> data_p) {
 		super(data_p);
 		floatElement = data_p;
 	}
@@ -29,7 +30,7 @@ public class FloatDataElement extends DataParameterDataElement {
 	 * Sets to 0.0.
 	 */
 	public void ensureCoherentInternalState() {
-		floatElement.setFloatValue(0.0f);
+		floatElement.accesValue().setFloatValue(0.0f);
 	}
 
 }

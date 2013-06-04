@@ -7,10 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import c4sci.data.HierarchicalData;
-import c4sci.data.basicDataParameters.BooleanDataParameter;
-import c4sci.data.basicDataParameters.FloatDataParameter;
-import c4sci.data.basicDataParameters.IntegerDataParameter;
 import c4sci.data.basicDataParameters.StringDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
+import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
+import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.algebra.Floatings;
@@ -35,13 +36,13 @@ public class TestStepElements {
 	public void testDataParamElements() {
 		
 		class TestData extends HierarchicalData{
-			public BooleanDataParameter		boolParam;
-			public FloatDataParameter		lowerFloatBound;
-			public FloatDataParameter		upperFloatBound;
-			public FloatDataParameter		boundedFloat;
-			public IntegerDataParameter		lowerIntBound;
-			public IntegerDataParameter		upperIntBound;
-			public IntegerDataParameter		boundedInteger;
+			public GenericDataParameter<BooleanModifiable>		boolParam;
+			public GenericDataParameter<FloatModifiable>		lowerFloatBound;
+			public GenericDataParameter<FloatModifiable>		upperFloatBound;
+			public GenericDataParameter<FloatModifiable>		boundedFloat;
+			public GenericDataParameter<IntegerModifiable>		lowerIntBound;
+			public GenericDataParameter<IntegerModifiable>		upperIntBound;
+			public GenericDataParameter<IntegerModifiable>		boundedInteger;
 			public StringDataParameter		stringParam;
 			
 			public TestData(String data_token,
@@ -49,21 +50,21 @@ public class TestStepElements {
 					InternationalizableTerm data_description) {
 				super(data_token, data_name, data_description);
 				
-				boolParam = new BooleanDataParameter("bool", new InternationalizableTerm("boolean param"), new InternationalizableTerm("boolean param descr"));
+				boolParam = new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(), "bool", new InternationalizableTerm("boolean param"), new InternationalizableTerm("boolean param descr"));
 				addDataParameter(boolParam);
 
-				lowerFloatBound = new FloatDataParameter("lowerFloatBound", new InternationalizableTerm("lower float bound"), new InternationalizableTerm("lower float bound descr"));
-				upperFloatBound = new FloatDataParameter("upperFloatBound", new InternationalizableTerm("upper float bound"), new InternationalizableTerm("upper bound bound descr"));
-				boundedFloat	= new FloatDataParameter("boundedFloat", new InternationalizableTerm("bounded float"), new InternationalizableTerm("bounded float descr"));
+				lowerFloatBound = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "lowerFloatBound", new InternationalizableTerm("lower float bound"), new InternationalizableTerm("lower float bound descr"));
+				upperFloatBound = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "upperFloatBound", new InternationalizableTerm("upper float bound"), new InternationalizableTerm("upper bound bound descr"));
+				boundedFloat	= new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "boundedFloat", new InternationalizableTerm("bounded float"), new InternationalizableTerm("bounded float descr"));
 				
 				
 				addDataParameter(lowerFloatBound);
 				addDataParameter(upperFloatBound);
 				addDataParameter(boundedFloat);
 
-				lowerIntBound 	= new IntegerDataParameter("lowerIntBound", new InternationalizableTerm("lower Integer bound"), new InternationalizableTerm("lower Integer bound descr"));
-				upperIntBound 	= new IntegerDataParameter("upperIntBound", new InternationalizableTerm("upper Integer bound"), new InternationalizableTerm("upper Integer bound descr"));
-				boundedInteger 	= new IntegerDataParameter("boundedInteger", new InternationalizableTerm("bounded Integer"), new InternationalizableTerm("bounded Integer descr"));
+				lowerIntBound 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), "lowerIntBound", new InternationalizableTerm("lower Integer bound"), new InternationalizableTerm("lower Integer bound descr"));
+				upperIntBound 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), "upperIntBound", new InternationalizableTerm("upper Integer bound"), new InternationalizableTerm("upper Integer bound descr"));
+				boundedInteger 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), "boundedInteger", new InternationalizableTerm("bounded Integer"), new InternationalizableTerm("bounded Integer descr"));
 				
 				addDataParameter(lowerIntBound);
 				addDataParameter(upperIntBound);
@@ -108,17 +109,17 @@ public class TestStepElements {
 		
 		assertTrue(_label.isEditable());
 		assertTrue(_lower_fl.isEditable());
-		_data.lowerFloatBound.setFloatValue(1.0f);
+		_data.lowerFloatBound.accesValue().setFloatValue(1.0f);
 		assertTrue(_lower_fl.isInternallyCoherent());
 		_lower_fl.ensureCoherentInternalState();
-		assertTrue(Floatings.isEqual(_data.lowerFloatBound.getFloatValue(), 0.0f));
+		assertTrue(Floatings.isEqual(_data.lowerFloatBound.accesValue().getFloatValue(), 0.0f));
 		assertTrue(_lower_fl.getUnits() == null);
 		
 		assertTrue(_lower_int.isEditable());
 		assertTrue(_lower_int.isInternallyCoherent());
-		_data.lowerIntBound.setIntegerValue(2);
+		_data.lowerIntBound.accesValue().setIntegerValue(2);
 		_lower_int.ensureCoherentInternalState();
-		assertTrue(_data.lowerIntBound.getIntegerValue() == 0);
+		assertTrue(_data.lowerIntBound.accesValue().getIntegerValue() == 0);
 		assertTrue(_lower_int.getUnits() == null);
 		
 		assertTrue(_label.isEditable());
@@ -139,9 +140,9 @@ public class TestStepElements {
 		
 		try {
 			_bool.getSingleBinding().getBoundData().setValue("true");
-			assertTrue(_data.boolParam.getBooleanValue());
+			assertTrue(_data.boolParam.accesValue().getBooleanValue());
 			_bool.getSingleBinding().getBoundData().setValue("54de");
-			assertFalse(_data.boolParam.getBooleanValue());
+			assertFalse(_data.boolParam.accesValue().getBooleanValue());
 		} catch (DataValueParsingException _e) {
 			fail();
 		}
@@ -163,11 +164,11 @@ public class TestStepElements {
 		
 		
 		
-		_data.lowerIntBound.setIntegerValue(1);
-		_data.upperIntBound.setIntegerValue(5);
-		_data.boundedInteger.setIntegerValue(7);
+		_data.lowerIntBound.accesValue().setIntegerValue(1);
+		_data.upperIntBound.accesValue().setIntegerValue(5);
+		_data.boundedInteger.accesValue().setIntegerValue(7);
 		assertFalse(_bounded_int.isInternallyCoherent());
-		_data.boundedInteger.setIntegerValue(-2);
+		_data.boundedInteger.accesValue().setIntegerValue(-2);
 		assertFalse(_bounded_int.isInternallyCoherent());
 		assertFalse(_label.isOverallCoherent());
 		assertFalse(_compound.isOverallCoherent());
@@ -175,12 +176,12 @@ public class TestStepElements {
 		
 		_bounded_int.ensureCoherentInternalState();
 		assertTrue(_bounded_int.isInternallyCoherent());
-		assertTrue(""+_data.boundedInteger.getIntegerValue()+" instead of " + _data.lowerIntBound.getIntegerValue(),_data.boundedInteger.getIntegerValue() == _data.lowerIntBound.getIntegerValue());
+		assertTrue(""+_data.boundedInteger.accesValue().getIntegerValue()+" instead of " + _data.lowerIntBound.accesValue().getIntegerValue(),_data.boundedInteger.accesValue().getIntegerValue() == _data.lowerIntBound.accesValue().getIntegerValue());
 		assertTrue(_compound.isOverallCoherent());
 	
-		_data.lowerFloatBound.setFloatValue(2.0f);
-		_data.upperFloatBound.setFloatValue(4.0f);
-		_data.boundedFloat.setFloatValue(5.0f);
+		_data.lowerFloatBound.accesValue().setFloatValue(2.0f);
+		_data.upperFloatBound.accesValue().setFloatValue(4.0f);
+		_data.boundedFloat.accesValue().setFloatValue(5.0f);
 		assertFalse(_bounded_fl.isOverallCoherent());
 		assertFalse(_label.isOverallCoherent());
 		assertFalse(_compound.isOverallCoherent());
@@ -192,7 +193,7 @@ public class TestStepElements {
 		
 		_compound.setSubElement(3, new ComputedDataElement(_bounded_int));
 		assertFalse(_compound.isEditable());
-		_data.boundedInteger.setIntegerValue(8);
+		_data.boundedInteger.accesValue().setIntegerValue(8);
 		assertFalse(_bounded_int.isInternallyCoherent());
 		assertFalse(_compound.isInternallyCoherent());
 		_bounded_int.ensureCoherentInternalState();
@@ -202,13 +203,13 @@ public class TestStepElements {
 		StepElement _step_3 = _compound.getSubElement(3).getBindings().iterator().next().getBoundElement();
 		assertTrue(""+_step_3.getClass(), _step_3 == _bounded_int.getSingleBinding().getBoundElement());
 		
-		_data.boundedInteger.setIntegerValue(100);
+		_data.boundedInteger.accesValue().setIntegerValue(100);
 		assertFalse(_compound.isInternallyCoherent());
 		_compound.ensureCoherentInternalState();
 		assertTrue(_compound.isInternallyCoherent());
 
 		_bounded_fl.ensureCoherentInternalState();
-		assertTrue(Floatings.isEqual(_data.boundedFloat.getFloatValue(), _data.lowerFloatBound.getFloatValue()));
+		assertTrue(Floatings.isEqual(_data.boundedFloat.accesValue().getFloatValue(), _data.lowerFloatBound.accesValue().getFloatValue()));
 		assertTrue(_label.isOverallCoherent());
 		assertTrue("2.0".compareTo(_bounded_fl.getSingleBinding().getBoundData().getValue())==0);
 		assertTrue(_bounded_2.isInternallyCoherent());
@@ -240,7 +241,7 @@ public class TestStepElements {
 		assertTrue(_bool.getSingleBinding().getBoundElement() == _bool);
 		
 		ScalableDataElement _scalable = new ScalableDataElement(_bounded_int, UnitScales.createMeterUnitSCales());
-		_data.boundedInteger.setIntegerValue(1000);
+		_data.boundedInteger.accesValue().setIntegerValue(1000);
 		String _km = _scalable.getUnits().chooseBestFittedScale(Float.valueOf(_scalable.getSingleBinding().getBoundData().getValue()));
 		assertTrue(_km, _km.compareTo("km")==0);
 		assertFalse(_scalable.isInternallyCoherent());
@@ -251,7 +252,7 @@ public class TestStepElements {
 		
 		EditableDataElement _editable = new EditableDataElement(_bounded_int);
 		assertTrue(_editable.isEditable());
-		_data.boundedInteger.setIntegerValue(12);
+		_data.boundedInteger.accesValue().setIntegerValue(12);
 		assertFalse(_editable.isInternallyCoherent());
 		_editable.ensureCoherentInternalState();
 		assertTrue(_editable.isInternallyCoherent());

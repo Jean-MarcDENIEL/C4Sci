@@ -1,12 +1,12 @@
 package c4sci.modelViewPresenterController.presenter;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.data.basicDataParameters.StringDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
@@ -85,8 +85,8 @@ public class TestDefaultBehaviorPresenter {
 		_req_interface.pushResult(new StepForwardStepChange(null, _panel_1_step_elt));
 		
 		waitAndText(onesecond, "Float 1");
-		FloatDataParameter	_data_elt_1 = new FloatDataParameter("data_1", new InternationalizableTerm("Data 1"), new InternationalizableTerm("Data 1 : float"));
-		_data_elt_1.setFloatValue(1000.5f);
+		GenericDataParameter<FloatModifiable>	_data_elt_1 = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "data_1", new InternationalizableTerm("Data 1"), new InternationalizableTerm("Data 1 : float"));
+		_data_elt_1.accesValue().setFloatValue(1000.5f);
 		StepElement _step_elt_1 = new EditableDataElement(new ScalableDataElement(new FloatDataElement(_data_elt_1), UnitScales.createMeterUnitSCales()));
 		//StepElement _step_elt_1 = new ComputedDataElement(new FloatDataElement(_data_elt_1));
 		_req_interface.pushResult(new ElementAddedStepChange(null, _step_elt_1));

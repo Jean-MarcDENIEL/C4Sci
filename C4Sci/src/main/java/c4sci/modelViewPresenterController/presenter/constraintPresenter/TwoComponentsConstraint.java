@@ -2,7 +2,8 @@ package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
 import c4sci.data.HierarchicalData;
 import c4sci.data.PrototypeData;
-import c4sci.data.basicDataParameters.IntegerDataParameter;
+import c4sci.data.dataParameters.GenericDataParameter;
+import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
 import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
@@ -15,18 +16,22 @@ import c4sci.data.internationalization.InternationalizableTerm;
  *
  */
 public class TwoComponentsConstraint extends HierarchicalData {
-	private IntegerDataParameter referenceComponentID;
-	private IntegerDataParameter constrainedComponentID;
+	private GenericDataParameter<IntegerModifiable> referenceComponentID;
+	private GenericDataParameter<IntegerModifiable> constrainedComponentID;
 		
 	public TwoComponentsConstraint(String data_token, 
 			InternationalizableTerm data_name,
 			InternationalizableTerm data_description, int ref_comp_id, int constr_comp_id) {
 		super(data_token, data_name, data_description);
 		
-		referenceComponentID = new IntegerDataParameter("refCompID", 
+		referenceComponentID = new GenericDataParameter<IntegerModifiable>(
+				new IntegerModifiable(), 
+				"refCompID", 
 				new InternationalizableTerm("reference Component ID"),
 				new InternationalizableTerm("ID of the component used as reference in the constrained relationship"));
-		constrainedComponentID = new IntegerDataParameter("constrCompID", 
+		constrainedComponentID = new GenericDataParameter<IntegerModifiable>(
+				new IntegerModifiable(), 
+				"constrCompID", 
 				new InternationalizableTerm("constrained component ID"), 
 				new InternationalizableTerm("ID of the constrained component"));
 				
@@ -38,16 +43,16 @@ public class TwoComponentsConstraint extends HierarchicalData {
 	}
 
 	public final int getReferenceComponentID() {
-		return referenceComponentID.getIntegerValue();
+		return referenceComponentID.accesValue().getIntegerValue();
 	}
 	public final void setReferenceComponentID(int ref_comp_id) {
-		this.referenceComponentID.setIntegerValue(ref_comp_id);
+		this.referenceComponentID.accesValue().setIntegerValue(ref_comp_id);
 	}
 	public final int getConstrainedComponentID() {
-		return constrainedComponentID.getIntegerValue();
+		return constrainedComponentID.accesValue().getIntegerValue();
 	}
 	public final void setConstrainedComponentID(int constr_comp_id) {
-		this.constrainedComponentID.setIntegerValue(constr_comp_id);
+		this.constrainedComponentID.accesValue().setIntegerValue(constr_comp_id);
 	}
 
 	@Override
