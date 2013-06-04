@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.FloatDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
@@ -45,7 +44,7 @@ public class TestFloatModifiableGenericParameter {
 
 	@Test
 	public void testFloatSetGet(){
-		FloatDataParameter _param = new FloatDataParameter("test1", 
+		GenericDataParameter<FloatModifiable> _param = new GenericDataParameter<FloatModifiable>(new FloatModifiable() ,"test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		
@@ -56,14 +55,14 @@ public class TestFloatModifiableGenericParameter {
 			fail();
 		}
 		
-		assertEquals(_param.getFloatValue(), 10.5, .01);
+		assertEquals(_param.accesValue().getFloatValue(), 10.5, .01);
 		
-		_param.setFloatValue(2.5f);
-		assertEquals(_param.getFloatValue(), 2.5, .01);
+		_param.accesValue().setFloatValue(2.5f);
+		assertEquals(_param.accesValue().getFloatValue(), 2.5, .01);
 	}
 	@Test
 	public void testClone() throws InstantiationException, IllegalAccessException{
-		FloatDataParameter _param = new FloatDataParameter("test1", 
+		GenericDataParameter<FloatModifiable> _param = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		DataParameter _clone;
@@ -81,7 +80,7 @@ public class TestFloatModifiableGenericParameter {
 	
 	@Test
 	public void testRegexp(){
-		FloatDataParameter _param = new FloatDataParameter("test1", 
+		GenericDataParameter<FloatModifiable> _param = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
 		String[] _tab_good_strings = {"0", "0.0", "1000", "100.00","0.0001",".0025","+2.3","-2.3"};
