@@ -46,7 +46,9 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 		for (int _i=0; _i<innerArray.length; _i++){
 			try {
 				innerArray[_i] = getSupportedClass().newInstance();
-				innerArray[_i].setValue(inner_value[_i].getValue());
+				if (inner_value[_i] != null){
+					innerArray[_i].setValue(inner_value[_i].getValue());
+				}
 			} catch (InstantiationException  _e) {
 				throw new CannotInstantiateParameterException(token_str, "Cannot instantiate " + getSupportedClass().getName(), _e);
 			} catch (IllegalAccessException _e) {
