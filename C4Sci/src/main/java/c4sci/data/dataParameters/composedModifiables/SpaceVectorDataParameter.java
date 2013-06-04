@@ -1,6 +1,7 @@
 package c4sci.data.dataParameters.composedModifiables;
 
 import c4sci.data.DataParameter;
+import c4sci.data.dataParameters.RegularExpressions;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.geometry.space.SpaceVector;
@@ -50,6 +51,10 @@ public class SpaceVectorDataParameter extends DataParameter {
 	}
 	@Override
 	public String getRegExp() {
-		return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$";
+		return RegularExpressions.FLOAT_REGEXP + RegularExpressions.WHITE_SPACE_REGEXP + 
+				RegularExpressions.FLOAT_REGEXP + RegularExpressions.WHITE_SPACE_REGEXP + 
+				RegularExpressions.FLOAT_REGEXP + RegularExpressions.WHITE_SPACE_REGEXP + 
+				RegularExpressions.FLOAT_REGEXP;
+		//return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)? [+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$";
 	}
 }

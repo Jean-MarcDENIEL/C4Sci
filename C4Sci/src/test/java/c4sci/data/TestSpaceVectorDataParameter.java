@@ -19,21 +19,31 @@ public class TestSpaceVectorDataParameter {
 		String[] _good_str_tab = {"0 0 0 1","0.0 0.0 0.0 1.0", "1.0 2.0 -2.0 2.0","1 2.0 3 1", "-1 -2.0 2.52 1"};
 		for (String _good_str : _good_str_tab){
 			try {
+				assertTrue("fail on : " + _good_str, _param.validatesRegularExpression(_good_str));
 				_param.setValue(_good_str);
 			} catch (DataValueParsingException _e) {
 				fail("should not throw here : " + _e.getMessage() +" pour : " +_good_str);
 			}
 		}
 		
-		String[] _bad_str_tab = {" 0 0 0 1", "a 0 0 1", "1 2 3 0" };
+		String[] _bad_str_tab = {" 0 0 0 1", "a 0 0 1"};
 		for (String _bad_str : _bad_str_tab){
 			try {
+				assertFalse("fail on : "+ _bad_str, _param.validatesRegularExpression(_bad_str));
 				_param.setValue(_bad_str);
 				fail("should have thrown on " + _bad_str);
 			} catch (DataValueParsingException _e) {
 				assertTrue(true);
 			}
 		}
+		
+		try {
+			_param.setValue("1 2 3 0");
+		} catch (DataValueParsingException _e) {
+			assertTrue("should have throw", true);
+		}	
+		
+		
 		try {
 			_param.setValue("1.0 2.0 3.0 2.0");
 		} catch (DataValueParsingException _e) {
