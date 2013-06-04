@@ -11,7 +11,7 @@ import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
-public class TestStringModifiableGenericParameter {
+public class TestNowhiteSpaceStringModifiableGenericParameter {
 
 	@Test
 	public void testGetSetParameterValue() {
