@@ -3,7 +3,7 @@ package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 import c4sci.data.HierarchicalData;
 import c4sci.data.PrototypeData;
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
 import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 

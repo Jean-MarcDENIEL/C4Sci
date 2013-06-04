@@ -5,8 +5,8 @@ import java.util.List;
 import org.junit.Test;
 
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
-import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;

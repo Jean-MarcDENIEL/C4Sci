@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.dataParameters.GenericArrayDataParameter;
-import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
-import c4sci.data.dataParameters.basicModifiables.DoubleModifiable;
-import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.DoubleModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 

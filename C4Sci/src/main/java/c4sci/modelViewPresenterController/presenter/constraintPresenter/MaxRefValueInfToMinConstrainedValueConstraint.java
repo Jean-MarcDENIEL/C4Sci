@@ -1,8 +1,8 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
-import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.internationalization.InternationalizableTerm;
 /**
  * This class defines a total order between two component :<br>

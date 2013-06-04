@@ -1,7 +1,7 @@
 package c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements;
 
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.modelViewPresenterController.presenterControllerInterface.ElementBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.elementBindings.StringValueBinding;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.DataParameterDataElement;

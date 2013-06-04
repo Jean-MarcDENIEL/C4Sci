@@ -8,10 +8,10 @@ import static org.junit.Assert.*;
 
 import c4sci.data.HierarchicalData;
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
-import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
-import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
-import c4sci.data.dataParameters.basicModifiables.NoWhiteSpaceStringModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.algebra.Floatings;

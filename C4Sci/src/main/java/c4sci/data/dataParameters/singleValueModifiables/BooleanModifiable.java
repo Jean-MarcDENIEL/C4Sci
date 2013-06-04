@@ -1,4 +1,4 @@
-package c4sci.data.dataParameters.basicModifiables;
+package c4sci.data.dataParameters.singleValueModifiables;
 
 import c4sci.data.Modifiable;
 import c4sci.data.dataParameters.RegularExpressions;

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import c4sci.data.DataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
-import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
+import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
