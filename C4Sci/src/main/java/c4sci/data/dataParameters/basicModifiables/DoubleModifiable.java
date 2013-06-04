@@ -1,6 +1,7 @@
 package c4sci.data.dataParameters.basicModifiables;
 
 import c4sci.data.Modifiable;
+import c4sci.data.dataParameters.RegularExpressions;
 import c4sci.data.exceptions.DataValueParsingException;
 /**
  * This class represents a double value manipulated through strings values.
@@ -30,7 +31,7 @@ public final class DoubleModifiable extends Modifiable {
 	@Override
 	public String getRegExp() {
 		// first : return "^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$"; what means that it's a beginning + end of a line
-		return "[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?";
+		return RegularExpressions.DOUBLE_REGEXP;
 	}
 
 	

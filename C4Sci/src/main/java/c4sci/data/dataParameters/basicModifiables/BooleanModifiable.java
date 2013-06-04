@@ -1,6 +1,7 @@
 package c4sci.data.dataParameters.basicModifiables;
 
 import c4sci.data.Modifiable;
+import c4sci.data.dataParameters.RegularExpressions;
 import c4sci.data.exceptions.DataValueParsingException;
 /**
  * This class represents a boolean value manipulated through strings values. 
@@ -24,7 +25,7 @@ public final class BooleanModifiable extends Modifiable {
 	}
 
 	public String getRegExp() {
-		return TRUE_STR+"|"+FALSE_STR;
+		return RegularExpressions.BOOLEAN_REGEXP;
 	}
 	
 	public synchronized void setBooleanValue(final boolean b_val){

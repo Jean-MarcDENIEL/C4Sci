@@ -23,7 +23,7 @@ public class TestStringModifiableGenericParameter {
 		try {
 			_param_1.setValue("param1 value");
 			assertTrue(true);
-			assertTrue("param1 value".compareTo(_param_1.getValue())==0);
+			assertTrue("param1_value".compareTo(_param_1.getValue())==0);
 		} catch (DataValueParsingException e) {
 			fail("should not have raised an exception");
 		}

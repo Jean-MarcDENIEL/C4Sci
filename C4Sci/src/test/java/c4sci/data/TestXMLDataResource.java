@@ -7,11 +7,11 @@ import java.io.PipedOutputStream;
 
 import org.junit.Test;
 
-import c4sci.data.basicDataParameters.PlaneVectorDataParameter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.basicModifiables.BooleanModifiable;
 import c4sci.data.dataParameters.basicModifiables.FloatModifiable;
 import c4sci.data.dataParameters.basicModifiables.IntegerModifiable;
+import c4sci.data.dataParameters.composedModifiables.PlaneVectorDataParameter;
 import c4sci.data.dataResources.XMLDataResource;
 import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;

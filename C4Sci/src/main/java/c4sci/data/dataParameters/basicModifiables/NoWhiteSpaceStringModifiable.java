@@ -1,13 +1,14 @@
 package c4sci.data.dataParameters.basicModifiables;
 
 import c4sci.data.Modifiable;
+import c4sci.data.dataParameters.RegularExpressions;
 import c4sci.data.exceptions.DataValueParsingException;
 
 /**
  * This class represents a string value manipulated through strings values.
  * The inner state does not contain any white space. These are replaced by underscores.
  * 
- * Conversion to/from string containing white spaces are possible through dedicated methods.
+ * Conversion to/from string containing white spaces are possible through dedicated methods and occur during the call to {@link #setValue(String)}
  * In these cases, underscores in inner state are considered as white spaces.
  * @author jeanmarc.deniel
  *
@@ -53,7 +54,7 @@ public final class NoWhiteSpaceStringModifiable extends Modifiable {
 
 	@Override
 	/**
-	 * Beware : the string parameter will be translated to "no white space" form in order to avoid disorders.
+	 * <b>Beware</b> : the string parameter will be translated to "no white space" form in order to avoid disorders.
 	 */
 	public synchronized void setValue(String str_to_parse) throws DataValueParsingException {
 		innerState = convertToNowhiteSpaceString(str_to_parse);
@@ -61,7 +62,7 @@ public final class NoWhiteSpaceStringModifiable extends Modifiable {
 
 	@Override
 	public String getRegExp() {
-		return "[^\\s]*";
+		return RegularExpressions.NO_WHITE_SPACE_REGEXP;
 	}
 	
 	/**

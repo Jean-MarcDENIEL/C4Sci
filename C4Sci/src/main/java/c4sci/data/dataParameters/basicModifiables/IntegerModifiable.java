@@ -1,6 +1,7 @@
 package c4sci.data.dataParameters.basicModifiables;
 
 import c4sci.data.Modifiable;
+import c4sci.data.dataParameters.RegularExpressions;
 import c4sci.data.exceptions.DataValueParsingException;
 /**
  * This class represents an integer value manipulated through strings values.
@@ -29,7 +30,7 @@ public class IntegerModifiable extends Modifiable {
 	@Override
 	public String getRegExp() {
 		// at first "^(\\+|-)?\\d+$"; meaning a beginning + end of line
-		return "(\\+|-)?\\d+";
+		return RegularExpressions.INTEGER_REGEXP;
 		// too : ^[-+]?\d*$ for empty strings
 	}
 	
