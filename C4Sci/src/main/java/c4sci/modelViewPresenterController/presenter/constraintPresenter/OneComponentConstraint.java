@@ -5,7 +5,9 @@ import c4sci.data.PrototypeData;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
 import c4sci.data.exceptions.CannotInstantiateDataException;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.exceptions.CannotInstantiateMVPCElement;
 
 /**
  * This class defines constraint on single elements
@@ -20,17 +22,22 @@ public class OneComponentConstraint extends HierarchicalData {
 	 * @param data_token
 	 * @param data_name
 	 * @param data_description
+	 * @throws CannotInstantiateMVPCElement 
 	 */
 	public OneComponentConstraint(String data_token,
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description, int constr_comp_id) {
+			InternationalizableTerm data_description, int constr_comp_id) throws CannotInstantiateMVPCElement {
 		super(data_token, data_name, data_description);
 		
-		constrainedComponentID = new GenericDataParameter<IntegerModifiable>(
-				new IntegerModifiable(),
-				"constrCompID", 
-				new InternationalizableTerm("Constrained Component ID"), 
-				new InternationalizableTerm("Constrained Component ID"));
+		try {
+			constrainedComponentID = new GenericDataParameter<IntegerModifiable>(
+					new IntegerModifiable(),
+					"constrCompID", 
+					new InternationalizableTerm("Constrained Component ID"), 
+					new InternationalizableTerm("Constrained Component ID"));
+		} catch (CannotInstantiateParameterException _e) {
+			throw new CannotInstantiateMVPCElement(_e);
+		}
 		
 		constrainedComponentID.accesValue().setIntegerValue(constr_comp_id);
 		
@@ -46,7 +53,11 @@ public class OneComponentConstraint extends HierarchicalData {
 
 	@Override
 	public PrototypeData newInstance() throws CannotInstantiateDataException {
-		return new OneComponentConstraint(NO_TOKEN, NO_NAME, NO_DESCRIPTION, 0);
+		try {
+			return new OneComponentConstraint(NO_TOKEN, NO_NAME, NO_DESCRIPTION, 0);
+		} catch (CannotInstantiateMVPCElement _e) {
+			throw new CannotInstantiateDataException(getParentData(), NO_TOKEN, "cannot instantiate", _e);
+		}
 	}
 	
 

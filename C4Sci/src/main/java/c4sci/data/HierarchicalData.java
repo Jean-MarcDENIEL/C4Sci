@@ -230,8 +230,9 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 
 	/**
 	 * @return A {@link HierarchialDataFactory} that is able to instantiate "this" sub data given some tokens. 
+	 * @throws CannotInstantiateDataException 
 	 */
-	public HierarchialDataFactory getSubdataFactory(){
+	public HierarchialDataFactory getSubdataFactory() throws CannotInstantiateDataException{
 		return new HierarchialDataFactory();
 	}
 

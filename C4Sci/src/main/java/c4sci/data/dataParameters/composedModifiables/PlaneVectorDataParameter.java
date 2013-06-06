@@ -2,6 +2,7 @@ package c4sci.data.dataParameters.composedModifiables;
 
 import c4sci.data.DataParameter;
 import c4sci.data.dataParameters.RegularExpressions;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.geometry.plane.PlaneVector;
@@ -18,7 +19,7 @@ public class PlaneVectorDataParameter extends DataParameter {
 	}
 	public PlaneVectorDataParameter(String token_str,
 			InternationalizableTerm name_term,
-			InternationalizableTerm descr_term) {
+			InternationalizableTerm descr_term) throws CannotInstantiateParameterException {
 		super(token_str, name_term, descr_term);
 		planeVector = new PlaneVector();
 	}
@@ -38,20 +39,27 @@ public class PlaneVectorDataParameter extends DataParameter {
 			throw new DataValueParsingException("x(float) y(float)", str_to_parse, "bad string", _e);
 		}
 	}
-	
+
 	public synchronized PlaneVector getPlaneVectorValue(){
 		return new PlaneVector(planeVector);
 	}
-	
+
 	public synchronized void setPlaneVectorValue(final PlaneVector other_vec){
 		planeVector.opEquals(other_vec);
 	}
 
 	@Override
 	protected DataParameter getSameDataParameterInstance() {
-		PlaneVectorDataParameter _res = new PlaneVectorDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
-		_res.planeVector.opEquals(planeVector);
-		return _res;
+		PlaneVectorDataParameter _res;
+		try {
+			_res = new PlaneVectorDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
+
+			_res.planeVector.opEquals(planeVector);
+			return _res;
+		} catch (CannotInstantiateParameterException _e) {
+			//should never happen as the parameter is created with regular arguments
+			return null;
+		}
 	}
 
 	@Override

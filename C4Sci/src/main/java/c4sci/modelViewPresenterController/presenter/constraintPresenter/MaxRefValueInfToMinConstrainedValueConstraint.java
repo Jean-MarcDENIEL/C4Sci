@@ -3,7 +3,9 @@ package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.exceptions.CannotInstantiateMVPCElement;
 /**
  * This class defines a total order between two component :<br>
  * upper reference component value <= bottom constrained component value.<br>
@@ -16,26 +18,31 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 
 	private GenericDataParameter<FloatModifiable>		fixedConstraintValue;
 	private GenericDataParameter<BooleanModifiable>		hasFixedConstraint;
-	
-	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) {
+
+	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) throws CannotInstantiateMVPCElement {
 		super("infCoorConstr", 
 				new InternationalizableTerm("Inferior Constraint"), 
 				new InternationalizableTerm("A total relationship : reference sup < constrained inf"),
 				ref_comp_id, constr_comp_id);
-		
-		fixedConstraintValue = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "fixedConstrValue",	
-				new InternationalizableTerm("Fixed Constraint Value"), 
-				new InternationalizableTerm("Fixed constaint value"));
-		hasFixedConstraint = new GenericDataParameter<BooleanModifiable>(
-				new BooleanModifiable(),
-				"hasFixedConstraint", 
-				new InternationalizableTerm("Has a fixed constraint"), 
-				new InternationalizableTerm("Has a fixed constraint"));
-		
+
+		try {
+			fixedConstraintValue = new GenericDataParameter<FloatModifiable>(new FloatModifiable(), "fixedConstrValue",	
+					new InternationalizableTerm("Fixed Constraint Value"), 
+					new InternationalizableTerm("Fixed constaint value"));
+			hasFixedConstraint = new GenericDataParameter<BooleanModifiable>(
+					new BooleanModifiable(),
+					"hasFixedConstraint", 
+					new InternationalizableTerm("Has a fixed constraint"), 
+					new InternationalizableTerm("Has a fixed constraint"));
+		} catch (CannotInstantiateParameterException _e) {
+			throw new CannotInstantiateMVPCElement(_e);
+		}
+
+
 		fixedConstraintValue.accesValue().setFloatValue(0.0f);
 		hasFixedConstraint.accesValue().setBooleanValue(false);
 	}
-	
+
 	/**
 	 * Sets the constraint as a fixed value constraint.<br>
 	 * After this method has been called, {@link #isFixed isFixed()} returns true
@@ -66,6 +73,6 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	public void setUnfixed(){
 		hasFixedConstraint.accesValue().setBooleanValue(false);
 	}
-	
+
 
 }

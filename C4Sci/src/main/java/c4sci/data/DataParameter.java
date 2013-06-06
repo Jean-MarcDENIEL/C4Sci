@@ -21,11 +21,14 @@ public abstract class DataParameter extends Modifiable {
 	private InternationalizableTerm	paramDescription;
 
 	public DataParameter(){
-		paramToken 			= "no token";
+		paramToken 			= "noToken";
 		paramName 			= new InternationalizableTerm("no name");
 		paramDescription 	= new InternationalizableTerm("no description");
 	}
-	public DataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term){
+	public DataParameter(String token_str, InternationalizableTerm name_term, InternationalizableTerm descr_term) throws CannotInstantiateParameterException{
+		if (token_str.contains(" ")){
+			throw new CannotInstantiateParameterException(token_str, "Bad token argument : " + token_str + " contains white space(s).");
+		}
 		paramToken			= token_str;
 		paramName			= name_term;
 		paramDescription	= descr_term;
