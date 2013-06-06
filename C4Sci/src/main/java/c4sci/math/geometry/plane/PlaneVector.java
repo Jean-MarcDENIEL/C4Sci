@@ -32,7 +32,7 @@ public class PlaneVector {
 	/**
 	 * 
 	 * @param str_to_parse the string to parse
-	 * @return A PlaneVector whose coordinates correspond to the passedargument.
+	 * @return A PlaneVector whose coordinates correspond to the passed argument.
 	 * @throws NumberFormatException if the string does not correspond to PlaneVector format.
 	 */
 	public static final PlaneVector parseVector(String str_to_parse){

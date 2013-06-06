@@ -95,10 +95,13 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 				}
 			}
 
-			String _read_str = _sequences_tab[1]; 
+			String _read_str = str_to_parse.substring(_sequences_tab[0].length()); 
+			//System.out.println("array value string =" + _read_str);
 			for (int _i=0; _i<_array_length; _i++){
-				_sequences_tab = _whitespace_pattern.split(_read_str, 2);
-				innerArray[_i].setValue(_sequences_tab[0]);
+				String _element_regexp = WHITESPACE_REGEXP + innerArray[_i].getRegExp();
+				
+				_sequences_tab = separateExpressions(_element_regexp, _read_str);
+				innerArray[_i].setValue(_sequences_tab[0].substring(1));
 				if (_sequences_tab.length>1){
 					_read_str = _sequences_tab[1];
 				}
@@ -115,6 +118,25 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 			throw new DataValueParsingException("instantiation", str_to_parse, "Cannot create a new instance of supported data type", _e);
 		}
 	}
+	
+	private String[] separateExpressions(String first_term_reg_exp, String str_to_parse) throws DataValueParsingException{
+		String[] _separated_terms = Pattern.compile(first_term_reg_exp).split(str_to_parse, 2);
+		
+		switch(_separated_terms.length){
+		case 0 :
+			throw new DataValueParsingException(first_term_reg_exp, str_to_parse, "no matching", null);
+		case 1 : 
+			return new String[] {_separated_terms[0], ""};
+		case 2 :
+			int _first_term_length = str_to_parse.length() - _separated_terms[1].length();
+			return new String[] {
+					str_to_parse.substring(0, _first_term_length),
+					_separated_terms[1]
+			};
+		default:
+			throw new DataValueParsingException(first_term_reg_exp, str_to_parse, "splitting error", null);
+		}
+	}
 
 	@Override
 	public String getRegExp() {
@@ -122,7 +144,8 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 			return "0";
 		}
 		else{
-			return INTEGER_REGEXP + WHITESPACE_REGEXP + "(" + WHITESPACE_REGEXP + innerArray[0].getRegExp() + "){"+ innerArray.length +"}";
+			return INTEGER_REGEXP + "(" + WHITESPACE_REGEXP + "(" + innerArray[0].getRegExp() + ")){"+ innerArray.length +"}";
+			//return INTEGER_REGEXP + WHITESPACE_REGEXP + "(" + WHITESPACE_REGEXP + innerArray[0].getRegExp() + "){"+ innerArray.length +"}";
 		}
 	}
 	
