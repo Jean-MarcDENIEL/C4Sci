@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
-    <Class name="c4sci.data.basicDataParameters.StringDataParameter"
-        x="241" y="701">
+    <Class
+        name="c4sci.data.dataParameters.composedModifiables.PlaneVectorDataParameter"
+        x="403" y="669">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
+            default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.data.DataParameter"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
@@ -48,8 +49,21 @@
             <Point x="807" y="410"/>
         </Association>
         <Communication destinationClassName="c4sci.data.HierarchicalDataVisitor"/>
-        <Communication destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.Modifiable"/>
         <Communication destinationClassName="c4sci.data.DataParameterFactory"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
+    <Class
+        name="c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable"
+        x="-253" y="514">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
     </Class>
     <Class name="c4sci.data.HDMapEntry" x="902" y="513">
         <AttributesDisplayFilter public-accepted="true"
@@ -85,19 +99,7 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.basicDataParameters.FloatDataParameter"
-        x="472" y="587">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
-            accessors-accepted="true" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.data.DataParameter"/>
-        <Communication destinationClassName="c4sci.data.DataParameter"/>
-    </Class>
-    <Class name="c4sci.data.Modifiable" x="560" y="143">
+    <Class name="c4sci.data.Modifiable" x="46" y="74">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -128,34 +130,46 @@
         <Communication destinationClassName="c4sci.data.HierarchicalData"/>
         <Communication destinationClassName="c4sci.data.PrototypeData"/>
     </Class>
+    <Class name="c4sci.data.dataParameters.GenericArrayDataParameter"
+        x="-192" y="654">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.Modifiable"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
+    </Class>
     <Class
-        name="c4sci.data.basicDataParameters.PlaneVectorDataParameter"
-        x="404" y="702">
+        name="c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable"
+        x="-89" y="516">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
+            default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.data.DataParameter"/>
-        <Communication destinationClassName="c4sci.data.DataParameter"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
     </Class>
     <Class
-        name="c4sci.data.basicDataParameters.SpaceVectorDataParameter"
-        x="1" y="701">
+        name="c4sci.data.dataParameters.singleValueModifiables.DoubleModifiable"
+        x="-435" y="513">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
+            default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.data.DataParameter"/>
-        <Communication destinationClassName="c4sci.data.DataParameter"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
     </Class>
-    <Class name="c4sci.data.basicDataParameters.BooleanDataParameter"
-        x="4" y="583">
+    <Class
+        name="c4sci.data.dataParameters.composedModifiables.SpaceVectorDataParameter"
+        x="184" y="669">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -176,8 +190,8 @@
             accessors-accepted="true" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.data.HierarchicalDataResource"/>
         <Communication destinationClassName="c4sci.data.HierarchicalData"/>
-        <Communication destinationClassName="c4sci.data.HierarchialDataFactory"/>
         <Communication destinationClassName="c4sci.data.DataIdentity"/>
+        <Communication destinationClassName="c4sci.data.HierarchialDataFactory"/>
     </Class>
     <Class name="c4sci.data.HierarchicalDataMap" x="1060" y="626">
         <AttributesDisplayFilter public-accepted="true"
@@ -193,14 +207,16 @@
         <Communication destinationClassName="c4sci.data.HierarchicalData"/>
         <Communication destinationClassName="c4sci.data.DataIdentity"/>
     </Class>
-    <Class name="c4sci.data.DataParameterFactory" x="451" y="53">
+    <Class name="c4sci.data.dataParameters.GenericDataParameter" x="-7" y="664">
         <AttributesDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="true"
+            private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
+            default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.DataParameter"/>
+        <Communication destinationClassName="c4sci.data.Modifiable"/>
         <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
     <Class name="c4sci.data.DataParameter" x="292" y="335">
@@ -212,6 +228,19 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
         <Extension destinationClassName="c4sci.data.Modifiable"/>
+        <Communication destinationClassName="c4sci.data.Modifiable"/>
+    </Class>
+    <Class name="c4sci.data.DataParameterFactory" x="451" y="53">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="true"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Association destinationClassName="c4sci.data.DataParameter"
+            endpointName="parameterPrototypeMap" kind="Simple"/>
+        <Communication destinationClassName="c4sci.data.DataParameter"/>
     </Class>
     <Class name="c4sci.data.PrototypeData" x="990" y="8">
         <AttributesDisplayFilter public-accepted="true"
@@ -222,16 +251,28 @@
             default-accepted="true" static-accepted="true"
             accessors-accepted="true" constructors-accepted="false"/>
     </Class>
-    <Class name="c4sci.data.basicDataParameters.IntegerDataParameter"
-        x="280" y="589">
+    <Class
+        name="c4sci.data.dataParameters.singleValueModifiables.FloatModifiable"
+        x="-432" y="396">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
         <MethodDisplayFilter public-accepted="true"
             private-accepted="false" protected-accepted="false"
-            default-accepted="true" static-accepted="true"
+            default-accepted="true" static-accepted="false"
             accessors-accepted="true" constructors-accepted="false"/>
-        <Extension destinationClassName="c4sci.data.DataParameter"/>
-        <Communication destinationClassName="c4sci.data.DataParameter"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
+    </Class>
+    <Class
+        name="c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable"
+        x="-252" y="393">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="true" static-accepted="false"
+            accessors-accepted="true" constructors-accepted="false"/>
+        <Extension destinationClassName="c4sci.data.Modifiable"/>
     </Class>
 </ClassDiagram>
