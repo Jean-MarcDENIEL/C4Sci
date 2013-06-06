@@ -11,7 +11,8 @@ import c4sci.data.internationalization.InternationalizableTerm;
 
 /**
  * This generic class is intended are representing arrays of non null {@link Modifiable}s. <br>
- * In value strings, elements are separated by white spaces. That's why {@link Modifiable} elements should not have white spaces in their value strings, to avoid disorders.
+ * <b>Warning : </b> In value strings, elements are separated by white spaces. That's why {@link Modifiable} elements should not have white spaces in their value strings, to avoid disorders.<br>
+ * <b>Warning : </b> This class's regular expression takes its inner elements count into value.
  * @author jeanmarc.deniel
  *
  */

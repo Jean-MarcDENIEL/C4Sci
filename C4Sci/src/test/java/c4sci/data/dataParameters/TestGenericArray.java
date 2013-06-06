@@ -13,6 +13,7 @@ import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
+import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.math.geometry.plane.PlaneVector;
 import c4sci.math.geometry.space.SpaceVector;
@@ -42,9 +43,18 @@ public class TestGenericArray {
 					"doubleArray", 
 					new InternationalizableTerm("double array"), 
 					new InternationalizableTerm("double array descr"));
-			GenericArrayDataParameter<IntegerModifiable> _int_array = new GenericArrayDataParameter<IntegerModifiable>(new IntegerModifiable[_size], 
-					"intArray", new InternationalizableTerm("double array"), 
-					new InternationalizableTerm("double array descr"));
+			
+			GenericArrayDataParameter<IntegerModifiable> _int_array = new GenericArrayDataParameter<IntegerModifiable>(
+					new IntegerModifiable[] {
+							new IntegerModifiable(),
+							new IntegerModifiable()
+					},
+					"intArray", new InternationalizableTerm("int array"), 
+					new InternationalizableTerm("int array descr"));
+
+			_int_array = new GenericArrayDataParameter<IntegerModifiable>(new IntegerModifiable[_size], 
+					"intArray", new InternationalizableTerm("int array"), 
+					new InternationalizableTerm("int array descr"));
 			GenericArrayDataParameter<NoWhiteSpaceStringModifiable> _str_array = new GenericArrayDataParameter<NoWhiteSpaceStringModifiable>(
 					new NoWhiteSpaceStringModifiable[_size], 
 					"strArray", 
@@ -59,6 +69,9 @@ public class TestGenericArray {
 					new SpaceVectorDataParameter[_size], 
 					"spaceArray", new InternationalizableTerm("space vector array"), 
 					new InternationalizableTerm("space vector array descr"));
+			
+			
+		
 			
 			int _str_tab_size = 6;
 			String _str_values[] = new String[] {"jh jkk", " ku ", "popo", "huhu", "a dde kj", " kjkj k kkk k "};			
@@ -80,6 +93,17 @@ public class TestGenericArray {
 			GenericArrayDataParameter<PlaneVectorDataParameter> 	_plane_vec_clone = (GenericArrayDataParameter<PlaneVectorDataParameter>) _plane_vec_array.getClone();
 			GenericArrayDataParameter<SpaceVectorDataParameter>		_space_vec_clone = (GenericArrayDataParameter<SpaceVectorDataParameter>) _space_vec_array.getClone();
 			
+			GenericArrayDataParameter<IntegerModifiable> 	_int_instance = new GenericArrayDataParameter<IntegerModifiable>(
+					new IntegerModifiable[]{new IntegerModifiable()}, 
+					"intArray2", new InternationalizableTerm("int array"), 
+					new InternationalizableTerm("int array descr"));
+			try {
+				_int_instance.setValue(_int_array.getValue());
+			} catch (DataValueParsingException e) {
+				fail("should not have thrown");
+			}
+			
+		
 			for (int _i=0; _i<_size; _i++){
 				assertTrue("Bools should be equal but " + _bool_clone.accessElement(_i).getBooleanValue() + "instead of " 	+ _bool_array.accessElement(_i).getBooleanValue(), 
 						_bool_clone.accessElement(_i).getBooleanValue() == _bool_array.accessElement(_i).getBooleanValue());
@@ -89,6 +113,9 @@ public class TestGenericArray {
 						_double_clone.accessElement(_i).getDoubleValue() == _double_array.accessElement(_i).getDoubleValue());
 				assertTrue("int should be equal but " + _int_clone.accessElement(_i).getIntegerValue() + "instead of " 		+ _int_array.accessElement(_i).getIntegerValue(), 
 						_int_clone.accessElement(_i).getIntegerValue() == _int_array.accessElement(_i).getIntegerValue());
+				assertTrue("int should be equal but " + _int_instance.accessElement(_i).getIntegerValue() + "instead of " 		+ _int_array.accessElement(_i).getIntegerValue(), 
+						_int_instance.accessElement(_i).getIntegerValue() == _int_array.accessElement(_i).getIntegerValue());
+
 				assertTrue("string should be equal but " + _str_clone.accessElement(_i).getStringValue() + "instead of " 	+ _str_array.accessElement(_i).getStringValue(), 
 						_str_clone.accessElement(_i).getStringValue().compareTo(_str_array.accessElement(_i).getStringValue()) == 0);
 				assertTrue("plane vector should be equal but " + _plane_vec_clone.accessElement(_i).getPlaneVectorValue() + "instead of " 		+ _plane_vec_array.accessElement(_i).getPlaneVectorValue(), 
@@ -125,6 +152,24 @@ public class TestGenericArray {
 				assertFalse("spacevector", _space_vec_array.accessElement(_i).validatesRegularExpression(_space_vec_clone.accessElement(_i).getValue()+"a"));
 			}
 			
+			GenericArrayDataParameter<IntegerModifiable> _int_empty = new GenericArrayDataParameter<IntegerModifiable>(new IntegerModifiable[0], 
+					"intEmpty", 
+					new InternationalizableTerm("int array"), 
+					new InternationalizableTerm("int array descr"));
+
+			assertFalse(_int_empty.validatesRegularExpression(_int_array.getValue()));
+			assertFalse(_int_array.validatesRegularExpression(_int_empty.getValue()));
+			try {
+				_int_instance.setValue(_int_empty.getValue());
+			} catch (DataValueParsingException e) {
+				fail("should not have thrown");
+			}
+			
+			try {
+				_int_empty.setValue(_int_array.getValue());
+			} catch (DataValueParsingException e) {
+				fail("should not have thrown");
+			}
 			
 		} catch (CannotInstantiateParameterException e) {
 			fail("should not throw");
