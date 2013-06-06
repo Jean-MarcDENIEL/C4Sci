@@ -24,4 +24,7 @@ public class DataValueParsingException extends Exception {
 		return stringToParse;
 	}
 	
+	public String getMessage(){
+		return super.getMessage() + " : expected " + expectedValueType + " but instead : " + stringToParse;
+	}
 }
