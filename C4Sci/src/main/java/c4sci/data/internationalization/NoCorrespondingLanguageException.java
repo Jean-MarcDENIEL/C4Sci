@@ -15,4 +15,8 @@ public class NoCorrespondingLanguageException extends Exception{
 	public String getLanguageSymbol(){
 		return languageSymbol;
 	}
+	
+	public String getMessage(){
+		return super.getMessage() + " with language " + getLanguageSymbol();
+	}
 }

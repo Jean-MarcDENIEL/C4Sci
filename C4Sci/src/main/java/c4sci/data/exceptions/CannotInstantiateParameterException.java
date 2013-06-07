@@ -17,4 +17,8 @@ public class CannotInstantiateParameterException extends Exception {
 	public String getParameterToken(){
 		return parameterToken;
 	}
+	
+	public String getMessage(){
+		return super.getMessage() + "on " + parameterToken;
+	}
 }
