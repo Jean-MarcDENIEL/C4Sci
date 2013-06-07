@@ -3,6 +3,7 @@ package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.exceptions.CannotInstantiateMVPCElement;
@@ -19,7 +20,7 @@ public final class MaxRefValueInfToMinConstrainedValueConstraint extends TwoComp
 	private GenericDataParameter<FloatModifiable>		fixedConstraintValue;
 	private GenericDataParameter<BooleanModifiable>		hasFixedConstraint;
 
-	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) throws CannotInstantiateMVPCElement {
+	public MaxRefValueInfToMinConstrainedValueConstraint(int ref_comp_id, int constr_comp_id) throws CannotInstantiateMVPCElement, CannotInstantiateDataException {
 		super("infCoorConstr", 
 				new InternationalizableTerm("Inferior Constraint"), 
 				new InternationalizableTerm("A total relationship : reference sup < constrained inf"),

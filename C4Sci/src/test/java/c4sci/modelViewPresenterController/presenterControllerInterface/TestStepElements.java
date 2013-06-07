@@ -12,6 +12,7 @@ import c4sci.data.dataParameters.singleValueModifiables.BooleanModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -34,7 +35,7 @@ import c4sci.modelViewPresenterController.presenterControllerInterface.stepEleme
 public class TestStepElements {
 
 	@Test
-	public void testDataParamElements() throws CannotInstantiateParameterException {
+	public void testDataParamElements() throws CannotInstantiateParameterException, CannotInstantiateDataException {
 		
 		class TestData extends HierarchicalData{
 			public GenericDataParameter<BooleanModifiable>		boolParam;
@@ -48,7 +49,7 @@ public class TestStepElements {
 			
 			public TestData(String data_token,
 					InternationalizableTerm data_name,
-					InternationalizableTerm data_description) throws CannotInstantiateParameterException {
+					InternationalizableTerm data_description) throws CannotInstantiateParameterException, CannotInstantiateDataException {
 				super(data_token, data_name, data_description);
 				
 				boolParam = new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(), "bool", new InternationalizableTerm("boolean param"), new InternationalizableTerm("boolean param descr"));

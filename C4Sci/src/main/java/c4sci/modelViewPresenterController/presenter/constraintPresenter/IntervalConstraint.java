@@ -1,5 +1,6 @@
 package c4sci.modelViewPresenterController.presenter.constraintPresenter;
 
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.exceptions.CannotInstantiateMVPCElement;
 
@@ -16,7 +17,7 @@ public class IntervalConstraint extends OneComponentConstraint {
 
 	public IntervalConstraint(String data_token,
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description, int constr_comp_id) throws CannotInstantiateMVPCElement {
+			InternationalizableTerm data_description, int constr_comp_id) throws CannotInstantiateMVPCElement, CannotInstantiateDataException {
 		super(data_token, data_name, data_description, constr_comp_id);
 	}
 

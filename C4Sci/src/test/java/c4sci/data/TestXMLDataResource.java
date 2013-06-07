@@ -31,7 +31,7 @@ public class TestXMLDataResource {
 		
 		public SubDataType1(String data_token,
 				InternationalizableTerm data_name,
-				InternationalizableTerm data_description) throws CannotInstantiateParameterException {
+				InternationalizableTerm data_description) throws CannotInstantiateParameterException, CannotInstantiateDataException {
 			super(data_token, data_name, data_description);
 			intSub1Param 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), INT_SUB_1_PARAM, new InternationalizableTerm("intSub1 Parameter"), new InternationalizableTerm("int sub 1 parameter explanation"));
 			boolSub1Param 	= new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(), BOOL_SUB_1_PARAM, new InternationalizableTerm("boolSub1 Parameter"), new InternationalizableTerm("boolSub1 Parameter explanation"));
@@ -68,7 +68,7 @@ public class TestXMLDataResource {
 		
 		public SubDataType2(String data_token,
 							InternationalizableTerm data_name,
-							InternationalizableTerm data_description) throws CannotInstantiateParameterException {
+							InternationalizableTerm data_description) throws CannotInstantiateParameterException, CannotInstantiateDataException {
 			super(data_token, data_name, data_description);
 			planeVSub1Param 	= new PlaneVectorDataParameter(PLANE_V_SUB1_PARAM, new InternationalizableTerm("plane vector sub param 1"), new InternationalizableTerm("plane vector sub 1 explanation"));
 			floatSub1Param		= new GenericDataParameter<FloatModifiable>(new FloatModifiable(), FLOAT_SUB_1_PARAM, new InternationalizableTerm("floatSub1 param"), new InternationalizableTerm("float sub 1 param exlpanation"));

@@ -23,10 +23,11 @@ public class OneComponentConstraint extends HierarchicalData {
 	 * @param data_name
 	 * @param data_description
 	 * @throws CannotInstantiateMVPCElement 
+	 * @throws CannotInstantiateDataException 
 	 */
 	public OneComponentConstraint(String data_token,
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description, int constr_comp_id) throws CannotInstantiateMVPCElement {
+			InternationalizableTerm data_description, int constr_comp_id) throws CannotInstantiateMVPCElement, CannotInstantiateDataException {
 		super(data_token, data_name, data_description);
 		
 		try {

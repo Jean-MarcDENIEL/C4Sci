@@ -30,7 +30,7 @@ public class TotalOrderRelationshipsGraph<C extends TwoComponentsConstraint> ext
 
 	public TotalOrderRelationshipsGraph(String data_token,
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description){
+			InternationalizableTerm data_description) throws CannotInstantiateDataException{
 		super(data_token, data_name, data_description);
 		relationshipMap	= new ConcurrentHashMap<Integer, Map<Integer, C>>();
 	}

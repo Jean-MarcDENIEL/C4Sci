@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.internationalization.InternationalizableTerm;
 
 public class TestHierarchicalDataMap {
@@ -34,7 +35,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testHierarchicalDataMap() {
+	public void testHierarchicalDataMap() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -44,7 +45,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testSize() {
+	public void testSize() throws CannotInstantiateDataException {
 		
 
 		
@@ -93,7 +94,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testIsEmpty() {
+	public void testIsEmpty() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -125,7 +126,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testContainsKey() {
+	public void testContainsKey() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -150,7 +151,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testContainsValue() {
+	public void testContainsValue() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -175,7 +176,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testGet() {
+	public void testGet() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -202,7 +203,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testPut() {
+	public void testPut() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -225,7 +226,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testRemove() {
+	public void testRemove() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -255,7 +256,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testPutAll() {
+	public void testPutAll() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -291,7 +292,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testClear() {
+	public void testClear() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -322,7 +323,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testKeySet() {
+	public void testKeySet() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -348,7 +349,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testValues() {
+	public void testValues() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -374,7 +375,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testEntrySet() {
+	public void testEntrySet() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 
@@ -399,7 +400,7 @@ public class TestHierarchicalDataMap {
 	}
 
 	@Test
-	public void testAddSubData() {
+	public void testAddSubData() throws CannotInstantiateDataException {
 		HierarchicalDataMap<HierarchicalData, HierarchicalData> _map_1 = 
 				new HierarchicalDataMap<HierarchicalData, HierarchicalData>("tst_map", 
 						new InternationalizableTerm(""), 

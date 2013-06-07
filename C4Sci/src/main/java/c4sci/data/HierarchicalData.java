@@ -105,8 +105,11 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
 		subDataSet		= new HashSet<HierarchicalData>();		
 	}
-	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description){
+	public	HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description) throws CannotInstantiateDataException{
 		dataIdentity 	= createDataIdentity();
+		if (data_token.contains(" ")){
+			throw new CannotInstantiateDataException(null, data_token, "token contains white space(s)");
+		}
 		dataToken		= data_token;
 		dataName		= data_name;
 		dataDescription	= data_description;
@@ -114,8 +117,11 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 		parameterMap	= new ConcurrentHashMap<String, DataParameter>();
 		subDataSet		= new HashSet<HierarchicalData>();
 	}
-	public HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description, HierarchicalData parent_data){
+	public HierarchicalData(String data_token, InternationalizableTerm data_name, InternationalizableTerm data_description, HierarchicalData parent_data) throws CannotInstantiateDataException{
 		dataIdentity 	= createDataIdentity();
+		if (data_token.contains(" ")){
+			throw new CannotInstantiateDataException(null, data_token, "token contains white space(s)");
+		}
 		dataToken		= data_token;
 		dataName		= data_name;
 		dataDescription	= data_description;

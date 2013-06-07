@@ -23,7 +23,7 @@ public class TwoComponentsConstraint extends HierarchicalData {
 		
 	public TwoComponentsConstraint(String data_token, 
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description, int ref_comp_id, int constr_comp_id) throws CannotInstantiateMVPCElement {
+			InternationalizableTerm data_description, int ref_comp_id, int constr_comp_id) throws CannotInstantiateMVPCElement, CannotInstantiateDataException {
 		super(data_token, data_name, data_description);
 		try{
 		referenceComponentID = new GenericDataParameter<IntegerModifiable>(

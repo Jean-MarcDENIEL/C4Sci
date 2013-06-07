@@ -17,7 +17,7 @@ public class HDMapEntry extends HierarchicalData{
 	private DataIdentity	keyIdentity;
 	private DataIdentity	valueIdentity;
 	
-	public HDMapEntry(DataIdentity key_id, DataIdentity value_id) {
+	public HDMapEntry(DataIdentity key_id, DataIdentity value_id) throws CannotInstantiateDataException {
 		super("HDMapEntry", 
 				new InternationalizableTerm("HDMapEntry"), 
 				new InternationalizableTerm("HierarchicalData Map Entry"));

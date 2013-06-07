@@ -12,14 +12,14 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestHierarchicalData {
 
 	@Test
-	public void testHierarchicalData() {
+	public void testHierarchicalData() throws CannotInstantiateDataException {
 		assertTrue(new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class")) != null);
 	}
 
 	@Test
-	public void testGetDataToken() {
+	public void testGetDataToken() throws CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -28,7 +28,7 @@ public class TestHierarchicalData {
 	}
 
 	@Test
-	public void testGetDataName() {
+	public void testGetDataName() throws CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -36,7 +36,7 @@ public class TestHierarchicalData {
 	}
 
 	@Test
-	public void testGetDataDescription() {
+	public void testGetDataDescription() throws CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -75,7 +75,7 @@ public class TestHierarchicalData {
 
 	};
 	@Test
-	public void testAddDataParameter() throws CannotInstantiateParameterException {
+	public void testAddDataParameter() throws CannotInstantiateParameterException, CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -89,7 +89,7 @@ public class TestHierarchicalData {
 	}
 
 	@Test
-	public void testSetGetParameterValue() throws CannotInstantiateParameterException {
+	public void testSetGetParameterValue() throws CannotInstantiateParameterException, CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -136,7 +136,7 @@ public class TestHierarchicalData {
 
 
 	@Test
-	public void testAcceptVisitor() throws CannotInstantiateParameterException {
+	public void testAcceptVisitor() throws CannotInstantiateParameterException, CannotInstantiateDataException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));

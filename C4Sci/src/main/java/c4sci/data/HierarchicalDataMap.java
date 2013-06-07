@@ -26,7 +26,7 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	
 	public HierarchicalDataMap(String data_token,
 			InternationalizableTerm data_name,
-			InternationalizableTerm data_description) {
+			InternationalizableTerm data_description) throws CannotInstantiateDataException {
 		super(data_token, data_name, data_description);
 		keyEntryMap = new ConcurrentHashMap<DataIdentity, HDMapEntry>();
 	}
@@ -90,7 +90,7 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 	/**
 	 * Inserts a new (K,V) mapping and adds this relationship as a child data.<br>
 	 * An existing (K,?) relationship will be replaced by the new one, as mapping and as child data.<br>
-	 * @return null if key_ == null otherwise returns value_
+	 * @return null if key_ == null or an exception occurred. Otherwise returns value_
 	 */
 	//CHECKSTYLE:OFF
 	public V put(K key_, V value_) {
@@ -103,7 +103,11 @@ public class HierarchicalDataMap<K extends HierarchicalData, V extends Hierarchi
 			HDMapEntry _removed_entry = keyEntryMap.get(_id_k);
 			removeSubData(_removed_entry);
 		}
-		addSubData(new HDMapEntry(_id_k, value_.getDataIdentity()));
+		try {
+			addSubData(new HDMapEntry(_id_k, value_.getDataIdentity()));
+		} catch (CannotInstantiateDataException e) {
+			return null;
+		}
 		return value_;
 	}
 	/**
