@@ -14,7 +14,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestBooleanModifiableGenericParameter {
 
 	@Test
-	public void test() throws InstantiationException, IllegalAccessException {
+	public void test() throws InstantiationException, IllegalAccessException, CannotInstantiateParameterException {
 		GenericDataParameter<BooleanModifiable> _param = new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(), 
 				"param", 
 				new InternationalizableTerm("boolean param"), 

@@ -14,7 +14,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestDoubleModifiableGenericParameter {
 
 	@Test
-	public void testGetParameterValue() {
+	public void testGetParameterValue() throws CannotInstantiateParameterException {
 		GenericDataParameter<DoubleModifiable> _param = new GenericDataParameter<DoubleModifiable>(new DoubleModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
@@ -44,7 +44,7 @@ public class TestDoubleModifiableGenericParameter {
 	}
 
 	@Test
-	public void testFloatSetGet(){
+	public void testFloatSetGet() throws CannotInstantiateParameterException{
 		GenericDataParameter<DoubleModifiable> _param = new GenericDataParameter<DoubleModifiable>(new DoubleModifiable() ,"test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
@@ -62,7 +62,7 @@ public class TestDoubleModifiableGenericParameter {
 		assertEquals(_param.accesValue().getDoubleValue(), 2.5, .01);
 	}
 	@Test
-	public void testClone() throws InstantiationException, IllegalAccessException{
+	public void testClone() throws InstantiationException, IllegalAccessException, CannotInstantiateParameterException{
 		GenericDataParameter<DoubleModifiable> _param = new GenericDataParameter<DoubleModifiable>(new DoubleModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));
@@ -80,7 +80,7 @@ public class TestDoubleModifiableGenericParameter {
 	}
 	
 	@Test
-	public void testRegexp(){
+	public void testRegexp() throws CannotInstantiateParameterException{
 		GenericDataParameter<DoubleModifiable> _param = new GenericDataParameter<DoubleModifiable>(new DoubleModifiable(), "test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));

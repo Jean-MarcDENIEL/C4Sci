@@ -13,7 +13,7 @@ import c4sci.math.geometry.space.SpaceVector;
 public class TestSpaceVectorDataParameter {
 
 	@Test
-	public void test() {
+	public void test() throws CannotInstantiateParameterException {
 		SpaceVectorDataParameter _param = new SpaceVectorDataParameter("spaceVector", new InternationalizableTerm("space vector"), new InternationalizableTerm("space vector data parameter"));
 		
 		String[] _good_str_tab = {"0 0 0 1","0.0 0.0 0.0 1.0", "1.0 2.0 -2.0 2.0","1 2.0 3 1", "-1 -2.0 2.52 1"};
@@ -67,7 +67,7 @@ public class TestSpaceVectorDataParameter {
 	}
 
 	@Test
-	public void testClone() throws InstantiationException, IllegalAccessException{
+	public void testClone() throws InstantiationException, IllegalAccessException, CannotInstantiateParameterException{
 		SpaceVectorDataParameter _param = new SpaceVectorDataParameter("test1", 
 				new InternationalizableTerm("test param 1"), 
 				new InternationalizableTerm("test param 1 descr"));

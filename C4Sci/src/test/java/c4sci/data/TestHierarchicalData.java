@@ -43,7 +43,7 @@ public class TestHierarchicalData {
 	}
 
 	class TestDataParameter  extends DataParameter{
-		public TestDataParameter(String a_, InternationalizableTerm b_, InternationalizableTerm c_){
+		public TestDataParameter(String a_, InternationalizableTerm b_, InternationalizableTerm c_) throws CannotInstantiateParameterException{
 			super(a_,b_,c_);
 			paramValue = 0;
 		}
@@ -63,7 +63,7 @@ public class TestHierarchicalData {
 		}
 
 		@Override
-		protected DataParameter getSameDataParameterInstance() {
+		protected DataParameter getSameDataParameterInstance() throws CannotInstantiateParameterException {
 			return new TestDataParameter(getParameterToken(), getParameterName(), getParameterDescription());
 		}
 
@@ -74,7 +74,7 @@ public class TestHierarchicalData {
 
 	};
 	@Test
-	public void testAddDataParameter() {
+	public void testAddDataParameter() throws CannotInstantiateParameterException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -88,7 +88,7 @@ public class TestHierarchicalData {
 	}
 
 	@Test
-	public void testSetGetParameterValue() {
+	public void testSetGetParameterValue() throws CannotInstantiateParameterException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));
@@ -135,7 +135,7 @@ public class TestHierarchicalData {
 
 
 	@Test
-	public void testAcceptVisitor() {
+	public void testAcceptVisitor() throws CannotInstantiateParameterException {
 		HierarchicalData _data = new HierarchicalData("test_data", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));

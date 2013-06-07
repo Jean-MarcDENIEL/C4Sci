@@ -14,7 +14,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestIntegerModifiableGenericParameter {
 
 	@Test
-	public void test() throws InstantiationException, IllegalAccessException {
+	public void test() throws InstantiationException, IllegalAccessException, CannotInstantiateParameterException {
 		GenericDataParameter<IntegerModifiable> _param = new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), "testParam", 
 				new InternationalizableTerm("testing parameter"), 
 				new InternationalizableTerm("integer testing parameter"));

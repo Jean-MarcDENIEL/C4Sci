@@ -14,7 +14,7 @@ public class TestDataParameterFactory {
 
 	@SuppressWarnings("unused")
 	@Test
-	public void testAddDataParameterPrototype() {
+	public void testAddDataParameterPrototype() throws CannotInstantiateParameterException {
 		DataParameterFactory _factory = new DataParameterFactory();
 
 		_factory.addFactoringAbility("firstParam", new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), 

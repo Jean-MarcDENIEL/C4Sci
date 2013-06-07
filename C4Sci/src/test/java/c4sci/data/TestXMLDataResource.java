@@ -31,7 +31,7 @@ public class TestXMLDataResource {
 		
 		public SubDataType1(String data_token,
 				InternationalizableTerm data_name,
-				InternationalizableTerm data_description) {
+				InternationalizableTerm data_description) throws CannotInstantiateParameterException {
 			super(data_token, data_name, data_description);
 			intSub1Param 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), INT_SUB_1_PARAM, new InternationalizableTerm("intSub1 Parameter"), new InternationalizableTerm("int sub 1 parameter explanation"));
 			boolSub1Param 	= new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(), BOOL_SUB_1_PARAM, new InternationalizableTerm("boolSub1 Parameter"), new InternationalizableTerm("boolSub1 Parameter explanation"));
@@ -40,7 +40,7 @@ public class TestXMLDataResource {
 			addDataParameter(boolSub1Param);
 		}
 		
-		public SubDataType1(){
+		public SubDataType1() throws CannotInstantiateParameterException{
 			super();
 			intSub1Param 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(), INT_SUB_1_PARAM, new InternationalizableTerm("intSub1 Parameter"), new InternationalizableTerm("int sub 1 parameter explanation"));
 			boolSub1Param 	= new GenericDataParameter<BooleanModifiable>(new BooleanModifiable(),BOOL_SUB_1_PARAM, new InternationalizableTerm("boolSub1 Parameter"), new InternationalizableTerm("boolSub1 Parameter explanation"));
@@ -49,8 +49,12 @@ public class TestXMLDataResource {
 			addDataParameter(boolSub1Param);
 		}
 		
-		public PrototypeData newInstance(){
-			return new SubDataType1("", new InternationalizableTerm(""), new InternationalizableTerm(""));
+		public PrototypeData newInstance() throws CannotInstantiateDataException{
+			try {
+				return new SubDataType1("", new InternationalizableTerm(""), new InternationalizableTerm(""));
+			} catch (CannotInstantiateParameterException _e) {
+				throw new CannotInstantiateDataException(getParentData(), getDataToken(), "new Instnace", _e);
+			}
 		}
 	}
 	
@@ -64,7 +68,7 @@ public class TestXMLDataResource {
 		
 		public SubDataType2(String data_token,
 							InternationalizableTerm data_name,
-							InternationalizableTerm data_description) {
+							InternationalizableTerm data_description) throws CannotInstantiateParameterException {
 			super(data_token, data_name, data_description);
 			planeVSub1Param 	= new PlaneVectorDataParameter(PLANE_V_SUB1_PARAM, new InternationalizableTerm("plane vector sub param 1"), new InternationalizableTerm("plane vector sub 1 explanation"));
 			floatSub1Param		= new GenericDataParameter<FloatModifiable>(new FloatModifiable(), FLOAT_SUB_1_PARAM, new InternationalizableTerm("floatSub1 param"), new InternationalizableTerm("float sub 1 param exlpanation"));
@@ -73,7 +77,7 @@ public class TestXMLDataResource {
 			addDataParameter(floatSub1Param);
 		}
 		
-		public SubDataType2(){
+		public SubDataType2() throws CannotInstantiateParameterException{
 			super();
 			planeVSub1Param 	= new PlaneVectorDataParameter(PLANE_V_SUB1_PARAM, new InternationalizableTerm("plane vector sub param 1"), new InternationalizableTerm("plane vector sub 1 explanation"));
 			floatSub1Param		= new GenericDataParameter<FloatModifiable>(new FloatModifiable(), FLOAT_SUB_1_PARAM, new InternationalizableTerm("floatSub1 param"), new InternationalizableTerm("float sub 1 param exlpanation"));
@@ -85,7 +89,12 @@ public class TestXMLDataResource {
 		@Override
 		public PrototypeData newInstance()
 				throws CannotInstantiateDataException {
-			return new SubDataType2();
+
+			try {
+				return new SubDataType2();
+			} catch (CannotInstantiateParameterException _e) {
+				throw new CannotInstantiateDataException(getParentData(), getDataToken(), "new Instan", _e);
+			}
 		}
 		
 	}
@@ -102,29 +111,40 @@ public class TestXMLDataResource {
 		public static final String SUB_DATA_2_STR = "subData2";
 		
 		public DataType1(String data_token, InternationalizableTerm data_name,
-				InternationalizableTerm data_description) {
+				InternationalizableTerm data_description) throws CannotInstantiateDataException {
 			super(data_token, data_name, data_description);
-			intParam1 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(),INT_PARAM_1_STR, new InternationalizableTerm("Integer Param 1"), new InternationalizableTerm("Integer param 1 explanation"));
-			floatParam1	= new GenericDataParameter<FloatModifiable>(new FloatModifiable() ,FLOAT_PARAM_1_STR, new InternationalizableTerm("Float Parameter 1"), new InternationalizableTerm("Flaot Parameter 1 explanation"));
+			try {
+				intParam1 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(),INT_PARAM_1_STR, new InternationalizableTerm("Integer Param 1"), new InternationalizableTerm("Integer param 1 explanation"));
+				floatParam1	= new GenericDataParameter<FloatModifiable>(new FloatModifiable() ,FLOAT_PARAM_1_STR, new InternationalizableTerm("Float Parameter 1"), new InternationalizableTerm("Flaot Parameter 1 explanation"));
+			} catch (CannotInstantiateParameterException _e) {
+				throw new CannotInstantiateDataException(getParentData(), getDataToken(), "constructor parameters", _e);
+			}
 			
 			addDataParameter(intParam1);
 			addDataParameter(floatParam1);
 		}
-		public DataType1(){
+		public DataType1() throws CannotInstantiateDataException{
 			super();
+			try{
 			intParam1 	= new GenericDataParameter<IntegerModifiable>(new IntegerModifiable(),INT_PARAM_1_STR, new InternationalizableTerm("Integer Param 1"), new InternationalizableTerm("Integer param 1 explanation"));
 			floatParam1	= new GenericDataParameter<FloatModifiable>(new FloatModifiable(),FLOAT_PARAM_1_STR, new InternationalizableTerm("Float Parameter 1"), new InternationalizableTerm("Flaot Parameter 1 explanation"));
-
+			}
+			catch(CannotInstantiateParameterException _e){
+				throw new CannotInstantiateDataException(getParentData(), getDataToken(), "parameter instantiation", _e);
+			}
 			addDataParameter(intParam1);
 			addDataParameter(floatParam1);
 		}
 		@Override
-		public HierarchialDataFactory getSubdataFactory(){
+		public HierarchialDataFactory getSubdataFactory() throws CannotInstantiateDataException {
 			HierarchialDataFactory _res = super.getSubdataFactory();
-			
+			try{
 			_res.addFactoringAbility(new SubDataType1("type_1", new InternationalizableTerm(""), new InternationalizableTerm("")), SUB_DATA_1_STR);
 			_res.addFactoringAbility(new SubDataType2("type_2", new InternationalizableTerm(""), new InternationalizableTerm("")), SUB_DATA_2_STR);
-			
+			}
+			catch(CannotInstantiateParameterException _e){
+				throw new CannotInstantiateDataException(getParentData(), getDataToken(), "parameters creation", _e);
+			}
 			return _res;
 		}
 
@@ -136,13 +156,13 @@ public class TestXMLDataResource {
 	}
 
 	public class DataFactory1 extends HierarchialDataFactory{
-		public DataFactory1(){
+		public DataFactory1() throws CannotInstantiateDataException{
 			addFactoringAbility(new DataType1("", new InternationalizableTerm(""), new InternationalizableTerm("")), "type1");
 		}
 	}
 	
 	@Test
-	public void test() {
+	public void test() throws CannotInstantiateDataException, CannotInstantiateParameterException {
 		DataType1 _written_data = new DataType1("type1", new InternationalizableTerm("type 1 name"), new InternationalizableTerm("type 1 description"));
 		_written_data.floatParam1.accesValue().setFloatValue(20.0052f);
 		_written_data.intParam1.accesValue().setIntegerValue(1025);

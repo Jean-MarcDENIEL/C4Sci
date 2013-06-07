@@ -14,7 +14,7 @@ import c4sci.data.internationalization.InternationalizableTerm;
 public class TestNowhiteSpaceStringModifiableGenericParameter {
 
 	@Test
-	public void testGetSetParameterValue() {
+	public void testGetSetParameterValue() throws CannotInstantiateParameterException {
 		GenericDataParameter<NoWhiteSpaceStringModifiable> _param_1 = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
 				new NoWhiteSpaceStringModifiable(),
 				"param1",
@@ -30,7 +30,7 @@ public class TestNowhiteSpaceStringModifiableGenericParameter {
 	}
 
 	@Test
-	public void testGetSetStringValue() {
+	public void testGetSetStringValue() throws CannotInstantiateParameterException {
 		GenericDataParameter<NoWhiteSpaceStringModifiable> _param_1 = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
 				new NoWhiteSpaceStringModifiable(),
 				"param1",
@@ -43,7 +43,7 @@ public class TestNowhiteSpaceStringModifiableGenericParameter {
 	}
 	
 	@Test
-	public void testClone() throws InstantiationException, IllegalAccessException{
+	public void testClone() throws InstantiationException, IllegalAccessException, CannotInstantiateParameterException{
 		GenericDataParameter<NoWhiteSpaceStringModifiable> _param = new GenericDataParameter<NoWhiteSpaceStringModifiable>(
 				new NoWhiteSpaceStringModifiable(),
 				"test1", 
