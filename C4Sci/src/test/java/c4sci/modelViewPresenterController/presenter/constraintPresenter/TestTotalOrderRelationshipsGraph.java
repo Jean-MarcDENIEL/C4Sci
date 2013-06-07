@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.exceptions.CannotInstantiateMVPCElement;
 
 public class TestTotalOrderRelationshipsGraph {
 
 	@Test
-	public void test() {
+	public void test() throws CannotInstantiateMVPCElement {
 		
 		TotalOrderRelationshipsGraph<MaxRefValueInfToMinConstrainedValueConstraint> _graph = 
 				new TotalOrderRelationshipsGraph<MaxRefValueInfToMinConstrainedValueConstraint>("TestGraph", 

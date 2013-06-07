@@ -7,6 +7,7 @@ import org.junit.Test;
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
@@ -28,7 +29,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
 public class TestDefaultBehaviorPresenter {
 
 	@Test
-	public void test() {
+	public void test() throws CannotInstantiateParameterException {
 		final int onesecond = 1000;
 		Presenter _presenter = new DefaultBehaviorPresenter();
 		Viewer _viewer = new SwingViewer();

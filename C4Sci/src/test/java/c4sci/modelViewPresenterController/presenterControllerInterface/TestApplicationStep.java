@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import c4sci.data.dataParameters.GenericDataParameter;
 import c4sci.data.dataParameters.singleValueModifiables.IntegerModifiable;
+import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
 import c4sci.modelViewPresenterController.presenterControllerInterface.stepElements.dataParameterDataElements.IntegerDataElement;
 
@@ -39,7 +40,7 @@ public class TestApplicationStep {
 	}
 	
 	@Test
-	public void testElements(){
+	public void testElements() throws CannotInstantiateParameterException{
 		ApplicationStep _step = new ApplicationStep(new InternationalizableTerm("step"), new InternationalizableTerm("step descr"));
 		for (int _i=0; _i<10; _i++){
 			GenericDataParameter<IntegerModifiable> _param = 
