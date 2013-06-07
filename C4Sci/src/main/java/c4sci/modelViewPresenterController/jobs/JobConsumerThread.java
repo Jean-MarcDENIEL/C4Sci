@@ -142,15 +142,14 @@ public abstract class JobConsumerThread<C_request extends Command, C_result exte
 	 * Associates all Command types in the {@link JobProcessorFactory} argument with the corresponding
 	 * {@link JobProcessor} instances created by this argument.
 	 * @param job_proc_factory The {@link JobProcessorFactory} containing the associations to integrate.
+	 * @throws CannotPerformSuchChangeException 
 	 */
 	@SuppressWarnings("rawtypes")
-	public final void associateProcessors(JobProcessorFactory<C_request, C_result> job_proc_factory){
+	public final void associateProcessors(JobProcessorFactory<C_request, C_result> job_proc_factory) throws CannotPerformSuchChangeException{
 		Set<Class> _set = job_proc_factory.getManagedCommandTypes();
 		for (Iterator<Class> _it = _set.iterator(); _it.hasNext();){
 			Class _class = _it.next();
-			try {
-				associateProcessor(_class, job_proc_factory.getJobProcessor(_class));
-			} catch (CannotPerformSuchChangeException _e) {}
+			associateProcessor(_class, job_proc_factory.getJobProcessor(_class));
 		}
 	}
 	

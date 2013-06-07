@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import c4sci.data.exceptions.CannotInstantiateDataException;
 import c4sci.data.exceptions.DataValueParsingException;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
@@ -212,7 +213,7 @@ public class TestHierarchicalData {
 	}
 
 	@Test
-	public void testDataIdentity(){
+	public void testDataIdentity() throws CannotInstantiateDataException{
 		HierarchicalData _data_1 = new HierarchicalData("test_data_1", 
 				new InternationalizableTerm("testing data"), 
 				new InternationalizableTerm("this data is used to test the HierarchicalData class"));

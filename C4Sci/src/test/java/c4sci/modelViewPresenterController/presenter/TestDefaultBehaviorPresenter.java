@@ -9,6 +9,7 @@ import c4sci.data.dataParameters.singleValueModifiables.FloatModifiable;
 import c4sci.data.dataParameters.singleValueModifiables.NoWhiteSpaceStringModifiable;
 import c4sci.data.exceptions.CannotInstantiateParameterException;
 import c4sci.data.internationalization.InternationalizableTerm;
+import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.jobs.JobConsumerThread;
 import c4sci.modelViewPresenterController.jobs.JobProcessorFactory;
 import c4sci.modelViewPresenterController.jobs.RequestResultInterface;
@@ -29,7 +30,7 @@ import c4sci.modelViewPresenterController.viewerPresenterInterface.ComponentChan
 public class TestDefaultBehaviorPresenter {
 
 	@Test
-	public void test() throws CannotInstantiateParameterException {
+	public void test() throws CannotInstantiateParameterException, CannotPerformSuchChangeException {
 		final int onesecond = 1000;
 		Presenter _presenter = new DefaultBehaviorPresenter();
 		Viewer _viewer = new SwingViewer();

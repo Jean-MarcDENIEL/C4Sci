@@ -42,9 +42,11 @@ public class GenericDataParameter<M extends Modifiable> extends DataParameter {
 	protected DataParameter getSameDataParameterInstance() throws CannotInstantiateParameterException{
 		try {
 			return new GenericDataParameter(innerState.getClass().newInstance(), getParameterToken(), getParameterName(), getParameterDescription());
-		} catch (Exception _e) {
+		} catch (InstantiationException _e) {
 			throw new CannotInstantiateParameterException(getParameterToken(), "Instantiation error", _e);
-		}
+		} catch( IllegalAccessException _e) {
+			throw new CannotInstantiateParameterException(getParameterToken(), "Instantiation error", _e);
+		} 
 	}
 
 	public M accesValue(){

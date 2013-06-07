@@ -72,11 +72,13 @@ public class HierarchicalData implements VisitableData, PrototypeData{
 		return _ret;
 	}
 
-	public final void setDataIdentity(DataIdentity data_identity){
+	public final void setDataIdentity(DataIdentity data_identity) throws CannotInstantiateDataException{
 		try{
 			IDENTITY_DATA_MAP.remove(dataIdentity);
 		}
-		catch(Exception _e){}
+		catch(Exception _e){
+			throw new CannotInstantiateDataException(getParentData(), getDataToken(), "cannot update identity map", _e);
+		}
 		dataIdentity = data_identity;
 		IDENTITY_DATA_MAP.put(dataIdentity, this);
 	}

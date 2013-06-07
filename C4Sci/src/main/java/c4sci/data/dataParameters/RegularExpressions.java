@@ -7,4 +7,6 @@ public final class RegularExpressions {
 	public static final String INTEGER_REGEXP	= "(\\+|-)?\\d+";
 	public static final String NO_WHITE_SPACE_REGEXP	= "[^\\s]*";
 	public static final String WHITE_SPACE_REGEXP	= "\\s";
+	
+	private RegularExpressions(){}
 }

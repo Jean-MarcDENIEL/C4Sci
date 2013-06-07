@@ -73,11 +73,13 @@ public class GenericArrayDataParameter<M extends Modifiable> extends DataParamet
 	@Override
 	public String getValue() {
 
-		String _res = "" + innerArray.length;
+		StringBuffer _buff = new StringBuffer();
+		_buff.append("" + innerArray.length);
+
 		for (M _element : innerArray){
-			_res += WHITESPACE_SEQ + _element.getValue();
+			_buff.append(WHITESPACE_SEQ + _element.getValue());
 		}
-		return _res;
+		return _buff.toString();
 	}
 
 	@SuppressWarnings("unchecked")

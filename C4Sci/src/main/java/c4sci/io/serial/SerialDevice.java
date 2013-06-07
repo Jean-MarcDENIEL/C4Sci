@@ -180,11 +180,11 @@ public abstract class SerialDevice {
 		this.stateDecoderToUse = state_decoder_to_use;
 	}
 
-	public synchronized String getSerialPortName() {
+	public final synchronized String getSerialPortName() {
 		return serialPortName;
 	}
 
-	private synchronized void setSerialPortName(String serial_port_name) {
+	private final synchronized void setSerialPortName(String serial_port_name) {
 		this.serialPortName = serial_port_name;
 	}
 
@@ -200,8 +200,8 @@ public abstract class SerialDevice {
 		return delayBetweenSendsMilliSec;
 	}
 
-	private void setDelayBetweenSendsMilliSec(int delay_between_sends_milliSec) {
-		this.delayBetweenSendsMilliSec = delay_between_sends_milliSec;
+	private void setDelayBetweenSendsMilliSec(int delay_between_sends_millisec) {
+		this.delayBetweenSendsMilliSec = delay_between_sends_millisec;
 	}
 
 	public String getCommandStringEnd() {
