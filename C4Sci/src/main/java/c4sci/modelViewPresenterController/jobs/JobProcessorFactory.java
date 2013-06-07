@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
+
 
 /**
  * This class is able to give the {@link JobProcessor} corresponding to a certain {@link Command}.<br>

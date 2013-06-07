@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import c4sci.data.Modifiable;
 import c4sci.math.geometry.plane.PlaneVector;
 import c4sci.math.geometry.space.SpaceVector;
-import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.presenter.components.CompoundComponent;
 import c4sci.modelViewPresenterController.presenter.components.NoChildComponent;
 import c4sci.modelViewPresenterController.presenterControllerInterface.StepChange;

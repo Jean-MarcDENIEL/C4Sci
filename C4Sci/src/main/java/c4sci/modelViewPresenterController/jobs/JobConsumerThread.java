@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
+
 
 /**
  * This subclass of thread is designed to process jobs waiting in a WaitingJobQueue.

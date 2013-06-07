@@ -3,7 +3,7 @@ package c4sci.modelViewPresenterController.presenter.components;
 import java.util.Iterator;
 
 import c4sci.NoChildIterator;
-import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 
 /**

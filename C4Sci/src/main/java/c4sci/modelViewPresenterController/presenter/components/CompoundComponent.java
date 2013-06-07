@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
 import c4sci.modelViewPresenterController.viewerPresenterInterface.Component;
 /**
  * This class defines a {@link Component} that is able to have children {@link Component Components}.<br>

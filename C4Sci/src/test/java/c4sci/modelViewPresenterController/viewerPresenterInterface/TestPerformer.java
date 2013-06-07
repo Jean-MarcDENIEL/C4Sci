@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import c4sci.NoChildIterator;
-import c4sci.modelViewPresenterController.jobs.CannotPerformSuchChangeException;
+import c4sci.modelViewPresenterController.jobs.exceptions.CannotPerformSuchChangeException;
 
 public class TestPerformer {
 
